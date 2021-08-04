@@ -25,15 +25,9 @@ class CreatePeopleTable extends Migration
             $table->char('sex',1)->nullable();
             $table->date('birth_date')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
-        DB::table('people')->insert(
-            [
-                ['name' => 'Administrador',
-                    'person_type' => 'PF',
-                ]
 
-            ]
-        );
     }
 
     /**

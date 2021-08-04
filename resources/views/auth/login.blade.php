@@ -49,10 +49,15 @@
                                 <form class="user" method="post" action="{{ route('login') }}">
                                     @csrf
                                     <div class="form-group">
-                                        <input type="email" class="form-control form-control-user"
-                                               name="email" id="email" aria-describedby="usuariolHelp"
-                                               placeholder="Insira o email cadastrado..." required autofocus>
+                                        <input type="user" class="form-control form-control-user"
+                                               name="user" id="user" aria-describedby="userlHelp"
+                                               placeholder="Insira o nome de usuário cadastrado..." required autofocus>
                                     </div>
+{{--                                    <div class="form-group">--}}
+{{--                                        <input type="email" class="form-control form-control-user"--}}
+{{--                                               name="email" id="email" aria-describedby="emaillHelp"--}}
+{{--                                               placeholder="Insira o email cadastrado..." required autofocus>--}}
+{{--                                    </div>--}}
                                     <div class="form-group">
                                         <input type="password" class="form-control form-control-user"
                                                name="password" id="password" placeholder="Senha" required>
