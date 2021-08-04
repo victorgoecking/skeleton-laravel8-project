@@ -12,9 +12,10 @@ const mix = require('laravel-mix');
  */
 
 mix.sass('resources/views/scss/style.scss','public/admin/style.css')
-    .scripts('node_modules/bootstrap/dist/js/bootstrap.bundle.js', 'public/admin/bootstrap.js')
-    .js('resources/js/app.js', 'public/js').postCss('resources/css/app.css', 'public/css', [
-    require('postcss-import'),
-    require('tailwindcss'),
-    require('autoprefixer'),
-]);
+    .scripts('node_modules/bootstrap/dist/js/bootstrap.bundle.js', 'public/admin/bootstrap.js');
+
+// .js('resources/js/app.js', 'public/js').postCss('resources/css/app.css', 'public/css', [
+//     require('postcss-import'),
+//     require('tailwindcss'),
+//     require('autoprefixer'),
+// ]
