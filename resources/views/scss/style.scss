@@ -1,0 +1,39 @@
+
+// Variables
+//@import "~bootstrap/scss/functions";
+//@import "~bootstrap/scss/variables";
+//@import "~bootstrap/scss/mixins";
+@import "public/admin/vendor/bootstrap/scss/functions";
+@import "public/admin/scss/variables";
+@import "public/admin/scss/mixins";
+
+$theme-colors: (
+    "primary": #47C598,
+    "danger": #ff4174,
+    "custom-green": #00cc00,
+    "custom-green-dark": #006600
+);
+
+@import "public/admin/scss/sb-admin-2";
+//@import "~bootstrap/scss/bootstrap";
+
+.teste {
+    width: 100%;
+    min-height: 50vh;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background: #ebeeef;
+}
+
+.login-imagem {
+    //background: url("public/admin/img/logo-madeireira.png");
+    background-position: center;
+    background-size: cover;
+}
