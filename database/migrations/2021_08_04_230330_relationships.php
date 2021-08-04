@@ -36,13 +36,24 @@ class Relationships extends Migration
         });
 
         Schema::table('sales', function (Blueprint $table) {
-            $table->foreignId('sales_statuses_id')->constrained();
+            $table->foreignId('sale_status_id')->constrained();
             $table->foreignId('request_id')->constrained();
         });
 
-//        Schema::table('types_payments', function (Blueprint $table) {
-//            $table->foreignId('types_payments_id')->constrained();
-//        });
+        Schema::table('requests_products', function (Blueprint $table) {
+            $table->foreignId('request_id')->constrained();
+            $table->foreignId('product_id')->constrained();
+        });
+
+        Schema::table('requests_services', function (Blueprint $table) {
+            $table->foreignId('request_id')->constrained();
+            $table->foreignId('service_id')->constrained();
+        });
+
+        Schema::table('payment_type_sales', function (Blueprint $table) {
+            $table->foreignId('sale_id')->constrained();
+            $table->foreignId('type_payment_id')->constrained();
+        });
     }
 
     /**
@@ -75,12 +86,23 @@ class Relationships extends Migration
         });
 
         Schema::table('sales', function (Blueprint $table) {
-            $table->dropForeign(['sales_statuses_id']);
+            $table->dropForeign(['sale_status_id']);
             $table->dropForeign(['request_id']);
         });
 
-//        Schema::table('types_payments', function (Blueprint $table) {
-//            $table->foreignId('types_payments_id')->constrained();
-//        });
+        Schema::table('requests_products', function (Blueprint $table) {
+            $table->dropForeign(['request_id']);
+            $table->dropForeign(['product_id']);
+        });
+
+        Schema::table('requests_services', function (Blueprint $table) {
+            $table->dropForeign(['request_id']);
+            $table->dropForeign(['service_id']);
+        });
+
+        Schema::table('payment_type_sales', function (Blueprint $table) {
+            $table->dropForeign(['sale_id']);
+            $table->dropForeign(['type_payment_id']);
+        });
     }
 }

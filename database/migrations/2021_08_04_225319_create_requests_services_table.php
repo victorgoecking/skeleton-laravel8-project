@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSalesStatusesTable extends Migration
+class CreateRequestsServicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateSalesStatusesTable extends Migration
      */
     public function up()
     {
-        Schema::create('sales_statuses', function (Blueprint $table) {
+        Schema::create('requests_services', function (Blueprint $table) {
             $table->id();
-            $table->string('description', 100);
+            $table->decimal('service_request_value', 9,2);
+            $table->decimal('service_cost_value', 9,2)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -28,6 +29,6 @@ class CreateSalesStatusesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sales_statuses');
+        Schema::dropIfExists('requests_services');
     }
 }
