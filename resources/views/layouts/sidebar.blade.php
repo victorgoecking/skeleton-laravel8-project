@@ -1,7 +1,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="master.blade.php">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
@@ -13,7 +13,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-        <a class="nav-link" href="master.blade.php">
+        <a class="nav-link" href="#">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Painel de Controle</span></a>
     </li>
@@ -23,21 +23,22 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Interface
+        Menu
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
            aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Components</span>
+            <i class="fas fa-fw fa-paste"></i>
+            <span><b>Orçamentos / Pedidos</b></span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Custom Components:</h6>
-                <a class="collapse-item" href="buttons.html">Buttons</a>
-                <a class="collapse-item" href="cards.html">Cards</a>
+                <a class="collapse-item" href="buttons.html"><i class="fas fa-fw fa-cube"></i>&nbsp;&nbsp;&nbsp;Produtos</a>
+                <a class="collapse-item" href="cards.html"><i class="fas fa-fw fa-tools"></i>&nbsp;&nbsp;&nbsp;Serviços</a>
+                <h6 class="collapse-header">Opções auxiliares:</h6>
+                <a class="collapse-item" href="utilities-color.html"><i class="fas fa-fw fa-list-ol"></i>&nbsp;&nbsp;&nbsp;Situações(status pedido)</a>
             </div>
         </div>
     </li>
@@ -46,62 +47,125 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
            aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-wrench"></i>
-            <span>Utilities</span>
+            <i class="fas fa-fw fa-list-alt"></i>
+            <span><b>Cadastros</b></span>
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
              data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Custom Utilities:</h6>
-                <a class="collapse-item" href="utilities-color.html">Colors</a>
-                <a class="collapse-item" href="utilities-border.html">Borders</a>
-                <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                <a class="collapse-item" href="utilities-other.html">Other</a>
+                <a class="collapse-item" href="utilities-color.html"><i class="fas fa-fw fa-user-friends"></i>&nbsp;&nbsp;&nbsp;Clientes</a>
+                <a class="collapse-item" href="utilities-animation.html"><i class="fas fa-fw fa-truck-loading"></i>&nbsp;&nbsp;&nbsp;Fornecedores</a>
             </div>
         </div>
     </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities1"
+           aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-fw fa-shopping-basket"></i>
+            <span><b>Vendas</b></span>
+        </a>
+        <div id="collapseUtilities1" class="collapse" aria-labelledby="headingUtilities"
+             data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="utilities-color.html"><i class="fas fa-fw fa-cube"></i>&nbsp;&nbsp;&nbsp;Produtos</a>
+                <a class="collapse-item" href="utilities-animation.html"><i class="fas fa-fw fa-tools"></i>&nbsp;&nbsp;&nbsp;Serviços</a>
+                <h6 class="collapse-header">Opções auxiliares:</h6>
+                <a class="collapse-item" href="utilities-color.html"><i class="fas fa-fw fa-reply-all"></i>&nbsp;&nbsp;&nbsp;Trocas e devoluções</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities2"
+           aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-fw fa-cubes"></i>
+            <span><b>Produtos</b></span>
+        </a>
+        <div id="collapseUtilities2" class="collapse" aria-labelledby="headingUtilities"
+             data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="utilities-color.html"><i class="fas fa-fw fa-cube"></i>&nbsp;&nbsp;&nbsp;Gerenciar produtos</a>
+                <a class="collapse-item" href="utilities-animation.html"><i class="fas fa-fw fa-file-invoice-dollar"></i>&nbsp;&nbsp;&nbsp;Valores de venda</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities3"
+           aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-fw fa-tools"></i>
+            <span><b>Serviços</b></span>
+        </a>
+        <div id="collapseUtilities3" class="collapse" aria-labelledby="headingUtilities"
+             data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="utilities-color.html"><i class="fas fa-fw fa-screwdriver"></i>&nbsp;&nbsp;&nbsp;Gerenciar serviços</a>
+            </div>
+        </div>
+    </li>
+
+    <hr class="sidebar-divider">
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities4"
+           aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-fw fa-dollar-sign"></i>
+            <span><b>Financeiro</b></span>
+        </a>
+        <div id="collapseUtilities4" class="collapse" aria-labelledby="headingUtilities"
+             data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="utilities-color.html"><i class="fas fa-fw fa-sort-amount-down-alt"></i>&nbsp;&nbsp;&nbsp;Contas a pagar</a>
+                <a class="collapse-item" href="utilities-color.html"><i class="fas fa-fw fa-sort-amount-up"></i>&nbsp;&nbsp;&nbsp;Contas a receber</a>
+                <a class="collapse-item" href="utilities-color.html"><i class="fas fa-fw fa-chart-bar"></i>&nbsp;&nbsp;&nbsp;Fluxo de caixa</a>
+                <h6 class="collapse-header">Opções auxiliares:</h6>
+                <a class="collapse-item" href="utilities-color.html"><i class="fas fa-fw fa-money-bill-alt"></i>&nbsp;&nbsp;&nbsp;Forma de pagamento</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities5"
+           aria-expanded="true" aria-controls="collapseUtilities">
+{{--            <i class="fas fa-fw fa-clipboard-list"></i>--}}
+            <i class="fas fa-fw fa-table"></i>
+            <span><b>Relatórios</b></span>
+        </a>
+        <div id="collapseUtilities5" class="collapse" aria-labelledby="headingUtilities"
+             data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Relatório financeiro:</h6>
+                <a class="collapse-item" href="utilities-color.html">
+                    <i class="fas fa-fw fa-clipboard"></i>
+                    &nbsp;&nbsp;&nbsp;Relatório diário
+                </a>
+                <h6 class="collapse-header">Gráfico:</h6>
+                <a class="collapse-item" href="utilities-color.html">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    &nbsp;&nbsp;&nbsp;Gráfico de vendas
+                </a>
+            </div>
+        </div>
+    </li>
+
 
     <!-- Divider -->
     <hr class="sidebar-divider">
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Addons
-    </div>
-
-    <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-           aria-expanded="true" aria-controls="collapsePages">
-            <i class="fas fa-fw fa-folder"></i>
-            <span>Pages</span>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities6"
+           aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-fw fa-wrench"></i>
+            <span><b>Configurações</b></span>
         </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div id="collapseUtilities6" class="collapse" aria-labelledby="headingUtilities"
+             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Login Screens:</h6>
-                <a class="collapse-item" href="login.html">Login</a>
-                <a class="collapse-item" href="register.html">Register</a>
-                <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                <div class="collapse-divider"></div>
-                <h6 class="collapse-header">Other Pages:</h6>
-                <a class="collapse-item" href="404.html">404 Page</a>
-                <a class="collapse-item" href="blank.html">Blank Page</a>
+                <a class="collapse-item" href="utilities-color.html"><i class="fas fa-fw fa-cog"></i>&nbsp;&nbsp;&nbsp;Gerais</a>
+                <a class="collapse-item" href="utilities-border.html"><i class="fas fa-fw fa-users"></i>&nbsp;&nbsp;&nbsp;Usuários</a>
             </div>
         </div>
-    </li>
-
-    <!-- Nav Item - Charts -->
-    <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Charts</span></a>
-    </li>
-
-    <!-- Nav Item - Tables -->
-    <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Tables</span></a>
     </li>
 
     <!-- Divider -->

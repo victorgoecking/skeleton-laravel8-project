@@ -31,7 +31,7 @@ class CreateUsersTable extends Migration
             [
                 ['name' => 'Suporte',
                     'user' => 'suporte',
-                    'email' => 'suporte@suporte.com.br',
+                    'email' => 'suporte@suporte.com',
                     'password' => \Illuminate\Support\Facades\Hash::make('12345678'),
                     'note' => 'Usuário de suporte',
                     'level' => 2,
