@@ -23,3 +23,7 @@ Route::get('/', function () {
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
+Route::get('/cadastroUsuario', function () {
+    return view('pages.users.user_registration');
+})->name('users.user_registration');

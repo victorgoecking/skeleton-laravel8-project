@@ -163,7 +163,7 @@
              data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="utilities-color.html"><i class="fas fa-fw fa-cog"></i>&nbsp;&nbsp;&nbsp;Gerais</a>
-                <a class="collapse-item" href="utilities-border.html"><i class="fas fa-fw fa-users"></i>&nbsp;&nbsp;&nbsp;Usuários</a>
+                <a class="collapse-item" href="{{ route('users.user_registration') }}"><i class="fas fa-fw fa-users"></i>&nbsp;&nbsp;&nbsp;Usuários</a>
             </div>
         </div>
     </li>
