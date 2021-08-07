@@ -1,4 +1,4 @@
 {
-    "/admin/style.css": "/admin/style.css",
-    "/admin/bootstrap.js": "/admin/bootstrap.js"
+    "/admin/js/app.js": "/admin/js/app.js",
+    "/admin/style.css": "/admin/style.css"
 }

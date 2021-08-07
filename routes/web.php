@@ -24,6 +24,10 @@ Route::get('/', function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/cadastroUsuario', function () {
+Route::get('/usuarios', function () {
+    return view('pages.users.user');
+})->name('users.user');
+
+Route::get('/cadastro_usuario', function () {
     return view('pages.users.user_registration');
 })->name('users.user_registration');

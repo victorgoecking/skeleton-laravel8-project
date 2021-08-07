@@ -3,18 +3,21 @@
 //@import "~bootstrap/scss/functions";
 //@import "~bootstrap/scss/variables";
 //@import "~bootstrap/scss/mixins";
-@import "public/admin/vendor/bootstrap/scss/functions";
-@import "public/admin/scss/variables";
-@import "public/admin/scss/mixins";
+@import "../../public/admin/vendor/bootstrap/scss/functions";
+@import "../../public/admin/scss/variables";
+@import "../../public/admin/scss/mixins";
 
 $theme-colors: (
-    "primary": #47C598,
+    //"primary": #47C598,
+    //"primary": #1D8348,
+    "primary": #1E8449,
     "danger": #ff4174,
     "custom-green": #00cc00,
-    "custom-green-dark": #006600
+    "custom-green-dark": #006600,
+    //"gray": #3A3A45,
 );
 
-@import "public/admin/scss/sb-admin-2";
+@import "../../public/admin/scss/sb-admin-2";
 //@import "~bootstrap/scss/bootstrap";
 
 .teste {
@@ -37,3 +40,11 @@ $theme-colors: (
     background-position: center;
     background-size: cover;
 }
+//
+//#wrapper #content-wrapper {
+//    background-color: #3A3A45;
+//    //background-color: #5A5C69;
+//    //background-color: #6E707E;
+//    width: 100%;
+//    overflow-x: hidden;
+//}
