@@ -61,3 +61,24 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+### Instalação
+
+ 1. Execute `composer install `
+ 
+ 2. Verificar se o arquivo `.env.example` existe na raiz
+ 2. Renomeie `.env.example` para `.env` e coloque as suas credenciais de conexão com o MySQL
+ 3. Executar o comando na raiz do projeto: `php artisan key:generate`
+ 4. Execute a importação das migrations com `php artisan migrate`
+ 5. Execute os seguintes comandos:
+```sh 
+$ php artisan cache:clear
+$ php artisan serve
+```
+   
+
+### Acesso ao Sistema
+
+Nas migrations já tem a inserção de um usuário, para acessar o sistema, basta utilizar o usuário abaixo:
+
+ Usuário: suporte  Senha: 12345678 
