@@ -6,7 +6,16 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h4 class="m-0 font-weight-bold text-primary"><i class="fa fa-users"></i> Usuários</h4>
+
+             <h4 class="m-0 font-weight-bold text-primary">
+                <i class="fa fa-users"></i> Usuários  &nbsp;&nbsp;
+                 <a href="{{ route('users.user_registration') }}">
+                     <button type="button" class="btn btn-primary">
+                        <i class="fas fa-plus-circle"></i> Novo
+                    </button>
+                 </a>
+            </h4>
+
         </div>
         <div class="card-body">
             <div class="table-responsive">

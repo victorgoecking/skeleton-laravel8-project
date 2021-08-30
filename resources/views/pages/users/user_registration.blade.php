@@ -7,7 +7,10 @@
             <h4 class="m-0 font-weight-bold text-primary"><i class="fa fa-user"></i> Cadastro de usuário</h4>
         </div>
         <div class="card-body">
-            <form class="needs-validation" novalidate>
+            <form class="needs-validation" method="POST" action="{{ route('register') }}" novalidate>
+
+                @csrf
+
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
                         <label for="validationCustomName">Nome</label>
@@ -35,10 +38,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroupPrepend">@</span>
                             </div>
-                            <input type="text" class="form-control" name="username" id="validationCustomUsername" placeholder="Nome que será usado para entrar no sistema" aria-describedby="inputGroupPrepend" required>
-                            <div class="invalid-feedback">
-                                Por favor, escolha um nome de usuário.
-                            </div>
+                            <input type="text" class="form-control" name="username" id="validationCustomUsername" placeholder="Que será usado para entrar no sistema" aria-describedby="inputGroupPrepend" required><div class="invalid-feedback">Por favor, escolha um nome de usuário.</div>
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
