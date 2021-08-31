@@ -17,8 +17,8 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('user')->unique();
-            $table->string('email')->unique();
+            $table->string('username')->unique();
+            $table->string('email');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->text('note')->nullable();
@@ -30,7 +30,7 @@ class CreateUsersTable extends Migration
         DB::table('users')->insert(
             [
                 ['name' => 'Suporte',
-                    'user' => 'suporte',
+                    'username' => 'suporte',
                     'email' => 'suporte@suporte.com',
                     'password' => \Illuminate\Support\Facades\Hash::make('12345678'),
                     'note' => 'Usuário de suporte',

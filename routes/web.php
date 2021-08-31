@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,18 @@ Route::get('/usuarios', function () {
     return view('pages.users.user');
 })->name('users.user');
 
-Route::get('/cadastro_usuario', function () {
-    return view('pages.users.user_registration');
-})->name('users.user_registration');
+
+
+//Route::get('/cadastro_usuario', function () {
+//    return view('pages.users.user_registration');
+//})->name('users.user_registration');
+
+//Route::get('/cadastro_usuario', [RegisteredUserController::class, 'create'])
+//    ->name('users.user_registration');
+
+Route::get('/cadastro_usuario', [UserController::class, 'create'])
+    ->name('pages.users.user_registration');
+
+Route::post('/cadastro_usuario', [UserController::class, 'store'])
+    ->name('pages.users.user_registration');
+

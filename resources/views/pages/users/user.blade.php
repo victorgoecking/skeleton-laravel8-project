@@ -9,7 +9,7 @@
 
              <h4 class="m-0 font-weight-bold text-primary">
                 <i class="fa fa-users"></i> Usuários  &nbsp;&nbsp;
-                 <a href="{{ route('users.user_registration') }}">
+                 <a href="{{ route('pages.users.user_registration') }}">
                      <button type="button" class="btn btn-primary">
                         <i class="fas fa-plus-circle"></i> Novo
                     </button>

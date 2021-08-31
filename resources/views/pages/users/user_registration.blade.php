@@ -7,7 +7,7 @@
             <h4 class="m-0 font-weight-bold text-primary"><i class="fa fa-user"></i> Cadastro de usuário</h4>
         </div>
         <div class="card-body">
-            <form class="needs-validation" method="POST" action="{{ route('register') }}" novalidate>
+            <form class="needs-validation" method="POST" action="{{ route('pages.users.user_registration') }}" novalidate>
 
                 @csrf
 
@@ -24,7 +24,7 @@
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="validationCustomEmail">E-mail</label>
-                        <input type="email" class="form-control" id="validationCustomEmail" aria-describedby="emailHelp" placeholder="E-mail" required>
+                        <input type="email" class="form-control" name="email" id="validationCustomEmail" aria-describedby="emailHelp" placeholder="E-mail" required>
                         <div class="invalid-feedback">
                             Por favor, providencie um e-mail valido.
                         </div>
@@ -43,7 +43,7 @@
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="validationCustomPassword">Senha</label>
-                        <input type="password" class="form-control" id="validationCustomPassword" placeholder="Senha" required>
+                        <input type="password" class="form-control" name="password" id="validationCustomPassword" placeholder="Senha" required>
                         <div class="invalid-feedback">
                             Por favor, providencie um senha valida.
                         </div>
@@ -52,9 +52,9 @@
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
                         <label for="exampleFormControlSelect1">Nível de acesso</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
-                            <option selected>Atendente</option>
-                            <option>Administrador</option>
+                        <select class="form-control" name="level" id="exampleFormControlSelect1">
+                            <option value="1" selected>Atendente</option>
+                            <option value="2">Administrador</option>
                         </select>
                     </div>
                     <div class="col-md-6 mb-3">
