@@ -14,7 +14,7 @@
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
                         <label for="validationCustomName">Nome</label>
-                        <input type="text" class="form-control" name="name" id="validationCustomName" placeholder="Nome" required>
+                        <input type="text" class="form-control" name="name" id="validationCustomName" placeholder="Nome Completo" required>
                         <div class="valid-feedback">
                             Parece bom!
                         </div>
@@ -24,7 +24,7 @@
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="validationCustomEmail">E-mail</label>
-                        <input type="email" class="form-control" name="email" id="validationCustomEmail" aria-describedby="emailHelp" placeholder="E-mail" required>
+                        <input type="email" class="form-control" name="email" id="validationCustomEmail" aria-describedby="emailHelp" placeholder="Ex.: email@email.com" required>
                         <div class="invalid-feedback">
                             Por favor, providencie um e-mail valido.
                         </div>
@@ -43,7 +43,7 @@
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="validationCustomPassword">Senha</label>
-                        <input type="password" class="form-control" name="password" id="validationCustomPassword" placeholder="Senha" required>
+                        <input type="password" class="form-control" name="password" id="validationCustomPassword" placeholder="Mínimo de 8 caracteres" required>
                         <div class="invalid-feedback">
                             Por favor, providencie um senha valida.
                         </div>
