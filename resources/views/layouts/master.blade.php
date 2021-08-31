@@ -22,6 +22,7 @@
 {{--    <link href="{{ asset('admin/css/sb-admin-2.min.css')}}" rel="stylesheet">--}}
 
     <link href="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body id="page-top">
@@ -45,9 +46,10 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
+                {{-- Caso queira usar messagem no corpo do html com div descomentar linha abaixo --}}
+                {{-- @include('components.flash-message')--}}
 
-                        @include('components.flash-message')
-                        @yield('content')
+                    @yield('content')
 
                 </div>
                 <!-- /.container-fluid -->
@@ -115,6 +117,36 @@
 
     <script src="{{ asset('admin/js/app.js')}}"></script>
 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript">
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": true,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+        @if ($message = Session::get('success'))
+            toastr["success"]("{{ $message }}","Sucesso!");
+        @elseif(($errors->any()))
+            @foreach($errors->all() as $error)
+                toastr["error"]("{{$error}}","Falhou!");
+            @endforeach
+        @endif
+
+
+    </script>
 
 
 

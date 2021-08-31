@@ -50,7 +50,7 @@
                                     @csrf
                                     <div class="form-group">
                                         <input type="user" class="form-control form-control-user"
-                                               name="user" id="user" aria-describedby="userlHelp"
+                                               name="username" id="username" aria-describedby="usernamelHelp"
                                                placeholder="Insira o nome de usuário cadastrado..." required autofocus>
                                     </div>
 {{--                                    <div class="form-group">--}}
