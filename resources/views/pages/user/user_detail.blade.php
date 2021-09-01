@@ -22,7 +22,7 @@
                 <hr class="my-4">
                 <p><b>Criado em:</b> {{ $user->created_at }}</p>
                 <p class="lead">
-                    <a class="btn btn-warning btn-lg" href="#" role="button"><i class="fas fa-edit"></i> Editar</a>
+                    <a class="btn btn-warning btn-lg" href="{{ route('user.edit', ['user' => $user->id]) }}" role="button"><i class="fas fa-edit"></i> Editar</a>
                 </p>
             </div>
         </div>

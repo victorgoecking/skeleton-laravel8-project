@@ -58,7 +58,7 @@ class UserController extends Controller
         ]);
 
 //        return redirect('/cadastro-usuario')->with('message', 'Profile updated!');
-        return back()->with('success','Usuário cadastrado com sucesso!');
+        return redirect()->route('user.index')->with('success','Usuário cadastrado com sucesso!');
 //        return redirect()->route('home')->with('error','You have no permission for this page!');
 //        return redirect()->route('home')->with('warning',"Don't Open this link");
 //        return back()->with('info','You added new items, follow next step!');
