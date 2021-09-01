@@ -16,7 +16,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+
+        return view('pages.user.users', [
+            'users' => $users
+        ]);
     }
 
     /**
@@ -26,7 +30,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('pages.users.user_registration');
+        return view('pages.user.user_registration');
     }
 
     /**
@@ -53,7 +57,7 @@ class UserController extends Controller
             'level' => $request->level,
         ]);
 
-//        return redirect('/cadastro_usuario')->with('message', 'Profile updated!');
+//        return redirect('/cadastro-usuario')->with('message', 'Profile updated!');
         return back()->with('success','Usuário cadastrado com sucesso!');
 //        return redirect()->route('home')->with('error','You have no permission for this page!');
 //        return redirect()->route('home')->with('warning',"Don't Open this link");
@@ -69,7 +73,9 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return view('pages.user.user_detail', [
+            'user' => $user
+        ]);
     }
 
     /**
@@ -80,7 +86,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('pages.user.user_edit', [
+            'user' => $user
+        ]);
     }
 
     /**
@@ -92,7 +100,37 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        if (!empty($request->password)){
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'username' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255',
+                'password' => ['required', Rules\Password::defaults()],
+            ]);
+            $user->update([
+                'name' => $request->name,
+                'username' => $request->username,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'note' => $request->note,
+                'level' => $request->level,
+            ]);
+        }else{
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'username' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255',
+            ]);
+            $user->update([
+                'name' => $request->name,
+                'username' => $request->username,
+                'email' => $request->email,
+                'note' => $request->note,
+                'level' => $request->level,
+            ]);
+        }
+
+        return redirect()->route('user.index')->with('success','Usuário editado com sucesso!');
     }
 
     /**

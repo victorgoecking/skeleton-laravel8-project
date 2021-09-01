@@ -25,22 +25,19 @@ Route::get('/', function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/usuarios', function () {
-    return view('pages.users.user');
-})->name('users.user');
+//Route::get('/usuarios', function () {
+//    return view('pages.user.users');
+//})->name('user.users');
 
 
+Route::resource('usuarios', UserController::class)->names('user')->parameters(['usuarios' => 'user']);
 
-//Route::get('/cadastro_usuario', function () {
-//    return view('pages.users.user_registration');
-//})->name('users.user_registration');
-
-//Route::get('/cadastro_usuario', [RegisteredUserController::class, 'create'])
-//    ->name('users.user_registration');
-
-Route::get('/cadastro_usuario', [UserController::class, 'create'])
-    ->name('pages.users.user_registration');
-
-Route::post('/cadastro_usuario', [UserController::class, 'store'])
-    ->name('pages.users.user_registration');
+//Route::get('/usuarios', [UserController::class, 'index'])
+//    ->name('user.index');
+//
+//Route::get('/usuarios/novo', [UserController::class, 'create'])
+//    ->name('user.create');
+//
+//Route::post('/usuarios', [UserController::class, 'store'])
+//    ->name('user.store');
 
