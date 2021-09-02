@@ -20,7 +20,7 @@ class CreateAddressesTable extends Migration
             $table->string('number', 20);
             $table->string('district',100);
             $table->string('state',100)->nullable();
-            $table->string('City',100)->nullable();
+            $table->string('city',100)->nullable();
             $table->string('uf',2)->nullable();
             $table->string('complement',100)->nullable();
             $table->text('note')->nullable();
