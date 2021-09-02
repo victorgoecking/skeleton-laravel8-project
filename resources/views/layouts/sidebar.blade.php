@@ -13,9 +13,10 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('dashboard') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Painel de Controle</span></a>
+            <span>Painel de Controle</span>
+        </a>
     </li>
 
     <!-- Divider -->

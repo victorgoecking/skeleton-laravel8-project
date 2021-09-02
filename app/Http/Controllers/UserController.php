@@ -76,6 +76,11 @@ class UserController extends Controller
         return view('pages.user.user_detail', [
             'user' => $user
         ]);
+
+//        return redirect()->route('user.index', [
+//            'modal' => 'open',
+//            'user' => $user
+//        ]);
     }
 
     /**
@@ -141,6 +146,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return redirect()->route('user.index')->with('success','Usuário removido com sucesso!');
     }
 }
