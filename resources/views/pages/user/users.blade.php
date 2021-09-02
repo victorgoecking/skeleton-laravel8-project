@@ -1,31 +1,26 @@
 @extends('layouts.master')
 
 @section('content')
-{{--    <h1 class="h3 mb-2 text-gray-800"><i class="fa fa-user"></i> Usuários</h1>--}}
 
-    <!-- DataTales Example -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">
+            <i class="fa fa-users"></i> Usuários&nbsp;
+            <a href="{{ route('user.create') }}">
+                <button type="button" class="btn btn-primary">
+                    <i class="fas fa-plus-circle"></i> Novo
+                </button>
+            </a>
+        </h1>
 
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb m-0 p-2 bg-transparent">
+                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="fas fa-fw fa-tachometer-alt"></i> Início</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Usuários</li>
+            </ol>
+        </nav>
+    </div>
 
     <div class="card shadow mb-4">
-        <div class="card-header py-3 d-flex justify-content-between">
-
-             <h4 class="m-0 font-weight-bold text-primary">
-                <i class="fa fa-users"></i> Usuários  &nbsp;&nbsp;
-                 <a href="{{ route('user.create') }}">
-                     <button type="button" class="btn btn-primary">
-                        <i class="fas fa-plus-circle"></i> Novo
-                    </button>
-                 </a>
-            </h4>
-
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb m-0 p-2 bg-transparent">
-                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="fas fa-fw fa-tachometer-alt"></i> Início</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Usuários</li>
-                </ol>
-            </nav>
-
-        </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-striped " id="dataTable" width="100%" cellspacing="0">
