@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\AddressController;
+use App\Http\Controllers\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +37,9 @@ Route::resource('usuarios', UserController::class)->names('user')->parameters(['
 
 Route::resource('clientes', ClientController::class)->names('client')->parameters(['clientes' => 'client']);
 
+Route::resource('enderecos', AddressController::class)->names('address')->parameters(['enderecos' => 'address']);
+
+Route::resource('contatos', ContactController::class)->names('contact')->parameters(['contatos' => 'contact']);
 
 //Route::get('/usuarios', [UserController::class, 'index'])
 //    ->name('user.index');

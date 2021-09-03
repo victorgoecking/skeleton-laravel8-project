@@ -13,6 +13,10 @@ class Relationships extends Migration
      */
     public function up()
     {
+        Schema::table('clients', function (Blueprint $table) {
+            $table->foreignId('user_id')->constrained();
+        });
+
         Schema::table('addresses', function (Blueprint $table) {
             $table->foreignId('client_id')->constrained();
         });
@@ -59,6 +63,10 @@ class Relationships extends Migration
      */
     public function down()
     {
+        Schema::table('clients', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
+        });
+
         Schema::table('addresses', function (Blueprint $table) {
             $table->dropForeign(['client_id']);
         });

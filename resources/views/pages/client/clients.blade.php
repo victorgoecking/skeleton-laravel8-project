@@ -30,6 +30,8 @@
                             <th>ID</th>
                             <th>Nome</th>
                             <th>Tipo Cliente</th>
+                            <th>Telefone</th>
+                            <th>Atendente</th>
                             <th>Opções</th>
                         </tr>
                     </thead>
@@ -39,6 +41,8 @@
                             <th>ID</th>
                             <th>Nome</th>
                             <th>Tipo Cliente</th>
+                            <th>Telefone</th>
+                            <th>Atendente</th>
                             <th>Opções</th>
                         </tr>
                     </tfoot>
@@ -49,6 +53,9 @@
                             <td>{{$client->id}}</td>
                             <td>{{$client->name}}</td>
                             <td>{{$client->person_type}}</td>
+                            <td>{{$client->user->first()->name}}</td>
+                            <td>{{$client->contact->first()->phone}}</td>
+
                             <td class="pt-2">
 {{--                                <a href="{{ route('client.show', ['client' => $client->id]) }}"><button class="btn btn-info btn-sm py-0 px-1 mt-1" data-toggle="modal" data-placement="top" title="Detalhes" data-target="#modalUserDetail"><i class="far fa-eye"></i></button></a>--}}
                                 <a href="{{ route('client.show', ['client' => $client->id]) }}"><button class="btn btn-info btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Detalhes"><i class="far fa-eye"></i></button></a>

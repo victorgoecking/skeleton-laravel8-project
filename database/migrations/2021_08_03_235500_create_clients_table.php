@@ -24,6 +24,7 @@ class CreateClientsTable extends Migration
             $table->string('cnpj',18)->nullable();
             $table->char('sex',1)->nullable();
             $table->date('birth_date')->nullable();
+            $table->text('note')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

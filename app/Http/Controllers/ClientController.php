@@ -14,14 +14,24 @@ class ClientController extends Controller
      */
     public function index()
     {
-//        $clients = Client::with('people')->get();
 
-//        $clients = $dados_clients->people();
-////        $people = People::all();
-//        dd($clients->people->get());
+//        $array = Client::all();
+//        foreach ($array as $item){
+//            $clients = Client::with('address')->find($item->id);
+//
+//            echo '<h3>'.$clients->name.'</h3>';
+////                echo $clients->address->first()->public_place.'</br>';
+//
+//            foreach ($clients->address as $address){
+//                echo $address->public_place.'</br>';
+//            }
+//        }
+//
+        $clients = Client::with('address','contact','user')->get();
 
-        $clients = Client::all();
-
+//        echo $clients[0]->address->first()->cep.'</br>';
+//        echo $clients[0]->contact->first()->phone.'</br>';
+//        echo $clients[0]->user->first()->name.'</br>';
         return view('pages.client.clients', [
             'clients' => $clients
         ]);

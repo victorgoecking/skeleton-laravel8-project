@@ -23,10 +23,19 @@ class Client extends Model
         'fantasy_name',
         'cnpj',
         'sex',
-        'birth_date'
+        'birth_date',
+        'note'
     ];
 
-    public function contacts(){
-        return $this->hasMany(Contact::class);
+    public function address(){
+        return $this->hasMany(Address::class, 'client_id', 'id');
+    }
+
+    public function contact(){
+        return $this->hasMany(Contact::class, 'client_id', 'id');
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

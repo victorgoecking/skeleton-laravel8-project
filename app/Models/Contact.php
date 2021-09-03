@@ -17,9 +17,13 @@ class Contact extends Model
      */
     protected $fillable = [
         'email',
-        'fone',
-        'cell_fone',
+        'phone',
+        'cell_phone',
         'whatsapp',
         'note'
     ];
+
+    public function client(){
+        return $this->belongsTo(Client::class, 'client_id', 'id');
+    }
 }

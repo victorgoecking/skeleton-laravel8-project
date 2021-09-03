@@ -26,4 +26,8 @@ class Address extends Model
         'complement',
         'note'
     ];
+
+    public function client(){
+        return $this->belongsTo(Client::class, 'client_id', 'id');
+    }
 }
