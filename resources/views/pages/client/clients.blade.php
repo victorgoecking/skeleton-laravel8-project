@@ -5,7 +5,7 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">
             <i class="fa fa-users"></i> Clientes&nbsp;
-            <a href="{{ route('user.create') }}">
+            <a href="{{ route('client.create') }}">
                 <button type="button" class="btn btn-primary">
                     <i class="fas fa-plus-circle"></i> Novo
                 </button>
@@ -29,8 +29,9 @@
                         <tr>
                             <th>ID</th>
                             <th>Nome</th>
-                            <th>Tipo Cliente</th>
                             <th>Telefone</th>
+                            <th>Celular</th>
+                            <th>Tipo Cliente</th>
                             <th>Atendente</th>
                             <th>Opções</th>
                         </tr>
@@ -40,8 +41,9 @@
                         <tr>
                             <th>ID</th>
                             <th>Nome</th>
-                            <th>Tipo Cliente</th>
                             <th>Telefone</th>
+                            <th>Celular</th>
+                            <th>Tipo Cliente</th>
                             <th>Atendente</th>
                             <th>Opções</th>
                         </tr>
@@ -52,9 +54,11 @@
                         <tr>
                             <td>{{$client->id}}</td>
                             <td>{{$client->name}}</td>
-                            <td>{{$client->person_type}}</td>
+                            <td>{{$client->contact->first() ? $client->contact->first()->phone : '-'}}</td>
+                            <td>{{$client->contact->first() ? $client->contact->first()->cell_phone : '-'}}</td>
+                            <td>{{$client->person_type === 'PF' ? 'PF - (Pessoa Física)' : 'PJ - (Pessoa Jurídica)'}}</td>
                             <td>{{$client->user->first()->name}}</td>
-                            <td>{{$client->contact->first()->phone}}</td>
+
 
                             <td class="pt-2">
 {{--                                <a href="{{ route('client.show', ['client' => $client->id]) }}"><button class="btn btn-info btn-sm py-0 px-1 mt-1" data-toggle="modal" data-placement="top" title="Detalhes" data-target="#modalUserDetail"><i class="far fa-eye"></i></button></a>--}}

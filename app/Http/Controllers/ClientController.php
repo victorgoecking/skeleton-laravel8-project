@@ -29,9 +29,6 @@ class ClientController extends Controller
 //
         $clients = Client::with('address','contact','user')->get();
 
-//        echo $clients[0]->address->first()->cep.'</br>';
-//        echo $clients[0]->contact->first()->phone.'</br>';
-//        echo $clients[0]->user->first()->name.'</br>';
         return view('pages.client.clients', [
             'clients' => $clients
         ]);
@@ -45,7 +42,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.client.client_registration');
     }
 
     /**
