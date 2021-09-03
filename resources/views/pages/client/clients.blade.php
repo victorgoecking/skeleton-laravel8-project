@@ -4,7 +4,7 @@
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">
-            <i class="fa fa-users"></i> Usuários&nbsp;
+            <i class="fa fa-users"></i> Clientes&nbsp;
             <a href="{{ route('user.create') }}">
                 <button type="button" class="btn btn-primary">
                     <i class="fas fa-plus-circle"></i> Novo
@@ -15,7 +15,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb m-0 p-2 bg-transparent">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="fas fa-fw fa-tachometer-alt"></i> Início</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Usuários</li>
+                <li class="breadcrumb-item active" aria-current="page">Clientes</li>
             </ol>
         </nav>
     </div>
@@ -29,10 +29,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Nome</th>
-                            <th>Nome de Usuário</th>
-                            <th>E-mail</th>
-                            <th>Observação</th>
-                            <th>Nível</th>
+                            <th>Tipo Cliente</th>
                             <th>Opções</th>
                         </tr>
                     </thead>
@@ -41,32 +38,26 @@
                         <tr>
                             <th>ID</th>
                             <th>Nome</th>
-                            <th>Nome de Usuário</th>
-                            <th>E-mail</th>
-                            <th>Observação</th>
-                            <th>Nível</th>
+                            <th>Tipo Cliente</th>
                             <th>Opções</th>
                         </tr>
                     </tfoot>
 
                     <tbody>
-                        @foreach($users as $user)
+                        @foreach($clients as $client)
                         <tr>
-                            <td>{{$user->id}}</td>
-                            <td>{{$user->name}}</td>
-                            <td>{{$user->username}}</td>
-                            <td>{{$user->email}}</td>
-                            <td>{{$user->note}}</td>
-                            <td>{{$user->level}}</td>
+                            <td>{{$client->id}}</td>
+                            <td>{{$client->name}}</td>
+                            <td>{{$client->person_type}}</td>
                             <td class="pt-2">
-{{--                                <a href="{{ route('user.show', ['user' => $user->id]) }}"><button class="btn btn-info btn-sm py-0 px-1 mt-1" data-toggle="modal" data-placement="top" title="Detalhes" data-target="#modalUserDetail"><i class="far fa-eye"></i></button></a>--}}
-                                <a href="{{ route('user.show', ['user' => $user->id]) }}"><button class="btn btn-info btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Detalhes"><i class="far fa-eye"></i></button></a>
-                                <a href="{{ route('user.edit', ['user' => $user->id]) }}"><button class="btn btn-warning btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Editar"><i class="far fa-edit"></i></button></a>
-{{--                                <a href="{{ route('user.show', ['user' => $user->id]) }}"><button class="btn btn-secondary btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Desabilitar"><i class="fas fa-user-slash"></i></button></a>--}}
-                                <form class="d-inline" action="{{ route('user.destroy', ['user' => $user->id]) }}" method="POST">
+{{--                                <a href="{{ route('client.show', ['client' => $client->id]) }}"><button class="btn btn-info btn-sm py-0 px-1 mt-1" data-toggle="modal" data-placement="top" title="Detalhes" data-target="#modalUserDetail"><i class="far fa-eye"></i></button></a>--}}
+                                <a href="{{ route('client.show', ['client' => $client->id]) }}"><button class="btn btn-info btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Detalhes"><i class="far fa-eye"></i></button></a>
+                                <a href="{{ route('client.edit', ['client' => $client->id]) }}"><button class="btn btn-warning btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Editar"><i class="far fa-edit"></i></button></a>
+{{--                                <a href="{{ route('client.show', ['client' => $client->id]) }}"><button class="btn btn-secondary btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Desabilitar"><i class="fas fa-user-slash"></i></button></a>--}}
+                                <form class="d-inline" action="{{ route('client.destroy', ['client' => $client->id]) }}" method="POST">
                                     @csrf
                                     @method('delete')
-                                    <button type="submit" onclick="return confirm('Deseja realmente remover o usuário {{ $user->name }} ?')" class="btn btn-danger btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Remover"><i class="far fa-trash-alt"></i></button>
+                                    <button type="submit" onclick="return confirm('Deseja realmente remover o cliente {{ $client->name }} ?')" class="btn btn-danger btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Remover"><i class="far fa-trash-alt"></i></button>
                                 </form>
                             </td>
                         </tr>
@@ -78,8 +69,8 @@
         </div>
     </div>
 
-<!-- Modal User Delete -->
-    <div class="modal fade" id="modalUserDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal Client Delete -->
+    <div class="modal fade" id="modalClientDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">

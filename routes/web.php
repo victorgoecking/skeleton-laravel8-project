@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ClientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,9 @@ require __DIR__.'/auth.php';
 
 
 Route::resource('usuarios', UserController::class)->names('user')->parameters(['usuarios' => 'user']);
+
+Route::resource('clientes', ClientController::class)->names('client')->parameters(['clientes' => 'client']);
+
 
 //Route::get('/usuarios', [UserController::class, 'index'])
 //    ->name('user.index');

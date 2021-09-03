@@ -14,15 +14,11 @@ class Relationships extends Migration
     public function up()
     {
         Schema::table('addresses', function (Blueprint $table) {
-            $table->foreignId('people_id')->constrained();
+            $table->foreignId('client_id')->constrained();
         });
 
         Schema::table('contacts', function (Blueprint $table) {
-            $table->foreignId('people_id')->constrained();
-        });
-
-        Schema::table('clients', function (Blueprint $table) {
-            $table->foreignId('people_id')->constrained();
+            $table->foreignId('client_id')->constrained();
         });
 
         Schema::table('requests', function (Blueprint $table) {
@@ -64,15 +60,11 @@ class Relationships extends Migration
     public function down()
     {
         Schema::table('addresses', function (Blueprint $table) {
-            $table->dropForeign(['people_id']);
+            $table->dropForeign(['client_id']);
         });
 
         Schema::table('contacts', function (Blueprint $table) {
-            $table->dropForeign(['people_id']);
-        });
-
-        Schema::table('clients', function (Blueprint $table) {
-            $table->dropForeign(['people_id']);
+            $table->dropForeign(['client_id']);
         });
 
         Schema::table('requests', function (Blueprint $table) {

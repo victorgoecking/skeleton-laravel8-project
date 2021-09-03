@@ -16,14 +16,17 @@ class Client extends Model
      * @var array
      */
     protected $fillable = [
-        'cep',
-        'public_place',
-        'number',
-        'district',
-        'state',
-        'city',
-        'uf',
-        'complement',
-        'note'
+        'name',
+        'person_type',
+        'cpf',
+        'corporate_reason',
+        'fantasy_name',
+        'cnpj',
+        'sex',
+        'birth_date'
     ];
+
+    public function contacts(){
+        return $this->hasMany(Contact::class);
+    }
 }

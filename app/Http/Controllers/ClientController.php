@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\People;
+use App\Models\Client;
 use Illuminate\Http\Request;
 
-class PeopleController extends Controller
+class ClientController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,18 @@ class PeopleController extends Controller
      */
     public function index()
     {
-        //
+//        $clients = Client::with('people')->get();
+
+//        $clients = $dados_clients->people();
+////        $people = People::all();
+//        dd($clients->people->get());
+
+        $clients = Client::all();
+
+        return view('pages.client.clients', [
+            'clients' => $clients
+        ]);
+
     }
 
     /**
@@ -41,21 +52,30 @@ class PeopleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\People  $people
+     * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function show(People $people)
+    public function show(Client $client)
     {
-        //
+
+
+//        $dados = $client->people();
+////        $people = People::all();
+//        dd($dados);
+//
+//
+//        return view('pages.client.clients', [
+//            'dados' => $dados
+//        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\People  $people
+     * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function edit(People $people)
+    public function edit(Client $client)
     {
         //
     }
@@ -64,10 +84,10 @@ class PeopleController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\People  $people
+     * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, People $people)
+    public function update(Request $request, Client $client)
     {
         //
     }
@@ -75,10 +95,10 @@ class PeopleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\People  $people
+     * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function destroy(People $people)
+    public function destroy(Client $client)
     {
         //
     }

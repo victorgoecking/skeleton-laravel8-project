@@ -54,7 +54,7 @@
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
              data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="utilities-color.html"><i class="fas fa-fw fa-user-friends"></i>&nbsp;&nbsp;&nbsp;Clientes</a>
+                <a class="collapse-item" href="{{ route('client.index') }}"><i class="fas fa-fw fa-user-friends"></i>&nbsp;&nbsp;&nbsp;Clientes</a>
                 <a class="collapse-item" href="utilities-animation.html"><i class="fas fa-fw fa-truck-loading"></i>&nbsp;&nbsp;&nbsp;Fornecedores</a>
             </div>
         </div>
