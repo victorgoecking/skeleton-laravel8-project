@@ -122,6 +122,8 @@
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+{{-- ------------------- TOASTR NOTIFICATION ----------------- --}}
     <script type="text/javascript">
         toastr.options = {
             "closeButton": true,
@@ -151,6 +153,8 @@
 
     </script>
 
+
+    {{-- ------------------- TETE MODAL ----------------- --}}
     <script type="text/javascript">
         $(document).ready(function() {
             $('#modalUserDetail').modal('show');
@@ -158,6 +162,135 @@
     </script>
 
 
+
+{{-- TESTE ENDERECO DINAMICO--}}
+
+    <script>
+        $(document).ready(function(){
+            var iAddress=1;
+            $("#addRowAddress").click(function(){
+                let address = '';
+                address += '<div id="addAddress'+(iAddress+1)+'">';
+                address += '<hr class="bg-primary">';
+                    // address += '<div class="d-flex flex-row-reverse bd-highlight">';
+                    //     address += '<button id="removeAddress" type="button" class="btn btn-danger btn-sm bd-highlight" data-toggle="tooltip" data-placement="top" title="Remover"><i class="fas fa-times"></i></button>';
+                    // address += '</div>';
+                    address += '<div class="form-row">';
+                        address += '<div class="col-md-2 mb-3">';
+                            address += '<label for="customCEP'+iAddress+'">CEP</label>';
+                            address += '<input type="text" class="form-control" name="cep'+iAddress+'" id="customCEP'+iAddress+'" placeholder="Ex.: 00000-000">';
+                        address += '</div>';
+
+                        address += '<div class="col-md-5 mb-3">';
+                            address += '<label for="validationPublicPlace'+iAddress+'">Logradouro</label>';
+                            address += '<input type="text" class="form-control" name="public_place'+iAddress+'" id="validationPublicPlace'+iAddress+'" placeholder="Ex.: Rua ...">';
+                        address += '</div>';
+
+                        address += '<div class="col-md-5 mb-3">';
+                            address += '<label for="validationDistrict'+iAddress+'">Bairro</label>';
+                            address += '<input type="text" class="form-control" name="district'+iAddress+'" id="validationDistrict'+iAddress+'" placeholder="Ex.: Bairro ...">';
+                        address += '</div>';
+
+                        address += '<div class="col-md-5 mb-3">';
+                            address += '<label for="validationCompletemnt'+iAddress+'">Complemento</label>';
+                            address += '<input type="text" class="form-control" name="complement'+iAddress+'" id="validationCompletemnt'+iAddress+'" placeholder="Ex.: APTO...">';
+                        address += '</div>';
+
+                        address += '<div class="col-md-3 mb-3">';
+                            address += '<label for="selectCity'+iAddress+'">Cidade</label>';
+                            address += '<select class="form-control" name="city'+iAddress+'" id="selectCity'+iAddress+'">';
+                                address += '<option value="-" >-</option>';
+                                address += '<option value="MG">Teofilo Otoni</option>';
+                            address += '</select>';
+                        address += '</div>';
+
+                        address += '<div class="col-md-3 mb-3">';
+                            address += '<label for="selectState'+iAddress+'">Estado</label>';
+                            address += '<select class="form-control" name="state'+iAddress+'" id="selectState'+iAddress+'">';
+                                address += '<option value="-" >-</option>';
+                                address += '<option value="Minas Gerais">Minas Gerais</option>';
+                            address += '</select>';
+                        address += '</div>';
+                        address += '<div class="col-md-1 mb-3">';
+                            address += '<label for="selectUF'+iAddress+'">UF</label>';
+                            address += '<select class="form-control" name="uf'+iAddress+'" id="selectUF'+iAddress+'">';
+                                address += '<option value="-" >-</option>';
+                                address += '<option value="MG">MG</option>';
+                            address += '</select>';
+                        address += '</div>';
+                    address += '</div>';
+                address += '</div>';
+
+
+                $('#addAddress'+iAddress).append(address);
+                iAddress++;
+            });
+            $("#removeAddress").click(function(){
+                if(iAddress>1){
+                    $("#addAddress"+(iAddress-1)).html('');
+                    iAddress--;
+                }
+            });
+
+        });
+
+
+
+        {{-- TESTE CONTATO DINAMICO--}}
+
+        $(document).ready(function(){
+            var iContact=1;
+            $("#addRowContact").click(function(){
+                let contact = '';
+                contact += '<div id="addContact'+(iContact+1)+'">';
+                    contact += '<hr class="bg-primary">';
+                    // contact += '<div class="d-flex flex-row-reverse bd-highlight">';
+                    //     contact += '<button id="removeAddress" type="button" class="btn btn-danger btn-sm bd-highlight" data-toggle="tooltip" data-placement="top" title="Remover"><i class="fas fa-times"></i></button>';
+                    // contact += '</div>';
+                    contact += '<div class="form-row">';
+                        contact += '<div class="col-md-2 mb-3">';
+                            contact += '<label for="customPhone'+iContact+'">Telefone</label>';
+                            contact += '<input type="text" class="form-control" name="phone'+iContact+'" id="customPhone'+iContact+'" placeholder="Ex.: (00) 0 0000-0000">';
+                        contact += '</div>';
+
+                        contact += '<div class="col-md-2 mb-3">';
+                            contact += '<label for="customCellPhone'+iContact+'">Telefone Celular</label>';
+                            contact += '<input type="text" class="form-control" name="cell_phone'+iContact+'" id="customCellPhone'+iContact+'" placeholder="Ex.: (00) 0 0000-0000">';
+                        contact += '</div>';
+
+                        contact += '<div class="col-md-2 mb-3">';
+                            contact += '<label for="customWhatsapp'+iContact+'">Whatsapp</label>';
+                            contact += '<input type="text" class="form-control" name="whatsapp'+iContact+'" id="customWhatsapp'+iContact+'" placeholder="Ex.: (00) 0 0000-0000">';
+                        contact += '</div>';
+
+                        contact += '<div class="col-md-3 mb-3">';
+                            contact += '<label for="validationCustomEmail'+iContact+'">E-mail</label>';
+                            contact += '<input type="email" class="form-control" name="email'+iContact+'" id="validationCustomEmail'+iContact+'" aria-describedby="emailHelp" placeholder="Ex.: email@email.com">';
+                            contact += '<div class="invalid-feedback">Por favor, providencie um e-mail valido.</div>';
+                        contact += '</div>';
+
+                        contact += '<div class="col-md-3 mb-3" >';
+                            contact += '<label for="customNote'+iContact+'">Observação</label>';
+                            contact += '<input type="text" class="form-control" name="note'+iContact+'" id="customNote'+iContact+'" placeholder="Ex.: Comercial">';
+                        contact += '</div>';
+                    contact += '</div>';
+                contact += '</div>';
+
+
+                $('#addContact'+iContact).append(contact);
+                iContact++;
+            });
+            $("#removeContact").click(function(){
+                if(iContact>1){
+                    $("#addContact"+(iContact-1)).html('');
+                    iContact--;
+                }
+            });
+
+        });
+
+
+    </script>
 
 </body>
 

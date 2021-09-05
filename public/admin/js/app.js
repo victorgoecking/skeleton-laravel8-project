@@ -3800,7 +3800,8 @@ module.exports = {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-__webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
+__webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js"); // ------------------------------------    FORM VALIDATOR
+
 
 (function () {
   'use strict';
@@ -3820,7 +3821,8 @@ __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
       }, false);
     });
   }, false);
-})();
+})(); // ------------------------------------    CONF DATATABLE
+
 
 $(document).ready(function () {
   $('#dataTable').DataTable({
@@ -3828,10 +3830,73 @@ $(document).ready(function () {
       "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Portuguese-Brasil.json"
     }
   });
-});
+}); // ------------------------------------    TOOLTIP
+
 $(function () {
   $('[data-toggle="tooltip"]').tooltip();
+}); // ------------------------------------    FORM CLIENTE HIDE CAMPOS
+
+$(document).ready(function () {
+  //executar quando a página é carregada
+  esconde(); //executar todas as vezes que houver alterações do select;
+
+  $('#selectPersonType').change(function () {
+    esconde();
+  });
 });
+
+function esconde() {
+  //quando tiver editando o formuláro o valor fica no Select
+  selectedValue = $('#selectPersonType').val(); //quando tiver visualizando o formulário o valor fica no campo text;
+
+  if (!selectedValue) {
+    selectedValue = $('#selectPersonType').text();
+  }
+
+  switch (selectedValue) {
+    case "PF":
+      $('#divCNPJ').hide();
+      $("#customCNPJ").val("");
+      $('#divCorporateReason').hide();
+      $("#validationCorporateReason").val("");
+      $('#divFantasyName').hide();
+      $("#validationFantasyName").val("");
+      $('#divCPF').show();
+      $('#divSex').show();
+      $('#divBirdDate').show();
+      break;
+
+    case "PJ":
+      $('#divCNPJ').show();
+      $('#divCorporateReason').show();
+      $('#divFantasyName').show();
+      $('#divCPF').hide();
+      $("#customCPF").val("");
+      $('#divSex').hide();
+      $("#selectSex").val("-");
+      $('#divBirdDate').hide();
+      $("#customBirthDate").val("");
+      break;
+
+    default:
+  }
+} // ------------------------------------    ADICIONANDO ENDERECO DINAMICAMENTE
+// $(document).ready(function(){
+//     let i=1;
+//     $("#add_row").click(function(){
+//         $('#addr'+i).html("<td>"+ (i+1) +"</td><td><input name='name"+i+"' type='text' placeholder='Name' class='form-control input-md'  /> </td><td><input  name='mail"+i+"' type='text' placeholder='Mail'  class='form-control input-md'></td><td><input  name='mobile"+i+"' type='text' placeholder='Mobile'  class='form-control input-md'></td>");
+//
+//         $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
+//         i++;
+//     });
+//     $("#delete_row").click(function(){
+//         if(i>1){
+//             $("#addr"+(i-1)).html('');
+//             i--;
+//         }
+//     });
+//
+// });
 
 /***/ }),
 

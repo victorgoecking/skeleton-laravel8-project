@@ -9,7 +9,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb m-0 p-2 bg-transparent">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="fas fa-fw fa-tachometer-alt"></i> Início</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('user.index') }}"></i> Usuários</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('user.index') }}"> Usuários</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Edição de usuário</li>
             </ol>
         </nav>
