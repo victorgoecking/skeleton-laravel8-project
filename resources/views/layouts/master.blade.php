@@ -162,134 +162,135 @@
     </script>
 
 
+{{-- TESTE ENDREDO OUTRIO--}}
 
-{{-- TESTE ENDERECO DINAMICO--}}
 
     <script>
         $(document).ready(function(){
-            var iAddress=1;
-            $("#addRowAddress").click(function(){
-                let address = '';
-                address += '<div id="addAddress'+(iAddress+1)+'">';
-                address += '<hr class="bg-primary">';
-                    // address += '<div class="d-flex flex-row-reverse bd-highlight">';
-                    //     address += '<button id="removeAddress" type="button" class="btn btn-danger btn-sm bd-highlight" data-toggle="tooltip" data-placement="top" title="Remover"><i class="fas fa-times"></i></button>';
-                    // address += '</div>';
-                    address += '<div class="form-row">';
-                        address += '<div class="col-md-2 mb-3">';
-                            address += '<label for="customCEP'+iAddress+'">CEP</label>';
-                            address += '<input type="text" class="form-control" name="cep'+iAddress+'" id="customCEP'+iAddress+'" placeholder="Ex.: 00000-000">';
-                        address += '</div>';
+            var nextAddress = 1;
 
-                        address += '<div class="col-md-5 mb-3">';
-                            address += '<label for="validationPublicPlace'+iAddress+'">Logradouro</label>';
-                            address += '<input type="text" class="form-control" name="public_place'+iAddress+'" id="validationPublicPlace'+iAddress+'" placeholder="Ex.: Rua ...">';
-                        address += '</div>';
+            $('#addRowAddress').click(function(){
+                nextAddress++;
 
-                        address += '<div class="col-md-5 mb-3">';
-                            address += '<label for="validationDistrict'+iAddress+'">Bairro</label>';
-                            address += '<input type="text" class="form-control" name="district'+iAddress+'" id="validationDistrict'+iAddress+'" placeholder="Ex.: Bairro ...">';
-                        address += '</div>';
+                var newAddress = '<div id="addAddress' + nextAddress + '">';
+                    newAddress += '<hr class="bg-primary">';
+                    newAddress += '<div class="d-flex flex-row-reverse bd-highlight">';
+                        newAddress += '<button  id="'+nextAddress+'" type="button" class="btn btn-danger btn-sm bd-highlight btn_remove_address" data-toggle="tooltip" data-placement="top" title="Remover"><i class="fas fa-times"></i></button>';
+                    newAddress += '</div>';
+                    newAddress += '<div class="form-row" >';
+                        newAddress += '<div class="col-md-2 mb-3">';
+                            newAddress += '<label for="customCEP'+ nextAddress +'">CEP</label>';
+                            newAddress += '<input type="text" class="form-control" name="cep'+ nextAddress +'" id="customCEP'+ nextAddress +'" placeholder="Ex.: 00000-000">';
+                        newAddress += '</div>';
 
-                        address += '<div class="col-md-5 mb-3">';
-                            address += '<label for="validationCompletemnt'+iAddress+'">Complemento</label>';
-                            address += '<input type="text" class="form-control" name="complement'+iAddress+'" id="validationCompletemnt'+iAddress+'" placeholder="Ex.: APTO...">';
-                        address += '</div>';
+                        newAddress += '<div class="col-md-4 mb-3">';
+                            newAddress += '<label for="validationPublicPlace'+ nextAddress +'">Logradouro</label>';
+                            newAddress += '<input type="text" class="form-control" name="public_place'+ nextAddress +'" id="validationPublicPlace'+ nextAddress +'" placeholder="Ex.: Rua ...">';
+                        newAddress += '</div>';
 
-                        address += '<div class="col-md-3 mb-3">';
-                            address += '<label for="selectCity'+iAddress+'">Cidade</label>';
-                            address += '<select class="form-control" name="city'+iAddress+'" id="selectCity'+iAddress+'">';
-                                address += '<option value="-" >-</option>';
-                                address += '<option value="MG">Teofilo Otoni</option>';
-                            address += '</select>';
-                        address += '</div>';
+                        newAddress += '<div class="col-md-4 mb-3">';
+                            newAddress += '<label for="validationDistrict'+ nextAddress +'">Bairro</label>';
+                            newAddress += '<input type="text" class="form-control" name="district'+ nextAddress +'" id="validationDistrict'+ nextAddress +'" placeholder="Ex.: Bairro ...">';
+                        newAddress += '</div>';
 
-                        address += '<div class="col-md-3 mb-3">';
-                            address += '<label for="selectState'+iAddress+'">Estado</label>';
-                            address += '<select class="form-control" name="state'+iAddress+'" id="selectState'+iAddress+'">';
-                                address += '<option value="-" >-</option>';
-                                address += '<option value="Minas Gerais">Minas Gerais</option>';
-                            address += '</select>';
-                        address += '</div>';
-                        address += '<div class="col-md-1 mb-3">';
-                            address += '<label for="selectUF'+iAddress+'">UF</label>';
-                            address += '<select class="form-control" name="uf'+iAddress+'" id="selectUF'+iAddress+'">';
-                                address += '<option value="-" >-</option>';
-                                address += '<option value="MG">MG</option>';
-                            address += '</select>';
-                        address += '</div>';
-                    address += '</div>';
-                address += '</div>';
+                        newAddress += '<div class="col-md-2 mb-3">';
+                            newAddress += '<label for="validationCompletemnt'+ nextAddress +'">Complemento</label>';
+                            newAddress += '<input type="text" class="form-control" name="complement'+ nextAddress +'" id="validationCompletemnt'+ nextAddress +'" placeholder="Ex.: APTO...">';
+                        newAddress += '</div>';
+
+                        newAddress += '<div class="col-md-3 mb-3">';
+                            newAddress += '<label for="selectCity'+ nextAddress +'">Cidade</label>';
+                            newAddress += '<select class="form-control" name="city'+ nextAddress +'" id="selectCity'+ nextAddress +'">';
+                                newAddress += '<option value="-" >-</option>';
+                                newAddress += '<option value="MG">Teofilo Otoni</option>';
+                            newAddress += '</select>';
+                        newAddress += '</div>';
+
+                        newAddress += '<div class="col-md-3 mb-3">';
+                            newAddress += '<label for="selectState'+ nextAddress +'">Estado</label>';
+                            newAddress += '<select class="form-control" name="state'+ nextAddress +'" id="selectState'+ nextAddress +'">';
+                                newAddress += '<option value="-" >-</option>';
+                                newAddress += '<option value="Minas Gerais">Minas Gerais</option>';
+                            newAddress += '</select>';
+                        newAddress += '</div>';
+
+                        newAddress += '<div class="col-md-2 mb-3">';
+                            newAddress += '<label for="selectUF'+ nextAddress +'">UF</label>';
+                            newAddress += '<select class="form-control" name="uf'+ nextAddress +'" id="selectUF'+ nextAddress +'">';
+                                newAddress += '<option value="-" >-</option>';
+                                newAddress += '<option value="MG">MG</option>';
+                            newAddress += '</select>';
+                        newAddress += '</div>';
+
+                        newAddress += '<div class="col-md-4 mb-3">';
+                            newAddress += '<label for="customNoteAddress1">Observação</label>';
+                            newAddress += '<input type="text" class="form-control" name="note_address1" id="customNoteAddress1" placeholder="Ex.: Endereço de entrega">';
+                        newAddress += '</div>';
+
+                    newAddress += '</div>';
+                newAddress += '</div>';
 
 
-                $('#addAddress'+iAddress).append(address);
-                iAddress++;
+                $('#addAddress1').append(newAddress);
             });
-            $("#removeAddress").click(function(){
-                if(iAddress>1){
-                    $("#addAddress"+(iAddress-1)).html('');
-                    iAddress--;
-                }
+            $(document).on('click', '.btn_remove_address', function(){
+                var button_id = $(this).attr("id");
+                $('#addAddress'+button_id+'').remove();
             });
 
         });
 
-
-
-        {{-- TESTE CONTATO DINAMICO--}}
 
         $(document).ready(function(){
-            var iContact=1;
-            $("#addRowContact").click(function(){
-                let contact = '';
-                contact += '<div id="addContact'+(iContact+1)+'">';
-                    contact += '<hr class="bg-primary">';
-                    // contact += '<div class="d-flex flex-row-reverse bd-highlight">';
-                    //     contact += '<button id="removeAddress" type="button" class="btn btn-danger btn-sm bd-highlight" data-toggle="tooltip" data-placement="top" title="Remover"><i class="fas fa-times"></i></button>';
-                    // contact += '</div>';
-                    contact += '<div class="form-row">';
-                        contact += '<div class="col-md-2 mb-3">';
-                            contact += '<label for="customPhone'+iContact+'">Telefone</label>';
-                            contact += '<input type="text" class="form-control" name="phone'+iContact+'" id="customPhone'+iContact+'" placeholder="Ex.: (00) 0 0000-0000">';
-                        contact += '</div>';
+            var nextContact = 1;
 
-                        contact += '<div class="col-md-2 mb-3">';
-                            contact += '<label for="customCellPhone'+iContact+'">Telefone Celular</label>';
-                            contact += '<input type="text" class="form-control" name="cell_phone'+iContact+'" id="customCellPhone'+iContact+'" placeholder="Ex.: (00) 0 0000-0000">';
-                        contact += '</div>';
+            $('#addRowContact').click(function(){
+                nextContact++;
 
-                        contact += '<div class="col-md-2 mb-3">';
-                            contact += '<label for="customWhatsapp'+iContact+'">Whatsapp</label>';
-                            contact += '<input type="text" class="form-control" name="whatsapp'+iContact+'" id="customWhatsapp'+iContact+'" placeholder="Ex.: (00) 0 0000-0000">';
-                        contact += '</div>';
+                var newContact = '<div id="addContact' + nextContact + '">';
+                    newContact += '<hr class="bg-primary">';
+                    newContact += '<div class="d-flex flex-row-reverse bd-highlight">';
+                        newContact += '<button  id="'+nextContact+'" type="button" class="btn btn-danger btn-sm bd-highlight btn_remove_contact" data-toggle="tooltip" data-placement="top" title="Remover"><i class="fas fa-times"></i></button>';
+                    newContact += '</div>';
+                    newContact += '<div class="form-row">';
+                        newContact += '<div class="col-md-4 mb-3">';
+                        newContact += '<label for="customPhone'+nextContact+'">Telefone</label>';
+                        newContact += '<input type="text" class="form-control" name="phone'+nextContact+'" id="customPhone'+nextContact+'" placeholder="Ex.: (00) 0 0000-0000">';
+                        newContact += '</div>';
 
-                        contact += '<div class="col-md-3 mb-3">';
-                            contact += '<label for="validationCustomEmail'+iContact+'">E-mail</label>';
-                            contact += '<input type="email" class="form-control" name="email'+iContact+'" id="validationCustomEmail'+iContact+'" aria-describedby="emailHelp" placeholder="Ex.: email@email.com">';
-                            contact += '<div class="invalid-feedback">Por favor, providencie um e-mail valido.</div>';
-                        contact += '</div>';
+                        newContact += '<div class="col-md-4 mb-3">';
+                        newContact += '<label for="customCellPhone'+nextContact+'">Telefone Celular</label>';
+                        newContact += '<input type="text" class="form-control" name="cell_phone'+nextContact+'" id="customCellPhone'+nextContact+'" placeholder="Ex.: (00) 0 0000-0000">';
+                        newContact += '</div>';
 
-                        contact += '<div class="col-md-3 mb-3" >';
-                            contact += '<label for="customNote'+iContact+'">Observação</label>';
-                            contact += '<input type="text" class="form-control" name="note'+iContact+'" id="customNote'+iContact+'" placeholder="Ex.: Comercial">';
-                        contact += '</div>';
-                    contact += '</div>';
-                contact += '</div>';
+                        newContact += '<div class="col-md-4 mb-3">';
+                        newContact += '<label for="customWhatsapp'+nextContact+'">Whatsapp</label>';
+                        newContact += '<input type="text" class="form-control" name="whatsapp'+nextContact+'" id="customWhatsapp'+nextContact+'" placeholder="Ex.: (00) 0 0000-0000">';
+                        newContact += '</div>';
+
+                        newContact += '<div class="col-md-6 mb-3">';
+                        newContact += '<label for="validationCustomEmail'+nextContact+'">E-mail</label>';
+                        newContact += '<input type="email" class="form-control" name="email'+nextContact+'" id="validationCustomEmail'+nextContact+'" aria-describedby="emailHelp" placeholder="Ex.: email@email.com">';
+                        newContact += '<div class="invalid-feedback">Por favor, providencie um e-mail valido.</div>';
+                        newContact += '</div>';
+
+                        newContact += '<div class="col-md-6 mb-3" >';
+                        newContact += '<label for="customNoteContact'+nextContact+'">Observação</label>';
+                        newContact += '<input type="text" class="form-control" name="note_contact'+nextContact+'" id="customNoteContact'+nextContact+'" placeholder="Ex.: Comercial">';
+                        newContact += '</div>';
+                    newContact += '</div>';
+
+                newContact += '</div>';
 
 
-                $('#addContact'+iContact).append(contact);
-                iContact++;
+                $('#addContact1').append(newContact);
             });
-            $("#removeContact").click(function(){
-                if(iContact>1){
-                    $("#addContact"+(iContact-1)).html('');
-                    iContact--;
-                }
+            $(document).on('click', '.btn_remove_contact', function(){
+                var button_id = $(this).attr("id");
+                $('#addContact'+button_id+'').remove();
             });
 
         });
-
-
     </script>
 
 </body>

@@ -53,7 +53,24 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'cpf' => 'string|max:255|unique:clients',
+            'cnpj' => 'string|max:255|unique:clients',
+            'cell_phone1' => 'required|string|max:255',
+        ]);
+
+        $client = Client::create([
+            'name' => $request->name,
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'note' => $request->note,
+            'level' => $request->level,
+        ]);
+
+//        return redirect('/cadastro-usuario')->with('message', 'Profile updated!');
+        return redirect()->route('client.index')->with('success','Cliente cadastrado com sucesso!');
     }
 
     /**

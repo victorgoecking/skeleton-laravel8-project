@@ -89,61 +89,62 @@
                 <i class="fas fa-map-marker-alt"></i> Endereços
             </div>
             <div class="card-body">
-                <div class="form-row" id="addAddress0">
+                <div class="form-row">
+{{--                <div class="form-row" id="addAddress0">--}}
                     <div class="col-md-2 mb-3">
-                        <label for="customCEP0">CEP</label>
-                        <input type="text" class="form-control" name="cep0" id="customCEP0" placeholder="Ex.: 00000-000">
+                        <label for="customCEP1">CEP</label>
+                        <input type="text" class="form-control" name="cep1" id="customCEP1" placeholder="Ex.: 00000-000">
                     </div>
 
-                    <div class="col-md-5 mb-3">
-                        <label for="validationPublicPlace0">Logradouro</label>
-                        <input type="text" class="form-control" name="public_place0" id="validationPublicPlace0" placeholder="Ex.: Rua ...">
+                    <div class="col-md-4 mb-3">
+                        <label for="validationPublicPlace1">Logradouro</label>
+                        <input type="text" class="form-control" name="public_place1" id="validationPublicPlace1" placeholder="Ex.: Rua ...">
                     </div>
 
-                    <div class="col-md-5 mb-3">
-                        <label for="validationDistrict0">Bairro</label>
-                        <input type="text" class="form-control" name="district0" id="validationDistrict0" placeholder="Ex.: Bairro ...">
+                    <div class="col-md-4 mb-3">
+                        <label for="validationDistrict1">Bairro</label>
+                        <input type="text" class="form-control" name="district1" id="validationDistrict1" placeholder="Ex.: Bairro ...">
                     </div>
 
-                    <div class="col-md-5 mb-3">
-                        <label for="validationCompletemnt0">Complemento</label>
-                        <input type="text" class="form-control" name="complement0" id="validationCompletemnt0" placeholder="Ex.: APTO...">
+                    <div class="col-md-2 mb-3">
+                        <label for="validationCompletemnt1">Complemento</label>
+                        <input type="text" class="form-control" name="complement1" id="validationCompletemnt1" placeholder="Ex.: APTO...">
                     </div>
 
                     <div class="col-md-3 mb-3">
-                        <label for="selectCity0">Cidade</label>
-                        <select class="form-control" name="city0" id="selectCity0">
+                        <label for="selectCity1">Cidade</label>
+                        <select class="form-control" name="city1" id="selectCity1">
                             <option value="-" >-</option>
                             <option value="MG">Teofilo Otoni</option>
                         </select>
                     </div>
 
                     <div class="col-md-3 mb-3">
-                        <label for="selectState0">Estado</label>
-                        <select class="form-control" name="state0" id="selectState0">
+                        <label for="selectState1">Estado</label>
+                        <select class="form-control" name="state1" id="selectState1">
                             <option value="-" >-</option>
                             <option value="Minas Gerais">Minas Gerais</option>
                         </select>
                     </div>
 
-                    <div class="col-md-1 mb-3">
-                        <label for="selectUF0">UF</label>
-                        <select class="form-control" name="uf0" id="selectUF0">
+                    <div class="col-md-2 mb-3">
+                        <label for="selectUF1">UF</label>
+                        <select class="form-control" name="uf1" id="selectUF1">
                             <option value="-" >-</option>
                             <option value="MG">MG</option>
                         </select>
                     </div>
 
-{{--                    <div class="col-md-5 mb-3">--}}
-{{--                        <label for="exampleFormControlTextarea1">Observações</label>--}}
-{{--                        <textarea class="form-control" name="note" id="exampleFormControlTextarea1" placeholder="Observações" rows="3"></textarea>--}}
-{{--                    </div>--}}
+                    <div class="col-md-4 mb-3">
+                        <label for="customNoteAddress1">Observação</label>
+                        <input type="text" class="form-control" name="note_address1" id="customNoteAddress1" placeholder="Ex.: Endereço de entrega">
+                    </div>
                 </div>
 
                 <div id="addAddress1"></div>
 
                 <button id="addRowAddress" class="btn btn-primary" type="button"><i class="fas fa-plus-circle"></i> Inserir novo endereço </button>
-                <button id="removeAddress" class="btn btn-danger" type="button" data-toggle="tooltip" data-placement="top" title="Remover"><i class="fas fa-times-circle"></i> Remover ultimo endereço</button>
+
             </div>
         </div>
 
@@ -153,39 +154,41 @@
             </div>
             <div class="card-body">
                 <div class="form-row">
-                    <div class="col-md-2 mb-3">
-                        <label for="customPhone0">Telefone</label>
-                        <input type="text" class="form-control" name="phone0" id="customPhone0" placeholder="Ex.: (00) 0 0000-0000">
+                    <div class="col-md-4 mb-3">
+                        <label for="customPhone1">Telefone</label>
+                        <input type="text" class="form-control" name="phone1" id="customPhone1" placeholder="Ex.: (00) 0 0000-0000">
                     </div>
 
-                    <div class="col-md-2 mb-3">
-                        <label for="customCellPhone0">Telefone Celular</label>
-                        <input type="text" class="form-control" name="cell_phone0" id="customCellPhone0" placeholder="Ex.: (00) 0 0000-0000">
+                    <div class="col-md-4 mb-3">
+                        <label for="customCellPhone1">Telefone Celular</label>
+                        <input type="text" class="form-control" name="cell_phone1" id="customCellPhone1" placeholder="Ex.: (00) 0 0000-0000" required>
+                        <div class="invalid-feedback">
+                            Por favor, informe um telefone para contato.
+                        </div>
                     </div>
 
-                    <div class="col-md-2 mb-3">
-                        <label for="customWhatsapp0">Whatsapp</label>
-                        <input type="text" class="form-control" name="whatsapp0" id="customWhatsapp0" placeholder="Ex.: (00) 0 0000-0000">
+                    <div class="col-md-4 mb-3">
+                        <label for="customWhatsapp1">Whatsapp</label>
+                        <input type="text" class="form-control" name="whatsapp1" id="customWhatsapp1" placeholder="Ex.: (00) 0 0000-0000">
                     </div>
 
-                    <div class="col-md-3 mb-3">
-                        <label for="validationCustomEmail0">E-mail</label>
-                        <input type="email" class="form-control" name="email0" id="validationCustomEmail0" aria-describedby="emailHelp" placeholder="Ex.: email@email.com">
+                    <div class="col-md-6 mb-3">
+                        <label for="validationCustomEmail1">E-mail</label>
+                        <input type="email" class="form-control" name="email1" id="validationCustomEmail1" aria-describedby="emailHelp" placeholder="Ex.: email@email.com">
                         <div class="invalid-feedback">
                             Por favor, providencie um e-mail valido.
                         </div>
                     </div>
 
-                    <div class="col-md-3 mb-3" >
-                        <label for="customNote0">Observação</label>
-                        <input type="text" class="form-control" name="note0" id="customNote0" placeholder="Ex.: Comercial">
+                    <div class="col-md-6 mb-3" >
+                        <label for="customNoteContact1">Observação</label>
+                        <input type="text" class="form-control" name="note_contact1" id="customNoteContact1" placeholder="Ex.: Comercial">
                     </div>
                 </div>
 
                 <div id="addContact1"></div>
 
                 <button id="addRowContact" class="btn btn-primary" type="button"><i class="fas fa-plus-circle"></i> Inserir novo contato </button>
-                <button id="removeContact" class="btn btn-danger" type="button" data-toggle="tooltip" data-placement="top" title="Remover"><i class="fas fa-times-circle"></i> Remover ultimo contato</button>
 
             </div>
         </div>
@@ -197,8 +200,8 @@
             <div class="card-body">
                 <div class="form-row">
                     <div class="col-md-12 mb-3">
-{{--                        <label for="exampleFormControlNote">Observações</label>--}}
-                        <textarea class="form-control" name="note" id="exampleFormControlNote" placeholder="Observações" rows="5"></textarea>
+{{--                        <label for="exampleFormControlNoteClient">Observações</label>--}}
+                        <textarea class="form-control" name="note_client" id="exampleFormControlNoteClient" placeholder="Observações" rows="5"></textarea>
                     </div>
                 </div>
 
