@@ -17,8 +17,8 @@ class CreateAddressesTable extends Migration
             $table->id();
             $table->string('cep',11)->nullable();
             $table->string('public_place',100);
-            $table->string('number', 20);
-            $table->string('district',100);
+            $table->string('number', 20)->nullable();
+            $table->string('district',100)->nullable();
             $table->string('state',100)->nullable();
             $table->string('city',100)->nullable();
             $table->string('uf',2)->nullable();

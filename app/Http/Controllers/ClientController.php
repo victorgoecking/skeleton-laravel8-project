@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use App\Models\Client;
 use Illuminate\Http\Request;
 
@@ -55,19 +56,62 @@ class ClientController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'cpf' => 'string|max:255|unique:clients',
-            'cnpj' => 'string|max:255|unique:clients',
-            'cell_phone1' => 'required|string|max:255',
+            'cpf' => 'max:14',
+            'cnpj' => 'max:18',
+//            'cell_phone1' => 'required|string|max:16',
         ]);
 
-        $client = Client::create([
-            'name' => $request->name,
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'note' => $request->note,
-            'level' => $request->level,
-        ]);
+
+        if($request->person_type === 'PF') {
+            $client = Client::create([
+                'name' => $request->name,
+                'person_type' => $request->person_type,
+                'cpf' => $request->cpf,
+                'sex' => $request->sex,
+                'birth_date' => $request->birth_date,
+                'note' => $request->note_client,
+                'user_id' => auth()->user()->id,
+            ]);
+        }else{
+            $client = Client::create([
+                'name' => $request->name,
+                'person_type' => $request->person_type,
+                'cnpj' => $request->cnpj,
+                'corporate_reason' => $request->corporate_reason,
+                'fantasy_name' => $request->fantasy_name,
+                'note' => $request->note_client,
+                'user_id' => auth()->user()->id,
+            ]);
+        }
+
+        $countAddress = count($request->public_place);
+        if($countAddress >= 1){
+
+            $arrayAddress = [];
+
+            for($iAddress = 0; $iAddress < $countAddress; $iAddress++){
+                if(trim($request->public_place[$iAddress] != '')){
+                    Address::create([
+                        'cep' => $request->cep[$iAddress],
+                        'public_place' => $request->public_place[$iAddress],
+                        'number' => $request->number[$iAddress],
+                        'district' => $request->district[$iAddress],
+                        'state' => $request->state[$iAddress],
+                        'city' => $request->city[$iAddress],
+                        'uf' => $request->uf[$iAddress],
+                        'complement' => $request->complement[$iAddress],
+                        'note' => $request->note_address[$iAddress],
+                        'client_id' => $client->id,
+                    ]);
+                }
+            }
+
+        }
+        return;
+
+
+        dd($client_id);
+
 
 //        return redirect('/cadastro-usuario')->with('message', 'Profile updated!');
         return redirect()->route('client.index')->with('success','Cliente cadastrado com sucesso!');

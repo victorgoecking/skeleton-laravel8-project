@@ -180,35 +180,40 @@
                     newAddress += '<div class="form-row" >';
                         newAddress += '<div class="col-md-2 mb-3">';
                             newAddress += '<label for="customCEP'+ nextAddress +'">CEP</label>';
-                            newAddress += '<input type="text" class="form-control" name="cep'+ nextAddress +'" id="customCEP'+ nextAddress +'" placeholder="Ex.: 00000-000">';
+                            newAddress += '<input type="text" class="form-control" name="cep[]" id="customCEP'+ nextAddress +'" placeholder="Ex.: 00000-000">';
                         newAddress += '</div>';
 
                         newAddress += '<div class="col-md-4 mb-3">';
                             newAddress += '<label for="validationPublicPlace'+ nextAddress +'">Logradouro</label>';
-                            newAddress += '<input type="text" class="form-control" name="public_place'+ nextAddress +'" id="validationPublicPlace'+ nextAddress +'" placeholder="Ex.: Rua ...">';
+                            newAddress += '<input type="text" class="form-control" name="public_place[]" id="validationPublicPlace'+ nextAddress +'" placeholder="Ex.: Rua ...">';
+                        newAddress += '</div>';
+
+                        newAddress += '<div class="col-md-2 mb-3">';
+                            newAddress += '<label for="validationNumber'+ nextAddress +'">Numero</label>';
+                            newAddress += '<input type="text" class="form-control" name="number[]" id="validationNumber'+ nextAddress +'" placeholder="">';
                         newAddress += '</div>';
 
                         newAddress += '<div class="col-md-4 mb-3">';
                             newAddress += '<label for="validationDistrict'+ nextAddress +'">Bairro</label>';
-                            newAddress += '<input type="text" class="form-control" name="district'+ nextAddress +'" id="validationDistrict'+ nextAddress +'" placeholder="Ex.: Bairro ...">';
+                            newAddress += '<input type="text" class="form-control" name="district[]" id="validationDistrict'+ nextAddress +'" placeholder="Ex.: Bairro ...">';
                         newAddress += '</div>';
 
-                        newAddress += '<div class="col-md-2 mb-3">';
+                        newAddress += '<div class="col-md-6 mb-3">';
                             newAddress += '<label for="validationCompletemnt'+ nextAddress +'">Complemento</label>';
-                            newAddress += '<input type="text" class="form-control" name="complement'+ nextAddress +'" id="validationCompletemnt'+ nextAddress +'" placeholder="Ex.: APTO...">';
+                            newAddress += '<input type="text" class="form-control" name="complement[]" id="validationCompletemnt'+ nextAddress +'" placeholder="Ex.: APTO...">';
                         newAddress += '</div>';
 
-                        newAddress += '<div class="col-md-3 mb-3">';
+                        newAddress += '<div class="col-md-6 mb-3">';
                             newAddress += '<label for="selectCity'+ nextAddress +'">Cidade</label>';
-                            newAddress += '<select class="form-control" name="city'+ nextAddress +'" id="selectCity'+ nextAddress +'">';
+                            newAddress += '<select class="form-control" name="city[]" id="selectCity'+ nextAddress +'">';
                                 newAddress += '<option value="-" >-</option>';
                                 newAddress += '<option value="MG">Teofilo Otoni</option>';
                             newAddress += '</select>';
                         newAddress += '</div>';
 
-                        newAddress += '<div class="col-md-3 mb-3">';
+                        newAddress += '<div class="col-md-4 mb-3">';
                             newAddress += '<label for="selectState'+ nextAddress +'">Estado</label>';
-                            newAddress += '<select class="form-control" name="state'+ nextAddress +'" id="selectState'+ nextAddress +'">';
+                            newAddress += '<select class="form-control" name="state[]" id="selectState'+ nextAddress +'">';
                                 newAddress += '<option value="-" >-</option>';
                                 newAddress += '<option value="Minas Gerais">Minas Gerais</option>';
                             newAddress += '</select>';
@@ -216,15 +221,15 @@
 
                         newAddress += '<div class="col-md-2 mb-3">';
                             newAddress += '<label for="selectUF'+ nextAddress +'">UF</label>';
-                            newAddress += '<select class="form-control" name="uf'+ nextAddress +'" id="selectUF'+ nextAddress +'">';
+                            newAddress += '<select class="form-control" name="uf[]" id="selectUF'+ nextAddress +'">';
                                 newAddress += '<option value="-" >-</option>';
                                 newAddress += '<option value="MG">MG</option>';
                             newAddress += '</select>';
                         newAddress += '</div>';
 
-                        newAddress += '<div class="col-md-4 mb-3">';
+                        newAddress += '<div class="col-md-6 mb-3">';
                             newAddress += '<label for="customNoteAddress1">Observação</label>';
-                            newAddress += '<input type="text" class="form-control" name="note_address1" id="customNoteAddress1" placeholder="Ex.: Endereço de entrega">';
+                            newAddress += '<input type="text" class="form-control" name="note_address[]" id="customNoteAddress1" placeholder="Ex.: Endereço de entrega">';
                         newAddress += '</div>';
 
                     newAddress += '</div>';
@@ -255,28 +260,28 @@
                     newContact += '<div class="form-row">';
                         newContact += '<div class="col-md-4 mb-3">';
                         newContact += '<label for="customPhone'+nextContact+'">Telefone</label>';
-                        newContact += '<input type="text" class="form-control" name="phone'+nextContact+'" id="customPhone'+nextContact+'" placeholder="Ex.: (00) 0 0000-0000">';
+                        newContact += '<input type="text" class="form-control" name="phone[]" id="customPhone'+nextContact+'" placeholder="Ex.: (00) 0 0000-0000">';
                         newContact += '</div>';
 
                         newContact += '<div class="col-md-4 mb-3">';
                         newContact += '<label for="customCellPhone'+nextContact+'">Telefone Celular</label>';
-                        newContact += '<input type="text" class="form-control" name="cell_phone'+nextContact+'" id="customCellPhone'+nextContact+'" placeholder="Ex.: (00) 0 0000-0000">';
+                        newContact += '<input type="text" class="form-control" name="cell_phone[]" id="customCellPhone'+nextContact+'" placeholder="Ex.: (00) 0 0000-0000">';
                         newContact += '</div>';
 
                         newContact += '<div class="col-md-4 mb-3">';
                         newContact += '<label for="customWhatsapp'+nextContact+'">Whatsapp</label>';
-                        newContact += '<input type="text" class="form-control" name="whatsapp'+nextContact+'" id="customWhatsapp'+nextContact+'" placeholder="Ex.: (00) 0 0000-0000">';
+                        newContact += '<input type="text" class="form-control" name="whatsapp[]" id="customWhatsapp'+nextContact+'" placeholder="Ex.: (00) 0 0000-0000">';
                         newContact += '</div>';
 
                         newContact += '<div class="col-md-6 mb-3">';
                         newContact += '<label for="validationCustomEmail'+nextContact+'">E-mail</label>';
-                        newContact += '<input type="email" class="form-control" name="email'+nextContact+'" id="validationCustomEmail'+nextContact+'" aria-describedby="emailHelp" placeholder="Ex.: email@email.com">';
+                        newContact += '<input type="email" class="form-control" name="email[]" id="validationCustomEmail'+nextContact+'" aria-describedby="emailHelp" placeholder="Ex.: email@email.com">';
                         newContact += '<div class="invalid-feedback">Por favor, providencie um e-mail valido.</div>';
                         newContact += '</div>';
 
                         newContact += '<div class="col-md-6 mb-3" >';
                         newContact += '<label for="customNoteContact'+nextContact+'">Observação</label>';
-                        newContact += '<input type="text" class="form-control" name="note_contact'+nextContact+'" id="customNoteContact'+nextContact+'" placeholder="Ex.: Comercial">';
+                        newContact += '<input type="text" class="form-control" name="note_contact[]" id="customNoteContact'+nextContact+'" placeholder="Ex.: Comercial">';
                         newContact += '</div>';
                     newContact += '</div>';
 

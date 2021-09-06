@@ -24,7 +24,8 @@ class Address extends Model
         'city',
         'uf',
         'complement',
-        'note'
+        'note',
+        'client_id'
     ];
 
     public function client(){

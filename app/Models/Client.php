@@ -24,7 +24,8 @@ class Client extends Model
         'cnpj',
         'sex',
         'birth_date',
-        'note'
+        'note',
+        'user_id'
     ];
 
     public function address(){
