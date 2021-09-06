@@ -135,16 +135,9 @@ class ClientController extends Controller
      */
     public function show(Client $client)
     {
-
-
-//        $dados = $client->people();
-////        $people = People::all();
-//        dd($dados);
-//
-//
-//        return view('pages.client.clients', [
-//            'dados' => $dados
-//        ]);
+        return view('pages.client.client_detail', [
+            'client' => $client
+        ]);
     }
 
     /**

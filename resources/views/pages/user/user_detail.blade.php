@@ -18,18 +18,59 @@
 
     <div class="card shadow mb-4">
         <div class="card-body">
-            <div class="jumbotron text-center">
-                <h1 class="display-4">{{ $user->name }}</h1>
-                <p class="lead"><b>Nome de Usuário:</b> {{ $user->username }}</p>
-                <p class="lead"><b>E-mail:</b> {{ $user->email }}</p>
-                <p class="lead"><b>Observação:</b> {{ $user->note }}</p>
-                <p class="lead"><b>Nivel:</b> {{ $user->level }}</p>
-                <hr class="my-4">
-                <p><b>Criado em:</b> {{ $user->created_at }}</p>
-                <p class="lead">
-                    <a class="btn btn-warning btn-lg" href="{{ route('user.edit', ['user' => $user->id]) }}" role="button"><i class="fas fa-edit"></i> Editar</a>
-                </p>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Dados Gerais</a>
+                </li>
+{{--                <li class="nav-item">--}}
+{{--                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>--}}
+{{--                </li>--}}
+{{--                <li class="nav-item">--}}
+{{--                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>--}}
+{{--                </li>--}}
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+                    <table class=" border-top-0 mt-0 table table-bordered">
+
+                        <tbody>
+                            <tr>
+                                <th class="border-top-0" scope="row" >Nome</th>
+                                <td class="border-top-0" colspan="2">{{ $user->name }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Nome de Usuário</th>
+                                <td colspan="2">{{ $user->username }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">E-mail</th>
+                                <td colspan="2">{{ $user->email }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Observação</th>
+                                <td colspan="2">{{ $user->note }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Nivel</th>
+                                <td colspan="2">{{ $user->level ==  2 ?  'Administrador' : 'Atendente' }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Criado em</th>
+                                <td colspan="2">{{ $user->created_at }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Modificado em</th>
+                                <td colspan="2">{{ $user->updated_at }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a class="btn btn-warning btn-md" href="{{ route('user.edit', ['user' => $user->id]) }}" role="button"><i class="fas fa-edit"></i> Editar</a>
+                </div>
+{{--                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>--}}
+{{--                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>--}}
             </div>
         </div>
     </div>
+
 @endsection

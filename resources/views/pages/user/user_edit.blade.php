@@ -72,7 +72,7 @@
                 </div>
 
                 <div class="form-row">
-                    <button class="btn btn-warning" type="submit"><i class="fas fa-edit"></i> Editar</button>
+                    <button class="btn btn-primary" type="submit"><i class="fas fa-edit"></i> Atualizar</button>
                 </div>
             </form>
         </div>
