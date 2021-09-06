@@ -45,11 +45,11 @@
                     </div>
                     <div class="col-md-5 mb-3" id="divCPF">
                         <label for="customCPF">CPF</label>
-                        <input type="text" class="form-control" name="cpf" id="customCPF" aria-describedby="cpfHelp" placeholder="Ex.: 000.000.000-00">
+                        <input type="text" class="form-control" name="cpf" id="customCPF" aria-describedby="cpfHelp" MAXLENGTH="14" placeholder="Ex.: 000.000.000-00">
                     </div>
                     <div class="col-md-5 mb-3" id="divCNPJ">
                         <label for="customCNPJ">CNPJ</label>
-                        <input type="text" class="form-control" name="cnpj" id="customCNPJ" aria-describedby="cnpjHelp" placeholder="Ex.: 00.000.000/0000-00">
+                        <input type="text" class="form-control" name="cnpj" id="customCNPJ" aria-describedby="cnpjHelp" MAXLENGTH="18" placeholder="Ex.: 00.000.000/0000-00">
                     </div>
                 </div>
 
@@ -93,7 +93,7 @@
 {{--                <div class="form-row" id="addAddress0">--}}
                     <div class="col-md-2 mb-3">
                         <label for="customCEP1">CEP</label>
-                        <input type="text" class="form-control" name="cep[]" id="customCEP1" placeholder="Ex.: 00000-000">
+                        <input type="text" class="form-control" name="cep[]" id="customCEP1" MAXLENGTH="9" placeholder="Ex.: 00000-000">
                     </div>
 
                     <div class="col-md-4 mb-3">
@@ -148,7 +148,7 @@
 
                 <div id="addAddress1"></div>
 
-                <button id="addRowAddress" class="btn btn-primary" type="button"><i class="fas fa-plus-circle"></i> Inserir novo endereço </button>
+                <button id="addRowAddress" class="btn btn-dark" type="button"><i class="fas fa-plus-circle"></i> Inserir novo endereço </button>
 
             </div>
         </div>
@@ -161,12 +161,12 @@
                 <div class="form-row">
                     <div class="col-md-4 mb-3">
                         <label for="customPhone1">Telefone</label>
-                        <input type="text" class="form-control" name="phone[]" id="customPhone1" placeholder="Ex.: (00) 0 0000-0000">
+                        <input type="text" class="form-control" name="phone[]" id="customPhone1" MAXLENGTH="14" placeholder="Ex.: (00) 0 0000-0000">
                     </div>
 
                     <div class="col-md-4 mb-3">
                         <label for="customCellPhone1">Telefone Celular *</label>
-                        <input type="text" class="form-control" name="cell_phone[]" id="customCellPhone1" placeholder="Ex.: (00) 0 0000-0000" required>
+                        <input type="text" class="form-control" name="cell_phone[]" id="customCellPhone1" MAXLENGTH="16" placeholder="Ex.: (00) 0 0000-0000" required>
                         <div class="invalid-feedback">
                             Por favor, informe um telefone para contato.
                         </div>
@@ -174,7 +174,7 @@
 
                     <div class="col-md-4 mb-3">
                         <label for="customWhatsapp1">Whatsapp</label>
-                        <input type="text" class="form-control" name="whatsapp[]" id="customWhatsapp1" placeholder="Ex.: (00) 0 0000-0000">
+                        <input type="text" class="form-control" name="whatsapp[]" id="customWhatsapp1" MAXLENGTH="20" placeholder="Ex.: (00) 0 0000-0000">
                     </div>
 
                     <div class="col-md-6 mb-3">
@@ -193,7 +193,7 @@
 
                 <div id="addContact1"></div>
 
-                <button id="addRowContact" class="btn btn-primary" type="button"><i class="fas fa-plus-circle"></i> Inserir novo contato </button>
+                <button id="addRowContact" class="btn btn-dark" type="button"><i class="fas fa-plus-circle"></i> Inserir novo contato </button>
 
             </div>
         </div>

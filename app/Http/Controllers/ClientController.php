@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Address;
 use App\Models\Client;
+use App\Models\Contact;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -56,9 +57,9 @@ class ClientController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'person_type' => 'required|string|max:2',
             'cpf' => 'max:14',
             'cnpj' => 'max:18',
-//            'cell_phone1' => 'required|string|max:16',
         ]);
 
 
@@ -87,8 +88,6 @@ class ClientController extends Controller
         $countAddress = count($request->public_place);
         if($countAddress >= 1){
 
-            $arrayAddress = [];
-
             for($iAddress = 0; $iAddress < $countAddress; $iAddress++){
                 if(trim($request->public_place[$iAddress] != '')){
                     Address::create([
@@ -107,14 +106,25 @@ class ClientController extends Controller
             }
 
         }
-        return;
 
+        $countContact = count($request->cell_phone);
+        if($countContact >= 1){
+            for($iContact = 0; $iContact < $countContact; $iContact++){
+                if(trim($request->cell_phone[$iContact] != '')){
+                    Contact::create([
+                        'email' => $request->email[$iContact],
+                        'phone' => $request->phone[$iContact],
+                        'cell_phone' => $request->cell_phone[$iContact],
+                        'whatsapp' => $request->whatsapp[$iContact],
+                        'note' => $request->note_contact[$iContact],
+                        'client_id' => $client->id,
+                    ]);
+                }
+            }
+        }
 
-        dd($client_id);
-
-
-//        return redirect('/cadastro-usuario')->with('message', 'Profile updated!');
         return redirect()->route('client.index')->with('success','Cliente cadastrado com sucesso!');
+
     }
 
     /**

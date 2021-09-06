@@ -20,7 +20,8 @@ class Contact extends Model
         'phone',
         'cell_phone',
         'whatsapp',
-        'note'
+        'note',
+        'client_id'
     ];
 
     public function client(){

@@ -173,14 +173,14 @@
                 nextAddress++;
 
                 var newAddress = '<div id="addAddress' + nextAddress + '">';
-                    newAddress += '<hr class="bg-primary">';
+                    newAddress += '<hr class="bg-secondary">';
                     newAddress += '<div class="d-flex flex-row-reverse bd-highlight">';
                         newAddress += '<button  id="'+nextAddress+'" type="button" class="btn btn-danger btn-sm bd-highlight btn_remove_address" data-toggle="tooltip" data-placement="top" title="Remover"><i class="fas fa-times"></i></button>';
                     newAddress += '</div>';
                     newAddress += '<div class="form-row" >';
                         newAddress += '<div class="col-md-2 mb-3">';
                             newAddress += '<label for="customCEP'+ nextAddress +'">CEP</label>';
-                            newAddress += '<input type="text" class="form-control" name="cep[]" id="customCEP'+ nextAddress +'" placeholder="Ex.: 00000-000">';
+                            newAddress += '<input type="text" class="form-control" name="cep[]" id="customCEP'+ nextAddress +'" MAXLENGTH="9" placeholder="Ex.: 00000-000">';
                         newAddress += '</div>';
 
                         newAddress += '<div class="col-md-4 mb-3">';
@@ -253,24 +253,24 @@
                 nextContact++;
 
                 var newContact = '<div id="addContact' + nextContact + '">';
-                    newContact += '<hr class="bg-primary">';
+                    newContact += '<hr class="bg-secondary">';
                     newContact += '<div class="d-flex flex-row-reverse bd-highlight">';
                         newContact += '<button  id="'+nextContact+'" type="button" class="btn btn-danger btn-sm bd-highlight btn_remove_contact" data-toggle="tooltip" data-placement="top" title="Remover"><i class="fas fa-times"></i></button>';
                     newContact += '</div>';
                     newContact += '<div class="form-row">';
                         newContact += '<div class="col-md-4 mb-3">';
                         newContact += '<label for="customPhone'+nextContact+'">Telefone</label>';
-                        newContact += '<input type="text" class="form-control" name="phone[]" id="customPhone'+nextContact+'" placeholder="Ex.: (00) 0 0000-0000">';
+                        newContact += '<input type="text" class="form-control" name="phone[]" id="customPhone'+nextContact+'" MAXLENGTH="14" placeholder="Ex.: (00) 0000-0000">';
                         newContact += '</div>';
 
                         newContact += '<div class="col-md-4 mb-3">';
                         newContact += '<label for="customCellPhone'+nextContact+'">Telefone Celular</label>';
-                        newContact += '<input type="text" class="form-control" name="cell_phone[]" id="customCellPhone'+nextContact+'" placeholder="Ex.: (00) 0 0000-0000">';
+                        newContact += '<input type="text" class="form-control" name="cell_phone[]" id="customCellPhone'+nextContact+'" MAXLENGTH="16" placeholder="Ex.: (00) 0 0000-0000">';
                         newContact += '</div>';
 
                         newContact += '<div class="col-md-4 mb-3">';
                         newContact += '<label for="customWhatsapp'+nextContact+'">Whatsapp</label>';
-                        newContact += '<input type="text" class="form-control" name="whatsapp[]" id="customWhatsapp'+nextContact+'" placeholder="Ex.: (00) 0 0000-0000">';
+                        newContact += '<input type="text" class="form-control" name="whatsapp[]" id="customWhatsapp'+nextContact+'" MAXLENGTH="20" placeholder="Ex.: (00) 0 0000-0000">';
                         newContact += '</div>';
 
                         newContact += '<div class="col-md-6 mb-3">';
