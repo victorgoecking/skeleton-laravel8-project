@@ -150,6 +150,8 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
+        $client = Client::with('address','contact','user')->find($client->id);
+
         return view('pages.client.client_edit', [
             'client' => $client
         ]);

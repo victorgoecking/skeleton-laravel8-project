@@ -89,6 +89,7 @@
                 <i class="fas fa-map-marker-alt"></i> Endereços
             </div>
             <div class="card-body">
+                <input type="hidden" class="countAddress" name="countAddress" value="1" />
                 <div class="form-row">
 {{--                <div class="form-row" id="addAddress0">--}}
                     <div class="col-md-2 mb-3">
@@ -146,7 +147,7 @@
                     </div>
                 </div>
 
-                <div id="addAddress1"></div>
+                <div id="addAddressLast"></div>
 
                 <button id="addRowAddress" class="btn btn-dark" type="button"><i class="fas fa-plus-circle"></i> Inserir novo endereço </button>
 
@@ -158,6 +159,7 @@
                 <i class="fas fa-bullhorn"></i> Contatos
             </div>
             <div class="card-body">
+                <input type="hidden" class="countContact" name="countContact" value="1" />
                 <div class="form-row">
                     <div class="col-md-4 mb-3">
                         <label for="customPhone1">Telefone</label>
@@ -191,7 +193,7 @@
                     </div>
                 </div>
 
-                <div id="addContact1"></div>
+                <div id="addContactLast"></div>
 
                 <button id="addRowContact" class="btn btn-dark" type="button"><i class="fas fa-plus-circle"></i> Inserir novo contato </button>
 
@@ -217,4 +219,9 @@
         </div>
 
     </form>
+
+@endsection
+
+@section('scriptPages')
+    <script src="{{ asset('admin/js/client.js')}}"></script>
 @endsection
