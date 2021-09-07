@@ -39,21 +39,60 @@
                             <th class="border-top-0" scope="row" >Nome</th>
                             <td class="border-top-0" colspan="1">{{ $client->name }}</td>
                         </tr>
+                        {{--                            CONDICAO PESSOA FISICA--}}
+                        @if($client->person_type  ==  'PF')
+                            <tr>
+                                <th scope="row">Tipo pessoa</th>
+                                <td colspan="1">Pessoa Física</td>
+                            </tr>
+
+                            <tr>
+                                <th scope="row">CPF</th>
+                                <td colspan="1">{{  $client->cpf  }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Sexo</th>
+                                @switch($client->sex)
+                                    @case('M')
+                                        <td colspan="1">Masculino</td>
+                                        @break
+                                    @case('F')
+                                        <td colspan="1">Feminino</td>
+                                        @break
+                                    @default
+                                        <td colspan="1">-</td>
+                                @endswitch
+                            </tr>
+                            <tr>
+                                <th scope="row">Data de nascimento</th>
+                                <td colspan="1">{{ $client->birth_date }}</td>
+                            </tr>
+
+                        @else
+
+                            <tr>
+                                <th scope="row">Tipo pessoa</th>
+                                <td colspan="1">Pessoa Jurídica</td>
+                            </tr>
+
+                            <tr>
+                                <th scope="row">CNPJ</th>
+                                <td colspan="1">{{  $client->cnpj  }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Razão social</th>
+                                <td colspan="1">{{ $client->corporate_reason }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Nome fantasia</th>
+                                <td colspan="1">{{ $client->fantasy_name }}</td>
+                            </tr>
+
+                        @endif
+
                         <tr>
-                            <th scope="row">Nome de Usuário</th>
-                            <td colspan="1">{{ $client->username }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">E-mail</th>
-                            <td colspan="1">{{ $client->email }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Observação</th>
+                            <th scope="row">Observações</th>
                             <td colspan="1">{{ $client->note }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Nivel</th>
-                            <td colspan="1">{{ $client->level ==  2 ?  'Administrador' : 'Atendente' }}</td>
                         </tr>
                         <tr>
                             <th scope="row">Criado em</th>
@@ -67,8 +106,71 @@
                     </table>
                     <a class="btn btn-warning btn-md" href="{{ route('client.edit', ['client' => $client->id]) }}" role="button"><i class="fas fa-edit"></i> Editar</a>
                 </div>
-                <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">...</div>
-                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+
+                <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
+                    <div class="border-top-0 table-responsive">
+                        <table class="border-top-0 mt-0 table table-bordered">
+                            <thead>
+                            <tr>
+                                <th class="border-top-0" scope="col">CEP</th>
+                                <th class="border-top-0" scope="col">Logradouro</th>
+                                <th class="border-top-0" scope="col">Nº</th>
+                                <th class="border-top-0" scope="col">Bairro</th>
+                                <th class="border-top-0" scope="col">Complemento</th>
+                                <th class="border-top-0" scope="col">Cidade/UF</th>
+                                <th class="border-top-0" scope="col">Estado</th>
+                                <th class="border-top-0" scope="col">Observação</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            @foreach($client->address as $address)
+                                <tr>
+                                    <td class="border-top-0 col-1" >{{ $address->cep }}</td>
+                                    <td class="border-top-0" >{{ $address->public_place }}</td>
+                                    <td class="border-top-0" >{{ $address->number }}</td>
+                                    <td class="border-top-0" >{{ $address->disctrict }}</td>
+                                    <td class="border-top-0" >{{ $address->complement }}</td>
+                                    <td class="border-top-0" >{{ $address->city }}-{{ $address->uf }}</td>
+                                    <td class="border-top-0" >{{ $address->state }}</td>
+                                    <td class="border-top-0" >{{ $address->note }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <a class="btn btn-warning btn-md" href="{{ route('client.edit', ['client' => $client->id]) }}" role="button"><i class="fas fa-edit"></i> Editar</a>
+                </div>
+
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                    <div class="border-top-0 table-responsive">
+                        <table class="border-top-0 mt-0 table table-bordered">
+                            <thead>
+                            <tr>
+                                <th class="border-top-0" scope="col">Email</th>
+                                <th class="border-top-0" scope="col">Telefone</th>
+                                <th class="border-top-0" scope="col">Celular</th>
+                                <th class="border-top-0" scope="col">Whatsapp</th>
+                                <th class="border-top-0" scope="col">Observação</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            @foreach($client->contact as $contact)
+                                <tr>
+                                    <td class="border-top-0" >{{ $contact->email }}</td>
+                                    <td class="border-top-0" >{{ $contact->phone }}</td>
+                                    <td class="border-top-0" >{{ $contact->cell_phone }}</td>
+                                    <td class="border-top-0" >{{ $contact->whatsapp }}</td>
+                                    <td class="border-top-0" >{{ $contact->note }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <a class="btn btn-warning btn-md" href="{{ route('client.edit', ['client' => $client->id]) }}" role="button"><i class="fas fa-edit"></i> Editar</a>
+                </div>
+
             </div>
         </div>
     </div>

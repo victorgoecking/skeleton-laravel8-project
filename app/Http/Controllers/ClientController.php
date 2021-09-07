@@ -135,6 +135,8 @@ class ClientController extends Controller
      */
     public function show(Client $client)
     {
+        $client = Client::with('address','contact','user')->find($client->id);
+
         return view('pages.client.client_detail', [
             'client' => $client
         ]);
@@ -148,7 +150,9 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
-        //
+        return view('pages.client.client_edit', [
+            'client' => $client
+        ]);
     }
 
     /**
@@ -171,6 +175,8 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        //
+        $client->delete();
+
+        return redirect()->route('client.index')->with('success','Cliente removido com sucesso!');
     }
 }
