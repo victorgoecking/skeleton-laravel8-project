@@ -194,7 +194,7 @@
 
                             <div class="col-md-4 mb-3">
                                 <label for="customCellPhone{{ $contact->id }}">Telefone Celular *</label>
-                                <input type="text" class="form-control" name="cell_phone[]" id="customCellPhone{{ $contact->id }}" MAXLENGTH="16" value="{{ $contact->cell_phone }}" placeholder="Ex.: (00) 0 0000-0000" required>
+                                <input type="text" class="form-control" name="cell_phone[]" id="customCellPhone{{ $contact->id }}" MAXLENGTH="16" value="{{ $contact->cell_phone }}" placeholder="Ex.: (00) 0 0000-0000" {{$client->contact[0]->id != $contact->id ? '' : 'required'}}>
                                 <div class="invalid-feedback">
                                     Por favor, informe um telefone para contato.
                                 </div>

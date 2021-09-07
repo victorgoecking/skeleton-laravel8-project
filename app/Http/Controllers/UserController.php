@@ -135,7 +135,7 @@ class UserController extends Controller
             ]);
         }
 
-        return redirect()->route('user.index')->with('success','Usuário editado com sucesso!');
+        return redirect()->route('user.index')->with('success','Usuário atualizado com sucesso!');
     }
 
     /**

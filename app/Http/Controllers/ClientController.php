@@ -166,7 +166,77 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
-        //
+
+
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'person_type' => 'required|string|max:2',
+            'cpf' => 'max:14',
+            'cnpj' => 'max:18',
+        ]);
+        dd($client);
+
+        if($request->person_type === 'PF') {
+            $client = update([
+                'name' => $request->name,
+                'person_type' => $request->person_type,
+                'cpf' => $request->cpf,
+                'sex' => $request->sex,
+                'birth_date' => $request->birth_date,
+                'note' => $request->note_client,
+                'user_id' => auth()->user()->id,
+            ]);
+        }else{
+            $client = update([
+                'name' => $request->name,
+                'person_type' => $request->person_type,
+                'cnpj' => $request->cnpj,
+                'corporate_reason' => $request->corporate_reason,
+                'fantasy_name' => $request->fantasy_name,
+                'note' => $request->note_client,
+                'user_id' => auth()->user()->id,
+            ]);
+        }
+
+        $countAddress = count($request->public_place);
+        if($countAddress >= 1){
+
+            for($iAddress = 0; $iAddress < $countAddress; $iAddress++){
+                if(trim($request->public_place[$iAddress] != '')){
+                    Address::update([
+                        'cep' => $request->cep[$iAddress],
+                        'public_place' => $request->public_place[$iAddress],
+                        'number' => $request->number[$iAddress],
+                        'district' => $request->district[$iAddress],
+                        'state' => $request->state[$iAddress],
+                        'city' => $request->city[$iAddress],
+                        'uf' => $request->uf[$iAddress],
+                        'complement' => $request->complement[$iAddress],
+                        'note' => $request->note_address[$iAddress],
+                        'client_id' => $client->id,
+                    ]);
+                }
+            }
+
+        }
+
+        $countContact = count($request->cell_phone);
+        if($countContact >= 1){
+            for($iContact = 0; $iContact < $countContact; $iContact++){
+                if(trim($request->cell_phone[$iContact] != '')){
+                    Contact::update([
+                        'email' => $request->email[$iContact],
+                        'phone' => $request->phone[$iContact],
+                        'cell_phone' => $request->cell_phone[$iContact],
+                        'whatsapp' => $request->whatsapp[$iContact],
+                        'note' => $request->note_contact[$iContact],
+                        'client_id' => $client->id,
+                    ]);
+                }
+            }
+        }
+        return redirect()->route('client.index')->with('success','Cliente atualizado com sucesso!');
     }
 
     /**
