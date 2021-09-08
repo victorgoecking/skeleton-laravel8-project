@@ -59,7 +59,6 @@ class ClientController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'person_type' => 'required|string|max:2',
-            'birth_date' => 'date_format:Y-m-d',
             'cpf' => 'max:14',
             'cnpj' => 'max:18',
         ]);
@@ -111,7 +110,7 @@ class ClientController extends Controller
         $countContact = count($request->cell_phone);
         if($countContact >= 1){
             for($iContact = 0; $iContact < $countContact; $iContact++){
-                if(trim($request->cell_phone[$iContact] != '')){
+                if(trim($request->email[$iContact] != '' || $request->phone[$iContact] != '' || $request->cell_phone[$iContact] != '' || $request->whatsapp[$iContact] != '' || $request->note_contact[$iContact] != '')){
                     Contact::create([
                         'email' => $request->email[$iContact],
                         'phone' => $request->phone[$iContact],
@@ -175,62 +174,75 @@ class ClientController extends Controller
             'cnpj' => 'max:18',
         ]);
 
+//        dd($request->all());
+//        echo'<pre>';
+//        dd(Contact::where('id', $request->contact_id)->where('client_id',$client->id)->get());
+//        exit;
+//        $client->find($request->client->id)->update($request->all());
+//
+//
+//
+//        $client->contact()->update(['client_id' => $client->id]);
+
+//        dd($client->contact()->associate($request->client->id));
+//        dd($client->find($client->id));
+
         if($request->person_type === 'PF') {
-            $client = Client::update([
+            $client->update([
                 'name' => $request->name,
                 'person_type' => $request->person_type,
                 'cpf' => $request->cpf,
                 'sex' => $request->sex,
                 'birth_date' => $request->birth_date,
                 'note' => $request->note_client,
-                'user_id' => auth()->user()->id,
             ]);
         }else{
-            $client = Client::update([
+            $client->update([
                 'name' => $request->name,
                 'person_type' => $request->person_type,
                 'cnpj' => $request->cnpj,
                 'corporate_reason' => $request->corporate_reason,
                 'fantasy_name' => $request->fantasy_name,
                 'note' => $request->note_client,
-                'user_id' => auth()->user()->id,
             ]);
         }
-
-        $countAddress = count($request->public_place);
-        if($countAddress >= 1){
-
-            for($iAddress = 0; $iAddress < $countAddress; $iAddress++){
-                if(trim($request->public_place[$iAddress] != '')){
-                    Address::update([
-                        'cep' => $request->cep[$iAddress],
-                        'public_place' => $request->public_place[$iAddress],
-                        'number' => $request->number[$iAddress],
-                        'district' => $request->district[$iAddress],
-                        'state' => $request->state[$iAddress],
-                        'city' => $request->city[$iAddress],
-                        'uf' => $request->uf[$iAddress],
-                        'complement' => $request->complement[$iAddress],
-                        'note' => $request->note_address[$iAddress],
-                        'client_id' => $client->id,
-                    ]);
-                }
-            }
-
-        }
-
-        $countContact = count($request->cell_phone);
-        if($countContact >= 1){
-            for($iContact = 0; $iContact < $countContact; $iContact++){
-                if(trim($request->cell_phone[$iContact] != '')){
-                    Contact::update([
-                        'email' => $request->email[$iContact],
-                        'phone' => $request->phone[$iContact],
-                        'cell_phone' => $request->cell_phone[$iContact],
-                        'whatsapp' => $request->whatsapp[$iContact],
-                        'note' => $request->note_contact[$iContact],
-                        'client_id' => $client->id,
-                    ]);
+//
+//        $countAddress = count($request->public_place);
+//        if($countAddress >= 1){
+//
+//            for($iAddress = 0; $iAddress < $countAddress; $iAddress++){
+//                if(trim($request->public_place[$iAddress] != '')){
+//                    Address::update([
+//                        'cep' => $request->cep[$iAddress],
+//                        'public_place' => $request->public_place[$iAddress],
+//                        'number' => $request->number[$iAddress],
+//                        'district' => $request->district[$iAddress],
+//                        'state' => $request->state[$iAddress],
+//                        'city' => $request->city[$iAddress],
+//                        'uf' => $request->uf[$iAddress],
+//                        'complement' => $request->complement[$iAddress],
+//                        'note' => $request->note_address[$iAddress],
+//                        'client_id' => $client->id,
+//                    ]);
+//                }
+//            }
+//
+//        }
+        dd($request->contact_id);
+        if($request->contact_id != null){
+            $countContact = count($request->contact_id);
+            if($countContact >= 1){
+                for($iContact = 0; $iContact < $countContact; $iContact++){
+                    if(trim($request->email[$iContact] != '' || $request->phone[$iContact] != '' || $request->cell_phone[$iContact] != '' || $request->whatsapp[$iContact] != '' || $request->note_contact[$iContact] != '')){
+    //                    $client =  Contact::where('id', $request->contact_id[$iContact])->where('client_id',$client->id)->get();
+                        Contact::where('id', $request->contact_id[$iContact])->where('client_id',$client->id)->update([
+                            'email' => $request->email[$iContact],
+                            'phone' => $request->phone[$iContact],
+                            'cell_phone' => $request->cell_phone[$iContact],
+                            'whatsapp' => $request->whatsapp[$iContact],
+                            'note' => $request->note_contact[$iContact],
+                        ]);
+                    }
                 }
             }
         }

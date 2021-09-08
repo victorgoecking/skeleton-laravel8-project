@@ -67,8 +67,8 @@ $(document).ready(function () {
     newAddress += '<input type="text" class="form-control" name="cep[]" id="customCEP' + nextAddress + '" MAXLENGTH="9" placeholder="Ex.: 00000-000">';
     newAddress += '</div>';
     newAddress += '<div class="col-md-4 mb-3">';
-    newAddress += '<label for="validationPublicPlace' + nextAddress + '">Logradouro</label>';
-    newAddress += '<input type="text" class="form-control" name="public_place[]" id="validationPublicPlace' + nextAddress + '" placeholder="Ex.: Rua ...">';
+    newAddress += '<label for="validationPublicPlace' + nextAddress + '">Logradouro *</label>';
+    newAddress += '<input type="text" class="form-control" name="public_place[]" id="validationPublicPlace' + nextAddress + '" data-toggle="tooltip" data-placement="top" title="Logradouro obrigatório para cadastro de endereço. Caso vazio, o endereço será desconsiderado." placeholder="Ex.: Rua ..." required>';
     newAddress += '</div>';
     newAddress += '<div class="col-md-2 mb-3">';
     newAddress += '<label for="validationNumber' + nextAddress + '">Numero</label>';

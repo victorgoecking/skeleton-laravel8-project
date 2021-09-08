@@ -79,7 +79,7 @@
                     </div>
                     <div class="col-md-5 mb-3" id="divBirthDate">
                         <label for="customBirthDate">Data de Nascimento</label>
-                        <input type="date" class="form-control" name="birth_date" id="customBirthDate" aria-describedby="birthDateHelp" value="{{ $client->birth_date->format('Y-m-d') }}" placeholder="Ex.: ---">
+                        <input type="date" class="form-control" name="birth_date" id="customBirthDate" aria-describedby="birthDateHelp" value="{{ $client->birth_date ? $client->birth_date->format('Y-m-d') : null }}" placeholder="Ex.: ---">
                     </div>
                 </div>
             </div>
@@ -95,12 +95,12 @@
 
                     <div id="addContact{{ $address->id }}">
 
-                        @if($client->address[0]->id != $address->id)
+{{--                        @if($client->address[0]->id != $address->id)--}}
                             <hr class="bg-secondary">
                             <div class="d-flex flex-row-reverse bd-highlight">
                                 <button  id="{{ $address->id }}" type="button" class="btn btn-danger btn-sm bd-highlight btn_remove_contact" data-toggle="tooltip" data-placement="top" title="Remover"><i class="fas fa-times"></i></button>
                             </div>
-                        @endif
+{{--                        @endif--}}
 
                         <div class="form-row">
                             {{--                <div class="form-row" id="addAddress0">--}}
@@ -110,8 +110,8 @@
                             </div>
 
                             <div class="col-md-4 mb-3">
-                                <label for="validationPublicPlace{{ $address->id }}">Logradouro</label>
-                                <input type="text" class="form-control" name="public_place[]" id="validationPublicPlace{{ $address->id }}" value="{{ $address->public_place }}" data-toggle="tooltip" data-placement="top" title="Logradouro obrigatório para cadastro de endereço. Caso vazio, o endereço será desconsiderado." placeholder="Ex.: Rua ...">
+                                <label for="validationPublicPlace{{ $address->id }}">Logradouro *</label>
+                                <input type="text" class="form-control" name="public_place[]" id="validationPublicPlace{{ $address->id }}" value="{{ $address->public_place }}" data-toggle="tooltip" data-placement="top" title="Logradouro obrigatório para cadastro de endereço. Caso vazio, o endereço será desconsiderado." placeholder="Ex.: Rua ..." required>
                             </div>
 
                             <div class="col-md-2 mb-3">
@@ -176,15 +176,16 @@
             <div class="card-body">
 
                 @foreach($client->contact as $contact)
+                    <input type="hidden" name="contact_id[]" value="{{ $contact->id }}" />
                     <input type="hidden" class="countContact" name="countContact" value="{{ $contact->id }}" />
                     <div id="addContact{{ $contact->id }}">
 
-                        @if($client->contact[0]->id != $contact->id)
+{{--                        @if($client->contact[0]->id != $contact->id)--}}
                             <hr class="bg-secondary">
                             <div class="d-flex flex-row-reverse bd-highlight">
                                 <button  id="{{ $contact->id }}" type="button" class="btn btn-danger btn-sm bd-highlight btn_remove_contact" data-toggle="tooltip" data-placement="top" title="Remover"><i class="fas fa-times"></i></button>
                             </div>
-                        @endif
+{{--                        @endif--}}
 
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
@@ -193,8 +194,15 @@
                             </div>
 
                             <div class="col-md-4 mb-3">
-                                <label for="customCellPhone{{ $contact->id }}">Telefone Celular *</label>
-                                <input type="text" class="form-control" name="cell_phone[]" id="customCellPhone{{ $contact->id }}" MAXLENGTH="16" value="{{ $contact->cell_phone }}" placeholder="Ex.: (00) 0 0000-0000" {{$client->contact[0]->id != $contact->id ? '' : 'required'}}>
+
+                                @if($client->contact[0]->id != $contact->id)
+                                    <label for="customCellPhone{{ $contact->id }}">Telefone Celular</label>
+                                    <input type="text" class="form-control" name="cell_phone[]" id="customCellPhone{{ $contact->id }}" MAXLENGTH="16" value="{{ $contact->cell_phone }}" placeholder="Ex.: (00) 0 0000-0000">
+                                @else
+                                    <label for="customCellPhone{{ $contact->id }}">Telefone Celular *</label>
+                                    <input type="text" class="form-control" name="cell_phone[]" id="customCellPhone{{ $contact->id }}" MAXLENGTH="16" value="{{ $contact->cell_phone }}" placeholder="Ex.: (00) 0 0000-0000" required>
+                                @endif
+
                                 <div class="invalid-feedback">
                                     Por favor, informe um telefone para contato.
                                 </div>

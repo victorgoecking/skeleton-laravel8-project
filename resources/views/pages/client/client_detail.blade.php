@@ -60,12 +60,12 @@
                                         <td colspan="1">Feminino</td>
                                         @break
                                     @default
-                                        <td colspan="1">-</td>
+                                        <td colspan="1"></td>
                                 @endswitch
                             </tr>
                             <tr>
                                 <th scope="row">Data de nascimento</th>
-                                <td colspan="1">{{ $client->birth_date->format('d/m/Y') }}</td>
+                                <td colspan="1">{{ $client->birth_date ? $client->birth_date->format('Y-m-d') : null }}</td>
                             </tr>
 
                         @else
