@@ -167,18 +167,15 @@ class ClientController extends Controller
     public function update(Request $request, Client $client)
     {
 
-
-
         $request->validate([
             'name' => 'required|string|max:255',
             'person_type' => 'required|string|max:2',
             'cpf' => 'max:14',
             'cnpj' => 'max:18',
         ]);
-        dd($client);
 
         if($request->person_type === 'PF') {
-            $client = update([
+            $client = Client::update([
                 'name' => $request->name,
                 'person_type' => $request->person_type,
                 'cpf' => $request->cpf,
@@ -188,7 +185,7 @@ class ClientController extends Controller
                 'user_id' => auth()->user()->id,
             ]);
         }else{
-            $client = update([
+            $client = Client::update([
                 'name' => $request->name,
                 'person_type' => $request->person_type,
                 'cnpj' => $request->cnpj,
