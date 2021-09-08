@@ -32,7 +32,7 @@ function esconde(){
 
             $('#divCPF').show();
             $('#divSex').show();
-            $('#divBirdDate').show();
+            $('#divBirthDate').show();
             break;
         case "PJ":
             $('#divCNPJ').show();
@@ -43,7 +43,7 @@ function esconde(){
             $("#customCPF").val("");
             $('#divSex').hide();
             $("#selectSex").val("-");
-            $('#divBirdDate').hide();
+            $('#divBirthDate').hide();
             $("#customBirthDate").val("");
             break;
         default:

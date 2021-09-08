@@ -76,9 +76,9 @@
                             <option value="F">Feminino</option>
                         </select>
                     </div>
-                    <div class="col-md-5 mb-3" id="divBirdDate">
+                    <div class="col-md-5 mb-3" id="divBirthDate">
                         <label for="customBirthDate">Data de Nascimento</label>
-                        <input type="text" class="form-control" name="bird_date" id="customBirthDate" aria-describedby="birdDateHelp" placeholder="Ex.: ---">
+                        <input type="date" class="form-control" name="birth_date" id="customBirthDate" aria-describedby="birthDateHelp" placeholder="Ex.: ---">
                     </div>
                 </div>
             </div>

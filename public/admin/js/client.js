@@ -31,7 +31,7 @@ function esconde() {
       $("#validationFantasyName").val("");
       $('#divCPF').show();
       $('#divSex').show();
-      $('#divBirdDate').show();
+      $('#divBirthDate').show();
       break;
 
     case "PJ":
@@ -42,7 +42,7 @@ function esconde() {
       $("#customCPF").val("");
       $('#divSex').hide();
       $("#selectSex").val("-");
-      $('#divBirdDate').hide();
+      $('#divBirthDate').hide();
       $("#customBirthDate").val("");
       break;
 

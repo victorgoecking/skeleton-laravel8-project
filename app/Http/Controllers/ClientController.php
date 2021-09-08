@@ -55,13 +55,14 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'name' => 'required|string|max:255',
             'person_type' => 'required|string|max:2',
+            'birth_date' => 'date_format:Y-m-d',
             'cpf' => 'max:14',
             'cnpj' => 'max:18',
         ]);
-
 
         if($request->person_type === 'PF') {
             $client = Client::create([

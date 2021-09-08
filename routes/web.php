@@ -33,13 +33,13 @@ require __DIR__.'/auth.php';
 //})->name('user.users');
 
 
-Route::resource('usuarios', UserController::class)->names('user')->parameters(['usuarios' => 'user']);
+Route::resource('usuarios', UserController::class)->middleware(['auth'])->names('user')->parameters(['usuarios' => 'user']);
 
-Route::resource('clientes', ClientController::class)->names('client')->parameters(['clientes' => 'client']);
+Route::resource('clientes', ClientController::class)->middleware(['auth'])->names('client')->parameters(['clientes' => 'client']);
 
-Route::resource('enderecos', AddressController::class)->names('address')->parameters(['enderecos' => 'address']);
+Route::resource('enderecos', AddressController::class)->middleware(['auth'])->names('address')->parameters(['enderecos' => 'address']);
 
-Route::resource('contatos', ContactController::class)->names('contact')->parameters(['contatos' => 'contact']);
+Route::resource('contatos', ContactController::class)->middleware(['auth'])->names('contact')->parameters(['contatos' => 'contact']);
 
 //Route::get('/usuarios', [UserController::class, 'index'])
 //    ->name('user.index');

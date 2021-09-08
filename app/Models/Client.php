@@ -28,6 +28,10 @@ class Client extends Model
         'user_id'
     ];
 
+    protected $casts = [
+        'birth_date' => 'date:Y-m-d',
+    ];
+
     public function address(){
         return $this->hasMany(Address::class, 'client_id', 'id');
     }

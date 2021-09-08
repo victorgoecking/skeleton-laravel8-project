@@ -65,7 +65,7 @@
                             </tr>
                             <tr>
                                 <th scope="row">Data de nascimento</th>
-                                <td colspan="1">{{ $client->birth_date }}</td>
+                                <td colspan="1">{{ $client->birth_date->format('d/m/Y') }}</td>
                             </tr>
 
                         @else
@@ -126,7 +126,7 @@
                             <tbody>
                             @foreach($client->address as $address)
                                 <tr>
-                                    <td class="border-top-0 col-1" >{{ $address->cep }}</td>
+                                    <td class="border-top-0" >{{ $address->cep }}</td>
                                     <td class="border-top-0" >{{ $address->public_place }}</td>
                                     <td class="border-top-0" >{{ $address->number }}</td>
                                     <td class="border-top-0" >{{ $address->disctrict }}</td>
