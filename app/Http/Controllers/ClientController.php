@@ -16,19 +16,6 @@ class ClientController extends Controller
      */
     public function index()
     {
-
-//        $array = Client::all();
-//        foreach ($array as $item){
-//            $clients = Client::with('address')->find($item->id);
-//
-//            echo '<h3>'.$clients->name.'</h3>';
-////                echo $clients->address->first()->public_place.'</br>';
-//
-//            foreach ($clients->address as $address){
-//                echo $address->public_place.'</br>';
-//            }
-//        }
-//
         $clients = Client::with('address','contact','user')->get();
 
         return view('pages.client.clients', [
