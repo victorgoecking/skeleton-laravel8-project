@@ -68,7 +68,7 @@
                                 <form class="d-inline" action="{{ route('client.destroy', ['client' => $client->id]) }}" method="POST">
                                     @csrf
                                     @method('delete')
-                                    <button type="submit" onclick="return confirm('Deseja realmente remover o cliente {{ $client->name }} ?')" class="btn btn-danger btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Remover"><i class="far fa-trash-alt"></i></button>
+                                    <button type="submit" onclick='return confirm(`Deseja realmente excluir o cliente " {{ $client->name }} " e todos seus endereços e contatos?`)' class="btn btn-danger btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Remover"><i class="far fa-trash-alt"></i></button>
                                 </form>
                             </td>
                         </tr>

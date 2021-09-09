@@ -312,9 +312,19 @@ class ClientController extends Controller
     public function destroy(Client $client)
     {
 
-//        dd(Client::with('address','contact')->find($client->id));
-        Client::with('address','contact')->find($client->id)->delete();
-//        $client->delete();
+        if ($client->has('address')) {
+            foreach ($client->address as $address) {
+                $address->delete();
+            }
+        }
+
+        if ($client->has('contact')) {
+            foreach ($client->contact as $contact) {
+                $contact->delete();
+            }
+        }
+
+        $client->delete();
 
         return redirect()->route('client.index')->with('success','Cliente removido com sucesso!');
     }
