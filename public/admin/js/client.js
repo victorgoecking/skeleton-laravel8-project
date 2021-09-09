@@ -57,6 +57,7 @@ $(document).ready(function () {
     nextAddress++;
     $('input[name="countAddress"]').val(nextAddress);
     var newAddress = '<div id="addAddress' + nextAddress + '">';
+    newAddress += '<input type="hidden" class="countAddressForDelete" name="countAddressForDelete[]" value="" />';
     newAddress += '<hr class="bg-secondary">';
     newAddress += '<div class="d-flex flex-row-reverse bd-highlight">';
     newAddress += '<button  id="' + nextAddress + '" type="button" class="btn btn-danger btn-sm bd-highlight btn_remove_address" data-toggle="tooltip" data-placement="top" title="Remover"><i class="fas fa-times"></i></button>';
@@ -155,7 +156,6 @@ $(document).ready(function () {
     $('#addContactLast').append(newContact);
   });
   $(document).on('click', '.btn_remove_contact', function () {
-    // $('#addContactLast').append('<input type="hidden" class="countContactForDelete" name="countContactForDelete[]" value="" />');
     var button_id = $(this).attr("id");
     $('#addContact' + button_id + '').remove();
   });

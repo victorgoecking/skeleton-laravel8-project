@@ -174,19 +174,6 @@ class ClientController extends Controller
             'cnpj' => 'max:18',
         ]);
 
-//        dd($request->all());
-//        echo'<pre>';
-//        dd(Contact::where('id', $request->contact_id)->where('client_id',$client->id)->get());
-//        exit;
-//        $client->find($request->client->id)->update($request->all());
-//
-//
-//
-//        $client->contact()->update(['client_id' => $client->id]);
-
-//        dd($client->contact()->associate($request->client->id));
-//        dd($client->find($client->id));
-
         if($request->person_type === 'PF') {
             $client->update([
                 'name' => $request->name,
@@ -206,37 +193,9 @@ class ClientController extends Controller
                 'note' => $request->note_client,
             ]);
         }
-//
-//        $countAddress = count($request->public_place);
-//        if($countAddress >= 1){
-//
-//            for($iAddress = 0; $iAddress < $countAddress; $iAddress++){
-//                if(trim($request->public_place[$iAddress] != '')){
-//                    Address::update([
-//                        'cep' => $request->cep[$iAddress],
-//                        'public_place' => $request->public_place[$iAddress],
-//                        'number' => $request->number[$iAddress],
-//                        'district' => $request->district[$iAddress],
-//                        'state' => $request->state[$iAddress],
-//                        'city' => $request->city[$iAddress],
-//                        'uf' => $request->uf[$iAddress],
-//                        'complement' => $request->complement[$iAddress],
-//                        'note' => $request->note_address[$iAddress],
-//                        'client_id' => $client->id,
-//                    ]);
-//                }
-//            }
-//
-//        }
-//        dd(count($request->cell_phone));
-
-//        dd($request->client->contacts());
-//        if(!isset($request->contact_id) && (isset($request->email[$iContact]) || isset($request->phone[$iContact]) || isset($request->cell_phone[$iContact]) || isset($request->whatsapp[$iContact]) || isset($request->note_contact[$iContact]))){
-//
-//        }
 
 //        UPDATE ENDERECO
-        $countAddress = count($request->countAddressForDelete);
+        $countAddress =  isset($request->countAddressForDelete) ? count($request->countAddressForDelete) : 0;
         if($countAddress >= 1){
             for($iAddress = 0; $iAddress < $countAddress; $iAddress++){
                 if(isset($request->contact_id[$iAddress]) &&
@@ -297,7 +256,7 @@ class ClientController extends Controller
         }
 
 //        UPDATE CLIENTE
-        $countContact = count($request->countContactForDelete);
+        $countContact =  isset($request->countContactForDelete) ? count($request->countContactForDelete) : 0;
         if($countContact >= 1){
             for($iContact = 0; $iContact < $countContact; $iContact++){
                 if(isset($request->contact_id[$iContact]) &&
@@ -352,7 +311,10 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        $client->delete();
+
+//        dd(Client::with('address','contact')->find($client->id));
+        Client::with('address','contact')->find($client->id)->delete();
+//        $client->delete();
 
         return redirect()->route('client.index')->with('success','Cliente removido com sucesso!');
     }

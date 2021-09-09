@@ -90,6 +90,7 @@
                 <i class="fas fa-map-marker-alt"></i> Endereços
             </div>
             <div class="card-body">
+
                 @foreach($client->address as $address)
 
                     <input type="hidden" name="address_id[]" value="{{ $address->id }}" />
@@ -188,7 +189,6 @@
 
                     <input type="hidden" class="countContact" name="countContact" value="{{ $contact->id }}" />
                     <div id="addContact{{ $contact->id }}">
-
 
                         @if($client->contact[0]->id != $contact->id)
                             <hr class="bg-secondary">
