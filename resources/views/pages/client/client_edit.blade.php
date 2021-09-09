@@ -91,14 +91,19 @@
             </div>
             <div class="card-body">
                 @foreach($client->address as $address)
+
+                    <input type="hidden" name="address_id[]" value="{{ $address->id }}" />
+
+                    <input type="hidden" class="countAddressForDelete" name="countAddressForDelete[]" value="" />
+
                     <input type="hidden" class="countAddress" name="countAddress" value="{{ $address->id }}" />
 
-                    <div id="addContact{{ $address->id }}">
+                    <div id="addAddress{{ $address->id }}">
 
 {{--                        @if($client->address[0]->id != $address->id)--}}
                             <hr class="bg-secondary">
                             <div class="d-flex flex-row-reverse bd-highlight">
-                                <button  id="{{ $address->id }}" type="button" class="btn btn-danger btn-sm bd-highlight btn_remove_contact" data-toggle="tooltip" data-placement="top" title="Remover"><i class="fas fa-times"></i></button>
+                                <button  id="{{ $address->id }}" type="button" class="btn btn-danger btn-sm bd-highlight btn_remove_address" data-toggle="tooltip" data-placement="top" title="Remover"><i class="fas fa-times"></i></button>
                             </div>
 {{--                        @endif--}}
 
@@ -176,16 +181,21 @@
             <div class="card-body">
 
                 @foreach($client->contact as $contact)
+
                     <input type="hidden" name="contact_id[]" value="{{ $contact->id }}" />
+
+                    <input type="hidden" class="countContactForDelete" name="countContactForDelete[]" value="" />
+
                     <input type="hidden" class="countContact" name="countContact" value="{{ $contact->id }}" />
                     <div id="addContact{{ $contact->id }}">
 
-{{--                        @if($client->contact[0]->id != $contact->id)--}}
+
+                        @if($client->contact[0]->id != $contact->id)
                             <hr class="bg-secondary">
                             <div class="d-flex flex-row-reverse bd-highlight">
                                 <button  id="{{ $contact->id }}" type="button" class="btn btn-danger btn-sm bd-highlight btn_remove_contact" data-toggle="tooltip" data-placement="top" title="Remover"><i class="fas fa-times"></i></button>
                             </div>
-{{--                        @endif--}}
+                        @endif
 
                         <div class="form-row">
                             <div class="col-md-4 mb-3">

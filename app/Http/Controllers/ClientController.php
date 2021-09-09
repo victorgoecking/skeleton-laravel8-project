@@ -228,24 +228,48 @@ class ClientController extends Controller
 //            }
 //
 //        }
-        dd($request->contact_id);
-        if($request->contact_id != null){
-            $countContact = count($request->contact_id);
-            if($countContact >= 1){
-                for($iContact = 0; $iContact < $countContact; $iContact++){
-                    if(trim($request->email[$iContact] != '' || $request->phone[$iContact] != '' || $request->cell_phone[$iContact] != '' || $request->whatsapp[$iContact] != '' || $request->note_contact[$iContact] != '')){
-    //                    $client =  Contact::where('id', $request->contact_id[$iContact])->where('client_id',$client->id)->get();
-                        Contact::where('id', $request->contact_id[$iContact])->where('client_id',$client->id)->update([
+//        dd(count($request->cell_phone));
+
+//        dd($request->client->contacts());
+//        if(!isset($request->contact_id) && (isset($request->email[$iContact]) || isset($request->phone[$iContact]) || isset($request->cell_phone[$iContact]) || isset($request->whatsapp[$iContact]) || isset($request->note_contact[$iContact]))){
+//
+//        }
+
+
+
+        $countContact = count($request->countContactForDelete);
+        if($countContact >= 1){
+            for($iContact = 0; $iContact < $countContact; $iContact++){
+                if(isset($request->contact_id[$iContact]) && (!isset($request->email[$iContact]) && !isset($request->phone[$iContact]) && !isset($request->cell_phone[$iContact]) && !isset($request->whatsapp[$iContact]) && !isset($request->note_contact[$iContact]))){
+                    //DELETE
+                    Contact::where('id', $request->contact_id[$iContact])->where('client_id',$client->id)->delete();
+
+                }else if(isset($request->contact_id[$iContact])){
+                    //UPDATE
+                    Contact::where('id', $request->contact_id[$iContact])->where('client_id',$client->id)->update([
+                        'email' => $request->email[$iContact],
+                        'phone' => $request->phone[$iContact],
+                        'cell_phone' => $request->cell_phone[$iContact],
+                        'whatsapp' => $request->whatsapp[$iContact],
+                        'note' => $request->note_contact[$iContact],
+                    ]);
+                }else{
+                    //CREATE
+                    if(isset($request->email[$iContact]) || isset($request->phone[$iContact]) || isset($request->cell_phone[$iContact]) || isset($request->whatsapp[$iContact]) || isset($request->note_contact[$iContact])){
+                        Contact::create([
                             'email' => $request->email[$iContact],
                             'phone' => $request->phone[$iContact],
                             'cell_phone' => $request->cell_phone[$iContact],
                             'whatsapp' => $request->whatsapp[$iContact],
                             'note' => $request->note_contact[$iContact],
+                            'client_id' => $client->id,
                         ]);
                     }
+
                 }
             }
         }
+
         return redirect()->route('client.index')->with('success','Cliente atualizado com sucesso!');
     }
 

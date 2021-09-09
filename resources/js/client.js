@@ -60,9 +60,10 @@ $(document).ready(function(){
     $('#addRowAddress').click(function(){
 
         nextAddress++;
-        $('input[name="countContact"]').val(nextAddress);
+        $('input[name="countAddress"]').val(nextAddress);
 
         var newAddress = '<div id="addAddress' + nextAddress + '">';
+        newAddress += '<input type="hidden" class="countAddressForDelete" name="countAddressForDelete[]" value="" />';
         newAddress += '<hr class="bg-secondary">';
         newAddress += '<div class="d-flex flex-row-reverse bd-highlight">';
         newAddress += '<button  id="'+nextAddress+'" type="button" class="btn btn-danger btn-sm bd-highlight btn_remove_address" data-toggle="tooltip" data-placement="top" title="Remover"><i class="fas fa-times"></i></button>';
@@ -130,7 +131,7 @@ $(document).ready(function(){
     });
 
     $(document).on('click', '.btn_remove_address', function(){
-        var button_id = $(this).attr("id");
+        let button_id = $(this).attr("id");
         $('#addAddress'+button_id+'').remove();
     });
 
@@ -150,6 +151,7 @@ $(document).ready(function(){
         $('input[name="countContact"]').val(nextContact);
 
         var newContact = '<div id="addContact' + nextContact + '">';
+        newContact += '<input type="hidden" class="countContactForDelete" name="countContactForDelete[]" value="" />';
         newContact += '<hr class="bg-secondary">';
         newContact += '<div class="d-flex flex-row-reverse bd-highlight">';
         newContact += '<button  id="'+nextContact+'" type="button" class="btn btn-danger btn-sm bd-highlight btn_remove_contact" data-toggle="tooltip" data-placement="top" title="Remover"><i class="fas fa-times"></i></button>';
@@ -189,7 +191,7 @@ $(document).ready(function(){
     });
 
     $(document).on('click', '.btn_remove_contact', function(){
-        var button_id = $(this).attr("id");
+        let button_id = $(this).attr("id");
         $('#addContact'+button_id+'').remove();
     });
 
