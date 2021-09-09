@@ -235,12 +235,78 @@ class ClientController extends Controller
 //
 //        }
 
+//        UPDATE ENDERECO
+        $countAddress = count($request->countAddressForDelete);
+        if($countAddress >= 1){
+            for($iAddress = 0; $iAddress < $countAddress; $iAddress++){
+                if(isset($request->contact_id[$iAddress]) &&
+                    (!isset($request->cep[$iAddress]) &&
+                        !isset($request->public_place[$iAddress]) &&
+                        !isset($request->number[$iAddress]) &&
+                        !isset($request->district[$iAddress]) &&
+                        !isset($request->state[$iAddress]) &&
+                        !isset($request->city[$iAddress]) &&
+                        !isset($request->uf[$iAddress]) &&
+                        !isset($request->complement[$iAddress]) &&
+                        !isset($request->note_address[$iAddress]))
+                ){
+                    //DELETE
+                    Address::where('id', $request->address_id[$iAddress])->where('client_id',$client->id)->delete();
 
+                }else if(isset($request->address_id[$iAddress])){
+                    //UPDATE
+                    Address::where('id', $request->address_id[$iAddress])->where('client_id',$client->id)->update([
+                        'cep' => $request->cep[$iAddress],
+                        'public_place' => $request->public_place[$iAddress],
+                        'number' => $request->number[$iAddress],
+                        'district' => $request->district[$iAddress],
+                        'state' => $request->state[$iAddress],
+                        'city' => $request->city[$iAddress],
+                        'uf' => $request->uf[$iAddress],
+                        'complement' => $request->complement[$iAddress],
+                        'note' => $request->note_address[$iAddress],
+                    ]);
+                }else{
+                    //CREATE
+                    if(isset($request->cep[$iAddress]) ||
+                        isset($request->public_place[$iAddress]) ||
+                        isset($request->number[$iAddress]) ||
+                        isset($request->district[$iAddress]) ||
+                        isset($request->state[$iAddress]) ||
+                        isset($request->city[$iAddress]) ||
+                        isset($request->uf[$iAddress]) ||
+                        isset($request->complement[$iAddress]) ||
+                        isset($request->note_address[$iAddress])
+                    ){
+                        Address::create([
+                            'cep' => $request->cep[$iAddress],
+                            'public_place' => $request->public_place[$iAddress],
+                            'number' => $request->number[$iAddress],
+                            'district' => $request->district[$iAddress],
+                            'state' => $request->state[$iAddress],
+                            'city' => $request->city[$iAddress],
+                            'uf' => $request->uf[$iAddress],
+                            'complement' => $request->complement[$iAddress],
+                            'note' => $request->note_address[$iAddress],
+                            'client_id' => $client->id,
+                        ]);
+                    }
 
+                }
+            }
+        }
+
+//        UPDATE CLIENTE
         $countContact = count($request->countContactForDelete);
         if($countContact >= 1){
             for($iContact = 0; $iContact < $countContact; $iContact++){
-                if(isset($request->contact_id[$iContact]) && (!isset($request->email[$iContact]) && !isset($request->phone[$iContact]) && !isset($request->cell_phone[$iContact]) && !isset($request->whatsapp[$iContact]) && !isset($request->note_contact[$iContact]))){
+                if(isset($request->contact_id[$iContact]) &&
+                    (!isset($request->email[$iContact]) &&
+                        !isset($request->phone[$iContact]) &&
+                        !isset($request->cell_phone[$iContact]) &&
+                        !isset($request->whatsapp[$iContact]) &&
+                        !isset($request->note_contact[$iContact]))
+                ){
                     //DELETE
                     Contact::where('id', $request->contact_id[$iContact])->where('client_id',$client->id)->delete();
 
@@ -255,7 +321,12 @@ class ClientController extends Controller
                     ]);
                 }else{
                     //CREATE
-                    if(isset($request->email[$iContact]) || isset($request->phone[$iContact]) || isset($request->cell_phone[$iContact]) || isset($request->whatsapp[$iContact]) || isset($request->note_contact[$iContact])){
+                    if(isset($request->email[$iContact]) ||
+                        isset($request->phone[$iContact]) ||
+                        isset($request->cell_phone[$iContact]) ||
+                        isset($request->whatsapp[$iContact]) ||
+                        isset($request->note_contact[$iContact])
+                    ){
                         Contact::create([
                             'email' => $request->email[$iContact],
                             'phone' => $request->phone[$iContact],
