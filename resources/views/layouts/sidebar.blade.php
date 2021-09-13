@@ -86,8 +86,8 @@
         <div id="collapseUtilities2" class="collapse" aria-labelledby="headingUtilities"
              data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="utilities-color.html"><i class="fas fa-fw fa-cube"></i>&nbsp;&nbsp;&nbsp;Gerenciar produtos</a>
-                <a class="collapse-item" href="utilities-animation.html"><i class="fas fa-fw fa-file-invoice-dollar"></i>&nbsp;&nbsp;&nbsp;Valores de venda</a>
+                <a class="collapse-item" href="{{ route('product.index') }}"><i class="fas fa-fw fa-cube"></i>&nbsp;&nbsp;&nbsp;Gerenciar produtos</a>
+{{--                <a class="collapse-item" href="utilities-animation.html"><i class="fas fa-fw fa-file-invoice-dollar"></i>&nbsp;&nbsp;&nbsp;Valores de venda</a>--}}
             </div>
         </div>
     </li>

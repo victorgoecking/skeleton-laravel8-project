@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,8 @@ Route::resource('clientes', ClientController::class)->middleware(['auth'])->name
 Route::resource('enderecos', AddressController::class)->middleware(['auth'])->names('address')->parameters(['enderecos' => 'address']);
 
 Route::resource('contatos', ContactController::class)->middleware(['auth'])->names('contact')->parameters(['contatos' => 'contact']);
+
+Route::resource('produtos', ProductController::class)->middleware(['auth'])->names('product')->parameters(['produtos' => 'product']);
 
 //Route::get('/usuarios', [UserController::class, 'index'])
 //    ->name('user.index');
