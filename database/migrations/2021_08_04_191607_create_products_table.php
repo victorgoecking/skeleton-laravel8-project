@@ -16,8 +16,14 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
-            $table->string('description', 100)->nullable();
-            $table->decimal('product_value', 9,2);
+            $table->text('description')->nullable();
+            $table->decimal('product_cost_value', 9,2);
+            $table->decimal('profit_percentage', 9,2)->nullable();
+            $table->decimal('sales_value_product_used', 9,2)->nullable();
+            $table->string('weight', 10)->nullable();
+            $table->string('width', 10)->nullable();
+            $table->string('height', 10)->nullable();
+            $table->string('length', 10)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
