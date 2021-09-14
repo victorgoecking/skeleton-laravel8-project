@@ -40,6 +40,14 @@ class Relationships extends Migration
             $table->foreignId('request_id')->constrained();
         });
 
+        Schema::table('products', function (Blueprint $table) {
+            $table->foreignId('user_id')->constrained();
+        });
+
+        Schema::table('services', function (Blueprint $table) {
+            $table->foreignId('user_id')->constrained();
+        });
+
         Schema::table('requests_products', function (Blueprint $table) {
             $table->foreignId('request_id')->constrained();
             $table->foreignId('product_id')->constrained();
@@ -88,6 +96,14 @@ class Relationships extends Migration
         Schema::table('sales', function (Blueprint $table) {
             $table->dropForeign(['sale_status_id']);
             $table->dropForeign(['request_id']);
+        });
+
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
+        });
+
+        Schema::table('services', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
         });
 
         Schema::table('requests_products', function (Blueprint $table) {

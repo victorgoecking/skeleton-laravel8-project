@@ -20,13 +20,13 @@
         <div class="card-body">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Dados Gerais</a>
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><i class="fas fa-fw fa-list-alt"></i> Dados Gerais</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="address-tab" data-toggle="tab" href="#address" role="tab" aria-controls="address" aria-selected="false">Endereços</a>
+                    <a class="nav-link" id="address-tab" data-toggle="tab" href="#address" role="tab" aria-controls="address" aria-selected="false"><i class="fas fa-map-marker-alt"></i> Endereços</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contatos</a>
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false"><i class="fas fa-bullhorn"></i> Contatos</a>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
@@ -42,7 +42,7 @@
                         {{--                            CONDICAO PESSOA FISICA--}}
                         @if($client->person_type  ==  'PF')
                             <tr>
-                                <th scope="row">Tipo pessoa</th>
+                                <th class="col-4" scope="row">Tipo pessoa</th>
                                 <td colspan="1">Pessoa Física</td>
                             </tr>
 

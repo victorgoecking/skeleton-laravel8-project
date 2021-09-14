@@ -14,7 +14,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::with('user')->get();
 
         return view('pages.product.products', [
             'products' => $products
@@ -54,6 +54,7 @@ class ProductController extends Controller
             'width' => $request->width,
             'height' => $request->height,
             'length' => $request->length,
+            'user_id' => auth()->user()->id,
         ]);
 
         return redirect()->route('product.index')->with('success','Produto cadastrado com sucesso!');
@@ -67,6 +68,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        $product = Product::with('user')->find($product->id);
 
         return view('pages.product.product_detail', [
             'product' => $product
