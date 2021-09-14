@@ -39,7 +39,24 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'product_cost_value' => 'required|string|max:255',
+        ]);
+
+        $product = Product::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'product_cost_value' => $request->product_cost_value,
+            'profit_percentage' => $request->profit_percentage,
+            'sales_value_product_used' => $request->sales_value_product_used,
+            'weight' => $request->weight,
+            'width' => $request->width,
+            'height' => $request->height,
+            'length' => $request->length,
+        ]);
+
+        return redirect()->route('product.index')->with('success','Produto cadastrado com sucesso!');
     }
 
     /**
@@ -50,7 +67,10 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+
+        return view('pages.product.product_detail', [
+            'product' => $product
+        ]);
     }
 
     /**

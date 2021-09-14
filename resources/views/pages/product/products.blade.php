@@ -30,7 +30,7 @@
                             <th>Código</th>
                             <th>Nome</th>
                             <th>Val. Venda</th>
-                            <th>Cadastrado em</th>
+                            <th>Cadastrado às</th>
                             <th>Opções</th>
                         </tr>
                     </thead>
@@ -40,7 +40,7 @@
                             <th>Código</th>
                             <th>Nome</th>
                             <th>Val. Venda</th>
-                            <th>Cadastrado em</th>
+                            <th>Cadastrado às</th>
                             <th>Opções</th>
                         </tr>
                     </tfoot>
@@ -51,7 +51,7 @@
                             <td>{{$product->id}}</td>
                             <td>{{$product->name}}</td>
                             <td>{{isset($product->sales_value_product_used) ? $product->sales_value_product_used : $product->product_cost_value}}</td>
-                            <td>{{$product->created_at}}</td>
+                            <td>{{$product->created_at->format('H:i:s - d/m/Y')}}</td>
 
                             <td class="pt-2">
 {{--                                <a href="{{ route('client.show', ['client' => $client->id]) }}"><button class="btn btn-info btn-sm py-0 px-1 mt-1" data-toggle="modal" data-placement="top" title="Detalhes" data-target="#modalUserDetail"><i class="far fa-eye"></i></button></a>--}}
