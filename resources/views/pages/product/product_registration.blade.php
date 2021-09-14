@@ -74,13 +74,19 @@
                     </div>
                 </div>
 
+                <div class="form-row mb-2">
+                    <div class="col-md-12">
+                        <button type="button" id="buttonCalculateSalesValueProduct" class="btn btn-primary"><i class="fas fa-calculator"></i>&nbsp;&nbsp;Calcular valor de venda</button>
+                    </div>
+                </div>
+
                 <div class="form-row">
                     <table class="table table-bordered">
                         <thead>
                         <tr>
                             <th scope="col">Lucro sugerido automaticamente (%)</th>
                             <th scope="col">Porcentagem de lucro utilizado (%)</th>
-                            <th scope="col">Valor de venda sugerido (R$)</th>
+                            <th id="titleSuggestedSalesValue" scope="col">Valor de venda sugerido (R$)</th>
                             <th class="table-" scope="col">Valor de venda utilizado (R$)</th>
                         </tr>
                         </thead>

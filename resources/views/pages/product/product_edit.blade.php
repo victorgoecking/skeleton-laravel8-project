@@ -1,21 +1,22 @@
 @extends('layouts.master')
 
 @section('content')
+
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">
-            <i class="fa fa-user"></i> Edição de cliente
+            <i class="fa fa-user"></i> Edição de produto
         </h1>
 
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb m-0 p-2 bg-transparent">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="fas fa-fw fa-tachometer-alt"></i> Início</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('client.index') }}"> Clientes</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Edição de cliente</li>
+                <li class="breadcrumb-item"><a href="{{ route('product.index') }}"> Produtos</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Edição de produto</li>
             </ol>
         </nav>
     </div>
 
-    <form id="formClient" class="needs-validation" method="POST" action="{{ route('client.update', ['client' => $client->id]) }}" novalidate>
+    <form id="formProduct" class="needs-validation" method="POST" action="{{ route('product.update', ['product' => $product->id]) }}" novalidate>
 
         @csrf
         @method('put')
@@ -27,59 +28,19 @@
             <div class="card-body">
                 <div class="form-row">
 
-                    <div class="col-md-2 mb-3">
-                        <label for="selectPersonType">Tipo Pessoa</label>
-                        <select class="form-control" name="person_type" id="selectPersonType">
-                            <option value="PF" {{ $client->person_type == 'PF' ? 'selected': '' }}>Pessoa Física</option>
-                            <option value="PJ" {{ $client->person_type == 'PJ' ? 'selected': '' }}>Pessoa Jurídica</option>
-                        </select>
-                    </div>
-                    <div class="col-md-5 mb-3">
+                    <div class="col-md-6 mb-3">
                         <label for="validationCustomName">Nome *</label>
-                        <input type="text" class="form-control" name="name" id="validationCustomName" value="{{ $client->name }}" placeholder="Nome Completo" required>
+                        <input type="text" class="form-control" name="name" id="validationCustomName" value="{{ $product->name }}" placeholder="Nome do produto" required>
                         <div class="valid-feedback">
                             Parece bom!
                         </div>
                         <div class="invalid-feedback">
-                            Por favor, informe o nome do cliente.
+                            Por favor, informe o nome do produto.
                         </div>
                     </div>
-                    <div class="col-md-5 mb-3" id="divCPF">
-                        <label for="customCPF">CPF</label>
-                        <input type="text" class="form-control" name="cpf" id="customCPF" aria-describedby="cpfHelp" value="{{ $client->cpf }}" MAXLENGTH="14" placeholder="Ex.: 000.000.000-00">
-                    </div>
-                    <div class="col-md-5 mb-3" id="divCNPJ">
-                        <label for="customCNPJ">CNPJ</label>
-                        <input type="text" class="form-control" name="cnpj" id="customCNPJ" aria-describedby="cnpjHelp" value="{{ $client->cnpj }}" MAXLENGTH="18" placeholder="Ex.: 00.000.000/0000-00">
-                    </div>
-                </div>
-
-                <div class="form-row">
-
-                </div>
-
-                <div class="form-row">
-                    <div class="col-md-6 mb-3" id="divCorporateReason">
-                        <label for="validationCorporateReason">Razão Social</label>
-                        <input type="text" class="form-control" name="corporate_reason" id="validationCorporateReason" value="{{ $client->corporate_reason }}" placeholder="Razão Social">
-                    </div>
-
-                    <div class="col-md-6 mb-3" id="divFantasyName">
-                        <label for="validationFantasyName">Nome Fantasia</label>
-                        <input type="text" class="form-control" name="fantasy_name" id="validationFantasyName" value="{{ $client->fantasy_name }}" placeholder="Nome Fantasia">
-                    </div>
-
-                    <div class="col-md-2 mb-3" id="divSex">
-                        <label for="selectSex">Sexo</label>
-                        <select class="form-control" name="sex" id="selectSex">
-                            <option value="-">-</option>
-                            <option value="M" {{ $client->sex == 'M' ? 'selected': '' }}>Masculino</option>
-                            <option value="F" {{ $client->sex == 'F' ? 'selected': '' }}>Feminino</option>
-                        </select>
-                    </div>
-                    <div class="col-md-5 mb-3" id="divBirthDate">
-                        <label for="customBirthDate">Data de Nascimento</label>
-                        <input type="date" class="form-control" name="birth_date" id="customBirthDate" aria-describedby="birthDateHelp" value="{{ $client->birth_date ? $client->birth_date->format('Y-m-d') : null }}" placeholder="Ex.: ---">
+                    <div class="col-md-6 mb-3">
+                        <label for="exampleFormControlDescription">Descrição</label>
+                        <textarea class="form-control" name="description" id="exampleFormControlDescription" placeholder="Descrição do produto" rows="2">{{ $product->description }}</textarea>
                     </div>
                 </div>
             </div>
@@ -87,175 +48,84 @@
 
         <div class="card shadow mb-4">
             <div class="card-header">
-                <i class="fas fa-map-marker-alt"></i> Endereços
+                <i class="fas fa-fw fa-dollar-sign"></i> Valores
             </div>
             <div class="card-body">
-
-                @foreach($client->address as $address)
-
-                    <input type="hidden" name="address_id[]" value="{{ $address->id }}" />
-
-                    <input type="hidden" class="countAddressForDelete" name="countAddressForDelete[]" value="" />
-
-                    <input type="hidden" class="countAddress" name="countAddress" value="{{ $address->id }}" />
-
-                    <div id="addAddress{{ $address->id }}">
-
-{{--                        @if($client->address[0]->id != $address->id)--}}
-                            <hr class="bg-secondary">
-                            <div class="d-flex flex-row-reverse bd-highlight">
-                                <button  id="{{ $address->id }}" type="button" class="btn btn-danger btn-sm bd-highlight btn_remove_address" data-toggle="tooltip" data-placement="top" title="Remover"><i class="fas fa-times"></i></button>
-                            </div>
-{{--                        @endif--}}
-
-                        <div class="form-row">
-                            {{--                <div class="form-row" id="addAddress0">--}}
-                            <div class="col-md-2 mb-3">
-                                <label for="customCEP{{ $address->id }}">CEP</label>
-                                <input type="text" class="form-control" name="cep[]" id="customCEP{{ $address->id }}" value="{{ $address->cep }}" MAXLENGTH="9" placeholder="Ex.: 00000-000">
-                            </div>
-
-                            <div class="col-md-4 mb-3">
-                                <label for="validationPublicPlace{{ $address->id }}">Logradouro *</label>
-                                <input type="text" class="form-control" name="public_place[]" id="validationPublicPlace{{ $address->id }}" value="{{ $address->public_place }}" data-toggle="tooltip" data-placement="top" title="Logradouro obrigatório para cadastro de endereço. Caso vazio, o endereço será desconsiderado." placeholder="Ex.: Rua ..." required>
-                            </div>
-
-                            <div class="col-md-2 mb-3">
-                                <label for="validationNumber{{ $address->id }}">Número</label>
-                                <input type="text" class="form-control" name="number[]" id="validationNumber{{ $address->id }}" value="{{ $address->number }}" placeholder="">
-                            </div>
-
-                            <div class="col-md-4 mb-3">
-                                <label for="validationDistrict{{ $address->id }}">Bairro</label>
-                                <input type="text" class="form-control" name="district[]" id="validationDistrict{{ $address->id }}" value="{{ $address->district }}" placeholder="Ex.: Bairro ...">
-                            </div>
-
-                            <div class="col-md-6 mb-3">
-                                <label for="validationComplement{{ $address->id }}">Complemento</label>
-                                <input type="text" class="form-control" name="complement[]" id="validationComplement{{ $address->id }}" value="{{ $address->complement }}" placeholder="Ex.: APTO...">
-                            </div>
-
-                            <div class="col-md-6 mb-3">
-                                <label for="selectCity{{ $address->id }}">Cidade</label>
-                                <select class="form-control" name="city[]" id="selectCity{{ $address->id }}">
-                                    <option value="-" >-</option>
-                                    <option value="Teofilo Otoni" {{ $address->city == 'Teofilo Otoni' ? 'selected' : ''}}>Teofilo Otoni</option>
-                                </select>
-                            </div>
-
-                            <div class="col-md-4 mb-3">
-                                <label for="selectState{{ $address->id }}">Estado</label>
-                                <select class="form-control" name="state[]" id="selectState{{ $address->id }}">
-                                    <option value="-" >-</option>
-                                    <option value="Minas Gerais" {{ $address->state == 'Minas Gerais' ? 'selected' : ''}}>Minas Gerais</option>
-                                </select>
-                            </div>
-
-                            <div class="col-md-2 mb-3">
-                                <label for="selectUF{{ $address->id }}">UF</label>
-                                <select class="form-control" name="uf[]" id="selectUF{{ $address->id }}">
-                                    <option value="-" >-</option>
-                                    <option value="MG" {{ $address->uf == 'MG' ? 'selected' : ''}}>MG</option>
-                                </select>
-                            </div>
-
-                            <div class="col-md-6 mb-3">
-                                <label for="customNoteAddress{{ $address->id }}">Observação</label>
-                                <input type="text" class="form-control" name="note_address[]" id="customNoteAddress{{ $address->id }}" value="{{ $address->note }}" placeholder="Ex.: Endereço de entrega">
-                            </div>
+                <div class="form-row mb-3">
+                    <div class="col-md-3 mb-3">
+                        <label for="validationCustomProductCostValue">Valor de custo *</label>
+                        <input type="text" class="form-control" name="product_cost_value" id="validationCustomProductCostValue" value="{{ $product->product_cost_value }}" placeholder="0,00" required>
+                        <div class="valid-feedback">
+                            Parece bom!
+                        </div>
+                        <div class="invalid-feedback">
+                            Por favor, informe o valor de custo.
                         </div>
                     </div>
+                </div>
 
-                @endforeach
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <div class="alert alert-info alert-dismissible fade show" role="alert">
+                            <i class="fa fa-info"></i>&nbsp;&nbsp;
+                            O valor de venda é a valoração monetária dos produtos comercializados pelo estabelecimento. Ele pode ser calculado ou indicado livremente.
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
-                <div id="addAddressLast"></div>
+                <div class="form-row mb-2">
+                    <div class="col-md-12">
+                        <button type="button" id="buttonCalculateSalesValueProduct" class="btn btn-primary"><i class="fas fa-calculator"></i>&nbsp;&nbsp;Calcular valor de venda</button>
+                    </div>
+                </div>
 
-                <button id="addRowAddress" class="btn btn-dark" type="button"><i class="fas fa-plus-circle"></i> Inserir novo endereço </button>
-
+                <div class="form-row">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th scope="col">Lucro sugerido automaticamente (%)</th>
+                            <th scope="col">Porcentagem de lucro utilizado (%)</th>
+                            <th scope="col">Valor (R$) de venda referente a {{ $product->profit_percentage }}%</th>
+                            <th class="table-" scope="col">Valor de venda utilizado (R$)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">50%</th>
+                            <td><input type="text" class="form-control text-dark" name="profit_percentage" id="profitPercentage" value="{{ $product->profit_percentage }}" placeholder="0,00"></td>
+                            <td id="suggestedSalesValue">{{ $product->product_cost_value + (($product->profit_percentage / 100) * $product->product_cost_value) }}</td>
+                            <td><input type="text" class="form-control bg-warning text-dark font-weight-bold" name="sales_value_product_used" id="salesValueProductUsed" value="{{ $product->sales_value_product_used }}" placeholder="0,00"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
         <div class="card shadow mb-4">
             <div class="card-header">
-                <i class="fas fa-bullhorn"></i> Contatos
-            </div>
-            <div class="card-body">
-
-                @foreach($client->contact as $contact)
-
-                    <input type="hidden" name="contact_id[]" value="{{ $contact->id }}" />
-
-                    <input type="hidden" class="countContactForDelete" name="countContactForDelete[]" value="" />
-
-                    <input type="hidden" class="countContact" name="countContact" value="{{ $contact->id }}" />
-                    <div id="addContact{{ $contact->id }}">
-
-                        @if($client->contact[0]->id != $contact->id)
-                            <hr class="bg-secondary">
-                            <div class="d-flex flex-row-reverse bd-highlight">
-                                <button  id="{{ $contact->id }}" type="button" class="btn btn-danger btn-sm bd-highlight btn_remove_contact" data-toggle="tooltip" data-placement="top" title="Remover"><i class="fas fa-times"></i></button>
-                            </div>
-                        @endif
-
-                        <div class="form-row">
-                            <div class="col-md-4 mb-3">
-                                <label for="customPhone{{ $contact->id }}">Telefone</label>
-                                <input type="text" class="form-control" name="phone[]" id="customPhone{{ $contact->id }}" MAXLENGTH="14" value="{{ $contact->phone }}" placeholder="Ex.: (00) 0 0000-0000">
-                            </div>
-
-                            <div class="col-md-4 mb-3">
-
-                                @if($client->contact[0]->id != $contact->id)
-                                    <label for="customCellPhone{{ $contact->id }}">Telefone Celular</label>
-                                    <input type="text" class="form-control" name="cell_phone[]" id="customCellPhone{{ $contact->id }}" MAXLENGTH="16" value="{{ $contact->cell_phone }}" placeholder="Ex.: (00) 0 0000-0000">
-                                @else
-                                    <label for="customCellPhone{{ $contact->id }}">Telefone Celular *</label>
-                                    <input type="text" class="form-control" name="cell_phone[]" id="customCellPhone{{ $contact->id }}" MAXLENGTH="16" value="{{ $contact->cell_phone }}" placeholder="Ex.: (00) 0 0000-0000" required>
-                                @endif
-
-                                <div class="invalid-feedback">
-                                    Por favor, informe um telefone para contato.
-                                </div>
-                            </div>
-
-                            <div class="col-md-4 mb-3">
-                                <label for="customWhatsapp{{ $contact->id }}">Whatsapp</label>
-                                <input type="text" class="form-control" name="whatsapp[]" id="customWhatsapp{{ $contact->id }}" MAXLENGTH="20" value="{{ $contact->whatsapp }}" placeholder="Ex.: (00) 0 0000-0000">
-                            </div>
-
-                            <div class="col-md-6 mb-3">
-                                <label for="validationCustomEmail{{ $contact->id }}">E-mail</label>
-                                <input type="email" class="form-control" name="email[]" id="validationCustomEmail{{ $contact->id }}" aria-describedby="emailHelp" value="{{ $contact->email }}" placeholder="Ex.: email@email.com">
-                                <div class="invalid-feedback">
-                                    Por favor, providencie um e-mail valido.
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 mb-3" >
-                                <label for="customNoteContact{{ $contact->id }}">Observação</label>
-                                <input type="text" class="form-control" name="note_contact[]" id="customNoteContact{{ $contact->id }}" value="{{ $contact->note }}" placeholder="Ex.: Comercial">
-                            </div>
-                        </div>
-                    </div>
-
-                @endforeach
-
-                <div id="addContactLast"></div>
-
-                <button id="addRowContact" class="btn btn-dark" type="button"><i class="fas fa-plus-circle"></i> Inserir novo contato </button>
-
-            </div>
-        </div>
-
-        <div class="card shadow mb-4">
-            <div class="card-header">
-                <i class="fas fa-edit"></i> Observações
+                <i class="fas fa-arrows-alt"></i> Pesos e dimensões
             </div>
             <div class="card-body">
                 <div class="form-row">
-                    <div class="col-md-12 mb-3">
-                        {{--                        <label for="exampleFormControlNoteClient">Observações</label>--}}
-                        <textarea class="form-control" name="note_client" id="exampleFormControlNoteClient" placeholder="Observações" rows="5">{{ $client->note }}</textarea>
+                    <div class="col-md-3 mb-3">
+                        <label for="customWeight">Peso (Kg)</label>
+                        <input type="text" class="form-control" name="weight" id="customWeight" value="{{ $product->weight }}" placeholder="0,000">
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="customWidth">Largura (m)</label>
+                        <input type="text" class="form-control" name="width" id="customWidth" value="{{ $product->width }}" placeholder="0,000">
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="customHeight">Altura (m)</label>
+                        <input type="text" class="form-control" name="height" id="customHeight" value="{{ $product->height }}" placeholder="0,000">
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="customLength">Comprimento (m)</label>
+                        <input type="text" class="form-control" name="length" id="customLength" value="{{ $product->length }}" placeholder="0,000">
                     </div>
                 </div>
 

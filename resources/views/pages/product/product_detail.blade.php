@@ -43,6 +43,18 @@
                             <th class="border-top-0" scope="row" >Descrição</th>
                             <td class="border-top-0" colspan="1">{{ $product->description }}</td>
                         </tr>
+                        <tr>
+                            <th class="border-top-0" scope="row" >Cadastrado por</th>
+                            <td class="border-top-0" colspan="1">{{ $product->user->first()->name }}</td>
+                        </tr>
+                        <tr>
+                            <th class="border-top-0" scope="row" >Cadastrado em</th>
+                            <td class="border-top-0" colspan="1">{{ $product->created_at->format('d/m/Y - H:i:s') }}</td>
+                        </tr>
+                        <tr>
+                            <th class="border-top-0" scope="row" >Modificado em</th>
+                            <td class="border-top-0" colspan="1">{{ $product->updated_at->format('d/m/Y - H:i:s') }}</td>
+                        </tr>
 
                         </tbody>
                     </table>

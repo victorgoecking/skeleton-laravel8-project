@@ -83,7 +83,11 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $product = Product::with('user')->find($product->id);
+
+        return view('pages.product.product_edit', [
+            'product' => $product
+        ]);
     }
 
     /**
@@ -95,7 +99,24 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'product_cost_value' => 'required|string|max:255',
+        ]);
+
+        $product->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'product_cost_value' => $request->product_cost_value,
+            'profit_percentage' => $request->profit_percentage,
+            'sales_value_product_used' => $request->sales_value_product_used,
+            'weight' => $request->weight,
+            'width' => $request->width,
+            'height' => $request->height,
+            'length' => $request->length,
+        ]);
+
+        return redirect()->route('product.index')->with('success','Produto atualizado com sucesso!');
     }
 
     /**
@@ -106,6 +127,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+
+        return redirect()->route('product.index')->with('success','Produto removido com sucesso!');
     }
 }
