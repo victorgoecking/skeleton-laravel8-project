@@ -72,8 +72,8 @@
                 </div>
 
                 <div class="form-row">
-                    <button class="btn btn-primary mr-2" type="submit"><i class="fas fa-check-circle"></i> Atualizar</button>
-                    <a href="{{ route('user.index') }}"><button class="btn btn-danger" type="button"><i class="fas fa-times-circle"></i> Cancelar</button></a>
+                    <button class="btn btn-primary" type="submit"><i class="fas fa-check-circle"></i> Atualizar</button>
+                    <a href="{{ route('user.index') }}"><button class="btn btn-danger ml-2" type="button"><i class="fas fa-times-circle"></i> Cancelar</button></a>
                 </div>
             </form>
         </div>

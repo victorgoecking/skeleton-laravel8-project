@@ -213,7 +213,8 @@
                 </div>
 
                 <div class="form-row">
-                    <button class="btn btn-primary btn-lg" type="submit"><i class="fas fa-paper-plane"></i> Cadastrar</button>
+                    <button class="btn btn-primary" type="submit"><i class="fas fa-paper-plane"></i> Cadastrar</button>
+                    <a href="{{ route('client.index') }}"><button class="btn btn-danger ml-2" type="button"><i class="fas fa-times-circle"></i> Cancelar</button></a>
                 </div>
             </div>
         </div>

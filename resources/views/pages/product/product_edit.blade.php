@@ -260,8 +260,8 @@
                 </div>
 
                 <div class="form-row">
-                    <button class="btn btn-primary mr-2" type="submit"><i class="fas fa-check-circle"></i> Atualizar</button>
-                    <a href="{{ route('client.index') }}"><button class="btn btn-danger" type="button"><i class="fas fa-times-circle"></i> Cancelar</button></a>
+                    <button class="btn btn-primary" type="submit"><i class="fas fa-check-circle"></i> Atualizar</button>
+                    <a href="{{ route('product.index') }}"><button class="btn btn-danger ml-2" type="button"><i class="fas fa-times-circle"></i> Cancelar</button></a>
                 </div>
             </div>
         </div>
@@ -271,5 +271,5 @@
 @endsection
 
 @section('scriptPages')
-    <script src="{{ asset('admin/js/client.js')}}"></script>
+    <script src="{{ asset('admin/js/product.js')}}"></script>
 @endsection
