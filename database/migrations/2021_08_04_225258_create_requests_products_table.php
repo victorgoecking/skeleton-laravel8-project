@@ -18,7 +18,7 @@ class CreateRequestsProductsTable extends Migration
             $table->integer('quantity');
             $table->decimal('product_request_value', 9,2);
             $table->decimal('discount_product', 9,2)->nullable();
-            $table->decimal('cost_value_when_order_placed', 9,2);
+            $table->decimal('product_cost_value_when_order_placed', 9,2);
             $table->timestamps();
             $table->softDeletes();
         });

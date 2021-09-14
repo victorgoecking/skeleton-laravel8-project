@@ -16,7 +16,7 @@ class CreateRequestsServicesTable extends Migration
         Schema::create('requests_services', function (Blueprint $table) {
             $table->id();
             $table->decimal('service_request_value', 9,2);
-            $table->decimal('service_cost_value', 9,2)->nullable();
+            $table->decimal('service_cost_value_when_order_placed', 9,2)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
