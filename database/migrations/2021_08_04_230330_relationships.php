@@ -25,7 +25,7 @@ class Relationships extends Migration
             $table->foreignId('client_id')->constrained();
         });
 
-        Schema::table('requests', function (Blueprint $table) {
+        Schema::table('orders', function (Blueprint $table) {
             $table->foreignId('user_id')->constrained();
             $table->foreignId('client_id')->constrained();
         });
@@ -37,7 +37,7 @@ class Relationships extends Migration
 
         Schema::table('sales', function (Blueprint $table) {
             $table->foreignId('sale_status_id')->constrained();
-            $table->foreignId('request_id')->constrained();
+            $table->foreignId('order_id')->constrained();
         });
 
         Schema::table('products', function (Blueprint $table) {
@@ -48,13 +48,13 @@ class Relationships extends Migration
             $table->foreignId('user_id')->constrained();
         });
 
-        Schema::table('requests_products', function (Blueprint $table) {
-            $table->foreignId('request_id')->constrained();
+        Schema::table('orders_products', function (Blueprint $table) {
+            $table->foreignId('order_id')->constrained();
             $table->foreignId('product_id')->constrained();
         });
 
-        Schema::table('requests_services', function (Blueprint $table) {
-            $table->foreignId('request_id')->constrained();
+        Schema::table('orders_services', function (Blueprint $table) {
+            $table->foreignId('order_id')->constrained();
             $table->foreignId('service_id')->constrained();
         });
 
@@ -83,7 +83,7 @@ class Relationships extends Migration
             $table->dropForeign(['client_id']);
         });
 
-        Schema::table('requests', function (Blueprint $table) {
+        Schema::table('orders', function (Blueprint $table) {
             $table->dropForeign(['user_id']);
             $table->dropForeign(['client_id']);
         });
@@ -95,7 +95,7 @@ class Relationships extends Migration
 
         Schema::table('sales', function (Blueprint $table) {
             $table->dropForeign(['sale_status_id']);
-            $table->dropForeign(['request_id']);
+            $table->dropForeign(['order_id']);
         });
 
         Schema::table('products', function (Blueprint $table) {
@@ -106,13 +106,13 @@ class Relationships extends Migration
             $table->dropForeign(['user_id']);
         });
 
-        Schema::table('requests_products', function (Blueprint $table) {
-            $table->dropForeign(['request_id']);
+        Schema::table('orders_products', function (Blueprint $table) {
+            $table->dropForeign(['order_id']);
             $table->dropForeign(['product_id']);
         });
 
-        Schema::table('requests_services', function (Blueprint $table) {
-            $table->dropForeign(['request_id']);
+        Schema::table('orders_services', function (Blueprint $table) {
+            $table->dropForeign(['order_id']);
             $table->dropForeign(['service_id']);
         });
 
