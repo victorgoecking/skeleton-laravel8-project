@@ -22,7 +22,7 @@ class CreateOrdersTable extends Migration
             $table->integer('delivery_address_id')->nullable();
             $table->date('order_date');
             $table->date('delivery_forecast')->nullable();
-            $table->string('validity', 100)->nullable();
+            $table->date('validity')->nullable();
             $table->text('note')->nullable();
             $table->text('internal_note')->nullable();
             $table->timestamps();

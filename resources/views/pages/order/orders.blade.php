@@ -4,8 +4,8 @@
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">
-            <i class="fa fa-users"></i> Serviços&nbsp;
-            <a href="{{ route('service.create') }}">
+            <i class="fa fa-users"></i> Pedidos&nbsp;
+            <a href="{{ route('order.create') }}">
                 <button type="button" class="btn btn-primary">
                     <i class="fas fa-plus-circle"></i> Novo
                 </button>
@@ -15,7 +15,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb m-0 p-2 bg-transparent">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="fas fa-fw fa-tachometer-alt"></i> Início</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Serviços</li>
+                <li class="breadcrumb-item active" aria-current="page">Pedidos</li>
             </ol>
         </nav>
     </div>
@@ -28,8 +28,13 @@
                     <thead>
                         <tr>
                             <th>Código</th>
-                            <th>Nome</th>
-                            <th>Val. Serviço</th>
+                            <th>Cliente</th>
+                            <th>Desconto</th>
+                            <th>Val. Frete</th>
+                            <th>Total. Pedido</th>
+                            <th>Prev. Entrega</th>
+                            <th>Validade</th>
+                            <th>Atendente</th>
                             <th>Cadastrado em</th>
                             <th>Opções</th>
                         </tr>
@@ -38,30 +43,40 @@
                     <tfoot>
                         <tr>
                             <th>Código</th>
-                            <th>Nome</th>
-                            <th>Val. Serviço</th>
+                            <th>Cliente</th>
+                            <th>Desconto</th>
+                            <th>Val. Frete</th>
+                            <th>Total. Pedido</th>
+                            <th>Prev. Entrega</th>
+                            <th>Validade</th>
+                            <th>Atendente</th>
                             <th>Cadastrado em</th>
                             <th>Opções</th>
                         </tr>
                     </tfoot>
 
                     <tbody>
-                        @foreach($services as $service)
+                        @foreach($orders as $order)
                         <tr>
-                            <td>{{ $service->id }}</td>
-                            <td>{{ $service->name }}</td>
-                            <td>{{ $service->service_cost_value }}</td>
-                            <td>{{ $service->created_at->format('d/m/Y - H:i:s') }}</td>
+                            <td>{{ $order->id }}</td>
+                            <td>{{ $order->client->first()->name }}</td>
+                            <td>{{ $order->discount }}</td>
+                            <td>{{ $order->cost_freight }}</td>
+                            <td>{{ $order->total }}</td>
+                            <td>{{ $order->delivery_forecast }}</td>
+                            <td>{{ $order->validity }}</td>
+                            <td>{{ $order->user->first()->name }}</td>
+                            <td>{{ $order->created_at->format('d/m/Y - H:i:s') }}</td>
 
                             <td class="pt-2">
 {{--                                <a href="{{ route('client.show', ['client' => $client->id]) }}"><button class="btn btn-info btn-sm py-0 px-1 mt-1" data-toggle="modal" data-placement="top" title="Detalhes" data-target="#modalUserDetail"><i class="far fa-eye"></i></button></a>--}}
-                                <a href="{{ route('service.show', ['service' => $service->id]) }}"><button class="btn btn-info btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Detalhes"><i class="far fa-eye"></i></button></a>
-                                <a href="{{ route('service.edit', ['service' => $service->id]) }}"><button class="btn btn-warning btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Editar"><i class="far fa-edit"></i></button></a>
+                                <a href="{{ route('order.show', ['order' => $order->id]) }}"><button class="btn btn-info btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Detalhes"><i class="far fa-eye"></i></button></a>
+                                <a href="{{ route('order.edit', ['order' => $order->id]) }}"><button class="btn btn-warning btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Editar"><i class="far fa-edit"></i></button></a>
 {{--                                <a href="{{ route('client.show', ['client' => $client->id]) }}"><button class="btn btn-secondary btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Desabilitar"><i class="fas fa-user-slash"></i></button></a>--}}
-                                <form class="d-inline" action="{{ route('service.destroy', ['service' => $service->id]) }}" method="POST">
+                                <form class="d-inline" action="{{ route('order.destroy', ['order' => $order->id]) }}" method="POST">
                                     @csrf
                                     @method('delete')
-                                    <button type="submit" onclick='return confirm(`Deseja realmente excluir o serviço " {{ $service->name }} "?`)' class="btn btn-danger btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Remover"><i class="far fa-trash-alt"></i></button>
+                                    <button type="submit" onclick='return confirm(`Deseja realmente excluir o pedido de numero" {{ $order->id }} "?`)' class="btn btn-danger btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Remover"><i class="far fa-trash-alt"></i></button>
                                 </form>
                             </td>
                         </tr>
