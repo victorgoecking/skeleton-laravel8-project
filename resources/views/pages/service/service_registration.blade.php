@@ -27,7 +27,7 @@
                 <div class="form-row">
 
                     <div class="col-md-6 mb-3">
-                        <label for="validationCustomNameService">Nome *</label>
+                        <label for="validationCustomNameService">Nome do serviço*</label>
                         <input type="text" class="form-control" name="name" id="validationCustomNameService" placeholder="Nome do serviço" required>
                         <div class="valid-feedback">
                             Parece bom!

@@ -23,10 +23,10 @@
                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><i class="fas fa-fw fa-list-alt"></i> Dados Gerais</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="address-tab" data-toggle="tab" href="#address" role="tab" aria-controls="address" aria-selected="false"><i class="fas fa-arrows-alt"></i> Pesos e dimensões</a>
+                    <a class="nav-link" id="weightsAndDimensions-tab" data-toggle="tab" href="#weightsAndDimensions" role="tab" aria-controls="weightsAndDimensions" aria-selected="false"><i class="fas fa-arrows-alt"></i> Pesos e dimensões</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false"><i class="fas fa-fw fa-dollar-sign"></i>Custos e valores</a>
+                    <a class="nav-link" id="costsAndValues-tab" data-toggle="tab" href="#costsAndValues" role="tab" aria-controls="costsAndValues" aria-selected="false"><i class="fas fa-fw fa-dollar-sign"></i>Custos e valores</a>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
@@ -36,7 +36,7 @@
 
                         <tbody>
                         <tr>
-                            <th class="border-top-0 col-4" scope="row" >Nome</th>
+                            <th class="border-top-0 col-4" scope="row" >Nome do produto</th>
                             <td class="border-top-0" colspan="1">{{ $product->name }}</td>
                         </tr>
                         <tr>
@@ -61,7 +61,7 @@
                     <a class="btn btn-warning btn-md" href="{{ route('product.edit', ['product' => $product->id]) }}" role="button"><i class="fas fa-edit"></i> Editar</a>
                 </div>
 
-                <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
+                <div class="tab-pane fade" id="weightsAndDimensions" role="tabpanel" aria-labelledby="weightsAndDimensions-tab">
 
 
                     <table class=" border-top-0 mt-0 table table-bordered">
@@ -94,7 +94,7 @@
                     <a class="btn btn-warning btn-md" href="{{ route('product.edit', ['product' => $product->id]) }}" role="button"><i class="fas fa-edit"></i> Editar</a>
                 </div>
 
-                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                <div class="tab-pane fade" id="costsAndValues" role="tabpanel" aria-labelledby="costsAndValues-tab">
                     <table class=" border-top-0 mt-0 table table-bordered">
 
                         <tbody>

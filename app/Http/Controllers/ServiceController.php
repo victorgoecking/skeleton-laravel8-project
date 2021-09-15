@@ -104,7 +104,7 @@ class ServiceController extends Controller
             'service_cost_value' => $request->service_cost_value,
         ]);
 
-        return redirect()->route('service.index')->with('success','service atualizado com sucesso!');
+        return redirect()->route('service.index')->with('success','Serviço atualizado com sucesso!');
     }
 
     /**
@@ -117,6 +117,6 @@ class ServiceController extends Controller
     {
         $service->delete();
 
-        return redirect()->route('service.index')->with('success','service removido com sucesso!');
+        return redirect()->route('service.index')->with('success','Serviço removido com sucesso!');
     }
 }

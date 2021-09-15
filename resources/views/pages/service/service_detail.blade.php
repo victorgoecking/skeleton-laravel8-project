@@ -22,12 +22,6 @@
                 <li class="nav-item">
                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><i class="fas fa-fw fa-list-alt"></i> Dados Gerais</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="address-tab" data-toggle="tab" href="#address" role="tab" aria-controls="address" aria-selected="false"><i class="fas fa-arrows-alt"></i> Pesos e dimensões</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false"><i class="fas fa-fw fa-dollar-sign"></i>Custos e valores</a>
-                </li>
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -36,84 +30,33 @@
 
                         <tbody>
                         <tr>
-                            <th class="border-top-0 col-4" scope="row" >Nome</th>
-                            <td class="border-top-0" colspan="1">{{ $product->name }}</td>
+                            <th class="border-top-0 col-4" scope="row" >Nome do serviço</th>
+                            <td class="border-top-0" colspan="1">{{ $service->name }}</td>
+                        </tr>
+                        <tr>
+                            <th class="border-top-0 col-4" scope="row" >Valor do serviço</th>
+                            <td class="border-top-0" colspan="1">{{ $service->service_cost_value }}</td>
                         </tr>
                         <tr>
                             <th class="border-top-0" scope="row" >Descrição</th>
-                            <td class="border-top-0" colspan="1">{{ $product->description }}</td>
+                            <td class="border-top-0" colspan="1">{{ $service->description }}</td>
                         </tr>
                         <tr>
                             <th class="border-top-0" scope="row" >Cadastrado por</th>
-                            <td class="border-top-0" colspan="1">{{ $product->user->first()->name }}</td>
+                            <td class="border-top-0" colspan="1">{{ $service->user->first()->name }}</td>
                         </tr>
                         <tr>
                             <th class="border-top-0" scope="row" >Cadastrado em</th>
-                            <td class="border-top-0" colspan="1">{{ $product->created_at->format('d/m/Y - H:i:s') }}</td>
+                            <td class="border-top-0" colspan="1">{{ $service->created_at->format('d/m/Y - H:i:s') }}</td>
                         </tr>
                         <tr>
                             <th class="border-top-0" scope="row" >Modificado em</th>
-                            <td class="border-top-0" colspan="1">{{ $product->updated_at->format('d/m/Y - H:i:s') }}</td>
+                            <td class="border-top-0" colspan="1">{{ $service->updated_at->format('d/m/Y - H:i:s') }}</td>
                         </tr>
 
                         </tbody>
                     </table>
-                    <a class="btn btn-warning btn-md" href="{{ route('product.edit', ['product' => $product->id]) }}" role="button"><i class="fas fa-edit"></i> Editar</a>
-                </div>
-
-                <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
-
-
-                    <table class=" border-top-0 mt-0 table table-bordered">
-                        <thead>
-                        <tr>
-                            <th class="border-top-0" colspan="2"><i class="fas fa-arrows-alt"></i> Pesos e dimensões</th>
-
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <th class="border-top-0 col-4" scope="row" >Peso</th>
-                            <td class="border-top-0" colspan="1">{{ $product->weight }}</td>
-                        </tr>
-                        <tr>
-                            <th class="border-top-0" scope="row" >Largura</th>
-                            <td class="border-top-0" colspan="1">{{ $product->width }}</td>
-                        </tr>
-                        <tr>
-                            <th class="border-top-0" scope="row" >Altura</th>
-                            <td class="border-top-0" colspan="1">{{ $product->height }}</td>
-                        </tr>
-                        <tr>
-                            <th class="border-top-0" scope="row" >Comprimento</th>
-                            <td class="border-top-0" colspan="1">{{ $product->length }}</td>
-                        </tr>
-
-                        </tbody>
-                    </table>
-                    <a class="btn btn-warning btn-md" href="{{ route('product.edit', ['product' => $product->id]) }}" role="button"><i class="fas fa-edit"></i> Editar</a>
-                </div>
-
-                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                    <table class=" border-top-0 mt-0 table table-bordered">
-
-                        <tbody>
-                        <tr>
-                            <th class="border-top-0 col-4" scope="row" >Valor de custo</th>
-                            <td class="border-top-0" colspan="1">{{ $product->product_cost_value }}</td>
-                        </tr>
-                        <tr>
-                            <th class="border-top-0 col-4" scope="row" >Valor de venda</th>
-                            <td class="border-top-0" colspan="1">{{ $product->sales_value_product_used }}</td>
-                        </tr>
-                        <tr>
-                            <th class="border-top-0 col-4" scope="row" >Porcentagem de lucro</th>
-                            <td class="border-top-0" colspan="1">{{ $product->profit_percentage }} %</td>
-                        </tr>
-
-                        </tbody>
-                    </table>
-                    <a class="btn btn-warning btn-md" href="{{ route('product.edit', ['product' => $product->id]) }}" role="button"><i class="fas fa-edit"></i> Editar</a>
+                    <a class="btn btn-warning btn-md" href="{{ route('service.edit', ['service' => $service->id]) }}" role="button"><i class="fas fa-edit"></i> Editar</a>
                 </div>
 
             </div>

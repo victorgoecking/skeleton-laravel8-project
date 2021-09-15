@@ -29,7 +29,7 @@
                 <div class="form-row">
 
                     <div class="col-md-6 mb-3">
-                        <label for="validationCustomName">Nome *</label>
+                        <label for="validationCustomName">Nome do produto *</label>
                         <input type="text" class="form-control" name="name" id="validationCustomName" value="{{ $product->name }}" placeholder="Nome do produto" required>
                         <div class="valid-feedback">
                             Parece bom!
