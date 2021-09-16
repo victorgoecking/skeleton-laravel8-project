@@ -14,7 +14,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Service::with('client','user')->get();
+        $orders = Order::with('user', 'client', 'products')->get();
 
         return view('pages.order.orders', [
             'orders' => $orders
@@ -39,27 +39,27 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'budget' => 'required|tinyint',
-            'total' => 'required|string|max:255',
-        ]);
-
-        $order = Order::create([
-            'budget' => $request->budget,
-            'total' => $request->total,
-            'discount' => $request->discount,
-            'cost_freight' => $request->cost_freight,
-            'delivery_address_id' => $request->delivery_address_id,
-            'order_date' => $request->order_date,
-            'delivery_forecast' => $request->delivery_forecast,
-            'validity' => $request->validity,
-            'note' => $request->note,
-            'internal_note' => $request->internal_note,
-            'client_id' => $request->client->id,
-            'user_id' => auth()->user()->id,
-        ]);
-
-        return redirect()->route('order.index')->with('success','Pedido cadastrado com sucesso!');
+//        $request->validate([
+//            'budget' => 'required|tinyint',
+//            'total' => 'required|string|max:255',
+//        ]);
+//
+//        $order = Order::create([
+//            'budget' => $request->budget,
+//            'total' => $request->total,
+//            'discount' => $request->discount,
+//            'cost_freight' => $request->cost_freight,
+//            'delivery_address_id' => $request->delivery_address_id,
+//            'order_date' => $request->order_date,
+//            'delivery_forecast' => $request->delivery_forecast,
+//            'validity' => $request->validity,
+//            'note' => $request->note,
+//            'internal_note' => $request->internal_note,
+//            'client_id' => $request->client->id,
+//            'user_id' => auth()->user()->id,
+//        ]);
+//
+//        return redirect()->route('order.index')->with('success','Pedido cadastrado com sucesso!');
     }
 
     /**

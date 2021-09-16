@@ -7,6 +7,7 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,8 @@ Route::resource('contatos', ContactController::class)->middleware(['auth'])->nam
 Route::resource('produtos', ProductController::class)->middleware(['auth'])->names('product')->parameters(['produtos' => 'product']);
 
 Route::resource('servicos', ServiceController::class)->middleware(['auth'])->names('service')->parameters(['servicos' => 'service']);
+
+Route::resource('Pedidos', OrderController::class)->middleware(['auth'])->names('order')->parameters(['pedidos' => 'order']);
 
 //Route::get('/usuarios', [UserController::class, 'index'])
 //    ->name('user.index');

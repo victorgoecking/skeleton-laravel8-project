@@ -29,13 +29,10 @@
                         <tr>
                             <th>Código</th>
                             <th>Cliente</th>
-                            <th>Desconto</th>
-                            <th>Val. Frete</th>
-                            <th>Total. Pedido</th>
-                            <th>Prev. Entrega</th>
-                            <th>Validade</th>
-                            <th>Atendente</th>
-                            <th>Cadastrado em</th>
+                            <th>Data</th>
+                            <th>Valor</th>
+                            <th>Tipo</th>
+{{--                            <th>Cadastrado em</th>--}}
                             <th>Opções</th>
                         </tr>
                     </thead>
@@ -44,13 +41,10 @@
                         <tr>
                             <th>Código</th>
                             <th>Cliente</th>
-                            <th>Desconto</th>
-                            <th>Val. Frete</th>
-                            <th>Total. Pedido</th>
-                            <th>Prev. Entrega</th>
-                            <th>Validade</th>
-                            <th>Atendente</th>
-                            <th>Cadastrado em</th>
+                            <th>Data</th>
+                            <th>Valor</th>
+                            <th>Tipo</th>
+{{--                            <th>Cadastrado em</th>--}}
                             <th>Opções</th>
                         </tr>
                     </tfoot>
@@ -60,20 +54,23 @@
                         <tr>
                             <td>{{ $order->id }}</td>
                             <td>{{ $order->client->first()->name }}</td>
-                            <td>{{ $order->discount }}</td>
-                            <td>{{ $order->cost_freight }}</td>
+                            <td>{{ $order->order_date }}</td>
                             <td>{{ $order->total }}</td>
-                            <td>{{ $order->delivery_forecast }}</td>
-                            <td>{{ $order->validity }}</td>
-                            <td>{{ $order->user->first()->name }}</td>
-                            <td>{{ $order->created_at->format('d/m/Y - H:i:s') }}</td>
+                            @if( $order->budget === 1)
+                                <td><span class="badge badge-info">Orçamento</span></td>
+                            @else
+                                <td><span class="badge badge-primary">Venda</span></td>
+                            @endif
+
+{{--                            <td>{{ $order->created_at->format('d/m/Y - H:i:s') }}</td>--}}
 
                             <td class="pt-2">
-{{--                                <a href="{{ route('client.show', ['client' => $client->id]) }}"><button class="btn btn-info btn-sm py-0 px-1 mt-1" data-toggle="modal" data-placement="top" title="Detalhes" data-target="#modalUserDetail"><i class="far fa-eye"></i></button></a>--}}
-                                <a href="{{ route('order.show', ['order' => $order->id]) }}"><button class="btn btn-info btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Detalhes"><i class="far fa-eye"></i></button></a>
-                                <a href="{{ route('order.edit', ['order' => $order->id]) }}"><button class="btn btn-warning btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Editar"><i class="far fa-edit"></i></button></a>
-{{--                                <a href="{{ route('client.show', ['client' => $client->id]) }}"><button class="btn btn-secondary btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Desabilitar"><i class="fas fa-user-slash"></i></button></a>--}}
-                                <form class="d-inline" action="{{ route('order.destroy', ['order' => $order->id]) }}" method="POST">
+{{--                                {{ route('order.show', ['order' => $order->id]) }}--}}
+                                <a href=""><button class="btn btn-info btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Detalhes"><i class="far fa-eye"></i></button></a>
+{{--                                {{ route('order.edit', ['order' => $order->id]) }}--}}
+                                <a href=""><button class="btn btn-warning btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Editar"><i class="far fa-edit"></i></button></a>
+{{--                                {{ route('order.destroy', ['order' => $order->id]) }}--}}
+                                <form class="d-inline" action="" method="POST">
                                     @csrf
                                     @method('delete')
                                     <button type="submit" onclick='return confirm(`Deseja realmente excluir o pedido de numero" {{ $order->id }} "?`)' class="btn btn-danger btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Remover"><i class="far fa-trash-alt"></i></button>

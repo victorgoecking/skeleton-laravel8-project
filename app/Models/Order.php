@@ -30,10 +30,19 @@ class Order extends Model
         'client_id',
     ];
 
+    protected $casts = [
+        'order_date' => 'date:Y-m-d',
+        'delivery_forecast' => 'date:Y-m-d',
+        'validity' => 'date:Y-m-d',
+    ];
+
     public function user(){
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
     public function client(){
         return $this->belongsTo(Client::class, 'client_id', 'id');
+    }
+    public function products(){
+        return $this->belongsToMany(Product::class, 'orders_products','order_id', 'product_id');
     }
 }

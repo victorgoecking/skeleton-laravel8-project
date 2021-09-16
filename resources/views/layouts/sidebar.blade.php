@@ -36,6 +36,7 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ route('order.index') }}"><i class="fas fa-fw fa-cube"></i>&nbsp;&nbsp;&nbsp;Gerenciar</a>
                 <a class="collapse-item" href="buttons.html"><i class="fas fa-fw fa-cube"></i>&nbsp;&nbsp;&nbsp;Produtos</a>
                 <a class="collapse-item" href="cards.html"><i class="fas fa-fw fa-tools"></i>&nbsp;&nbsp;&nbsp;Serviços</a>
                 <h6 class="collapse-header">Opções auxiliares:</h6>
