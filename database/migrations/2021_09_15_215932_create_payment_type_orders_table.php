@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSaleStatusesTable extends Migration
+class CreatePaymentTypeOrdersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateSaleStatusesTable extends Migration
      */
     public function up()
     {
-        Schema::create('sale_statuses', function (Blueprint $table) {
+        Schema::create('payment_type_orders', function (Blueprint $table) {
             $table->id();
-            $table->string('description', 100);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -28,6 +27,6 @@ class CreateSaleStatusesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sale_statuses');
+        Schema::dropIfExists('payment_type_orders');
     }
 }

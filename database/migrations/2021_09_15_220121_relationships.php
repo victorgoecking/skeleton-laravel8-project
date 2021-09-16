@@ -28,6 +28,7 @@ class Relationships extends Migration
         Schema::table('orders', function (Blueprint $table) {
             $table->foreignId('user_id')->constrained();
             $table->foreignId('client_id')->constrained();
+            $table->foreignId('situation_id')->constrained();
         });
 
         Schema::table('cash_movements', function (Blueprint $table) {
@@ -36,7 +37,7 @@ class Relationships extends Migration
         });
 
         Schema::table('sales', function (Blueprint $table) {
-            $table->foreignId('sale_status_id')->constrained();
+            $table->foreignId('situation_id')->constrained();
             $table->foreignId('order_id')->constrained();
         });
 
@@ -58,10 +59,16 @@ class Relationships extends Migration
             $table->foreignId('service_id')->constrained();
         });
 
+        Schema::table('payment_type_orders', function (Blueprint $table) {
+            $table->foreignId('order_id')->constrained();
+            $table->foreignId('type_payment_id')->constrained();
+        });
+
         Schema::table('payment_type_sales', function (Blueprint $table) {
             $table->foreignId('sale_id')->constrained();
             $table->foreignId('type_payment_id')->constrained();
         });
+
     }
 
     /**
@@ -86,6 +93,7 @@ class Relationships extends Migration
         Schema::table('orders', function (Blueprint $table) {
             $table->dropForeign(['user_id']);
             $table->dropForeign(['client_id']);
+            $table->dropForeign(['situation_id']);
         });
 
         Schema::table('cash_movements', function (Blueprint $table) {
@@ -94,7 +102,7 @@ class Relationships extends Migration
         });
 
         Schema::table('sales', function (Blueprint $table) {
-            $table->dropForeign(['sale_status_id']);
+            $table->dropForeign(['situation_id']);
             $table->dropForeign(['order_id']);
         });
 
@@ -116,6 +124,10 @@ class Relationships extends Migration
             $table->dropForeign(['service_id']);
         });
 
+        Schema::table('payment_type_orders', function (Blueprint $table) {
+            $table->dropForeign(['order_id']);
+            $table->dropForeign(['type_payment_id']);
+        });
         Schema::table('payment_type_sales', function (Blueprint $table) {
             $table->dropForeign(['sale_id']);
             $table->dropForeign(['type_payment_id']);
