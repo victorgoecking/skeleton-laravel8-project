@@ -23,7 +23,7 @@
 
     <link href="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.bootstrap4.min.css" integrity="sha512-MMojOrCQrqLg4Iarid2YMYyZ7pzjPeXKRvhW9nZqLo6kPBBTuvNET9DBVWptAo/Q20Fy11EIHM5ig4WlIrJfQw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
 
@@ -123,7 +123,7 @@
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/js/standalone/selectize.min.js" integrity="sha512-pF+DNRwavWMukUv/LyzDyDMn8U2uvqYQdJN0Zvilr6DDo/56xPDZdDoyPDYZRSL4aOKO/FGKXTpzDyQJ8je8Qw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 {{--    ADICIONA SCRIPTS DAS PAGINAS--}}
     @yield('scriptPages')
 
@@ -166,17 +166,17 @@
     </script>
 
 
+{{--    // TESTE DYNAMIC INPUTS ORDER_REGISTRATIO_PRODUCT--}}
     <script type="text/javascript">
 
-    // TESTE DYNAMIC INPUTS ORDER_REGISTRATIO
 
         $(document).ready(function() {
-            $("#add_row").on("click", function() {
+            $("#add_new_product").on("click", function() {
                 // Dynamic Rows Code
 
                 // Get max row id and set new id
                 var newid = 0;
-                $.each($("#tab_logic tr"), function() {
+                $.each($("#tab_logic_product tr"), function() {
                     if (parseInt($(this).data("id")) > newid) {
                         newid = parseInt($(this).data("id"));
                     }
@@ -189,7 +189,7 @@
                 });
 
                 // loop through each td and create new elements with name of newid
-                $.each($("#tab_logic tbody tr:nth(0) td"), function() {
+                $.each($("#tab_logic_product tbody tr:nth(0) td"), function() {
                     var td;
                     var cur_td = $(this);
 
@@ -207,7 +207,7 @@
                         td.appendTo($(tr));
                     } else {
                         td = $("<td></td>", {
-                            'text': $('#tab_logic tr').length
+                            'text': $('#tab_logic_product tr').length
                         }).appendTo($(tr));
                     }
                 });
@@ -223,7 +223,7 @@
                 */
 
                 // add the new row
-                $(tr).appendTo($('#tab_logic'));
+                $(tr).appendTo($('#tab_logic_product'));
 
                 $(tr).find("td button.row-remove").on("click", function() {
                     $(this).closest("tr").remove();
@@ -253,9 +253,66 @@
 
 
 
-            $("#add_row").trigger("click");
+            $("#add_new_product").trigger("click");
         });
 
+    </script>
+
+
+
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".select_product").selectize({
+                create: true,
+                sortField: "text",
+            });
+        });
+    </script>
+
+
+
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //Initialize tooltips
+            $('.nav-tabs > li a[title]').tooltip();
+
+            //Wizard
+            $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+
+                var $target = $(e.target);
+
+                if ($target.parent().hasClass('disabled')) {
+                    return false;
+                }
+            });
+
+            $(".next-step").click(function (e) {
+
+                var $active = $('.wizard .nav-tabs li.active');
+                $active.next().removeClass('disabled');
+                nextTab($active);
+
+            });
+            $(".prev-step").click(function (e) {
+
+                var $active = $('.wizard .nav-tabs li.active');
+                prevTab($active);
+
+            });
+        });
+
+        function nextTab(elem) {
+            $(elem).next().find('a[data-toggle="tab"]').click();
+        }
+        function prevTab(elem) {
+            $(elem).prev().find('a[data-toggle="tab"]').click();
+        }
     </script>
 
 </body>
