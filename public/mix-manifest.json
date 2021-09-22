@@ -3,5 +3,6 @@
     "/admin/js/client.js": "/admin/js/client.js",
     "/admin/js/product.js": "/admin/js/product.js",
     "/admin/js/order.js": "/admin/js/order.js",
-    "/admin/style.css": "/admin/style.css"
+    "/admin/css/wizard/bd-wizard.css": "/admin/css/wizard/bd-wizard.css",
+    "/admin/css/style.css": "/admin/css/style.css"
 }
