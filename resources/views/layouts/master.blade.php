@@ -273,7 +273,7 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $(".select_product").selectize({
+            $(".select_selectize").selectize({
                 sortField: "text",
                 placeholder: $(this).data('placeholder'),
                 // width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
@@ -289,6 +289,18 @@
 
 
     <script type="text/javascript">
+
+        function idClientForAddress() {
+
+
+            client.addEventListener('change', () => {
+                alert('teste');
+                let id = document.getElementById("validationCustomClient").value;
+
+                console.log(id);
+                return id;
+            });
+        }
 
         function addProduct() {
 
@@ -313,7 +325,7 @@
                     let product = document.getElementById('containerProducts');
 
                     let info = {
-                        id_handlebars: Math.floor((Math.random() * 100000000) + 1),
+                        id_handlebars_product: Math.floor((Math.random() * 100000000) + 1),
                         id_product: idProduct,
                         name_product: nameProduct,
                         value_product: valueProduct
@@ -331,6 +343,112 @@
 
         }
 
+        function addService() {
+
+            let botaoAdd = document.getElementById('btnAddService');
+
+            botaoAdd.addEventListener('click', () => {
+
+                let myStr = (document.getElementById("searchService").value).split(":");
+                let idService = myStr[0];
+                let nameService = myStr[1];
+                let valueService = myStr[2];
+
+                //verificando se um valor foi adicionado para mandar pro handlesbars
+                if(document.getElementById("searchService").value){
+                    if (document.getElementById("noServiceAdded")) {
+                        document.getElementById("noServiceAdded").remove()
+                    }
+
+                    let templateProduct = document.getElementById('tamplateAddService').innerHTML;
+                    let compiled = Handlebars.compile(templateProduct);
+
+                    let service = document.getElementById('containerServices');
+
+                    let info = {
+                        id_handlebars_service: Math.floor((Math.random() * 100000000) + 1),
+                        id_service: idService,
+                        name_service: nameService,
+                        value_service: valueService
+                    }
+
+                    service.innerHTML += compiled(info);
+
+                    // Removendo item selecionado
+                    let removeSelectizeItem = document.getElementById("searchService").value;
+                    document.getElementById("searchService").selectize.removeItem(removeSelectizeItem);
+
+                }
+
+            })
+
+        }
+
+        function addDeliveryAddress() {
+
+            let client = document.getElementById('validationCustomClient');
+            // let searchAddress = document.getElementById('searchAddress');
+
+            // let searchAddress = document.getElementById("searchAddress").value;
+            // let searchAddress =  document.getElementById("searchAddress").selectize.trigger('change');
+
+            console.log(document.getElementById("validationCustomClient").selectize.trigger('change'))
+
+            if (document.getElementById("validationCustomClient").selectize.trigger('change')) {
+                alert("Selecione um clientes antes");
+            }
+            // searchAddress.addEventListener('mouseup', () => {
+            //     alert("Selecione um clientes antes");
+            //     if (client.options[client.selectedIndex].value == "") {
+            //     }
+            // });
+
+
+            let botaoAdd = document.getElementById('btnAddAddress');
+
+            botaoAdd.addEventListener('click', () => {
+
+                let myStr = (document.getElementById("searchAddress").value).split(":");
+                let idAddress = myStr[0];
+                let cepAddress = myStr[1];
+                let publicPlaceAddress = myStr[2];
+                let numberAddress = myStr[3];
+                let districtAddress = myStr[4];
+                let complementAddress = myStr[5];
+
+                //verificando se um valor foi adicionado para mandar pro handlesbars
+                if(document.getElementById("searchAddress").value){
+                    if (document.getElementById("noAddressAdded")) {
+                        document.getElementById("noAddressAdded").remove()
+                    }
+
+                    let templateProduct = document.getElementById('tamplateAddAddress').innerHTML;
+                    let compiled = Handlebars.compile(templateProduct);
+
+                    let service = document.getElementById('containerAddresses');
+
+                    let info = {
+                        id_handlebars_address: Math.floor((Math.random() * 100000000) + 1),
+                        id_address: idAddress,
+                        cep: cepAddress,
+                        public_place: publicPlaceAddress,
+                        number: numberAddress,
+                        district: districtAddress,
+                        complement: complementAddress,
+                    }
+
+                    service.innerHTML += compiled(info);
+
+                    // Removendo item selecionado
+                    let removeSelectizeItem = document.getElementById("searchAddress").value;
+                    document.getElementById("searchAddress").selectize.removeItem(removeSelectizeItem);
+
+                }
+
+            })
+
+        }
+
         function removeDiv(id) {
 
             document.getElementById(id).remove();
@@ -339,6 +457,14 @@
             if(document.getElementsByClassName("existsProduct").length == 0){
                 let compiled = Handlebars.compile(document.getElementById("tamplateNoProductAdded").innerHTML);
                 document.getElementById('containerProducts').innerHTML = compiled();
+            }
+            if(document.getElementsByClassName("existsService").length == 0){
+                let compiled = Handlebars.compile(document.getElementById("tamplateNoServiceAdded").innerHTML);
+                document.getElementById('containerServices').innerHTML = compiled();
+            }
+            if(document.getElementsByClassName("existsAddress").length == 0){
+                let compiled = Handlebars.compile(document.getElementById("tamplateNoAddressAdded").innerHTML);
+                document.getElementById('containerAddresses').innerHTML = compiled();
             }
 
         }
@@ -350,6 +476,9 @@
         }
 
         addProduct();
+        addService();
+        addDeliveryAddress();
+        idClientForAddress();
 
     </script>
 

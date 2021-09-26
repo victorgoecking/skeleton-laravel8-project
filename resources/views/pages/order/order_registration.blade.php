@@ -43,7 +43,7 @@
 
                     <div class="col-md-5 mb-3">
                         <label for="validationCustomClient">Cliente *</label>
-                        <select  name="client_id" id="validationCustomClient" data-placeholder="Digite para pesquisar" class="form-control select_product w-100" data-allow-clear="1" required>
+                        <select  name="client_id" id="validationCustomClient" data-placeholder="Digite para pesquisar" class="form-control select_selectize w-100" data-allow-clear="1" required>
                             <option></option>
                             @foreach($clients as $client)
                                 <option value="{{$client->id}}">{{$client->name}} - {{$client->person_type === 'PF' ? '(PF)' : '(PJ)'}}</option>
@@ -99,31 +99,9 @@
             </div>
             <div class="card-body">
                 <label class="mb-0">Buscar produto</label>
-{{--                <div class="form-inline mb-5">--}}
-{{--                    <div class="col-md-6">--}}
-{{--                        <select id="searchProduct" data-placeholder="Digite para selecionar" class="form-control select2Search" data-allow-clear="1">--}}
-{{--                            <option></option>--}}
-{{--                            <optgroup label="Pesquise acima e selecione o produto">--}}
-{{--                                @foreach($products as $product)--}}
-{{--                                    <option value="{{$product->id}}">{{$product->name}}</option>--}}
-{{--                                @endforeach--}}
-{{--                            </optgroup>--}}
-{{--                        </select>--}}
-{{--                    </div>--}}
-{{--                    <div class="col-md-3">--}}
-{{--                        <button class="btn btn-primary" type="button"><i class="fas fa-plus-circle"></i> Adicionar produto</button>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-
                 <div class="form-row mb-3">
                     <div class="col-md-6">
-{{--                        <select id="searchProduct" name="product_id" data-placeholder="Digite para pesquisar" class="form-control select_product w-100" data-allow-clear="1">--}}
-{{--                            <option></option>--}}
-{{--                            @foreach($products as $product)--}}
-{{--                                <option value="{{$product->id}}:{{$product->name}}:{{$product->sales_value_product_used}}">{{$product->name}}</option>--}}
-{{--                            @endforeach--}}
-{{--                        </select>--}}
-                        <select id="searchProduct" name="product_id" data-placeholder="Digite para pesquisar" class="form-control select_product w-100" data-allow-clear="1">
+                        <select id="searchProduct" name="product_id_search" data-placeholder="Digite para pesquisar" class="form-control select_selectize w-100" data-allow-clear="1">
                             <option></option>
                             @foreach($products as $product)
                                 <option value="{{$product->id}}:{{$product->name}}:{{$product->sales_value_product_used}}">{{$product->name}}</option>
@@ -137,32 +115,31 @@
 
                 <div class="form-row">
                     <div class="col-md-12 table-responsive">
-                        <table class="table table-bordered table-hover table-sortable" id="tab_logic_product">
+                        <table class="table table-sm table-bordered table-hover"  style="width: 100%; min-width: 950px;" id="tab_logic_product">
                             <thead>
-                            <tr >
-                                <th >
-                                    Produto *
-                                </th>
-                                <th >
-                                    Detalhes
-                                </th>
-                                <th >
-                                    Quant. *
-                                </th>
-                                <th >
-                                    Valor *
-                                </th>
-                                <th >
-                                    Desconto
-                                </th>
-                                <th >
-                                    Subtotal
-                                </th>
-                                <th class="text-center">
-{{--                                <th class="text-center" style="border-top: 1px solid #ffffff; border-right: 1px solid #ffffff;">--}}
-                                    Del
-                                </th>
-                            </tr>
+                                <tr >
+                                    <th >
+                                        Produto *
+                                    </th>
+                                    <th >
+                                        Detalhes
+                                    </th>
+                                    <th style="width: 8%">
+                                        Quant. *
+                                    </th>
+                                    <th style="width: 12%" >
+                                        Valor *
+                                    </th>
+                                    <th style="width: 12%">
+                                        Desconto
+                                    </th>
+                                    <th style="width: 12%">
+                                        Subtotal
+                                    </th>
+                                    <th style="width: 5%" class="text-center">
+                                        Del
+                                    </th>
+                                </tr>
                             </thead>
                             <tbody id="containerProducts">
                                 <tr id="noProductAdded">
@@ -180,82 +157,116 @@
                 <i class="fas fa-fw fa-tools"></i> Serviços
             </div>
             <div class="card-body">
+                <label class="mb-0">Buscar serviço</label>
+                <div class="form-row mb-3">
+                    <div class="col-md-6">
+                        <select id="searchService" name="service_id_search" data-placeholder="Digite para pesquisar" class="form-control select_selectize w-100" data-allow-clear="1">
+                            <option></option>
+                            @foreach($services as $service)
+                                <option value="{{$service->id}}:{{$service->name}}:{{$service->service_cost_value}}">{{$service->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <button id="btnAddService" class="btn btn-primary" type="button"><i class="fas fa-plus-circle"></i> Adicionar serviço</button>
+                    </div>
+                </div>
+
                 <div class="form-row">
-
-
                     <div class="col-md-12 table-responsive">
-                        <table class="table table-bordered table-hover table-sortable" id="tab_logic">
+                        <table class="table table-sm table-bordered table-hover" style="width: 100%; min-width: 950px;" id="tab_logic_service">
                             <thead>
-                            <tr >
-                                <th >
-                                    Serviço *
-                                </th>
-                                <th >
-                                    Detalhes
-                                </th>
-                                <th >
-                                    Quantidade *
-                                </th>
-                                <th >
-                                    Valor *
-                                </th>
-                                <th >
-                                    Desconto
-                                </th>
-                                <th >
-                                    Subtotal
-                                </th>
-                                <th class="text-center">
-                                    {{--                                <th class="text-center" style="border-top: 1px solid #ffffff; border-right: 1px solid #ffffff;">--}}
-                                    Del
-                                </th>
-                            </tr>
+                                <tr >
+                                    <th>
+                                        Serviço *
+                                    </th>
+                                    <th >
+                                        Detalhes
+                                    </th>
+                                    <th style="width: 8%">
+                                        Quant. *
+                                    </th>
+                                    <th style="width: 12%" >
+                                        Valor *
+                                    </th>
+                                    <th style="width: 12%">
+                                        Desconto
+                                    </th>
+                                    <th style="width: 12%">
+                                        Subtotal
+                                    </th>
+                                    <th style="width: 5%" class="text-center">
+                                        Del
+                                    </th>
+                                </tr>
                             </thead>
-                            <tbody>
-                            <tr id='addr0' data-id="0" class="hidden">
-                                <td data-name="service">
-                                    <input type="text" name='service'  placeholder='' class="form-control"/>
-                                </td>
-                                <td data-name="description_service">
-                                    <input type="text" name='description_service' placeholder='' class="form-control"/>
-                                </td>
-                                <td data-name="quantidade">
-                                    <input type="text" name='quantity' placeholder='' class="form-control"/>
-                                </td>
-                                <td data-name="service_cost_value">
-                                    <input type="text" name="service_cost_value" placeholder="" class="form-control" />
-                                </td>
-                                <td data-name="discount_service">
-                                    <input type="text" name='discount_service' placeholder='' class="form-control"/>
-                                </td>
-                                <td data-name="subtotal_service">
-                                    <input type="text" name='subtotal_service' placeholder='' class="form-control"/>
-                                </td>
-                                <td data-name="del_service">
-                                    <button name="del_service" class='btn btn-danger glyphicon glyphicon-remove row-remove'><span aria-hidden="true">×</span></button>
-                                </td>
-                            </tr>
+                            <tbody id="containerServices">
+                                <tr id="noServiceAdded">
+                                    <td class="text-center" colspan="7">Nenhum serviço adicionado</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
-                    <a id="add_new_service" class="btn btn-primary float-right">Adicionar outro serviço</a>
-
-
                 </div>
             </div>
         </div>
+{{--        @php--}}
+{{--            echo"<pre>"; var_dump($clients[]->address);exit;--}}
+{{--        @endphp--}}
 
         <div class="card shadow mb-4">
             <div class="card-header">
                 <i class="fas fa-map-marker-alt"></i> Endereço de entrega
             </div>
             <div class="card-body">
+                <label class="mb-0">Buscar endereço</label>
+                <div class="form-row mb-3">
+                    <div class="col-md-6">
+                        <select id="searchAddress" name="address_id_search" data-placeholder="Digite para pesquisar" class="form-control select_selectize w-100" data-allow-clear="1">
+                            <option></option>
+
+{{--                            @foreach($clients->address as $address)--}}
+{{--                                <option value="{{$address->id}}:{{ $address->cep }}:{{$address->public_place}}:{{$address->number}}:{{$address->district}}:{{$address->complement}}">{{$address->cep}} | {{$address->public_place}} | Nº {{$address->number}}</option>--}}
+{{--                            @endforeach--}}
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <button id="btnAddAddress" class="btn btn-primary" type="button"><i class="fas fa-plus-circle"></i> Adicionar endereço</button>
+                    </div>
+                </div>
+
                 <div class="form-row">
-
-
-                    ENDEREÇO
-
-
+                    <div class="col-md-12 table-responsive">
+                        <table class="table table-sm table-bordered table-hover" style="width: 100%; min-width: 950px;" id="tab_logic_address">
+                            <thead>
+                            <tr >
+                                <th>
+                                    Cep *
+                                </th>
+                                <th >
+                                    Logradouro
+                                </th>
+                                <th style="width: 8%">
+                                    Nº
+                                </th>
+                                <th style="width: 12%" >
+                                    Bairro
+                                </th>
+                                <th style="width: 12%">
+                                    Complemento
+                                </th>
+                                <th style="width: 5%" class="text-center">
+                                    Del
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody id="containerAddresses">
+                            <tr id="noAddressAdded">
+                                <td class="text-center" colspan="7">Nenhum endereço adicionado</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -268,7 +279,10 @@
                 <div class="form-row">
 
 
-                    TRANSPORTE
+                    <div class="col-md-6 mb-3">
+                        <label for="customCostFreight">Valor do frete</label>
+                        <input type="text" class="form-control" name="cost_freight" id="customCostFreight" placeholder="0.00">
+                    </div>
 
 
                 </div>
@@ -296,12 +310,14 @@
             </div>
             <div class="card-body">
                 <div class="form-row">
-                    <div class="col-md-6 mb-3">
-                        <i class="fas fa-exclamation-circle"></i> <label class=" font-italic font-weight-bold" for="exampleFormControlNoteClient">Está observação será impressa no pedido.</label>
+                    <div class="col-lg-6 col-md-12 mb-3">
+                        <label class=" font-italic font-weight-bold" for="exampleFormControlNoteClient"><i class="fas fa-exclamation-circle"></i>  Está observação será impressa no pedido.</label>
+                        <br>
+                        <br>
                         <textarea class="form-control" name="note_order" id="exampleFormControlNoteOrder" rows="5"></textarea>
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <i class="fas fa-exclamation-circle"></i> <label class="font-italic font-weight-bold" for="exampleFormControlNoteClient">Está observação é de uso interno, portanto não será impressa no pedido.</label>
+                    <div class="col-lg-6 col-md-12 mb-3">
+                         <label class="font-italic font-weight-bold" for="exampleFormControlNoteClient"><i class="fas fa-exclamation-circle"></i>  Está observação é de uso interno, <br>portanto não será impressa no pedido.</label>
                         <textarea class="form-control" name="note_order" id="exampleFormControlNoteOrder" rows="5"></textarea>
                     </div>
                 </div>
@@ -327,17 +343,30 @@
         </tr>
     </script>
 
+    <script type="x-handlebars-template" id="tamplateNoServiceAdded">
+        <tr id="noServiceAdded">
+            <td class="text-center" colspan="7">Nenhum serviço adicionado</td>
+        </tr>
+    </script>
+
+    <script type="x-handlebars-template" id="tamplateNoAddressAdded">
+        <tr id="noAddressAdded">
+            <td class="text-center" colspan="7">Nenhum endereço adicionado</td>
+        </tr>
+    </script>
+
     <script type="x-handlebars-template" id="tamplateAddProduct">
 
-        <tr id="@{{id_handlebars}}" class="existsProduct">
+        <tr id="@{{id_handlebars_product}}" class="existsProduct">
             <td data-name="product">
+                <input type="hidden" name="id_product[]" value="@{{id_product}}">
                 <input type="text" name='name_product[]' placeholder='' value="@{{name_product}}" class="form-control" disabled/>
             </td>
             <td data-name="description_product">
                 <input type="text" name='description_product[]' placeholder='' class="form-control"/>
             </td>
             <td data-name="quantity">
-                <input type="text" name='quantity[]' placeholder='' class="form-control"/>
+                <input type="text" name='quantity_product[]' placeholder='' class="form-control"/>
             </td>
             <td data-name="product_order_value">
                 <input type="text" name="product_order_value[]" value="@{{value_product}}" placeholder="" class="form-control" />
@@ -349,7 +378,62 @@
                 <input type="text" name='subtotal_product[]' placeholder='0,00' class="form-control"/>
             </td>
             <td data-name="del_product">
-                <button class='btn btn-danger glyphicon glyphicon-remove row-remove' onclick="removeDiv(@{{id_handlebars}})"><span aria-hidden="true">×</span></button>
+                <button class='btn btn-danger glyphicon glyphicon-remove row-remove' onclick="removeDiv(@{{id_handlebars_product}})"><span aria-hidden="true">×</span></button>
+            </td>
+        </tr>
+
+    </script>
+
+    <script type="x-handlebars-template" id="tamplateAddService">
+
+        <tr id="@{{id_handlebars_service}}" class="existsService">
+            <td data-name="service">
+                <input type="hidden" name="id_service[]" value="@{{id_service}}">
+                <input type="text" name='name_service[]' value="@{{name_service}}" placeholder='' class="form-control" disabled/>
+            </td>
+            <td data-name="description_service">
+                <input type="text" name='description_service[]' placeholder='' class="form-control"/>
+            </td>
+            <td data-name="quantidade">
+                <input type="text" name='quantity_service[]' placeholder='' class="form-control"/>
+            </td>
+            <td data-name="service_cost_value">
+                <input type="text" name="service_cost_value[]" value="@{{value_service}}" placeholder="" class="form-control" />
+            </td>
+            <td data-name="discount_service">
+                <input type="text" name='discount_service[]' placeholder='' class="form-control"/>
+            </td>
+            <td data-name="subtotal_service">
+                <input type="text" name='subtotal_service[]' placeholder='' class="form-control"/>
+            </td>
+            <td data-name="del_service">
+                <button class='btn btn-danger glyphicon glyphicon-remove row-remove' onclick="removeDiv(@{{id_handlebars_service}})"><span aria-hidden="true">×</span></button>
+            </td>
+        </tr>
+
+    </script>
+
+    <script type="x-handlebars-template" id="tamplateAddAddress">
+
+        <tr id="@{{id_handlebars_address}}" class="existsAddress">
+            <td data-name="address">
+                <input type="hidden" name="id_address[]" value="@{{id_address}}">
+                <input type="text" name='cep[]' value="@{{cep}}" placeholder='' class="form-control" disabled/>
+            </td>
+            <td data-name="public_place">
+                <input type="text" name='public_place[]' placeholder='' class="form-control"/>
+            </td>
+            <td data-name="number">
+                <input type="text" name='number[]' placeholder='' class="form-control"/>
+            </td>
+            <td data-name="district">
+                <input type="text" name="district[]" value="@{{value_service}}" placeholder="" class="form-control" />
+            </td>
+            <td data-name="complement">
+                <input type="text" name='complement[]' placeholder='' class="form-control"/>
+            </td>
+            <td data-name="del_address">
+                <button class='btn btn-danger glyphicon glyphicon-remove row-remove' onclick="removeDiv(@{{id_handlebars_address}})"><span aria-hidden="true">×</span></button>
             </td>
         </tr>
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Service;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -34,10 +35,14 @@ class OrderController extends Controller
 
         $clients = Client::with('address','contact','user')->get();
         $products = Product::all();
+        $services = Service::all();
+
+//        dd($clients);
 
         return view('pages.order.order_registration', [
             'clients' => $clients,
-            'products' => $products
+            'products' => $products,
+            'services' => $services
         ]);
     }
 
