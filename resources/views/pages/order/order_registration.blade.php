@@ -43,7 +43,7 @@
 
                     <div class="col-md-5 mb-3">
                         <label for="validationCustomClient">Cliente *</label>
-                        <select  name="client_id" id="validationCustomClient" data-placeholder="Digite para pesquisar" class="form-control select_selectize w-100" data-allow-clear="1" required>
+                        <select  name="client_id" id="validationCustomClient" onchange="idClientForAddress(this.value)" data-placeholder="Digite para pesquisar" class="form-control select_selectize w-100" data-allow-clear="1" required>
                             <option></option>
                             @foreach($clients as $client)
                                 <option value="{{$client->id}}">{{$client->name}} - {{$client->person_type === 'PF' ? '(PF)' : '(PJ)'}}</option>
@@ -56,6 +56,7 @@
                             Por favor, informe o cliente.
                         </div>
                     </div>
+                    <div id="log"></div>
 
                     <div class="col-md-5 mb-3">
                         <label for="customUser">Vendedor / Responsável</label>
@@ -210,9 +211,11 @@
                 </div>
             </div>
         </div>
-{{--        @php--}}
-{{--            echo"<pre>"; var_dump($clients[]->address);exit;--}}
-{{--        @endphp--}}
+        @php
+            $id_client_selected = "<script>document.write(id_client_selected)</script>";
+
+            echo"<pre>"; var_dump($clients[$id_client_selected]->address);exit;
+        @endphp
 
         <div class="card shadow mb-4">
             <div class="card-header">
@@ -225,9 +228,9 @@
                         <select id="searchAddress" name="address_id_search" data-placeholder="Digite para pesquisar" class="form-control select_selectize w-100" data-allow-clear="1">
                             <option></option>
 
-{{--                            @foreach($clients->address as $address)--}}
-{{--                                <option value="{{$address->id}}:{{ $address->cep }}:{{$address->public_place}}:{{$address->number}}:{{$address->district}}:{{$address->complement}}">{{$address->cep}} | {{$address->public_place}} | Nº {{$address->number}}</option>--}}
-{{--                            @endforeach--}}
+                            @foreach($clients[$id_client_selected]->address as $address)
+                                <option value="{{$address->id}}:{{ $address->cep }}:{{$address->public_place}}:{{$address->number}}:{{$address->district}}:{{$address->complement}}">{{$address->cep}} | {{$address->public_place}} | Nº {{$address->number}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-md-6">

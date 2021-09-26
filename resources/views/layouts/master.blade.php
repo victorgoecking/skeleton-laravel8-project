@@ -284,22 +284,11 @@
     </script>
 
 
-
-
-
-
     <script type="text/javascript">
 
-        function idClientForAddress() {
-
-
-            client.addEventListener('change', () => {
-                alert('teste');
-                let id = document.getElementById("validationCustomClient").value;
-
-                console.log(id);
-                return id;
-            });
+        var id_client_selected = '';
+        function idClientForAddress(value) {
+            id_client_selected = value;
         }
 
         function addProduct() {
@@ -386,17 +375,17 @@
 
         function addDeliveryAddress() {
 
-            let client = document.getElementById('validationCustomClient');
+            // let client = document.getElementById('validationCustomClient');
             // let searchAddress = document.getElementById('searchAddress');
 
             // let searchAddress = document.getElementById("searchAddress").value;
             // let searchAddress =  document.getElementById("searchAddress").selectize.trigger('change');
 
-            console.log(document.getElementById("validationCustomClient").selectize.trigger('change'))
-
-            if (document.getElementById("validationCustomClient").selectize.trigger('change')) {
-                alert("Selecione um clientes antes");
-            }
+            // console.log(document.getElementById("validationCustomClient").selectize.trigger('change'))
+            //
+            // if (document.getElementById("validationCustomClient").selectize.trigger('change')) {
+            //     alert("Selecione um clientes antes");
+            // }
             // searchAddress.addEventListener('mouseup', () => {
             //     alert("Selecione um clientes antes");
             //     if (client.options[client.selectedIndex].value == "") {
@@ -478,7 +467,6 @@
         addProduct();
         addService();
         addDeliveryAddress();
-        idClientForAddress();
 
     </script>
 
