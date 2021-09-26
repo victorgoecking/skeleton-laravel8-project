@@ -129,7 +129,10 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/js/standalone/selectize.min.js" integrity="sha512-pF+DNRwavWMukUv/LyzDyDMn8U2uvqYQdJN0Zvilr6DDo/56xPDZdDoyPDYZRSL4aOKO/FGKXTpzDyQJ8je8Qw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-{{--    ADICIONA SCRIPTS DAS PAGINAS--}}
+
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+
+    {{--    ADICIONA SCRIPTS DAS PAGINAS--}}
     @yield('scriptPages')
 
 {{-- ------------------- TOASTR NOTIFICATION ----------------- --}}
@@ -271,10 +274,83 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $(".select_product").selectize({
-                create: true,
                 sortField: "text",
+                placeholder: $(this).data('placeholder'),
+                // width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+                allowClear: Boolean($(this).data('allow-clear')),
+
             });
         });
+    </script>
+
+
+
+
+
+
+    <script type="text/javascript">
+
+        function addProduct() {
+
+            let botaoAdd = document.getElementById('btnAddProduct');
+
+            botaoAdd.addEventListener('click', () => {
+
+                let myStr = (document.getElementById("searchProduct").value).split(":");
+                let idProduct = myStr[0];
+                let nameProduct = myStr[1];
+                let valueProduct = myStr[2];
+
+                //verificando se um valor foi adicionado para mandar pro handlesbars
+                if(document.getElementById("searchProduct").value){
+                    if (document.getElementById("noProductAdded")) {
+                        document.getElementById("noProductAdded").remove()
+                    }
+
+                    let templateProduct = document.getElementById('tamplateAddProduct').innerHTML;
+                    let compiled = Handlebars.compile(templateProduct);
+
+                    let product = document.getElementById('containerProducts');
+
+                    let info = {
+                        id_handlebars: Math.floor((Math.random() * 100000000) + 1),
+                        id_product: idProduct,
+                        name_product: nameProduct,
+                        value_product: valueProduct
+                    }
+
+                    product.innerHTML += compiled(info);
+
+                   // Removendo item selecionado
+                   let removeSelectizeItem = document.getElementById("searchProduct").value;
+                   document.getElementById("searchProduct").selectize.removeItem(removeSelectizeItem);
+
+                }
+
+            })
+
+        }
+
+        function removeDiv(id) {
+
+            document.getElementById(id).remove();
+
+
+            if(document.getElementsByClassName("existsProduct").length == 0){
+                let compiled = Handlebars.compile(document.getElementById("tamplateNoProductAdded").innerHTML);
+                document.getElementById('containerProducts').innerHTML = compiled();
+            }
+
+        }
+
+        function submit() {
+
+            return false;
+
+        }
+
+        addProduct();
+
     </script>
 
 
