@@ -60,26 +60,30 @@
 
                     <div class="col-md-5 mb-3">
                         <label for="customUser">Vendedor / Responsável</label>
-                        <input type="text" class="form-control" name="user_id" id="customUser" aria-describedby="cpfHelp" placeholder="">
+                        <select  name="user_id" id="customUser" data-placeholder="Digite para pesquisar" class="form-control select_selectize w-100" data-allow-clear="1" required>
+                            <option value="{{auth()->user()->id}}">{{auth()->user()->name}}</option>
+                            @foreach($users as $user)
+                                <option value="{{$user->id}}">{{$user->name}}</option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="col-md-3 mb-3">
                         <label for="customOrderDate">Data</label>
-                        <input type="date" class="form-control" name="order_date" value="" id="customOrderDate" aria-describedby="orderDateHelp" placeholder="">
+                        <input type="date" class="form-control" name="order_date" value="{{date('Y-m-d', time()) }}" id="customOrderDate" aria-describedby="orderDateHelp" placeholder="" required>
                     </div>
 
                     <div class="col-md-3 mb-3">
                         <label for="customDeliveryForecast">Previsão de entrega</label>
-                        <input type="date" class="form-control" name="delivery_forecast" id="customDeliveryForecast" aria-describedby="deliveryForecastHelp" placeholder="">
+                        <input type="date" class="form-control" name="delivery_forecast" id="customDeliveryForecast" aria-describedby="deliveryForecastHelp" placeholder="" required>
                     </div>
 
                     <div class="col-md-3 mb-3">
                         <label for="selectSituation">Situação</label>
                         <select class="form-control" name="situation" id="selectSituation">
-                            <option value="1" selected>Em aberto</option>
-                            <option value="0">Em andamento</option>
-                            <option value="0">Concretizada</option>
-                            <option value="0">Cancelada</option>
+                            @foreach($situations as $situation)
+                                <option value="{{$situation->id}}">{{$situation->description}}</option>
+                            @endforeach
                         </select>
                     </div>
 
@@ -334,7 +338,7 @@
                                         <input type="text" name="total_percentage_discount" value="" placeholder="" class="form-control" />
                                     </td>
                                     <td data-name="total">
-                                        <input type="text" name='total'  value="" placeholder='0.00' class="form-control" disabled/>
+                                        <input type="text" name='total'  value="" placeholder='0.00' class="form-control" disabled required/>
                                     </td>
                                 </tr>
                             </tbody>
@@ -406,7 +410,7 @@
                 <input type="text" name='description_product[]' placeholder='' class="form-control"/>
             </td>
             <td data-name="quantity">
-                <input type="text" name='quantity_product[]' placeholder='' class="form-control"/>
+                <input type="text" name='quantity_product[]' placeholder='' class="form-control" required/>
             </td>
             <td data-name="product_order_value">
                 <input type="text" name="product_order_value[]" value="@{{value_product}}" placeholder="" class="form-control" />
@@ -415,7 +419,7 @@
                 <input type="text" name='discount_product[]' placeholder='' class="form-control"/>
             </td>
             <td data-name="subtotal_product">
-                <input type="text" name='subtotal_product[]' placeholder='0,00' class="form-control"/>
+                <input type="text" name='subtotal_product[]' placeholder='0,00' class="form-control" required/>
             </td>
             <td data-name="del_product">
                 <button class='btn btn-danger glyphicon glyphicon-remove row-remove' onclick="removeDiv(@{{id_handlebars_product}})"><span aria-hidden="true">×</span></button>
@@ -435,7 +439,7 @@
                 <input type="text" name='description_service[]' placeholder='' class="form-control"/>
             </td>
             <td data-name="quantidade">
-                <input type="text" name='quantity_service[]' placeholder='' class="form-control"/>
+                <input type="text" name='quantity_service[]' placeholder='' class="form-control" required/>
             </td>
             <td data-name="service_cost_value">
                 <input type="text" name="service_cost_value[]" value="@{{value_service}}" placeholder="" class="form-control" />
@@ -444,7 +448,7 @@
                 <input type="text" name='discount_service[]' placeholder='' class="form-control"/>
             </td>
             <td data-name="subtotal_service">
-                <input type="text" name='subtotal_service[]' placeholder='' class="form-control"/>
+                <input type="text" name='subtotal_service[]' placeholder='' class="form-control" required/>
             </td>
             <td data-name="del_service">
                 <button class='btn btn-danger glyphicon glyphicon-remove row-remove' onclick="removeDiv(@{{id_handlebars_service}})"><span aria-hidden="true">×</span></button>

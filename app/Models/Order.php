@@ -45,11 +45,11 @@ class Order extends Model
         return $this->belongsTo(Client::class, 'client_id', 'id');
     }
 
-//    public function situation(){
-//        return $this->belongsTo(Situation::class, 'situation_id', 'id');
-//    }
+    public function situation(){
+        return $this->hasMany(Situation::class, 'situation_id', 'id');
+    }
 
-    public function products(){
+    public function product(){
         return $this->belongsToMany(Product::class, 'orders_products','order_id', 'product_id');
     }
 }

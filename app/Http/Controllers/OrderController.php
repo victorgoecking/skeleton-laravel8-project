@@ -6,6 +6,8 @@ use App\Models\Client;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Service;
+use App\Models\Situation;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -33,16 +35,21 @@ class OrderController extends Controller
     {
 //        $order = Order::with('user', 'client', 'products')->get();
 
+        $users = User::all();
         $clients = Client::with('address','contact','user')->get();
         $products = Product::all();
         $services = Service::all();
+        $situation = Situation::all();
 
 //        dd($clients);
 
         return view('pages.order.order_registration', [
+            'users' => $users,
             'clients' => $clients,
             'products' => $products,
-            'services' => $services
+            'services' => $services,
+            'situations' => $situation,
+
         ]);
     }
 
