@@ -12,6 +12,9 @@ var __webpack_exports__ = {};
 // $("#profitPercentage").keyup(function(){
 //     calculatePersentagem();
 // });
+$("#validationCustomProductCostValue").change(function () {
+  calculatePersentagem();
+});
 $("#buttonCalculateSalesValueProduct").click(function () {
   calculatePersentagem();
 });

@@ -57,11 +57,11 @@
                             </tr>
                             <tr>
                                 <th scope="row">Criado em</th>
-                                <td colspan="2">{{ $user->created_at }}</td>
+                                <td colspan="2">{{ $user->created_at->format('d/m/Y - H:i:s') }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Modificado em</th>
-                                <td colspan="2">{{ $user->updated_at }}</td>
+                                <td colspan="2">{{ $user->updated_at->format('d/m/Y - H:i:s') }}</td>
                             </tr>
                         </tbody>
                     </table>

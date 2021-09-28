@@ -54,7 +54,7 @@
                         <tr>
                             <td>{{ $order->id }}</td>
                             <td>{{ $order->client->first()->name }}</td>
-                            <td>{{ $order->order_date }}</td>
+                            <td>{{ $order->order_date->format('d/m/Y') }}</td>
                             <td>{{ $order->total }}</td>
                             @if( $order->budget === 1)
                                 <td><span class="badge badge-info">Orçamento</span></td>

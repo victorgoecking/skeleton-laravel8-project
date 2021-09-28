@@ -9,13 +9,17 @@
 //     calculatePersentagem();
 // });
 
+$("#validationCustomProductCostValue").change(function(){
+    calculatePersentagem();
+});
+
 $("#buttonCalculateSalesValueProduct").click(function(){
     calculatePersentagem();
 });
 
 function calculatePersentagem() {
-    var product_cost_value = $("#validationCustomProductCostValue").val();
-    var profit_percentage = $("#profitPercentage").val();
+    let product_cost_value = $("#validationCustomProductCostValue").val();
+    let profit_percentage = $("#profitPercentage").val();
     let sales_value_product_used;
 
     if (product_cost_value && !isNaN(product_cost_value)){
@@ -32,6 +36,7 @@ function calculatePersentagem() {
 
         $("#salesValueProductUsed").val(parseFloat(sales_value_product_used));
         $("#suggestedSalesValue").html(parseFloat(sales_value_product_used));
+
     }else{
         $("#salesValueProductUsed").val('');
         $("#suggestedSalesValue").html('0,00');

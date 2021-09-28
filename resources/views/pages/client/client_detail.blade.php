@@ -96,11 +96,11 @@
                         </tr>
                         <tr>
                             <th scope="row">Criado em</th>
-                            <td colspan="1">{{ $client->created_at }}</td>
+                            <td colspan="1">{{ $client->created_at->format('d/m/Y - H:i:s') }}</td>
                         </tr>
                         <tr>
                             <th scope="row">Modificado em</th>
-                            <td colspan="1">{{ $client->updated_at }}</td>
+                            <td colspan="1">{{ $client->updated_at->format('d/m/Y - H:i:s') }}</td>
                         </tr>
                         </tbody>
                     </table>

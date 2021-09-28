@@ -65,7 +65,7 @@
 
                     <div class="col-md-3 mb-3">
                         <label for="customOrderDate">Data</label>
-                        <input type="date" class="form-control" name="order_date" id="customOrderDate" aria-describedby="orderDateHelp" placeholder="">
+                        <input type="date" class="form-control" name="order_date" value="" id="customOrderDate" aria-describedby="orderDateHelp" placeholder="">
                     </div>
 
                     <div class="col-md-3 mb-3">
