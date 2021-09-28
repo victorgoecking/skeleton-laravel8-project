@@ -409,7 +409,10 @@
                 if(document.getElementById("searchAddress").value){
                     if (document.getElementById("noAddressAdded")) {
                         document.getElementById("noAddressAdded").remove()
+                    }else{
+                        document.getElementById("addressHandlebars").remove();
                     }
+
 
                     let templateProduct = document.getElementById('tamplateAddAddress').innerHTML;
                     let compiled = Handlebars.compile(templateProduct);
@@ -417,7 +420,7 @@
                     let service = document.getElementById('containerAddresses');
 
                     let info = {
-                        id_handlebars_address: Math.floor((Math.random() * 100000000) + 1),
+                        id_handlebars_address: "addressHandlebars",
                         id_address: idAddress,
                         cep: cepAddress,
                         public_place: publicPlaceAddress,

@@ -17,7 +17,8 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->tinyInteger('budget')->default(0);
             $table->decimal('total', 9,2);
-            $table->decimal('discount', 9,2)->nullable();
+            $table->decimal('cash_discount', 9,2)->nullable();
+            $table->decimal('percentage_discount', 9,2)->nullable();
             $table->decimal('cost_freight', 9,2)->nullable();
             $table->integer('delivery_address_id')->nullable();
             $table->date('order_date');
