@@ -229,12 +229,15 @@
                 <label class="mb-0">Buscar endereço</label>
                 <div class="form-row mb-3">
                     <div class="col-md-10">
+{{--                        <select name="" id="testeAddress"></select>--}}
                         <select id="searchAddress" name="address_id_search" data-placeholder="Digite para pesquisar" class="form-control select_selectize w-100" data-allow-clear="1">
-                            <option></option>
+{{--                            <option></option>--}}
 
-                            @foreach($clients[0]->address as $address)
-                                <option value="{{$address->id}}:{{ $address->cep }}:{{$address->public_place}}:{{$address->number}}:{{$address->district}}:{{$address->complement}}">CEP: {{$address->cep}}  |  {{$address->public_place}}  |  Nº {{$address->number}}</option>
-                            @endforeach
+{{--                            @foreach($clients[0]->address as $address)--}}
+{{--                                <option value="{{$address->id}}:{{ $address->cep }}:{{$address->public_place}}:{{$address->number}}:{{$address->district}}:{{$address->complement}}">CEP: {{$address->cep}}  |  {{$address->public_place}}  |  Nº {{$address->number}}</option>--}}
+{{--                            @endforeach--}}
+
+
                         </select>
                     </div>
                     <div class="col-md-2">

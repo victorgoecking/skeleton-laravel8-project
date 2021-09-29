@@ -124,9 +124,6 @@
 
     <script src="{{ asset('admin/js/app.js')}}"></script>
 
-    <script src="{{ asset('admin/js/wizard/jquery.steps.min.js')}}"></script>
-    <script src="{{ asset('admin/js/wizard/bd-wizard.js')}}"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/js/standalone/selectize.min.js" integrity="sha512-pF+DNRwavWMukUv/LyzDyDMn8U2uvqYQdJN0Zvilr6DDo/56xPDZdDoyPDYZRSL4aOKO/FGKXTpzDyQJ8je8Qw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
@@ -191,13 +188,33 @@
 
     <script type="text/javascript">
 
-        var id_client_selected = '';
         function idClientForAddress(value) {
-            // document.getElementById("validationCustomClient").setAttribute('required')
-            // let clientSelected = document.querySelector('.is-invalid');
-            // clientSelected.classList.replace('is-invalid', 'is-valid');
+            $.ajax({
+                url: "{{ route('returnClientAddress') }}",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "id": value
+            },
+                success: function (data){
 
-            id_client_selected = value;
+                    let $select = $(document.getElementById('searchAddress'));
+                    let option = $select[0].selectize;
+
+                    for(let i=0; i <= $select.length; i++){
+                        option.clearOptions(true)
+                    }
+
+                    $.each(data, function (key, val) {
+
+                        let count = option.items.length + 1;
+
+                        option.addOption({value: val.id+':'+val.cep+':'+val.public_place+':'+val.number+':'+val.district+':'+val.complement, text: 'CEP: '+val.cep+' | '+val.public_place+' | '+val.number});
+
+                        option.addItem(count);
+
+                    });
+                },
+            })
         }
 
         function addProduct() {

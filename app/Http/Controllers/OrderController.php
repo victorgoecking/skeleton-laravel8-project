@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use App\Models\Client;
 use App\Models\Order;
 use App\Models\Product;
@@ -36,7 +37,7 @@ class OrderController extends Controller
 //        $order = Order::with('user', 'client', 'products')->get();
 
         $users = User::all();
-        $clients = Client::with('address','contact','user')->get();
+        $clients = Client::with('address','contact')->get();
         $products = Product::all();
         $services = Service::all();
         $situation = Situation::all();
@@ -51,6 +52,11 @@ class OrderController extends Controller
             'situations' => $situation,
 
         ]);
+    }
+
+    public function returnClientAddress(Request $request)
+    {
+        return Address::where('client_id', '=', $request->id)->get();
     }
 
     /**

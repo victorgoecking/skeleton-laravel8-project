@@ -50,6 +50,10 @@ Route::resource('servicos', ServiceController::class)->middleware(['auth'])->nam
 
 Route::resource('Pedidos', OrderController::class)->middleware(['auth'])->names('order')->parameters(['pedidos' => 'order']);
 
+Route::get('/returnClientAddress', [OrderController::class, 'returnClientAddress'])
+    ->middleware('auth')
+    ->name('returnClientAddress');
+
 //Route::get('/usuarios', [UserController::class, 'index'])
 //    ->name('user.index');
 //
