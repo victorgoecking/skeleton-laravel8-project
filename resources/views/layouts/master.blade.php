@@ -323,18 +323,6 @@
 
         }
 
-        $(document).ready(function(){
-            $('div#validationCustomClient div.selectize-input').on('click', function(e) {
-                alert("test");
-            });
-        });
-
-        function ifClientInformed() {
-            // console.log('teste')
-            // alert(document.getElementById("validationCustomClient").value)
-
-
-        }
 
         function addDeliveryAddress() {
 
