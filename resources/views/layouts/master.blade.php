@@ -26,7 +26,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.bootstrap4.min.css" integrity="sha512-MMojOrCQrqLg4Iarid2YMYyZ7pzjPeXKRvhW9nZqLo6kPBBTuvNET9DBVWptAo/Q20Fy11EIHM5ig4WlIrJfQw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
-    <link href="{{ asset('admin/css/wizard/bd-wizard.css')}}" rel="stylesheet">
 
 </head>
 
@@ -185,6 +184,31 @@
         });
     </script>
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".select_selectize_address").selectize({
+                sortField: "text",
+                placeholder: $(this).data('placeholder'),
+                // width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+                allowClear: Boolean($(this).data('allow-clear')),
+                onFocus: function () {
+                    // control has gained focus
+                    let selectClient = $(document.getElementById('validationCustomClient').value);
+                    // let option = $selectClient[0].selectize;
+                    console.log(selectClient.prevObject);
+
+                    if(selectClient.prevObject !== 'undefined'){
+
+                    }
+                },
+                onBlur: function () {
+                    // control has gained focus
+                },
+
+            });
+        });
+    </script>
+
 
     <script type="text/javascript">
 
@@ -197,10 +221,10 @@
             },
                 success: function (data){
 
-                    let $select = $(document.getElementById('searchAddress'));
-                    let option = $select[0].selectize;
+                    let $selectAddress = $(document.getElementById('searchAddress'));
+                    let option = $selectAddress[0].selectize;
 
-                    for(let i=0; i <= $select.length; i++){
+                    for(let i=0; i <= $selectAddress.length; i++){
                         option.clearOptions(true)
                     }
 
@@ -299,25 +323,20 @@
 
         }
 
+        $(document).ready(function(){
+            $('div#validationCustomClient div.selectize-input').on('click', function(e) {
+                alert("test");
+            });
+        });
+
+        function ifClientInformed() {
+            // console.log('teste')
+            // alert(document.getElementById("validationCustomClient").value)
+
+
+        }
+
         function addDeliveryAddress() {
-
-            // let client = document.getElementById('validationCustomClient');
-            // let searchAddress = document.getElementById('searchAddress');
-
-            // let searchAddress = document.getElementById("searchAddress").value;
-            // let searchAddress =  document.getElementById("searchAddress").selectize.trigger('change');
-
-            // console.log(document.getElementById("validationCustomClient").selectize.trigger('change'))
-            //
-            // if (document.getElementById("validationCustomClient").selectize.trigger('change')) {
-            //     alert("Selecione um clientes antes");
-            // }
-            // searchAddress.addEventListener('mouseup', () => {
-            //     alert("Selecione um clientes antes");
-            //     if (client.options[client.selectedIndex].value == "") {
-            //     }
-            // });
-
 
             let botaoAdd = document.getElementById('btnAddAddress');
 
