@@ -228,8 +228,8 @@
             <div class="card-body">
                 <label class="mb-0">Buscar endereço</label>
                 <div class="form-row mb-3">
-                    <div class="col-md-10">
-                        <select id="searchAddress" name="address_id_search"  data-placeholder="Digite para pesquisar" class="form-control select_selectize_address w-100" data-allow-clear="1">
+                    <div class="col-md-10" id="tooltipSearchAddress" >
+                        <select id="searchAddress" name="address_id_search"  data-placeholder="Digite para pesquisar" class="form-control select_selectize_address w-100" data-allow-clear="1" >
                             <option></option>
                         </select>
                     </div>

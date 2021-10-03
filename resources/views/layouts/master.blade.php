@@ -194,15 +194,20 @@
                 onFocus: function () {
                     // control has gained focus
                     let selectClient = $(document.getElementById('validationCustomClient').value);
-                    // let option = $selectClient[0].selectize;
-                    console.log(selectClient.prevObject);
 
-                    if(selectClient.prevObject !== 'undefined'){
+                    if(selectClient.prevObject === undefined){
+
+                        $('#tooltipSearchAddress').tooltip({
+                            'trigger': 'manual',
+                            'title': 'Selecione um cliente por favor.',
+                            'placement': 'top'
+                        }).tooltip('show');
 
                     }
+
                 },
                 onBlur: function () {
-                    // control has gained focus
+                    $('#tooltipSearchAddress').tooltip().tooltip('dispose');
                 },
 
             });
@@ -226,6 +231,14 @@
 
                     for(let i=0; i <= $selectAddress.length; i++){
                         option.clearOptions(true)
+                    }
+
+                    if(!data[0]){
+                        $('#tooltipSearchAddress').tooltip({
+                            'trigger': 'manual',
+                            'title': 'Cliente sem endereços cadastrados.',
+                            'placement': 'top'
+                        }).tooltip('show');
                     }
 
                     $.each(data, function (key, val) {

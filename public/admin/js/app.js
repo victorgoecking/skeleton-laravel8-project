@@ -3821,18 +3821,16 @@ __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js"); /
       }, false);
     });
   }, false);
-})(); // ------------------------------------    CONF DATATABLE
-
+})();
 
 $(document).ready(function () {
+  // ------------------------------------    CONF DATATABLE
   $('#dataTable').DataTable({
     "language": {
       "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Portuguese-Brasil.json"
     }
-  });
-}); // ------------------------------------    TOOLTIP
+  }); // ------------------------------------    TOOLTIP
 
-$(function () {
   $('[data-toggle="tooltip"]').tooltip();
 });
 
