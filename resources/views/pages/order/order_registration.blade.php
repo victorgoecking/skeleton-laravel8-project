@@ -16,7 +16,7 @@
         </nav>
     </div>
 
-    <form id="formOrder" class="needs-validation" method="POST" action="{{ route('order.store') }}" novalidate>
+    <form id="formOrder" class="needs-validation" onsubmit="return false;" method="POST" action="{{ route('order.store') }}" novalidate>
         @csrf
 
         <div class="card shadow mb-4">
@@ -132,6 +132,9 @@
                                     <th style="width: 8%">
                                         Quant. *
                                     </th>
+                                    <th style="width: 8%">
+                                        (m)
+                                    </th>
                                     <th style="width: 12%" >
                                         Valor *
                                     </th>
@@ -148,7 +151,7 @@
                             </thead>
                             <tbody id="containerProducts">
                                 <tr id="noProductAdded">
-                                    <td class="text-center" colspan="7">Nenhum produto adicionado</td>
+                                    <td class="text-center" colspan="8">Nenhum produto adicionado</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -363,8 +366,8 @@
                 </div>
 
                 <div class="form-row mt-2">
-                    <button class="btn btn-primary" type="submit"><i class="fas fa-paper-plane"></i> Cadastrar</button>
-                    <a href="{{ route('order.index') }}"><button class="btn btn-danger ml-2" type="button"><i class="fas fa-times-circle"></i> Cancelar</button></a>
+                    <button class="btn btn-primary" type="submit" aria-hidden="true"><i class="fas fa-paper-plane"></i> Cadastrar</button>
+                    <a href="{{ route('order.index') }}"><button class="btn btn-danger ml-2" type="button" aria-hidden="true"><i class="fas fa-times-circle"></i> Cancelar</button></a>
                 </div>
             </div>
         </div>
@@ -379,7 +382,7 @@
 
     <script type="x-handlebars-template" id="tamplateNoProductAdded">
         <tr id="noProductAdded">
-            <td class="text-center" colspan="7">Nenhum produto adicionado</td>
+            <td class="text-center" colspan="8">Nenhum produto adicionado</td>
         </tr>
     </script>
 
@@ -406,16 +409,19 @@
                 <input type="text" name='description_product[]' placeholder='' class="form-control"/>
             </td>
             <td data-name="quantity">
-                <input type="text" name='quantity_product[]' placeholder='' class="form-control" required/>
+                <input type="text" id="quantityProduct_@{{id_handlebars_product}}" onblur="calcSubtotalProduct(@{{id_handlebars_product}})" name='quantity_product[]' value="1" placeholder='' class="form-control" required/>
+            </td>
+            <td data-name="meter">
+                <input type="text" id="meter_@{{id_handlebars_product}}" name='meter[]' placeholder='' class="form-control" required/>
             </td>
             <td data-name="product_order_value">
-                <input type="text" name="product_order_value[]" value="@{{value_product}}" placeholder="" class="form-control" />
+                <input type="text" id="productOrderValue_@{{id_handlebars_product}}" name="product_order_value[]" value="@{{value_product}}" placeholder="" class="form-control" />
             </td>
             <td data-name="discount_product">
-                <input type="text" name='discount_product[]' placeholder='' class="form-control"/>
+                <input type="text" id="discountProduct_@{{id_handlebars_product}}" name='discount_product[]' placeholder='' class="form-control"/>
             </td>
             <td data-name="subtotal_product">
-                <input type="text" name='subtotal_product[]' placeholder='0,00' class="form-control" required/>
+                <input type="text" id="subtotalProduct_@{{id_handlebars_product}}" name='subtotal_product[]' value="@{{subtotal_product}}" placeholder='0,00' class="form-control" required/>
             </td>
             <td data-name="del_product">
                 <button class='btn btn-danger glyphicon glyphicon-remove row-remove' onclick="removeDiv(@{{id_handlebars_product}})"><span aria-hidden="true">×</span></button>
@@ -435,7 +441,7 @@
                 <input type="text" name='description_service[]' placeholder='' class="form-control"/>
             </td>
             <td data-name="quantidade">
-                <input type="text" name='quantity_service[]' placeholder='' class="form-control" required/>
+                <input type="text" name='quantity_service[]' value="1" placeholder='' class="form-control" required/>
             </td>
             <td data-name="service_cost_value">
                 <input type="text" name="service_cost_value[]" value="@{{value_service}}" placeholder="" class="form-control" />

@@ -162,7 +162,7 @@
     </script>
 
 
-    {{-- ------------------- TETE MODAL ----------------- --}}
+    {{-- ------------------- TESTE MODAL ----------------- --}}
     <script type="text/javascript">
         $(document).ready(function() {
             $('#modalUserDetail').modal('show');
@@ -173,6 +173,17 @@
 
 
     <script type="text/javascript">
+
+        $(document).ready(function() {
+            $(window).keydown(function(event){
+                if(event.keyCode == 13) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
+        });
+
+
         $(document).ready(function () {
             $(".select_selectize").selectize({
                 sortField: "text",
@@ -182,9 +193,8 @@
 
             });
         });
-    </script>
 
-    <script type="text/javascript">
+
         $(document).ready(function () {
             $(".select_selectize_address").selectize({
                 sortField: "text",
@@ -196,13 +206,11 @@
                     let selectClient = $(document.getElementById('validationCustomClient').value);
 
                     if(selectClient.prevObject === undefined){
-
                         $('#tooltipSearchAddress').tooltip({
                             'trigger': 'manual',
                             'title': 'Selecione um cliente por favor.',
                             'placement': 'top'
                         }).tooltip('show');
-
                     }
 
                 },
@@ -212,11 +220,8 @@
 
             });
         });
-    </script>
 
-
-    <script type="text/javascript">
-
+        //RETORNA ENDEREÇOS DO CLIENTE SELECIONADO
         function idClientForAddress(value) {
             $.ajax({
                 url: "{{ route('returnClientAddress') }}",
@@ -245,6 +250,9 @@
 
                         let count = option.items.length + 1;
 
+                        if(!val.cep){ val.cep = '-' }
+                        if(!val.number){ val.number = '-'}
+
                         option.addOption({value: val.id+':'+val.cep+':'+val.public_place+':'+val.number+':'+val.district+':'+val.complement, text: 'CEP: '+val.cep+' | '+val.public_place+' | '+val.number});
 
                         option.addItem(count);
@@ -255,6 +263,8 @@
         }
 
         function addProduct() {
+
+            var countProduct = 0;
 
             let botaoAdd = document.getElementById('btnAddProduct');
 
@@ -276,14 +286,27 @@
 
                     let product = document.getElementById('containerProducts');
 
+                    // let random = Math.floor((Math.random() * 100000000) + 1);
+                    let random = 'product_'+countProduct;
+                    console.log(random)
+                    // let subtotalProduct = calcSubtotalProduct(random);
+
                     let info = {
-                        id_handlebars_product: Math.floor((Math.random() * 100000000) + 1),
+                        id_handlebars_product: random,
                         id_product: idProduct,
                         name_product: nameProduct,
-                        value_product: valueProduct
+                        value_product: valueProduct,
+                        subtotal_product: valueProduct,
                     }
 
+                    //
+                    // Handlebars.registerHelper('setSubtotalProduct', function(value){
+                    //     this.subtotal_product = Number(value + 1); //I needed human readable index, not zero based
+                    // });
+
+                    //AQUI
                     product.innerHTML += compiled(info);
+                    countProduct+=1;
 
                    // Removendo item selecionado
                    let removeSelectizeItem = document.getElementById("searchProduct").value;
@@ -407,15 +430,36 @@
 
         }
 
-        function submit() {
-
-            return false;
-
-        }
-
         addProduct();
         addService();
         addDeliveryAddress();
+
+
+        // function loadSubtotalProduct(){
+        //     let botaoAdd = document.getElementById('btnAddProduct');
+        //
+        //     botaoAdd.addEventListener('click', () => {
+        //         let ids_handlebars = []
+        //     });
+        // }
+
+        function calcSubtotalProduct(id){
+            let quantityProduct = $('#quantityProduct_'+id).val()
+            let meter = $('#meter_'+id).val()
+            let productOrderValue = $('#productOrderValue_'+id).val()
+            let discountProduct = $('#discountProduct_'+id).val()
+            let subtotalProduct;
+
+            if(meter){
+                subtotalProduct = (quantityProduct * meter * productOrderValue) - discountProduct;
+
+            }else{
+                subtotalProduct = (quantityProduct * productOrderValue) - discountProduct;
+            }
+
+            $('#subtotalProduct_'+id).val(subtotalProduct)
+            return subtotalProduct;
+        }
 
     </script>
 

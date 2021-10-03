@@ -16,6 +16,7 @@ class CreateOrdersProductsTable extends Migration
         Schema::create('orders_products', function (Blueprint $table) {
             $table->id();
             $table->integer('quantity');
+            $table->decimal('meter', 9,2)->nullable();
             $table->decimal('product_order_value', 9,2);
             $table->decimal('discount_product', 9,2)->nullable();
             $table->decimal('product_cost_value_when_order_placed', 9,2);
