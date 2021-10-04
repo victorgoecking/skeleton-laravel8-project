@@ -16,7 +16,7 @@
         </nav>
     </div>
 
-    <form id="formOrder" class="needs-validation" onsubmit="return false;" method="POST" action="{{ route('order.store') }}" novalidate>
+    <form id="formOrder" class="needs-validation" method="POST" action="{{ route('order.store') }}" novalidate>
         @csrf
 
         <div class="card shadow mb-4">
@@ -41,26 +41,25 @@
                         </div>
                     </div>
 
-                    <div class="col-md-5 mb-3">
+                    <div class="col-md-5 mb-3 ">
                         <label for="validationCustomClient">Cliente *</label>
-                        <select  name="client_id" id="validationCustomClient" onchange="idClientForAddress(this.value)" data-placeholder="Digite para pesquisar" class="form-control select_selectize w-100" data-allow-clear="1" required>
-                            <option></option>
+                        <select required name="client_id" id="validationCustomClient" onchange="idClientForAddress(this.value)" data-placeholder="Digite para pesquisar..." class="form-control is-invalid select_selectize_client w-100" data-allow-clear="1" >
+                            <option  value="">Digite para pesquisar...</option>
                             @foreach($clients as $client)
                                 <option value="{{$client->id}}">{{$client->name}} - {{$client->person_type === 'PF' ? '(PF)' : '(PJ)'}}</option>
                             @endforeach
                         </select>
-                        <div class="valid-feedback">
-                            Parece bom!
-                        </div>
+{{--                        <div class="valid-feedback">--}}
+{{--                            Parece bom!--}}
+{{--                        </div>--}}
                         <div class="invalid-feedback">
-                            Por favor, informe o cliente.
+                            Por favor, selecione um cliente.
                         </div>
                     </div>
-                    <div id="log"></div>
 
                     <div class="col-md-5 mb-3">
                         <label for="customUser">Vendedor / Responsável</label>
-                        <select  name="user_id" id="customUser" data-placeholder="Digite para pesquisar" class="form-control select_selectize w-100" data-allow-clear="1" required>
+                        <select  name="user_id" id="customUser" data-placeholder="Digite para pesquisar..." class="form-control select_selectize w-100" data-allow-clear="1" required>
                             <option value="{{auth()->user()->id}}">{{auth()->user()->name}}</option>
                             @foreach($users as $user)
                                 <option value="{{$user->id}}">{{$user->name}}</option>
@@ -106,7 +105,7 @@
                 <label class="mb-0">Buscar produto</label>
                 <div class="form-row mb-3">
                     <div class="col-md-10">
-                        <select id="searchProduct" name="product_id_search" data-placeholder="Digite para pesquisar" class="form-control select_selectize w-100" data-allow-clear="1">
+                        <select id="searchProduct" name="product_id_search" data-placeholder="Digite para pesquisar..." class="form-control select_selectize w-100" data-allow-clear="1">
                             <option></option>
                             @foreach($products as $product)
                                 <option value="{{$product->id}}:{{$product->name}}:{{$product->sales_value_product_used}}">{{$product->name}}</option>
@@ -168,7 +167,7 @@
                 <label class="mb-0">Buscar serviço</label>
                 <div class="form-row mb-3">
                     <div class="col-md-10">
-                        <select id="searchService" name="service_id_search" data-placeholder="Digite para pesquisar" class="form-control select_selectize w-100" data-allow-clear="1">
+                        <select id="searchService" name="service_id_search" data-placeholder="Digite para pesquisar..." class="form-control select_selectize w-100" data-allow-clear="1">
                             <option></option>
                             @foreach($services as $service)
                                 <option value="{{$service->id}}:{{$service->name}}:{{$service->service_cost_value}}">{{$service->name}}</option>
@@ -218,11 +217,6 @@
                 </div>
             </div>
         </div>
-{{--        @php--}}
-{{--            $id_client_selected = "<script>document.write(id_client_selected)</script>";--}}
-
-{{--            echo"<pre>"; var_dump($clients[$id_client_selected]->address);exit;--}}
-{{--        @endphp--}}
 
         <div class="card shadow mb-4">
             <div class="card-header">
@@ -232,7 +226,7 @@
                 <label class="mb-0">Buscar endereço</label>
                 <div class="form-row mb-3">
                     <div class="col-md-10" id="tooltipSearchAddress" >
-                        <select id="searchAddress" name="address_id_search"  data-placeholder="Digite para pesquisar" class="form-control select_selectize_address w-100" data-allow-clear="1" >
+                        <select id="searchAddress" name="address_id_search"  data-placeholder="Digite para pesquisar..." class="form-control select_selectize_address w-100" data-allow-clear="1" >
                             <option></option>
                         </select>
                     </div>

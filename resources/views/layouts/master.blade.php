@@ -185,19 +185,44 @@
 
 
         $(document).ready(function () {
+
             $(".select_selectize").selectize({
-                sortField: "text",
+                create:true,
+                sortField: {
+                    field: 'text',
+                    direction: 'asc'
+                },
                 placeholder: $(this).data('placeholder'),
                 // width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
                 allowClear: Boolean($(this).data('allow-clear')),
 
             });
-        });
 
+            $(".select_selectize_client").selectize({
+                create:true,
+                sortField: {
+                    field: 'text',
+                    direction: 'asc'
+                },
+                placeholder: $(this).data('placeholder'),
+                // width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+                allowClear: Boolean($(this).data('allow-clear')),
 
-        $(document).ready(function () {
+                onChange:function (value){
+                    if(value !== ''){
+                        $(".select_selectize_client").removeClass("is-invalid").addClass("is-valid")
+                    }else{
+                        $(".select_selectize_client").removeClass("is-valid").addClass("is-invalid")
+                    }
+                },
+            });
+
             $(".select_selectize_address").selectize({
-                sortField: "text",
+                create:true,
+                sortField: {
+                    field: 'text',
+                    direction: 'asc'
+                },
                 placeholder: $(this).data('placeholder'),
                 // width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
                 allowClear: Boolean($(this).data('allow-clear')),
