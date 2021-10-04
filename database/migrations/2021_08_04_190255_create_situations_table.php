@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class CreateSituationsTable extends Migration
 {
@@ -19,6 +21,14 @@ class CreateSituationsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+        DB::table('situations')->insert(
+            [
+                ['description' => 'Em aberto', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+                ['description' => 'Em andamento', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+                ['description' => 'Concretizada', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+                ['description' => 'Cancelada', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ]
+        );
     }
 
     /**

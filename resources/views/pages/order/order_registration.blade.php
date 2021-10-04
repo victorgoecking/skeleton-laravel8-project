@@ -406,7 +406,7 @@
                 <input type="text" id="quantityProduct_@{{id_handlebars_product}}" onblur="calcSubtotalProduct(@{{id_handlebars_product}})" name='quantity_product[]' value="1" placeholder='' class="form-control" required/>
             </td>
             <td data-name="meter">
-                <input type="text" id="meter_@{{id_handlebars_product}}" name='meter[]' placeholder='' class="form-control" required/>
+                <input type="text" id="meter_@{{id_handlebars_product}}" name='meter[]' placeholder='' class="form-control" />
             </td>
             <td data-name="product_order_value">
                 <input type="text" id="productOrderValue_@{{id_handlebars_product}}" name="product_order_value[]" value="@{{value_product}}" placeholder="" class="form-control" />
