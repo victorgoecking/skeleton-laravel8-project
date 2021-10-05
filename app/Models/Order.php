@@ -10,6 +10,8 @@ class Order extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'orders';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -29,6 +31,7 @@ class Order extends Model
         'internal_note',
         'user_id',
         'client_id',
+        'situation_id',
     ];
 
     protected $casts = [
@@ -49,7 +52,10 @@ class Order extends Model
         return $this->hasMany(Situation::class, 'situation_id', 'id');
     }
 
-    public function product(){
+    public function products(){
         return $this->belongsToMany(Product::class, 'orders_products','order_id', 'product_id');
+    }
+    public function services(){
+        return $this->belongsToMany(Service::class, 'orders_services','order_id', 'service_id');
     }
 }

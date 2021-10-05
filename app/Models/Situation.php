@@ -10,6 +10,13 @@ class Situation extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'situations';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
         'description',
     ];

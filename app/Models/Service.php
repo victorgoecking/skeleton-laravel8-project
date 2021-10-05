@@ -10,6 +10,8 @@ class Service extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'services';
+
     /**
      * The attributes that are mass assignable.
      *

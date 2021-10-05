@@ -79,7 +79,7 @@
 
                     <div class="col-md-3 mb-3">
                         <label for="selectSituation">Situação</label>
-                        <select class="form-control" name="situation" id="selectSituation">
+                        <select class="form-control" name="situation_id" id="selectSituation">
                             @foreach($situations as $situation)
                                 <option value="{{$situation->id}}">{{$situation->description}}</option>
                             @endforeach
@@ -105,10 +105,10 @@
                 <label class="mb-0">Buscar produto</label>
                 <div class="form-row mb-3">
                     <div class="col-md-10">
-                        <select id="searchProduct" name="product_id_search" data-placeholder="Digite para pesquisar..." class="form-control select_selectize w-100" data-allow-clear="1">
+                        <select id="searchProduct" data-placeholder="Digite para pesquisar..." class="form-control select_selectize w-100" data-allow-clear="1">
                             <option></option>
                             @foreach($products as $product)
-                                <option value="{{$product->id}}:{{$product->name}}:{{$product->sales_value_product_used}}">{{$product->name}}</option>
+                                <option value="{{$product->id}}:{{$product->name}}:{{$product->product_cost_value}}:{{$product->sales_value_product_used}}">{{$product->name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -167,7 +167,7 @@
                 <label class="mb-0">Buscar serviço</label>
                 <div class="form-row mb-3">
                     <div class="col-md-10">
-                        <select id="searchService" name="service_id_search" data-placeholder="Digite para pesquisar..." class="form-control select_selectize w-100" data-allow-clear="1">
+                        <select id="searchService" data-placeholder="Digite para pesquisar..." class="form-control select_selectize w-100" data-allow-clear="1">
                             <option></option>
                             @foreach($services as $service)
                                 <option value="{{$service->id}}:{{$service->name}}:{{$service->service_cost_value}}">{{$service->name}}</option>
@@ -226,7 +226,7 @@
                 <label class="mb-0">Buscar endereço</label>
                 <div class="form-row mb-3">
                     <div class="col-md-10" id="tooltipSearchAddress" >
-                        <select id="searchAddress" name="address_id_search"  data-placeholder="Digite para pesquisar..." class="form-control select_selectize_address w-100" data-allow-clear="1" >
+                        <select id="searchAddress" data-placeholder="Digite para pesquisar..." class="form-control select_selectize_address w-100" data-allow-clear="1" >
                             <option></option>
                         </select>
                     </div>
@@ -319,19 +319,19 @@
                             <tbody id="containerServices">
                                 <tr id="@{{id_handlebars_service}}" class="existsService">
                                     <td data-name="total_products">
-                                        <input type="text" name='total_products' value="" placeholder='0.00' class="form-control" disabled/>
+                                        <input type="text" id="total_products" name='total_products' placeholder='0.00' class="form-control" disabled/>
                                     </td>
                                     <td data-name="total_services">
-                                        <input type="text" name='total_services' value="" placeholder='0.00' class="form-control" disabled/>
+                                        <input type="text" id="total_services" name='total_services' placeholder='0.00' class="form-control" disabled/>
                                     </td>
                                     <td data-name="total_cash_discount">
-                                        <input type="text" name='total_cash_discount' value="" placeholder='' class="form-control"/>
+                                        <input type="text" id="total_cash_discount" name='total_cash_discount' onchange="calcTotal()" placeholder='' class="form-control"/>
                                     </td>
                                     <td data-name="total_percentage_discount">
-                                        <input type="text" name="total_percentage_discount" value="" placeholder="" class="form-control" />
+                                        <input type="text" id="total_percentage_discount" name="total_percentage_discount" onchange="calcTotal()" placeholder="" class="form-control" />
                                     </td>
                                     <td data-name="total">
-                                        <input type="text" name='total'  value="" placeholder='0.00' class="form-control" disabled required/>
+                                        <input type="text" id="total" name='total' placeholder='0.00' class="form-control" disabled required/>
                                     </td>
                                 </tr>
                             </tbody>
@@ -397,28 +397,29 @@
         <tr id="@{{id_handlebars_product}}" class="existsProduct">
             <td data-name="product">
                 <input type="hidden" name="id_product[]" value="@{{id_product}}">
+                <input type="hidden" name="product_cost_value[]" value="@{{product_cost_value}}">
                 <input type="text" name='name_product[]' placeholder='' value="@{{name_product}}" class="form-control" disabled/>
             </td>
-            <td data-name="description_product">
-                <input type="text" name='description_product[]' placeholder='' class="form-control"/>
+            <td data-name="product_description_order">
+                <input type="text" name='product_description_order[]' placeholder='' class="form-control"/>
             </td>
-            <td data-name="quantity">
-                <input type="text" id="quantityProduct_@{{id_handlebars_product}}" onblur="calcSubtotalProduct(@{{id_handlebars_product}})" name='quantity_product[]' value="1" placeholder='' class="form-control" required/>
+            <td data-name="quantity_product">
+                <input type="text" id="quantityProduct_@{{id_handlebars_product}}" onblur="calcSubtotalProduct('@{{id_handlebars_product}}')" name='quantity_product[]' value="1" placeholder='' class="form-control" required/>
             </td>
             <td data-name="meter">
                 <input type="text" id="meter_@{{id_handlebars_product}}" name='meter[]' placeholder='' class="form-control" />
             </td>
-            <td data-name="product_order_value">
-                <input type="text" id="productOrderValue_@{{id_handlebars_product}}" name="product_order_value[]" value="@{{value_product}}" placeholder="" class="form-control" />
+            <td data-name="sales_value_product_used_order">
+                <input type="text" id="salesValueProductUsedOrder_@{{id_handlebars_product}}" name="sales_value_product_used_order[]" value="@{{sales_value_product_used_order}}" placeholder="" class="form-control" />
             </td>
             <td data-name="discount_product">
                 <input type="text" id="discountProduct_@{{id_handlebars_product}}" name='discount_product[]' placeholder='' class="form-control"/>
             </td>
-            <td data-name="subtotal_product">
-                <input type="text" id="subtotalProduct_@{{id_handlebars_product}}" name='subtotal_product[]' value="@{{subtotal_product}}" placeholder='0,00' class="form-control" required/>
+            <td data-name="order_product_subtotal">
+                <input type="text" id="orderProductSubtotal_@{{id_handlebars_product}}" onchange="calcTotalProductService('@{{id_handlebars_product}}')" name='order_product_subtotal[]' value="@{{order_product_subtotal}}" placeholder='0,00' class="form-control" required/>
             </td>
             <td data-name="del_product">
-                <button class='btn btn-danger glyphicon glyphicon-remove row-remove' onclick="removeDiv(@{{id_handlebars_product}})"><span aria-hidden="true">×</span></button>
+                <button class='btn btn-danger glyphicon glyphicon-remove row-remove' onclick="removeDiv('@{{id_handlebars_product}}')"><span aria-hidden="true">×</span></button>
             </td>
         </tr>
 
@@ -447,7 +448,7 @@
                 <input type="text" name='subtotal_service[]' placeholder='' class="form-control" required/>
             </td>
             <td data-name="del_service">
-                <button class='btn btn-danger glyphicon glyphicon-remove row-remove' onclick="removeDiv(@{{id_handlebars_service}})"><span aria-hidden="true">×</span></button>
+                <button class='btn btn-danger glyphicon glyphicon-remove row-remove' onclick="removeDiv('@{{id_handlebars_service}}')"><span aria-hidden="true">×</span></button>
             </td>
         </tr>
 
@@ -457,7 +458,7 @@
 
         <tr id="@{{id_handlebars_address}}" class="existsAddress">
             <td data-name="address">
-                <input type="hidden" name="id_address" value="@{{id_address}}">
+                <input type="hidden" name="delivery_address_id" value="@{{id_address}}">
                 <input type="text" name='cep' value="@{{cep}}" placeholder='' class="form-control" disabled/>
             </td>
             <td data-name="public_place">

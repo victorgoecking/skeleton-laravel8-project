@@ -298,7 +298,8 @@
                 let myStr = (document.getElementById("searchProduct").value).split(":");
                 let idProduct = myStr[0];
                 let nameProduct = myStr[1];
-                let valueProduct = myStr[2];
+                let productCostValue = myStr[2];
+                let salesValueProductUsedOrder = myStr[3];
 
                 //verificando se um valor foi adicionado para mandar pro handlesbars
                 if(document.getElementById("searchProduct").value){
@@ -313,15 +314,15 @@
 
                     // let random = Math.floor((Math.random() * 100000000) + 1);
                     let random = 'product_'+countProduct;
-                    console.log(random)
                     // let subtotalProduct = calcSubtotalProduct(random);
 
                     let info = {
                         id_handlebars_product: random,
                         id_product: idProduct,
                         name_product: nameProduct,
-                        value_product: valueProduct,
-                        subtotal_product: valueProduct,
+                        product_cost_value: productCostValue,
+                        sales_value_product_used_order: salesValueProductUsedOrder,
+                        order_product_subtotal: salesValueProductUsedOrder,
                     }
 
                     //
@@ -329,7 +330,7 @@
                     //     this.subtotal_product = Number(value + 1); //I needed human readable index, not zero based
                     // });
 
-                    //AQUI
+                    //AQUI OLHAR CARREGAMENTO HANDLEBARS
                     product.innerHTML += compiled(info);
                     countProduct+=1;
 
@@ -439,7 +440,6 @@
 
             document.getElementById(id).remove();
 
-
             if(document.getElementsByClassName("existsProduct").length == 0){
                 let compiled = Handlebars.compile(document.getElementById("tamplateNoProductAdded").innerHTML);
                 document.getElementById('containerProducts').innerHTML = compiled();
@@ -471,7 +471,7 @@
         function calcSubtotalProduct(id){
             let quantityProduct = $('#quantityProduct_'+id).val()
             let meter = $('#meter_'+id).val()
-            let productOrderValue = $('#productOrderValue_'+id).val()
+            let productOrderValue = $('#salesValueProductUsedOrder_'+id).val()
             let discountProduct = $('#discountProduct_'+id).val()
             let subtotalProduct;
 
@@ -482,8 +482,68 @@
                 subtotalProduct = (quantityProduct * productOrderValue) - discountProduct;
             }
 
-            $('#subtotalProduct_'+id).val(subtotalProduct)
+            $('#orderProductSubtotal_'+id).val(subtotalProduct)
             return subtotalProduct;
+        }
+
+        function calcTotalProductService(id){
+
+            console.log('entrouCalcTotal')
+
+
+            // let orderProductSubtotal = $("#orderProductSubtotal_"+id).val();
+            // let totalProducts = $("#total_products").val();
+            // let sumProducts = orderProductSubtotal + totalProducts;
+            // $('#total_products').val(sumProducts);
+            //
+            // let orderServiceSubtotal = $("#orderServiceSubtotal_"+id).val();
+            // let totalServices = $("#total_services").val();
+            // let sumServices = orderServiceSubtotal + totalServices;
+            // $('#total_services').val(sumServices);
+            //
+            // let totalCashDiscount = $("#total_cash_discount").val();
+            // let totalPercentageDiscount = $("#total_percentage_discount").val();
+            //
+            // let percentageDiscount  = (sumProducts+sumServices-totalCashDiscount) * totalPercentageDiscount
+            //
+            // $('#total').val((sumProducts+sumServices-totalCashDiscount) - (percentageDiscount / 100 ));
+
+
+            //AQUI FAZER LOOP PARA CONTAR QUANTOS PRODUTOS TEM E SOMAR TODOS OS SUBTOTAIS
+
+            let orderProductSubtotal = $("#orderProductSubtotal_"+id).val();
+            let totalProducts = $("#total_products").val();
+            let sumProducts;
+            if (totalProducts){
+                sumProducts = parseFloat(orderProductSubtotal) + parseFloat(totalProducts);
+            }else{
+                sumProducts = parseFloat(orderProductSubtotal);
+            }
+            console.log(sumProducts)
+            $('#total_products').val(sumProducts);
+
+        }
+
+       function calcTotal(){
+            let totalProducts = $('#total_products').val();
+            let totalServices = $('#total_services').val();
+
+            let totalCashDiscount = $("#total_cash_discount").val();
+            let totalPercentageDiscount = $("#total_percentage_discount").val();
+
+            if(totalCashDiscount && totalPercentageDiscount){
+                let percentageDiscount  = (totalProducts+totalServices-totalCashDiscount) * totalPercentageDiscount
+                $('#total').val((totalProducts+totalServices-totalCashDiscount) - (percentageDiscount / 100 ));
+
+            }else if(totalCashDiscount){
+                $('#total').val(totalProducts+totalServices-totalCashDiscount);
+
+            }else if(totalPercentageDiscount){
+                let percentageDiscount  = (totalProducts+totalServices) * totalPercentageDiscount
+                $('#total').val((totalProducts+totalServices) - (percentageDiscount / 100 ));
+            }
+
+
         }
 
     </script>

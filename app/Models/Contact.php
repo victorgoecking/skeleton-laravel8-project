@@ -10,6 +10,8 @@ class Contact extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'contacts';
+
     /**
      * The attributes that are mass assignable.
      *

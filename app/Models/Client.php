@@ -10,6 +10,8 @@ class Client extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'clients';
+
     /**
      * The attributes that are mass assignable.
      *

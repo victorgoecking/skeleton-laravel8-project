@@ -10,6 +10,7 @@ class Address extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'addresses';
     /**
      * The attributes that are mass assignable.
      *
