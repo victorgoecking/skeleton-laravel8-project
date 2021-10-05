@@ -26,7 +26,7 @@
             <div class="card-body">
                 <div class="form-row">
 
-                    <div class="col-md-2 mb-3">
+                    <div class="col-md-3 mb-3">
                         <label for="selectOrderType">Tipo Pedido</label>
                         <select class="form-control" name="budget" id="selectOrderType" required>
                             <option></option>
@@ -57,8 +57,8 @@
                         </div>
                     </div>
 
-                    <div class="col-md-5 mb-3">
-                        <label for="customUser">Vendedor / Responsável</label>
+                    <div class="col-md-4 mb-3">
+                        <label for="customUser">Vendedor</label>
                         <select  name="user_id" id="customUser" data-placeholder="Digite para pesquisar..." class="form-control select_selectize w-100" data-allow-clear="1" required>
                             <option value="{{auth()->user()->id}}">{{auth()->user()->name}}</option>
                             @foreach($users as $user)
@@ -73,7 +73,7 @@
                     </div>
 
                     <div class="col-md-3 mb-3">
-                        <label for="customDeliveryForecast">Previsão de entrega</label>
+                        <label for="customDeliveryForecast">Prev. entrega</label>
                         <input type="date" class="form-control" name="delivery_forecast" id="customDeliveryForecast" aria-describedby="deliveryForecastHelp" placeholder="" required>
                     </div>
 
@@ -87,7 +87,7 @@
                     </div>
 
                     <div class="col-md-3 mb-3" id="divValidity">
-                        <label for="customValidity">Validade Orçamento</label>
+                        <label for="customValidity">Validade</label>
                         <input type="date" class="form-control" name="validity" id="customValidity" aria-describedby="validitytHelp" placeholder="">
                     </div>
                 </div>
@@ -102,56 +102,160 @@
                 <i class="fas fa-fw fa-cube"></i> Produtos
             </div>
             <div class="card-body">
-                <label class="mb-0">Buscar produto</label>
-                <div class="form-row mb-3">
-                    <div class="col-md-10">
+                <div class="form-row">
+                    <div class="col-md-6 mb-4">
+                         <label for="searchProduct">Buscar produto</label>
                         <select id="searchProduct" data-placeholder="Digite para pesquisar..." class="form-control select_selectize w-100" data-allow-clear="1">
                             <option></option>
                             @foreach($products as $product)
-                                <option value="{{$product->id}}:{{$product->name}}:{{$product->product_cost_value}}:{{$product->sales_value_product_used}}">{{$product->name}}</option>
+                                <option style="z-index: 9999" value="{{$product->id}}:{{$product->name}}:{{$product->product_cost_value}}:{{$product->sales_value_product_used}}">{{$product->name}}</option>
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-2">
-                        <button id="btnAddProduct" class="btn btn-primary" type="button"><i class="fas fa-plus-circle"></i> Adicionar produto</button>
+                </div>
+
+{{--                <div class="form-row mb-3">--}}
+{{--                    <div class="col-md-3">--}}
+{{--                        <button id="btnAddProduct" class="btn btn-primary" type="button"><i class="fas fa-plus-circle"></i>  Adicionar Produto</button>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+
+                <div id="editValuesProduct" class="form-row mb-3 " hidden >
+                    <div class="col-md-12 table-responsive">
+                        <table class="table table-sm table-bordered"  style="width: 100%; min-width: 950px;" id="tab_logic_product">
+                            <thead>
+                            <tr >
+                                <th >
+                                    Produto *
+                                </th>
+                                <th >
+                                    Detalhes
+                                </th>
+                                <th style="width: 8%">
+                                    Quant. *
+                                </th>
+                                <th style="width: 8%">
+                                    (m)
+                                </th>
+                                <th style="width: 12%" >
+                                    Valor *
+                                </th>
+                                <th style="width: 12%">
+                                    Desconto
+                                </th>
+                                <th style="width: 12%">
+                                    Subtotal
+                                </th>
+                                <th style="width: 5%" class="text-center">
+                                    Add
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody id="containerProducts">
+                            <tr id="product_0">
+                                <input type="hidden" name="id_product[]">
+                                <input type="hidden" name="product_cost_value[]">
+                                <td data-name="product">
+                                    <input type="text" name='name_product[]' placeholder='' class="form-control" disabled/>
+                                </td>
+                                <td data-name="product_description_order">
+                                    <input type="text" name='product_description_order[]' placeholder='' class="form-control"/>
+                                </td>
+                                <td data-name="quantity_product_order">
+                                    <input type="text" id="quantityProduct_product_0" onblur="calcSubtotalProduct('product_0')" name='quantity_product_order[]' placeholder='' class="form-control" required/>
+                                </td>
+                                <td data-name="meter_product_order">
+                                    <input type="text" id="meter_product_0" name='meter_product_order[]' placeholder='' class="form-control" />
+                                </td>
+                                <td data-name="sales_value_product_used_order">
+                                    <input type="text" id="salesValueProductUsedOrder_product_0" name="sales_value_product_used_order[]" placeholder="" class="form-control" />
+                                </td>
+                                <td data-name="discount_product">
+                                    <input type="text" id="discountProduct_product_0" name='discount_product[]' placeholder='' class="form-control"/>
+                                </td>
+                                <td data-name="order_product_subtotal">
+                                    <input type="text" id="orderProductSubtotal_product_0" onchange="calcTotalProductService('product_0')" name='order_product_subtotal[]' placeholder='0,00' class="form-control" disabled/>
+                                </td>
+                                <td data-name="del_product">
+                                    <button id="btnAddProduct" type="button" class='btn btn-primary' ><i class="fas fa-plus-circle"></i></button>
+                                </td>
+                            </tr>
+
+                            {{--                                <tr id="noProductAdded">--}}
+                            {{--                                    <td class="text-center" colspan="8">Nenhum produto adicionado</td>--}}
+                            {{--                                </tr>--}}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
-                <div class="form-row">
+
+                <div class="form-row justify-content-center align-items-center" >
+                    <hr class="w-100">
+                    <h5>Produtos adicionados</h5>
                     <div class="col-md-12 table-responsive">
-                        <table class="table table-sm table-bordered table-hover"  style="width: 100%; min-width: 950px;" id="tab_logic_product">
+                        <table class="table table-sm table-hover"  style="width: 100%; min-width: 950px;" id="tab_logic_product">
                             <thead>
                                 <tr >
-                                    <th >
+                                    <th>
                                         Produto *
                                     </th>
-                                    <th >
+                                    <th>
                                         Detalhes
                                     </th>
-                                    <th style="width: 8%">
+                                    <th>
                                         Quant. *
                                     </th>
-                                    <th style="width: 8%">
+                                    <th>
                                         (m)
                                     </th>
-                                    <th style="width: 12%" >
+                                    <th>
                                         Valor *
                                     </th>
-                                    <th style="width: 12%">
+                                    <th>
                                         Desconto
                                     </th>
-                                    <th style="width: 12%">
+                                    <th>
                                         Subtotal
                                     </th>
-                                    <th style="width: 5%" class="text-center">
+                                    <th class="text-center">
                                         Del
                                     </th>
                                 </tr>
                             </thead>
                             <tbody id="containerProducts">
-                                <tr id="noProductAdded">
-                                    <td class="text-center" colspan="8">Nenhum produto adicionado</td>
-                                </tr>
+                            <tr id="product_0">
+                                    <input type="hidden" name="id_product[]">
+                                    <input type="hidden" name="product_cost_value[]">
+                                <td data-name="product">
+                                    Teste produto
+                                </td>
+                                <td data-name="product_description_order">
+                                    descricao produto
+                                </td>
+                                <td data-name="quantity_product_order">
+                                    12
+                                </td>
+                                <td data-name="meter_product_order">
+                                    12,5 m
+                                </td>
+                                <td data-name="sales_value_product_used_order">
+                                    100,00
+                                </td>
+                                <td data-name="discount_product">
+                                    10,00
+                                </td>
+                                <td data-name="order_product_subtotal">
+                                    9.000,00
+                                </td>
+                                <td class="text-center" data-name="del_product">
+                                    <button class='btn btn-sm btn-danger row-remove'>&nbsp<i class="fas fa-times">&nbsp</i></button>
+                                </td>
+                            </tr>
+
+{{--                                <tr id="noProductAdded">--}}
+{{--                                    <td class="text-center" colspan="8">Nenhum produto adicionado</td>--}}
+{{--                                </tr>--}}
                             </tbody>
                         </table>
                     </div>
@@ -404,7 +508,7 @@
                 <input type="text" name='product_description_order[]' placeholder='' class="form-control"/>
             </td>
             <td data-name="quantity_product">
-                <input type="text" id="quantityProduct_@{{id_handlebars_product}}" onblur="calcSubtotalProduct('@{{id_handlebars_product}}')" name='quantity_product[]' value="1" placeholder='' class="form-control" required/>
+                <input type="text" id="quantityProduct_@{{id_handlebars_product}}" onblur="calcSubtotalProduct('@{{id_handlebars_product}}')" name='quantity_product[]' value="@{{quantity_product}}" placeholder='' class="form-control" required/>
             </td>
             <td data-name="meter">
                 <input type="text" id="meter_@{{id_handlebars_product}}" name='meter[]' placeholder='' class="form-control" />

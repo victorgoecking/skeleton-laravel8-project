@@ -187,7 +187,7 @@
         $(document).ready(function () {
 
             $(".select_selectize").selectize({
-                create:true,
+                // create:true, //DAR A OPCAO DE ADICIOANR CASO NAO TIVER
                 sortField: {
                     field: 'text',
                     direction: 'asc'
@@ -199,7 +199,7 @@
             });
 
             $(".select_selectize_client").selectize({
-                create:true,
+                // create:true, //DAR A OPCAO DE ADICIOANR CASO NAO TIVER
                 sortField: {
                     field: 'text',
                     direction: 'asc'
@@ -218,7 +218,7 @@
             });
 
             $(".select_selectize_address").selectize({
-                create:true,
+                // create:true, //DAR A OPCAO DE ADICIOANR CASO NAO TIVER
                 sortField: {
                     field: 'text',
                     direction: 'asc'
@@ -316,10 +316,11 @@
                     let random = 'product_'+countProduct;
                     // let subtotalProduct = calcSubtotalProduct(random);
 
-                    let info = {
+                    var infoProduct = {
                         id_handlebars_product: random,
                         id_product: idProduct,
                         name_product: nameProduct,
+                        quantity_product: 1,
                         product_cost_value: productCostValue,
                         sales_value_product_used_order: salesValueProductUsedOrder,
                         order_product_subtotal: salesValueProductUsedOrder,
@@ -331,7 +332,7 @@
                     // });
 
                     //AQUI OLHAR CARREGAMENTO HANDLEBARS
-                    product.innerHTML += compiled(info);
+                    product.innerHTML += compiled(infoProduct);
                     countProduct+=1;
 
                    // Removendo item selecionado
