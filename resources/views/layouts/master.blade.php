@@ -174,120 +174,6 @@
 
     <script type="text/javascript">
 
-        $(document).ready(function() {
-            $(window).keydown(function(event){
-                if(event.keyCode == 13) {
-                    event.preventDefault();
-                    return false;
-                }
-            });
-        });
-
-
-        $(document).ready(function () {
-
-            $(".select_selectize").selectize({
-                // create:true, //DAR A OPCAO DE ADICIOANR CASO NAO TIVER
-                sortField: {
-                    field: 'text',
-                    direction: 'asc'
-                },
-                placeholder: $(this).data('placeholder'),
-                // width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
-                allowClear: Boolean($(this).data('allow-clear')),
-
-            });
-
-            $(".select_selectize_client").selectize({
-                // create:true, //DAR A OPCAO DE ADICIOANR CASO NAO TIVER
-                sortField: {
-                    field: 'text',
-                    direction: 'asc'
-                },
-                placeholder: $(this).data('placeholder'),
-                // width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
-                allowClear: Boolean($(this).data('allow-clear')),
-
-                onChange:function (value){
-                    if(value !== ''){
-                        $(".select_selectize_client").removeClass("is-invalid").addClass("is-valid")
-                    }else{
-                        $(".select_selectize_client").removeClass("is-valid").addClass("is-invalid")
-                    }
-                },
-            });
-
-            $(".select_selectize_address").selectize({
-                // create:true, //DAR A OPCAO DE ADICIOANR CASO NAO TIVER
-                sortField: {
-                    field: 'text',
-                    direction: 'asc'
-                },
-                placeholder: $(this).data('placeholder'),
-                // width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
-                allowClear: Boolean($(this).data('allow-clear')),
-                onFocus: function () {
-                    // control has gained focus
-                    let selectClient = $(document.getElementById('validationCustomClient').value);
-
-                    if(selectClient.prevObject === undefined){
-                        $('#tooltipSearchAddress').tooltip({
-                            'trigger': 'manual',
-                            'title': 'Selecione um cliente por favor.',
-                            'placement': 'top'
-                        }).tooltip('show');
-                    }
-
-                },
-                onBlur: function () {
-                    $('#tooltipSearchAddress').tooltip().tooltip('dispose');
-                },
-
-            });
-        });
-
-        //RETORNA ENDEREÇOS DO CLIENTE SELECIONADO
-        function idClientForAddress(value) {
-            $.ajax({
-                url: "{{ route('returnClientAddress') }}",
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    "id": value
-            },
-                success: function (data){
-
-                    let $selectAddress = $(document.getElementById('searchAddress'));
-                    let option = $selectAddress[0].selectize;
-
-                    for(let i=0; i <= $selectAddress.length; i++){
-                        option.clearOptions(true)
-                    }
-
-                    if(!data[0]){
-                        $('#tooltipSearchAddress').tooltip({
-                            'trigger': 'manual',
-                            'title': 'Cliente sem endereços cadastrados.',
-                            'placement': 'top'
-                        }).tooltip('show');
-                    }
-
-                    $.each(data, function (key, val) {
-
-                        let count = option.items.length + 1;
-
-                        if(!val.cep){ val.cep = '-' }
-                        if(!val.number){ val.number = '-'}
-
-                        option.addOption({value: val.id+':'+val.cep+':'+val.public_place+':'+val.number+':'+val.district+':'+val.complement, text: 'CEP: '+val.cep+' | '+val.public_place+' | '+val.number});
-
-                        option.addItem(count);
-
-                    });
-                },
-            })
-        }
-
-
         let products = {
             'products': []
         };
@@ -336,8 +222,6 @@
                     }
 
                     products.products.push(infoProduct);
-
-                    //AQUI OLHAR CARREGAMENTO HANDLEBARS
                     product.innerHTML = compiled(products);
 
                     countProduct+=1;
@@ -392,12 +276,8 @@
                         order_service_subtotal: valueService,
                     }
 
-
                     services.services.push(infoService);
-
                     service.innerHTML = compiled(services);
-
-                    // console.log(service.innerHTML);
 
                     // Removendo item selecionado
                     let removeSelectizeItem = document.getElementById("searchService").value;

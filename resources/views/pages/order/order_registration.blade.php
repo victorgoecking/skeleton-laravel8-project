@@ -570,5 +570,7 @@
         </tr>
 
     </script>
+
     <script src="{{ asset('admin/js/order.js')}}"></script>
 @endsection
+
