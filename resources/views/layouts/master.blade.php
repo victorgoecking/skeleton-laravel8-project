@@ -289,7 +289,7 @@
 
         function addProduct() {
 
-            var countProduct = 0;
+            let countProduct = 0;
 
             let botaoAdd = document.getElementById('btnAddProduct');
 
@@ -316,7 +316,7 @@
                     let random = 'product_'+countProduct;
                     // let subtotalProduct = calcSubtotalProduct(random);
 
-                    var infoProduct = {
+                    let infoProduct = {
                         id_handlebars_product: random,
                         id_product: idProduct,
                         name_product: nameProduct,
@@ -325,11 +325,6 @@
                         sales_value_product_used_order: salesValueProductUsedOrder,
                         order_product_subtotal: salesValueProductUsedOrder,
                     }
-
-                    //
-                    // Handlebars.registerHelper('setSubtotalProduct', function(value){
-                    //     this.subtotal_product = Number(value + 1); //I needed human readable index, not zero based
-                    // });
 
                     //AQUI OLHAR CARREGAMENTO HANDLEBARS
                     product.innerHTML += compiled(infoProduct);
@@ -343,6 +338,14 @@
 
             })
 
+        }
+
+
+        let services = {
+            'services': []
+        };
+        function updateValueService(index, property, newValue){
+            services.services[index][property] = newValue;
         }
 
         function addService() {
@@ -370,11 +373,17 @@
                     let info = {
                         id_handlebars_service: Math.floor((Math.random() * 100000000) + 1),
                         id_service: idService,
+                        quantity_service: 1,
                         name_service: nameService,
                         value_service: valueService
                     }
 
-                    service.innerHTML += compiled(info);
+
+                    services.services.push(info);
+
+                    service.innerHTML = compiled(services);
+
+                    // console.log(service.innerHTML);
 
                     // Removendo item selecionado
                     let removeSelectizeItem = document.getElementById("searchService").value;
@@ -437,22 +446,30 @@
 
         }
 
-        function removeDiv(id) {
+        function removeDiv(indexToRemove) {
 
-            document.getElementById(id).remove();
+            services.services.splice(indexToRemove, 1);
 
-            if(document.getElementsByClassName("existsProduct").length == 0){
-                let compiled = Handlebars.compile(document.getElementById("tamplateNoProductAdded").innerHTML);
-                document.getElementById('containerProducts').innerHTML = compiled();
-            }
+            let templateProduct = document.getElementById('tamplateAddService').innerHTML;
+            let compiled = Handlebars.compile(templateProduct);
+            let service = document.getElementById('containerServices');
+            service.innerHTML = compiled(services);
+
+
+            // document.getElementById(id).remove();
             if(document.getElementsByClassName("existsService").length == 0){
                 let compiled = Handlebars.compile(document.getElementById("tamplateNoServiceAdded").innerHTML);
                 document.getElementById('containerServices').innerHTML = compiled();
             }
-            if(document.getElementsByClassName("existsAddress").length == 0){
-                let compiled = Handlebars.compile(document.getElementById("tamplateNoAddressAdded").innerHTML);
-                document.getElementById('containerAddresses').innerHTML = compiled();
-            }
+
+            // if(document.getElementsByClassName("existsProduct").length == 0){
+            //     let compiled = Handlebars.compile(document.getElementById("tamplateNoProductAdded").innerHTML);
+            //     document.getElementById('containerProducts').innerHTML = compiled();
+            // }
+            // if(document.getElementsByClassName("existsAddress").length == 0){
+            //     let compiled = Handlebars.compile(document.getElementById("tamplateNoAddressAdded").innerHTML);
+            //     document.getElementById('containerAddresses').innerHTML = compiled();
+            // }
 
         }
 
@@ -489,7 +506,6 @@
 
         function calcTotalProductService(id){
 
-            console.log('entrouCalcTotal')
 
 
             // let orderProductSubtotal = $("#orderProductSubtotal_"+id).val();

@@ -102,164 +102,61 @@
                 <i class="fas fa-fw fa-cube"></i> Produtos
             </div>
             <div class="card-body">
-                <div class="form-row">
-                    <div class="col-md-6 mb-4">
-                         <label for="searchProduct">Buscar produto</label>
+                <label class="mb-0">Buscar produto</label>
+                <div class="form-row mb-3">
+                    <div class="col-md-8">
                         <select id="searchProduct" data-placeholder="Digite para pesquisar..." class="form-control select_selectize w-100" data-allow-clear="1">
                             <option></option>
                             @foreach($products as $product)
-                                <option style="z-index: 9999" value="{{$product->id}}:{{$product->name}}:{{$product->product_cost_value}}:{{$product->sales_value_product_used}}">{{$product->name}}</option>
+                                <option value="{{$product->id}}:{{$product->name}}:{{$product->product_cost_value}}:{{$product->sales_value_product_used}}">{{$product->name}}</option>
                             @endforeach
                         </select>
                     </div>
-                </div>
-
-{{--                <div class="form-row mb-3">--}}
-{{--                    <div class="col-md-3">--}}
-{{--                        <button id="btnAddProduct" class="btn btn-primary" type="button"><i class="fas fa-plus-circle"></i>  Adicionar Produto</button>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-
-                <div id="editValuesProduct" class="form-row mb-3 " hidden >
-                    <div class="col-md-12 table-responsive">
-                        <table class="table table-sm table-bordered"  style="width: 100%; min-width: 950px;" id="tab_logic_product">
-                            <thead>
-                            <tr >
-                                <th >
-                                    Produto *
-                                </th>
-                                <th >
-                                    Detalhes
-                                </th>
-                                <th style="width: 8%">
-                                    Quant. *
-                                </th>
-                                <th style="width: 8%">
-                                    (m)
-                                </th>
-                                <th style="width: 12%" >
-                                    Valor *
-                                </th>
-                                <th style="width: 12%">
-                                    Desconto
-                                </th>
-                                <th style="width: 12%">
-                                    Subtotal
-                                </th>
-                                <th style="width: 5%" class="text-center">
-                                    Add
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody id="containerProducts">
-                            <tr id="product_0">
-                                <input type="hidden" name="id_product[]">
-                                <input type="hidden" name="product_cost_value[]">
-                                <td data-name="product">
-                                    <input type="text" name='name_product[]' placeholder='' class="form-control" disabled/>
-                                </td>
-                                <td data-name="product_description_order">
-                                    <input type="text" name='product_description_order[]' placeholder='' class="form-control"/>
-                                </td>
-                                <td data-name="quantity_product_order">
-                                    <input type="text" id="quantityProduct_product_0" onblur="calcSubtotalProduct('product_0')" name='quantity_product_order[]' placeholder='' class="form-control" required/>
-                                </td>
-                                <td data-name="meter_product_order">
-                                    <input type="text" id="meter_product_0" name='meter_product_order[]' placeholder='' class="form-control" />
-                                </td>
-                                <td data-name="sales_value_product_used_order">
-                                    <input type="text" id="salesValueProductUsedOrder_product_0" name="sales_value_product_used_order[]" placeholder="" class="form-control" />
-                                </td>
-                                <td data-name="discount_product">
-                                    <input type="text" id="discountProduct_product_0" name='discount_product[]' placeholder='' class="form-control"/>
-                                </td>
-                                <td data-name="order_product_subtotal">
-                                    <input type="text" id="orderProductSubtotal_product_0" onchange="calcTotalProductService('product_0')" name='order_product_subtotal[]' placeholder='0,00' class="form-control" disabled/>
-                                </td>
-                                <td data-name="del_product">
-                                    <button id="btnAddProduct" type="button" class='btn btn-primary' ><i class="fas fa-plus-circle"></i></button>
-                                </td>
-                            </tr>
-
-                            {{--                                <tr id="noProductAdded">--}}
-                            {{--                                    <td class="text-center" colspan="8">Nenhum produto adicionado</td>--}}
-                            {{--                                </tr>--}}
-                            </tbody>
-                        </table>
+                    <div class="col-md-4 col-lg-2 ">
+                        <button id="btnAddProduct" class="form-control btn btn-primary" type="button"><i class="fas fa-plus-circle"></i> Produto</button>
                     </div>
                 </div>
 
-
-                <div class="form-row justify-content-center align-items-center" >
-                    <hr class="w-100">
-                    <h5>Produtos adicionados</h5>
+                <div class="form-row">
                     <div class="col-md-12 table-responsive">
-                        <table class="table table-sm table-hover"  style="width: 100%; min-width: 950px;" id="tab_logic_product">
+                        <table class="table table-sm table-bordered table-hover"  style="width: 100%; min-width: 950px;" id="tab_logic_product">
                             <thead>
                                 <tr >
-                                    <th>
+                                    <th >
                                         Produto *
                                     </th>
-                                    <th>
+                                    <th >
                                         Detalhes
                                     </th>
-                                    <th>
+                                    <th style="width: 8%">
                                         Quant. *
                                     </th>
-                                    <th>
+                                    <th style="width: 8%">
                                         (m)
                                     </th>
-                                    <th>
+                                    <th style="width: 12%" >
                                         Valor *
                                     </th>
-                                    <th>
+                                    <th style="width: 12%">
                                         Desconto
                                     </th>
-                                    <th>
+                                    <th style="width: 12%">
                                         Subtotal
                                     </th>
-                                    <th class="text-center">
+                                    <th style="width: 5%" class="text-center">
                                         Del
                                     </th>
                                 </tr>
                             </thead>
                             <tbody id="containerProducts">
-                            <tr id="product_0">
-                                    <input type="hidden" name="id_product[]">
-                                    <input type="hidden" name="product_cost_value[]">
-                                <td data-name="product">
-                                    Teste produto
-                                </td>
-                                <td data-name="product_description_order">
-                                    descricao produto
-                                </td>
-                                <td data-name="quantity_product_order">
-                                    12
-                                </td>
-                                <td data-name="meter_product_order">
-                                    12,5 m
-                                </td>
-                                <td data-name="sales_value_product_used_order">
-                                    100,00
-                                </td>
-                                <td data-name="discount_product">
-                                    10,00
-                                </td>
-                                <td data-name="order_product_subtotal">
-                                    9.000,00
-                                </td>
-                                <td class="text-center" data-name="del_product">
-                                    <button class='btn btn-sm btn-danger row-remove'>&nbsp<i class="fas fa-times">&nbsp</i></button>
-                                </td>
-                            </tr>
-
-{{--                                <tr id="noProductAdded">--}}
-{{--                                    <td class="text-center" colspan="8">Nenhum produto adicionado</td>--}}
-{{--                                </tr>--}}
+                                <tr id="noProductAdded">
+                                    <td class="text-center" colspan="8">Nenhum produto adicionado</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
+
             </div>
         </div>
 
@@ -270,7 +167,7 @@
             <div class="card-body">
                 <label class="mb-0">Buscar serviço</label>
                 <div class="form-row mb-3">
-                    <div class="col-md-10">
+                    <div class="col-md-8">
                         <select id="searchService" data-placeholder="Digite para pesquisar..." class="form-control select_selectize w-100" data-allow-clear="1">
                             <option></option>
                             @foreach($services as $service)
@@ -278,8 +175,8 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-2">
-                        <button id="btnAddService" class="btn btn-primary" type="button"><i class="fas fa-plus-circle"></i> Adicionar serviço</button>
+                    <div class="col-md-4 col-lg-2 ">
+                        <button id="btnAddService" class="form-control btn btn-primary" type="button"><i class="fas fa-plus-circle"></i> Serviço</button>
                     </div>
                 </div>
 
@@ -329,13 +226,13 @@
             <div class="card-body">
                 <label class="mb-0">Buscar endereço</label>
                 <div class="form-row mb-3">
-                    <div class="col-md-10" id="tooltipSearchAddress" >
+                    <div class="col-md-8" id="tooltipSearchAddress" >
                         <select id="searchAddress" data-placeholder="Digite para pesquisar..." class="form-control select_selectize_address w-100" data-allow-clear="1" >
                             <option></option>
                         </select>
                     </div>
-                    <div class="col-md-2">
-                        <button id="btnAddAddress" class="btn btn-primary" type="button"><i class="fas fa-plus-circle"></i> Adicionar endereço</button>
+                    <div class="col-md-4 col-lg-2 ">
+                        <button id="btnAddAddress" class="form-control btn btn-primary" type="button"><i class="fas fa-plus-circle"></i> Endereço</button>
                     </div>
                 </div>
 
@@ -508,19 +405,19 @@
                 <input type="text" name='product_description_order[]' placeholder='' class="form-control"/>
             </td>
             <td data-name="quantity_product">
-                <input type="text" id="quantityProduct_@{{id_handlebars_product}}" onblur="calcSubtotalProduct('@{{id_handlebars_product}}')" name='quantity_product[]' value="@{{quantity_product}}" placeholder='' class="form-control" required/>
+                <input type="text" onblur="calcSubtotalProduct('@{{id_handlebars_product}}')" name='quantity_product[]' value="@{{quantity_product}}" placeholder='' class="form-control" required/>
             </td>
             <td data-name="meter">
-                <input type="text" id="meter_@{{id_handlebars_product}}" name='meter[]' placeholder='' class="form-control" />
+                <input type="text" name='meter[]' placeholder='' class="form-control" />
             </td>
             <td data-name="sales_value_product_used_order">
-                <input type="text" id="salesValueProductUsedOrder_@{{id_handlebars_product}}" name="sales_value_product_used_order[]" value="@{{sales_value_product_used_order}}" placeholder="" class="form-control" />
+                <input type="text" name="sales_value_product_used_order[]" value="@{{sales_value_product_used_order}}" placeholder="" class="form-control" />
             </td>
             <td data-name="discount_product">
-                <input type="text" id="discountProduct_@{{id_handlebars_product}}" name='discount_product[]' placeholder='' class="form-control"/>
+                <input type="text" name='discount_product[]' placeholder='' class="form-control"/>
             </td>
             <td data-name="order_product_subtotal">
-                <input type="text" id="orderProductSubtotal_@{{id_handlebars_product}}" onchange="calcTotalProductService('@{{id_handlebars_product}}')" name='order_product_subtotal[]' value="@{{order_product_subtotal}}" placeholder='0,00' class="form-control" required/>
+                <input type="text" onchange="calcTotalProductService('@{{id_handlebars_product}}')" name='order_product_subtotal[]' value="@{{order_product_subtotal}}" placeholder='0,00' class="form-control" required/>
             </td>
             <td data-name="del_product">
                 <button class='btn btn-danger glyphicon glyphicon-remove row-remove' onclick="removeDiv('@{{id_handlebars_product}}')"><span aria-hidden="true">×</span></button>
@@ -531,30 +428,67 @@
 
     <script type="x-handlebars-template" id="tamplateAddService">
 
-        <tr id="@{{id_handlebars_service}}" class="existsService">
-            <td data-name="service">
-                <input type="hidden" name="id_service[]" value="@{{id_service}}">
-                <input type="text" name='name_service[]' value="@{{name_service}}" placeholder='' class="form-control" disabled/>
-            </td>
-            <td data-name="description_service">
-                <input type="text" name='description_service[]' placeholder='' class="form-control"/>
-            </td>
-            <td data-name="quantidade">
-                <input type="text" name='quantity_service[]' value="1" placeholder='' class="form-control" required/>
-            </td>
-            <td data-name="service_cost_value">
-                <input type="text" name="service_cost_value[]" value="@{{value_service}}" placeholder="" class="form-control" />
-            </td>
-            <td data-name="discount_service">
-                <input type="text" name='discount_service[]' placeholder='' class="form-control"/>
-            </td>
-            <td data-name="subtotal_service">
-                <input type="text" name='subtotal_service[]' placeholder='' class="form-control" required/>
-            </td>
-            <td data-name="del_service">
-                <button class='btn btn-danger glyphicon glyphicon-remove row-remove' onclick="removeDiv('@{{id_handlebars_service}}')"><span aria-hidden="true">×</span></button>
-            </td>
-        </tr>
+        @{{#each services}}
+            <tr id="@{{id_handlebars_service}}" class="existsService">
+                <td data-name="service">
+                    <input type="hidden" name="id_service[]" value="@{{id_service}}">
+                    <input type="text" name='name_service[]' value="@{{name_service}}" placeholder='' class="form-control" disabled/>
+                </td>
+                <td data-name="description_service">
+                    <input type="text" name='description_service[]' placeholder='' class="form-control"/>
+                </td>
+                <td data-name="quantity_service">
+                    <input
+                        type="text"
+                        name='quantity_service[]'
+                        value="@{{ quantity_service }}"
+                        onblur="updateValueService(@{{ @index }}, 'quantity_service', this.value)"
+                        onkeyup="updateValueService(@{{ @index }}, 'quantity_service', this.value)"
+                        placeholder=''
+                        class="form-control"
+                        required
+                    />
+                </td>
+                <td data-name="service_cost_value">
+                    <input
+                        type="text"
+                        name="service_cost_value[]"
+                        value="@{{value_service}}"
+                        onblur="updateValueService(@{{ @index }}, 'value_service', this.value)"
+                        onkeyup="updateValueService(@{{ @index }}, 'value_service', this.value)"
+                        placeholder=""
+                        class="form-control"
+                    />
+                </td>
+                <td data-name="discount_service">
+                    <input
+                        type="text"
+                        name='discount_service[]'
+                        onblur="updateValueService(@{{ @index }}, 'discount_service', this.value)"
+                        onkeyup="updateValueService(@{{ @index }}, 'discount_service', this.value)"
+                        placeholder=''
+                        class="form-control"
+                    />
+                </td>
+                <td data-name="subtotal_service">
+                    <input
+                        type="text"
+                        name='subtotal_service[]'
+                        onblur="updateValueService(@{{ @index }}, 'subtotal_service', this.value)"
+                        onkeyup="updateValueService(@{{ @index }}, 'subtotal_service', this.value)"
+                        placeholder=''
+                        class="form-control"
+                        required/>
+                </td>
+                <td data-name="del_service">
+                    <button
+                        class='btn btn-danger glyphicon glyphicon-remove row-remove'
+                        onclick="removeDiv(@{{ @index }})">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </td>
+            </tr>
+        @{{/each}}
 
     </script>
 
