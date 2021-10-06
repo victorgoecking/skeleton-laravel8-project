@@ -395,35 +395,82 @@
 
     <script type="x-handlebars-template" id="tamplateAddProduct">
 
-        <tr id="@{{id_handlebars_product}}" class="existsProduct">
-            <td data-name="product">
-                <input type="hidden" name="id_product[]" value="@{{id_product}}">
-                <input type="hidden" name="product_cost_value[]" value="@{{product_cost_value}}">
-                <input type="text" name='name_product[]' placeholder='' value="@{{name_product}}" class="form-control" disabled/>
-            </td>
-            <td data-name="product_description_order">
-                <input type="text" name='product_description_order[]' placeholder='' class="form-control"/>
-            </td>
-            <td data-name="quantity_product">
-                <input type="text" onblur="calcSubtotalProduct('@{{id_handlebars_product}}')" name='quantity_product[]' value="@{{quantity_product}}" placeholder='' class="form-control" required/>
-            </td>
-            <td data-name="meter">
-                <input type="text" name='meter[]' placeholder='' class="form-control" />
-            </td>
-            <td data-name="sales_value_product_used_order">
-                <input type="text" name="sales_value_product_used_order[]" value="@{{sales_value_product_used_order}}" placeholder="" class="form-control" />
-            </td>
-            <td data-name="discount_product">
-                <input type="text" name='discount_product[]' placeholder='' class="form-control"/>
-            </td>
-            <td data-name="order_product_subtotal">
-                <input type="text" onchange="calcTotalProductService('@{{id_handlebars_product}}')" name='order_product_subtotal[]' value="@{{order_product_subtotal}}" placeholder='0,00' class="form-control" required/>
-            </td>
-            <td data-name="del_product">
-                <button class='btn btn-danger glyphicon glyphicon-remove row-remove' onclick="removeDiv('@{{id_handlebars_product}}')"><span aria-hidden="true">×</span></button>
-            </td>
-        </tr>
-
+        @{{#each products}}
+            <tr id="@{{id_handlebars_product}}" class="existsProduct">
+                <td data-name="product">
+                    <input type="hidden" name="id_product[]" value="@{{id_product}}">
+                    <input type="hidden" name="product_cost_value[]" value="@{{product_cost_value}}">
+                    <input type="text" name='name_product[]' placeholder='' value="@{{name_product}}" class="form-control" disabled/>
+                </td>
+                <td data-name="product_description_order">
+                    <input type="text" name='product_description_order[]' placeholder='' class="form-control"/>
+                </td>
+                <td data-name="quantity_product">
+                    <input
+                        type="text"
+                        name='quantity_product[]'
+                        value="@{{quantity_product}}"
+                        onblur="updateValueProduct(@{{ @index }}, 'quantity_product', this.value)"
+                        onkeyup="updateValueProduct(@{{ @index }}, 'quantity_product', this.value)"
+                        placeholder=''
+                        class="form-control"
+                        required
+                    />
+                </td>
+                <td data-name="meter">
+                    <input
+                        type="text"
+                        name='meter[]'
+                        onblur="updateValueProduct(@{{ @index }}, 'meter', this.value)"
+                        onkeyup="updateValueProduct(@{{ @index }}, 'meter', this.value)"
+                        value="@{{ meter }}"
+                        placeholder=''
+                        class="form-control"
+                    />
+                </td>
+                <td data-name="sales_value_product_used_order">
+                    <input
+                        type="text"
+                        name="sales_value_product_used_order[]"
+                        value="@{{sales_value_product_used_order}}"
+                        onblur="updateValueProduct(@{{ @index }}, 'sales_value_product_used_order', this.value)"
+                        onkeyup="updateValueProduct(@{{ @index }}, 'sales_value_product_used_order', this.value)"
+                        placeholder=""
+                        class="form-control"
+                    />
+                </td>
+                <td data-name="discount_product">
+                    <input
+                        type="text"
+                        name='discount_product[]'
+                        onblur="updateValueProduct(@{{ @index }}, 'discount_product', this.value)"
+                        onkeyup="updateValueProduct(@{{ @index }}, 'discount_product', this.value)"
+                        value="@{{ discount_product }}"
+                        placeholder=''
+                        class="form-control"
+                    />
+                </td>
+                <td data-name="order_product_subtotal">
+                    <input
+                        type="text"
+                        name='order_product_subtotal[]'
+                        value="@{{order_product_subtotal}}"
+                        onblur="updateValueProduct(@{{ @index }}, 'order_product_subtotal', this.value)"
+                        onkeyup="updateValueProduct(@{{ @index }}, 'order_product_subtotal', this.value)"
+                        placeholder='0,00'
+                        class="form-control"
+                        required
+                    />
+                </td>
+                <td data-name="del_product">
+                    <button
+                        class='btn btn-danger row-remove'
+                        onclick="removeProduct(@{{ @index }})">
+                        <i class="fas fa-times-circle"></i>
+                    </button>
+                </td>
+            </tr>
+        @{{/each}}
     </script>
 
     <script type="x-handlebars-template" id="tamplateAddService">
@@ -466,6 +513,7 @@
                         name='discount_service[]'
                         onblur="updateValueService(@{{ @index }}, 'discount_service', this.value)"
                         onkeyup="updateValueService(@{{ @index }}, 'discount_service', this.value)"
+                        value="@{{ discount_service }}"
                         placeholder=''
                         class="form-control"
                     />
@@ -473,18 +521,19 @@
                 <td data-name="subtotal_service">
                     <input
                         type="text"
-                        name='subtotal_service[]'
-                        onblur="updateValueService(@{{ @index }}, 'subtotal_service', this.value)"
-                        onkeyup="updateValueService(@{{ @index }}, 'subtotal_service', this.value)"
+                        name='order_service_subtotal[]'
+                        value="@{{ order_service_subtotal }}"
+                        onblur="updateValueService(@{{ @index }}, 'order_service_subtotal', this.value)"
+                        onkeyup="updateValueService(@{{ @index }}, 'order_service_subtotal', this.value)"
                         placeholder=''
                         class="form-control"
                         required/>
                 </td>
                 <td data-name="del_service">
                     <button
-                        class='btn btn-danger glyphicon glyphicon-remove row-remove'
-                        onclick="removeDiv(@{{ @index }})">
-                        <span aria-hidden="true">×</span>
+                        class='btn btn-danger row-remove'
+                        onclick="removeService(@{{ @index }})">
+                        <i class="fas fa-times-circle"></i>
                     </button>
                 </td>
             </tr>
@@ -512,7 +561,11 @@
                 <input type="text" name='complement' value="@{{complement}}" placeholder='' class="form-control" disabled/>
             </td>
             <td data-name="del_address">
-                <button class='btn btn-danger glyphicon glyphicon-remove row-remove' onclick="removeDiv('@{{id_handlebars_address}}')"><span aria-hidden="true">×</span></button>
+                <button
+                    class='btn btn-danger row-remove'
+                    onclick="removeAddress('@{{id_handlebars_address}}')">
+                    <i class="fas fa-times-circle"></i>
+                </button>
             </td>
         </tr>
 

@@ -287,6 +287,13 @@
             })
         }
 
+
+        let products = {
+            'products': []
+        };
+        function updateValueProduct(index, property, newValue){
+            products.products[index][property] = newValue;
+        }
         function addProduct() {
 
             let countProduct = 0;
@@ -321,13 +328,18 @@
                         id_product: idProduct,
                         name_product: nameProduct,
                         quantity_product: 1,
+                        meter: '',
                         product_cost_value: productCostValue,
                         sales_value_product_used_order: salesValueProductUsedOrder,
+                        discount_product: '',
                         order_product_subtotal: salesValueProductUsedOrder,
                     }
 
+                    products.products.push(infoProduct);
+
                     //AQUI OLHAR CARREGAMENTO HANDLEBARS
-                    product.innerHTML += compiled(infoProduct);
+                    product.innerHTML = compiled(products);
+
                     countProduct+=1;
 
                    // Removendo item selecionado
@@ -370,16 +382,18 @@
 
                     let service = document.getElementById('containerServices');
 
-                    let info = {
+                    let infoService = {
                         id_handlebars_service: Math.floor((Math.random() * 100000000) + 1),
                         id_service: idService,
                         quantity_service: 1,
                         name_service: nameService,
-                        value_service: valueService
+                        value_service: valueService,
+                        discount_service: '',
+                        order_service_subtotal: valueService,
                     }
 
 
-                    services.services.push(info);
+                    services.services.push(infoService);
 
                     service.innerHTML = compiled(services);
 
@@ -424,7 +438,7 @@
 
                     let service = document.getElementById('containerAddresses');
 
-                    let info = {
+                    let infoAddress = {
                         id_handlebars_address: "addressHandlebars",
                         id_address: idAddress,
                         cep: cepAddress,
@@ -434,7 +448,7 @@
                         complement: complementAddress,
                     }
 
-                    service.innerHTML += compiled(info);
+                    service.innerHTML += compiled(infoAddress);
 
                     // Removendo item selecionado
                     let removeSelectizeItem = document.getElementById("searchAddress").value;
@@ -446,31 +460,45 @@
 
         }
 
-        function removeDiv(indexToRemove) {
+        function removeProduct(indexToRemove) {
+
+            products.products.splice(indexToRemove, 1);
+
+            let templateProduct = document.getElementById('tamplateAddProduct').innerHTML;
+            let compiled = Handlebars.compile(templateProduct);
+            let product = document.getElementById('containerProducts');
+            product.innerHTML = compiled(products);
+
+
+            if(document.getElementsByClassName("existsProduct").length == 0){
+                let compiled = Handlebars.compile(document.getElementById("tamplateNoProductAdded").innerHTML);
+                document.getElementById('containerProducts').innerHTML = compiled();
+            }
+        }
+
+        function removeService(indexToRemove) {
 
             services.services.splice(indexToRemove, 1);
 
-            let templateProduct = document.getElementById('tamplateAddService').innerHTML;
-            let compiled = Handlebars.compile(templateProduct);
+            let templateService = document.getElementById('tamplateAddService').innerHTML;
+            let compiled = Handlebars.compile(templateService);
             let service = document.getElementById('containerServices');
             service.innerHTML = compiled(services);
 
-
-            // document.getElementById(id).remove();
             if(document.getElementsByClassName("existsService").length == 0){
                 let compiled = Handlebars.compile(document.getElementById("tamplateNoServiceAdded").innerHTML);
                 document.getElementById('containerServices').innerHTML = compiled();
             }
+        }
 
-            // if(document.getElementsByClassName("existsProduct").length == 0){
-            //     let compiled = Handlebars.compile(document.getElementById("tamplateNoProductAdded").innerHTML);
-            //     document.getElementById('containerProducts').innerHTML = compiled();
-            // }
-            // if(document.getElementsByClassName("existsAddress").length == 0){
-            //     let compiled = Handlebars.compile(document.getElementById("tamplateNoAddressAdded").innerHTML);
-            //     document.getElementById('containerAddresses').innerHTML = compiled();
-            // }
+        function removeAddress(id) {
 
+            document.getElementById(id).remove();
+
+            if(document.getElementsByClassName("existsAddress").length == 0){
+                let compiled = Handlebars.compile(document.getElementById("tamplateNoAddressAdded").innerHTML);
+                document.getElementById('containerAddresses').innerHTML = compiled();
+            }
         }
 
         addProduct();
