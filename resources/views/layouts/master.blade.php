@@ -162,12 +162,12 @@
     </script>
 
 
-    {{-- ------------------- TESTE MODAL ----------------- --}}
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#modalUserDetail').modal('show');
-        });
-    </script>
+{{--    --}}{{-- ------------------- TESTE MODAL ----------------- --}}
+{{--    <script type="text/javascript">--}}
+{{--        $(document).ready(function() {--}}
+{{--            $('#modalUserDetail').modal('show');--}}
+{{--        });--}}
+{{--    </script>--}}
 
 
 
@@ -177,8 +177,14 @@
         let products = {
             'products': []
         };
-        function updateValueProduct(index, property, newValue){
+        function updateValueProduct(index, property, newValue, idLine){
+
+            let subtotalProduct = calcSubtotalProduct(idLine)
+
             products.products[index][property] = newValue;
+            products.products[index]['order_product_subtotal'] = subtotalProduct;
+
+            calcTotalProduct();
         }
         function addProduct() {
 
@@ -205,12 +211,11 @@
 
                     let product = document.getElementById('containerProducts');
 
-                    // let random = Math.floor((Math.random() * 100000000) + 1);
-                    let random = 'product_'+countProduct;
-                    // let subtotalProduct = calcSubtotalProduct(random);
+                    // let randomProduct = Math.floor((Math.random() * 100000000) + 1);
+                    let randomProduct = 'product_'+countProduct;
 
                     let infoProduct = {
-                        id_handlebars_product: random,
+                        id_handlebars_product: randomProduct,
                         id_product: idProduct,
                         name_product: nameProduct,
                         quantity_product: 1,
@@ -230,6 +235,7 @@
                    let removeSelectizeItem = document.getElementById("searchProduct").value;
                    document.getElementById("searchProduct").selectize.removeItem(removeSelectizeItem);
 
+                    calcTotalProduct();
                 }
 
             })
@@ -240,11 +246,19 @@
         let services = {
             'services': []
         };
-        function updateValueService(index, property, newValue){
+        function updateValueService(index, property, newValue, idLine){
+
+            let subtotalService = calcSubtotalService(idLine)
+
             services.services[index][property] = newValue;
+            services.services[index]['order_service_subtotal'] = subtotalService;
+
+            calcTotalService();
         }
 
         function addService() {
+
+            let countService = 0;
 
             let botaoAdd = document.getElementById('btnAddService');
 
@@ -266,10 +280,12 @@
 
                     let service = document.getElementById('containerServices');
 
+                    // let randomService = Math.floor((Math.random() * 100000000) + 1);
+                    let randomService = 'product_'+countService;
+
                     let infoService = {
-                        id_handlebars_service: Math.floor((Math.random() * 100000000) + 1),
+                        id_handlebars_service: randomService,
                         id_service: idService,
-                        quantity_service: 1,
                         name_service: nameService,
                         value_service: valueService,
                         discount_service: '',
@@ -279,10 +295,13 @@
                     services.services.push(infoService);
                     service.innerHTML = compiled(services);
 
+                    countService+=1;
+
                     // Removendo item selecionado
                     let removeSelectizeItem = document.getElementById("searchService").value;
                     document.getElementById("searchService").selectize.removeItem(removeSelectizeItem);
 
+                    calcTotalService();
                 }
 
             })
@@ -354,6 +373,8 @@
                 let compiled = Handlebars.compile(document.getElementById("tamplateNoProductAdded").innerHTML);
                 document.getElementById('containerProducts').innerHTML = compiled();
             }
+
+            calcTotalProduct();
         }
 
         function removeService(indexToRemove) {
@@ -369,6 +390,8 @@
                 let compiled = Handlebars.compile(document.getElementById("tamplateNoServiceAdded").innerHTML);
                 document.getElementById('containerServices').innerHTML = compiled();
             }
+
+            calcTotalService();
         }
 
         function removeAddress(id) {
@@ -385,14 +408,7 @@
         addService();
         addDeliveryAddress();
 
-
-        // function loadSubtotalProduct(){
-        //     let botaoAdd = document.getElementById('btnAddProduct');
-        //
-        //     botaoAdd.addEventListener('click', () => {
-        //         let ids_handlebars = []
-        //     });
-        // }
+// ------------------------------------------------------------------------------------------------------------------------------------------------------
 
         function calcSubtotalProduct(id){
             let quantityProduct = $('#quantityProduct_'+id).val()
@@ -402,8 +418,7 @@
             let subtotalProduct;
 
             if(meter){
-                subtotalProduct = (quantityProduct * meter * productOrderValue) - discountProduct;
-
+                subtotalProduct = (quantityProduct *  (Math.ceil(meter * 2) / 2) * productOrderValue) - discountProduct;
             }else{
                 subtotalProduct = (quantityProduct * productOrderValue) - discountProduct;
             }
@@ -412,49 +427,59 @@
             return subtotalProduct;
         }
 
-        function calcTotalProductService(id){
-
-
-
-            // let orderProductSubtotal = $("#orderProductSubtotal_"+id).val();
-            // let totalProducts = $("#total_products").val();
-            // let sumProducts = orderProductSubtotal + totalProducts;
-            // $('#total_products').val(sumProducts);
-            //
-            // let orderServiceSubtotal = $("#orderServiceSubtotal_"+id).val();
-            // let totalServices = $("#total_services").val();
-            // let sumServices = orderServiceSubtotal + totalServices;
-            // $('#total_services').val(sumServices);
-            //
-            // let totalCashDiscount = $("#total_cash_discount").val();
-            // let totalPercentageDiscount = $("#total_percentage_discount").val();
-            //
-            // let percentageDiscount  = (sumProducts+sumServices-totalCashDiscount) * totalPercentageDiscount
-            //
-            // $('#total').val((sumProducts+sumServices-totalCashDiscount) - (percentageDiscount / 100 ));
-
+        function calcTotalProduct(){
 
             //AQUI FAZER LOOP PARA CONTAR QUANTOS PRODUTOS TEM E SOMAR TODOS OS SUBTOTAIS
+            let countProduct = $("input.order_product_subtotal").length;
+            let valuesProducts = $("input.order_product_subtotal").map(function(){return $(this).val();}).get();
 
-            let orderProductSubtotal = $("#orderProductSubtotal_"+id).val();
-            let totalProducts = $("#total_products").val();
-            let sumProducts;
-            if (totalProducts){
-                sumProducts = parseFloat(orderProductSubtotal) + parseFloat(totalProducts);
-            }else{
-                sumProducts = parseFloat(orderProductSubtotal);
+            let totalProduct = 0;
+
+            if(countProduct > 0){
+                for (let i = 0; i < countProduct; i++){
+                    totalProduct += parseFloat(valuesProducts[i]);
+                }
             }
-            console.log(sumProducts)
-            $('#total_products').val(sumProducts);
-
+            $('#total_products').val(totalProduct);
+            calcTotal();
         }
 
-       function calcTotal(){
-            let totalProducts = $('#total_products').val();
-            let totalServices = $('#total_services').val();
+        function calcSubtotalService(id){
+            let serviceCostValue = $('#serviceCostValue_'+id).val();
+            let discountService = $('#discountService_'+id).val();
+            let serviceSubtotal;
 
-            let totalCashDiscount = $("#total_cash_discount").val();
-            let totalPercentageDiscount = $("#total_percentage_discount").val();
+            serviceSubtotal = serviceCostValue - discountService;
+
+            $('#orderServiceSubtotal_'+id).val(serviceSubtotal)
+            return serviceSubtotal;
+        }
+
+        function calcTotalService(){
+
+            //AQUI FAZER LOOP PARA CONTAR QUANTOS SERVIÇOS TEM E SOMAR TODOS OS SUBTOTAIS
+            let countService = $("input.order_service_subtotal").length;
+            let valuesServices = $("input.order_service_subtotal").map(function(){return $(this).val();}).get();
+
+            let totalService = 0;
+
+            if(countService > 0){
+                for (let i = 0; i < countService; i++){
+                    totalService += parseFloat(valuesServices[i]);
+                }
+            }
+            $('#total_services').val(totalService);
+            calcTotal();
+        }
+
+
+       function calcTotal(){
+
+            let totalProducts = parseFloat($('#total_products').val());
+            let totalServices = parseFloat($('#total_services').val());
+
+            let totalCashDiscount = parseFloat($("#total_cash_discount").val());
+            let totalPercentageDiscount = parseFloat($("#total_percentage_discount").val());
 
             if(totalCashDiscount && totalPercentageDiscount){
                 let percentageDiscount  = (totalProducts+totalServices-totalCashDiscount) * totalPercentageDiscount
@@ -466,8 +491,9 @@
             }else if(totalPercentageDiscount){
                 let percentageDiscount  = (totalProducts+totalServices) * totalPercentageDiscount
                 $('#total').val((totalProducts+totalServices) - (percentageDiscount / 100 ));
+            }else{
+                $('#total').val(totalProducts+totalServices);
             }
-
 
         }
 
