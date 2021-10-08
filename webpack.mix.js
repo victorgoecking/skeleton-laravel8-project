@@ -14,8 +14,8 @@ const mix = require('laravel-mix');
 mix.sass('resources/scss/style.scss','public/admin/css/style.css')
     .js('resources/js/app.js', 'public/admin/js')
     .js('resources/js/client.js', 'public/admin/js')
-    .js('resources/js/product.js', 'public/admin/js')
-    .js('resources/js/order.js', 'public/admin/js');
+    .js('resources/js/product.js', 'public/admin/js');
+    // .js('resources/js/order.js', 'public/admin/js');
 
     // .scripts('node_modules/bootstrap/dist/js/bootstrap.bundle.js', 'public/admin/bootstrap.js');
 

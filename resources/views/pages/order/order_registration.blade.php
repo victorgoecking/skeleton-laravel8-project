@@ -74,7 +74,7 @@
 
                     <div class="col-md-3 mb-3">
                         <label for="customDeliveryForecast">Prev. entrega</label>
-                        <input type="date" class="form-control" name="delivery_forecast" id="customDeliveryForecast" aria-describedby="deliveryForecastHelp" placeholder="" required>
+                        <input type="date" class="form-control" name="delivery_forecast" id="customDeliveryForecast" aria-describedby="deliveryForecastHelp" placeholder="">
                     </div>
 
                     <div class="col-md-3 mb-3">
@@ -279,7 +279,16 @@
 
                     <div class="col-md-6 mb-3">
                         <label for="customCostFreight">Valor do frete</label>
-                        <input type="text" class="form-control" name="cost_freight" id="customCostFreight" placeholder="0.00">
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="cost_freight"
+                            id="customCostFreight"
+                            value="0.00"
+                            placeholder="0.00"
+                            onblur="calcTotal()"
+                            onkeyup="calcTotal()"
+                        >
                     </div>
 
 
@@ -317,10 +326,10 @@
                             <tbody id="containerServices">
                                 <tr id="@{{id_handlebars_service}}" class="existsService">
                                     <td data-name="total_products">
-                                        <input type="text" id="total_products" name='total_products' placeholder='0.00' value="0.00" class="form-control" disabled/>
+                                        <input type="text" id="total_products" name='total_products' placeholder='0.00' value="0.00" class="form-control" readonly/>
                                     </td>
                                     <td data-name="total_services">
-                                        <input type="text" id="total_services" name='total_services' placeholder='0.00' value="0.00" class="form-control" disabled/>
+                                        <input type="text" id="total_services" name='total_services' placeholder='0.00' value="0.00" class="form-control" readonly/>
                                     </td>
                                     <td data-name="total_cash_discount">
                                         <input type="text" id="total_cash_discount" name='total_cash_discount' value="0.00" onblur="calcTotal()" onkeyup="calcTotal()" placeholder='' class="form-control"/>
@@ -329,7 +338,7 @@
                                         <input type="text" id="total_percentage_discount" name="total_percentage_discount" value="0.00" onblur="calcTotal()" onkeyup="calcTotal()" placeholder="" class="form-control" />
                                     </td>
                                     <td class="bg-warning " data-name="total">
-                                        <input type="text" id="total" name='total' placeholder='0.00' class="form-control font-weight-bold " disabled required/>
+                                        <input type="text" id="total" name='total' placeholder='0.00' class="form-control font-weight-bold " readonly required/>
                                     </td>
                                 </tr>
                             </tbody>
@@ -397,7 +406,7 @@
                 <td data-name="product">
                     <input type="hidden" name="id_product[]" value="@{{id_product}}">
                     <input type="hidden" name="product_cost_value[]" value="@{{product_cost_value}}">
-                    <input type="text" name='name_product[]' placeholder='' value="@{{name_product}}" class="form-control" disabled/>
+                    <input type="text" name='name_product[]' placeholder='' value="@{{name_product}}" class="form-control" readonly/>
                 </td>
                 <td data-name="product_description_order">
                     <input type="text" name='product_description_order[]' placeholder='' class="form-control"/>
@@ -462,7 +471,7 @@
                         placeholder='0,00'
                         class="form-control order_product_subtotal"
                         required
-                        disabled
+                        readonly
                     />
                 </td>
                 <td data-name="del_product">
@@ -482,19 +491,20 @@
             <tr id="@{{id_handlebars_service}}" class="existsService">
                 <td data-name="service">
                     <input type="hidden" name="id_service[]" value="@{{id_service}}">
-                    <input type="text" name='name_service[]' value="@{{name_service}}" placeholder='' class="form-control" disabled/>
+                    <input type="hidden" name="service_cost_value[]" value="@{{service_cost_value}}">
+                    <input type="text" name='name_service[]' value="@{{name_service}}" placeholder='' class="form-control" readonly/>
                 </td>
                 <td data-name="description_service">
-                    <input type="text" name='description_service[]' placeholder='' class="form-control"/>
+                    <input type="text" name='service_description_order[]' placeholder='' class="form-control"/>
                 </td>
-                <td data-name="service_cost_value">
+                <td data-name="sales_value_service_used_order">
                     <input
                         type="text"
                         id="serviceCostValue_@{{id_handlebars_service}}"
-                        name="service_cost_value[]"
-                        value="@{{value_service}}"
-                        onblur="updateValueService(@{{ @index }}, 'value_service', this.value, '@{{id_handlebars_service}}')"
-                        onkeyup="updateValueService(@{{ @index }}, 'value_service', this.value, '@{{id_handlebars_service}}')"
+                        name="sales_value_service_used_order[]"
+                        value="@{{service_cost_value}}"
+                        onblur="updateValueService(@{{ @index }}, 'sales_value_service_used_order', this.value, '@{{id_handlebars_service}}')"
+                        onkeyup="updateValueService(@{{ @index }}, 'sales_value_service_used_order', this.value, '@{{id_handlebars_service}}')"
                         placeholder=""
                         class="form-control"
                     />
@@ -522,7 +532,7 @@
                         placeholder=''
                         class="form-control order_service_subtotal"
                         required
-                        disabled
+                        readonly
                     />
                 </td>
                 <td data-name="del_service">
@@ -542,19 +552,19 @@
         <tr id="@{{id_handlebars_address}}" class="existsAddress">
             <td data-name="address">
                 <input type="hidden" name="delivery_address_id" value="@{{id_address}}">
-                <input type="text" name='cep' value="@{{cep}}" placeholder='' class="form-control" disabled/>
+                <input type="text" name='cep' value="@{{cep}}" placeholder='' class="form-control" readonly/>
             </td>
             <td data-name="public_place">
-                <input type="text" name='public_place' value="@{{public_place}}" placeholder='' class="form-control" disabled/>
+                <input type="text" name='public_place' value="@{{public_place}}" placeholder='' class="form-control" readonly/>
             </td>
             <td data-name="number">
-                <input type="text" name='number' value="@{{number}}" placeholder='' class="form-control" disabled/>
+                <input type="text" name='number' value="@{{number}}" placeholder='' class="form-control" readonly/>
             </td>
             <td data-name="district">
-                <input type="text" name="district" value="@{{district}}" placeholder="" class="form-control" disabled/>
+                <input type="text" name="district" value="@{{district}}" placeholder="" class="form-control" readonly/>
             </td>
             <td data-name="complement">
-                <input type="text" name='complement' value="@{{complement}}" placeholder='' class="form-control" disabled/>
+                <input type="text" name='complement' value="@{{complement}}" placeholder='' class="form-control" readonly/>
             </td>
             <td data-name="del_address">
                 <button
@@ -567,6 +577,491 @@
 
     </script>
 
-    <script src="{{ asset('admin/js/order.js')}}"></script>
+
+{{--<script src="{{ asset('admin/js/order.js')}}"></script>--}}
+    <script type="text/javascript">
+
+
+        // ------------------------------------    FORM PEDIDO HIDE CAMPOS
+        $(document).ready(function(){
+            //executar quando a página é carregada
+            esconde();
+
+            //executar todas as vezes que houver alterações do select;
+            $('#selectOrderType').change(function(){
+                esconde();
+            });
+
+
+        });
+
+        function esconde(){
+            //quando tiver editando o formuláro o valor fica no Select
+            selectedValue = $('#selectOrderType').val();
+
+            //quando tiver visualizando o formulário o valor fica no campo text;
+            if(!selectedValue){
+                selectedValue = $('#selectOrderType').text();
+            }
+            switch(selectedValue) {
+                case "0":
+                    $('#divValidity').hide();
+                    $("#divValidity").val("");
+
+                    break;
+                case "1":
+                    $('#divValidity').show();
+                    break;
+                default:
+                    $('#divValidity').hide();
+                    $("#divValidity").val("");
+
+            }
+        }
+
+        //DESABILITA ENVIO POR ENTER
+        $(document).ready(function() {
+            $(window).keydown(function(event){
+                if(event.keyCode == 13) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
+        });
+
+        // SELECTIZE
+        $(document).ready(function () {
+
+            $(".select_selectize").selectize({
+                // create:true, //DAR A OPCAO DE ADICIOANR CASO NAO TIVER
+                sortField: {
+                    field: 'text',
+                    direction: 'asc'
+                },
+                placeholder: $(this).data('placeholder'),
+                // width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+                allowClear: Boolean($(this).data('allow-clear')),
+
+            });
+
+            $(".select_selectize_client").selectize({
+                // create:true, //DAR A OPCAO DE ADICIOANR CASO NAO TIVER
+                sortField: {
+                    field: 'text',
+                    direction: 'asc'
+                },
+                placeholder: $(this).data('placeholder'),
+                // width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+                allowClear: Boolean($(this).data('allow-clear')),
+
+                onChange:function (value){
+                    if(value !== ''){
+                        $(".select_selectize_client").removeClass("is-invalid").addClass("is-valid")
+                    }else{
+                        $(".select_selectize_client").removeClass("is-valid").addClass("is-invalid")
+                    }
+                },
+            });
+
+            $(".select_selectize_address").selectize({
+                // create:true, //DAR A OPCAO DE ADICIOANR CASO NAO TIVER
+                sortField: {
+                    field: 'text',
+                    direction: 'asc'
+                },
+                placeholder: $(this).data('placeholder'),
+                // width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+                allowClear: Boolean($(this).data('allow-clear')),
+                onFocus: function () {
+                    // control has gained focus
+                    let selectClient = $(document.getElementById('validationCustomClient').value);
+
+                    if(selectClient.prevObject === undefined){
+                        $('#tooltipSearchAddress').tooltip({
+                            'trigger': 'manual',
+                            'title': 'Selecione um cliente por favor.',
+                            'placement': 'top'
+                        }).tooltip('show');
+                    }
+
+                },
+                onBlur: function () {
+                    $('#tooltipSearchAddress').tooltip().tooltip('dispose');
+                },
+
+            });
+        });
+
+
+        let products = {
+            'products': []
+        };
+        function updateValueProduct(index, property, newValue, idLine){
+
+            let subtotalProduct = calcSubtotalProduct(idLine)
+
+            products.products[index][property] = newValue;
+            products.products[index]['order_product_subtotal'] = subtotalProduct;
+
+            calcTotalProduct();
+        }
+        function addProduct() {
+
+            let countProduct = 0;
+
+            let botaoAdd = document.getElementById('btnAddProduct');
+
+            botaoAdd.addEventListener('click', () => {
+
+                let myStr = (document.getElementById("searchProduct").value).split(":");
+                let idProduct = myStr[0];
+                let nameProduct = myStr[1];
+                let productCostValue = myStr[2];
+                let salesValueProductUsedOrder = myStr[3];
+
+                //verificando se um valor foi adicionado para mandar pro handlesbars
+                if(document.getElementById("searchProduct").value){
+                    if (document.getElementById("noProductAdded")) {
+                        document.getElementById("noProductAdded").remove()
+                    }
+
+                    let templateProduct = document.getElementById('tamplateAddProduct').innerHTML;
+                    let compiled = Handlebars.compile(templateProduct);
+
+                    let product = document.getElementById('containerProducts');
+
+                    // let randomProduct = Math.floor((Math.random() * 100000000) + 1);
+                    let randomProduct = 'product_'+countProduct;
+
+                    let infoProduct = {
+                        id_handlebars_product: randomProduct,
+                        id_product: idProduct,
+                        name_product: nameProduct,
+                        quantity_product: 1,
+                        meter: '',
+                        product_cost_value: productCostValue,
+                        sales_value_product_used_order: salesValueProductUsedOrder,
+                        discount_product: '',
+                        order_product_subtotal: salesValueProductUsedOrder,
+                    }
+
+                    products.products.push(infoProduct);
+                    product.innerHTML = compiled(products);
+
+                    countProduct+=1;
+
+                    // Removendo item selecionado
+                    let removeSelectizeItem = document.getElementById("searchProduct").value;
+                    document.getElementById("searchProduct").selectize.removeItem(removeSelectizeItem);
+
+                    calcTotalProduct();
+                }
+
+            })
+
+        }
+
+
+        let services = {
+            'services': []
+        };
+        function updateValueService(index, property, newValue, idLine){
+
+            let subtotalService = calcSubtotalService(idLine)
+
+            services.services[index][property] = newValue;
+            services.services[index]['order_service_subtotal'] = subtotalService;
+
+            calcTotalService();
+        }
+
+        function addService() {
+
+            let countService = 0;
+
+            let botaoAdd = document.getElementById('btnAddService');
+
+            botaoAdd.addEventListener('click', () => {
+
+                let myStr = (document.getElementById("searchService").value).split(":");
+                let idService = myStr[0];
+                let nameService = myStr[1];
+                let valueService = myStr[2];
+
+                //verificando se um valor foi adicionado para mandar pro handlesbars
+                if(document.getElementById("searchService").value){
+                    if (document.getElementById("noServiceAdded")) {
+                        document.getElementById("noServiceAdded").remove()
+                    }
+
+                    let templateProduct = document.getElementById('tamplateAddService').innerHTML;
+                    let compiled = Handlebars.compile(templateProduct);
+
+                    let service = document.getElementById('containerServices');
+
+                    // let randomService = Math.floor((Math.random() * 100000000) + 1);
+                    let randomService = 'product_'+countService;
+
+                    let infoService = {
+                        id_handlebars_service: randomService,
+                        id_service: idService,
+                        name_service: nameService,
+                        service_cost_value: valueService,
+                        discount_service: '',
+                        order_service_subtotal: valueService,
+                    }
+
+                    services.services.push(infoService);
+                    service.innerHTML = compiled(services);
+
+                    countService+=1;
+
+                    // Removendo item selecionado
+                    let removeSelectizeItem = document.getElementById("searchService").value;
+                    document.getElementById("searchService").selectize.removeItem(removeSelectizeItem);
+
+                    calcTotalService();
+                }
+
+            })
+
+        }
+
+
+        function addDeliveryAddress() {
+
+            let botaoAdd = document.getElementById('btnAddAddress');
+
+            botaoAdd.addEventListener('click', () => {
+
+                let myStr = (document.getElementById("searchAddress").value).split(":");
+                let idAddress = myStr[0];
+                let cepAddress = myStr[1];
+                let publicPlaceAddress = myStr[2];
+                let numberAddress = myStr[3];
+                let districtAddress = myStr[4];
+                let complementAddress = myStr[5];
+
+                //verificando se um valor foi adicionado para mandar pro handlesbars
+                if(document.getElementById("searchAddress").value){
+                    if (document.getElementById("noAddressAdded")) {
+                        document.getElementById("noAddressAdded").remove()
+                    }else{
+                        document.getElementById("addressHandlebars").remove();
+                    }
+
+
+                    let templateProduct = document.getElementById('tamplateAddAddress').innerHTML;
+                    let compiled = Handlebars.compile(templateProduct);
+
+                    let service = document.getElementById('containerAddresses');
+
+                    let infoAddress = {
+                        id_handlebars_address: "addressHandlebars",
+                        id_address: idAddress,
+                        cep: cepAddress,
+                        public_place: publicPlaceAddress,
+                        number: numberAddress,
+                        district: districtAddress,
+                        complement: complementAddress,
+                    }
+
+                    service.innerHTML += compiled(infoAddress);
+
+                    // Removendo item selecionado
+                    let removeSelectizeItem = document.getElementById("searchAddress").value;
+                    document.getElementById("searchAddress").selectize.removeItem(removeSelectizeItem);
+
+                }
+
+            })
+
+        }
+
+        function removeProduct(indexToRemove) {
+
+            products.products.splice(indexToRemove, 1);
+
+            let templateProduct = document.getElementById('tamplateAddProduct').innerHTML;
+            let compiled = Handlebars.compile(templateProduct);
+            let product = document.getElementById('containerProducts');
+            product.innerHTML = compiled(products);
+
+
+            if(document.getElementsByClassName("existsProduct").length == 0){
+                let compiled = Handlebars.compile(document.getElementById("tamplateNoProductAdded").innerHTML);
+                document.getElementById('containerProducts').innerHTML = compiled();
+            }
+
+            calcTotalProduct();
+        }
+
+        function removeService(indexToRemove) {
+
+            services.services.splice(indexToRemove, 1);
+
+            let templateService = document.getElementById('tamplateAddService').innerHTML;
+            let compiled = Handlebars.compile(templateService);
+            let service = document.getElementById('containerServices');
+            service.innerHTML = compiled(services);
+
+            if(document.getElementsByClassName("existsService").length == 0){
+                let compiled = Handlebars.compile(document.getElementById("tamplateNoServiceAdded").innerHTML);
+                document.getElementById('containerServices').innerHTML = compiled();
+            }
+
+            calcTotalService();
+        }
+
+        function removeAddress(id) {
+
+            document.getElementById(id).remove();
+
+            if(document.getElementsByClassName("existsAddress").length == 0){
+                let compiled = Handlebars.compile(document.getElementById("tamplateNoAddressAdded").innerHTML);
+                document.getElementById('containerAddresses').innerHTML = compiled();
+            }
+        }
+
+        addProduct();
+        addService();
+        addDeliveryAddress();
+
+        // ------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        function calcSubtotalProduct(id){
+            let quantityProduct = $('#quantityProduct_'+id).val()
+            let meter = $('#meter_'+id).val()
+            let productOrderValue = $('#salesValueProductUsedOrder_'+id).val()
+            let discountProduct = $('#discountProduct_'+id).val()
+            let subtotalProduct;
+
+            if(meter){
+                subtotalProduct = (quantityProduct *  (Math.ceil(meter * 2) / 2) * productOrderValue) - discountProduct;
+            }else{
+                subtotalProduct = (quantityProduct * productOrderValue) - discountProduct;
+            }
+
+            $('#orderProductSubtotal_'+id).val(subtotalProduct)
+            return subtotalProduct;
+        }
+
+        function calcTotalProduct(){
+
+            //AQUI FAZER LOOP PARA CONTAR QUANTOS PRODUTOS TEM E SOMAR TODOS OS SUBTOTAIS
+            let countProduct = $("input.order_product_subtotal").length;
+            let valuesProducts = $("input.order_product_subtotal").map(function(){return $(this).val();}).get();
+
+            let totalProduct = 0;
+
+            if(countProduct > 0){
+                for (let i = 0; i < countProduct; i++){
+                    totalProduct += parseFloat(valuesProducts[i]);
+                }
+            }
+            $('#total_products').val(totalProduct);
+            calcTotal();
+        }
+
+        function calcSubtotalService(id){
+            let serviceCostValue = $('#serviceCostValue_'+id).val();
+            let discountService = $('#discountService_'+id).val();
+            let serviceSubtotal;
+
+            serviceSubtotal = serviceCostValue - discountService;
+
+            $('#orderServiceSubtotal_'+id).val(serviceSubtotal)
+            return serviceSubtotal;
+        }
+
+        function calcTotalService(){
+
+            //AQUI FAZER LOOP PARA CONTAR QUANTOS SERVIÇOS TEM E SOMAR TODOS OS SUBTOTAIS
+            let countService = $("input.order_service_subtotal").length;
+            let valuesServices = $("input.order_service_subtotal").map(function(){return $(this).val();}).get();
+
+            let totalService = 0;
+
+            if(countService > 0){
+                for (let i = 0; i < countService; i++){
+                    totalService += parseFloat(valuesServices[i]);
+                }
+            }
+            $('#total_services').val(totalService);
+            calcTotal();
+        }
+
+
+        function calcTotal(){
+
+            let totalProducts = parseFloat($('#total_products').val());
+            let totalServices = parseFloat($('#total_services').val());
+            let costFreight = parseFloat($('#customCostFreight').val());
+
+            let totalCashDiscount = parseFloat($("#total_cash_discount").val());
+            let totalPercentageDiscount = parseFloat($("#total_percentage_discount").val());
+
+            let sumSubtotal = totalProducts + totalServices + costFreight
+
+            if(totalCashDiscount && totalPercentageDiscount){
+                let percentageDiscount  = (sumSubtotal-totalCashDiscount) * totalPercentageDiscount
+                $('#total').val((sumSubtotal-totalCashDiscount) - (percentageDiscount / 100 ));
+
+            }else if(totalCashDiscount){
+                $('#total').val(sumSubtotal-totalCashDiscount);
+
+            }else if(totalPercentageDiscount){
+                let percentageDiscount  = (sumSubtotal) * totalPercentageDiscount
+                $('#total').val((sumSubtotal) - (percentageDiscount / 100 ));
+            }else{
+                $('#total').val(sumSubtotal);
+            }
+
+        }
+
+
+        //RETORNA ENDEREÇOS DO CLIENTE SELECIONADO
+        function idClientForAddress(value) {
+            $.ajax({
+                url: "{{ route('returnClientAddress') }}",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "id": value
+                },
+                success: function (data){
+
+                    let $selectAddress = $(document.getElementById('searchAddress'));
+                    let option = $selectAddress[0].selectize;
+
+                    for(let i=0; i <= $selectAddress.length; i++){
+                        option.clearOptions(true)
+                    }
+
+                    if(!data[0]){
+                        $('#tooltipSearchAddress').tooltip({
+                            'trigger': 'manual',
+                            'title': 'Cliente sem endereços cadastrados.',
+                            'placement': 'top'
+                        }).tooltip('show');
+                    }
+
+                    $.each(data, function (key, val) {
+
+                        let count = option.items.length + 1;
+
+                        if(!val.cep){ val.cep = '-' }
+                        if(!val.number){ val.number = '-'}
+
+                        option.addOption({value: val.id+':'+val.cep+':'+val.public_place+':'+val.number+':'+val.district+':'+val.complement, text: 'CEP: '+val.cep+' | '+val.public_place+' | '+val.number});
+
+                        option.addItem(count);
+
+                    });
+                },
+            })
+        }
+
+
+    </script>
 @endsection
 

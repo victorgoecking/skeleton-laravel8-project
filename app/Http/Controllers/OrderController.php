@@ -6,6 +6,7 @@ use App\Models\Address;
 use App\Models\Client;
 use App\Models\Order;
 use App\Models\OrdersProducts;
+use App\Models\OrdersServices;
 use App\Models\Product;
 use App\Models\Service;
 use App\Models\Situation;
@@ -69,11 +70,11 @@ class OrderController extends Controller
     public function store(Request $request)
     {
 
-        dd($request);
+//        dd($request);
 
         $request->validate([
             'budget' => 'required|string|max:1',
-            'delivery_forecast' => 'required|date',
+//            'delivery_forecast' => 'required|date',
 //            'total' => 'required|string|max:255',
             'client_id' => 'required|string|max:1',
             'user_id' => 'required|string|max:1',
@@ -125,12 +126,32 @@ class OrderController extends Controller
                         'product_description_order' => $request->product_description_order[$iProduct],
                         'quantity' => $request->quantity_product[$iProduct],
                         'meter' => $request->meter[$iProduct],
-                        'order_product_subtotal' => $request->order_product_subtotal[$iProduct],
-                        'discount_product' => $request->discount_product[$iProduct],
                         'product_cost_value_when_order_placed' => $request->product_cost_value[$iProduct],
                         'sales_value_product_used_order' => $request->sales_value_product_used_order[$iProduct],
-                        'order_id' => $request->order_id[$iProduct],
-                        'product_id' => $request->product_id[$iProduct],
+                        'discount_product' => $request->discount_product[$iProduct],
+                        'order_product_subtotal' => $request->order_product_subtotal[$iProduct],
+                        'product_id' => $request->id_product[$iProduct],
+                        'order_id' => $order->id,
+                    ]);
+                }
+            }
+
+        }
+
+
+        $countServices = count($request->id_service);
+        if($countServices >= 1){
+
+            for($iService = 0; $iService < $countServices; $iService++){
+                if(trim($request->id_service[$iService] != '')){
+                    OrdersServices::create([
+                        'service_description_order' => $request->service_description_order[$iService],
+                        'service_cost_value_when_order_placed' => $request->service_cost_value[$iService],
+                        'sales_value_service_used_order' => $request->sales_value_service_used_order[$iService],
+                        'discount_service' => $request->discount_service[$iService],
+                        'order_service_subtotal' => $request->order_service_subtotal[$iService],
+                        'service_id' => $request->id_service[$iService],
+                        'order_id' => $order->id,
                     ]);
                 }
             }

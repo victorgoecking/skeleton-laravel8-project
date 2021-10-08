@@ -15,7 +15,10 @@ class CreateOrdersServicesTable extends Migration
     {
         Schema::create('orders_services', function (Blueprint $table) {
             $table->id();
-            $table->decimal('service_order_value', 9,2);
+            $table->string('service_description_order')->nullable();
+            $table->decimal('discount_service', 9,2)->nullable();
+            $table->decimal('order_service_subtotal', 9,2);
+            $table->decimal('sales_value_service_used_order', 9,2);
             $table->decimal('service_cost_value_when_order_placed', 9,2)->nullable();
             $table->timestamps();
             $table->softDeletes();
