@@ -22,7 +22,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::with('user', 'client', 'products')->get();
+        $orders = Order::with('user', 'client', 'products', 'situation')->get();
 
         return view('pages.order.orders', [
             'orders' => $orders
@@ -93,9 +93,10 @@ class OrderController extends Controller
                 'order_date' => $request->order_date,
                 'delivery_forecast' => $request->delivery_forecast,
                 'validity' => $request->validity,
-                'note' => $request->note,
+                'note' => $request->note_order,
                 'internal_note' => $request->internal_note,
                 'client_id' => $request->client_id,
+                'salesman' => $request->salesman,
                 'user_id' => auth()->user()->id,
                 'situation_id' => $request->situation_id,
             ]);
@@ -109,9 +110,10 @@ class OrderController extends Controller
                 'delivery_address_id' => $request->delivery_address_id,
                 'order_date' => $request->order_date,
                 'delivery_forecast' => $request->delivery_forecast,
-                'note' => $request->note,
+                'note' => $request->note_order,
                 'internal_note' => $request->internal_note,
                 'client_id' => $request->client_id,
+                'salesman' => $request->salesman,
                 'user_id' => auth()->user()->id,
                 'situation_id' => $request->situation_id,
             ]);
@@ -169,7 +171,23 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        $order = Order::with('user', 'client', 'products', 'situation')->find($order->id);
+
+        $salesman =  User::where('id', $order->salesman)->first();
+
+        $orders_products =  OrdersProducts::where('order_id', $order->id)->get();
+        $orders_services =  OrdersServices::where('order_id', $order->id)->get();
+
+//        FAZER RELACIONAMENTO COM USUARIO , PRODUTO E SERVICO
+
+//        dd($orders_products);
+
+        return view('pages.order.order_detail', [
+            'order' => $order,
+            'salesman' => $salesman,
+            'orders_products' => $orders_products,
+            'orders_services' => $orders_services
+        ]);
     }
 
     /**
@@ -180,7 +198,11 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-        //
+        $order = Order::with('user', 'client', 'products', 'situation')->find($order->id);
+
+        return view('pages.order.order_edit', [
+            'order' => $order
+        ]);
     }
 
     /**

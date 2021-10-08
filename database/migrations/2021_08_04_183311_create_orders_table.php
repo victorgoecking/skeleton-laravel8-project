@@ -26,6 +26,7 @@ class CreateOrdersTable extends Migration
             $table->date('validity')->nullable();
             $table->text('note')->nullable();
             $table->text('internal_note')->nullable();
+            $table->tinyInteger('salesman');
             $table->timestamps();
             $table->softDeletes();
         });

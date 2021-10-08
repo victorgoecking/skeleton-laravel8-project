@@ -48,7 +48,7 @@ Route::resource('produtos', ProductController::class)->middleware(['auth'])->nam
 
 Route::resource('servicos', ServiceController::class)->middleware(['auth'])->names('service')->parameters(['servicos' => 'service']);
 
-Route::resource('Pedidos', OrderController::class)->middleware(['auth'])->names('order')->parameters(['pedidos' => 'order']);
+Route::resource('pedidos', OrderController::class)->middleware(['auth'])->names('order')->parameters(['pedidos' => 'order']);
 
 Route::get('/returnClientAddress', [OrderController::class, 'returnClientAddress'])
     ->middleware('auth')

@@ -29,9 +29,10 @@ class Order extends Model
         'validity',
         'note',
         'internal_note',
-        'user_id',
-        'client_id',
         'situation_id',
+        'user_id',
+        'salesman',
+        'client_id',
     ];
 
     protected $casts = [
@@ -49,7 +50,7 @@ class Order extends Model
     }
 
     public function situation(){
-        return $this->hasMany(Situation::class, 'situation_id', 'id');
+        return $this->belongsTo(Situation::class, 'situation_id', 'id');
     }
 
     public function products(){

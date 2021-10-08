@@ -30,8 +30,9 @@
                             <th>Código</th>
                             <th>Cliente</th>
                             <th>Data</th>
-                            <th>Valor</th>
                             <th>Tipo</th>
+                            <th>Valor</th>
+                            <th>Situação</th>
 {{--                            <th>Cadastrado em</th>--}}
                             <th>Opções</th>
                         </tr>
@@ -42,8 +43,9 @@
                             <th>Código</th>
                             <th>Cliente</th>
                             <th>Data</th>
-                            <th>Valor</th>
                             <th>Tipo</th>
+                            <th>Valor</th>
+                            <th>Situação</th>
 {{--                            <th>Cadastrado em</th>--}}
                             <th>Opções</th>
                         </tr>
@@ -53,24 +55,22 @@
                         @foreach($orders as $order)
                         <tr>
                             <td>{{ $order->id }}</td>
-                            <td>{{ $order->client->first()->name }}</td>
+                            <td>{{ $order->client->name }}</td>
                             <td>{{ $order->order_date->format('d/m/Y') }}</td>
-                            <td>{{ $order->total }}</td>
                             @if( $order->budget === 1)
                                 <td><span class="badge badge-info">Orçamento</span></td>
                             @else
                                 <td><span class="badge badge-primary">Venda</span></td>
                             @endif
+                            <td>{{ $order->total }}</td>
+                            <td><span class="badge badge-dark">{{ $order->situation->description }}</span></td>
 
 {{--                            <td>{{ $order->created_at->format('d/m/Y - H:i:s') }}</td>--}}
 
                             <td class="pt-2">
-{{--                                {{ route('order.show', ['order' => $order->id]) }}--}}
-                                <a href=""><button class="btn btn-info btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Detalhes"><i class="far fa-eye"></i></button></a>
-{{--                                {{ route('order.edit', ['order' => $order->id]) }}--}}
-                                <a href=""><button class="btn btn-warning btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Editar"><i class="far fa-edit"></i></button></a>
-{{--                                {{ route('order.destroy', ['order' => $order->id]) }}--}}
-                                <form class="d-inline" action="" method="POST">
+                                <a href="{{ route('order.show', ['order' => $order->id]) }}"><button class="btn btn-info btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Detalhes"><i class="far fa-eye"></i></button></a>
+                                <a href="{{ route('order.edit', ['order' => $order->id]) }}"><button class="btn btn-warning btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Editar"><i class="far fa-edit"></i></button></a>
+                                <form class="d-inline" action="{{ route('order.destroy', ['order' => $order->id]) }}" method="POST">
                                     @csrf
                                     @method('delete')
                                     <button type="submit" onclick='return confirm(`Deseja realmente excluir o pedido de numero" {{ $order->id }} "?`)' class="btn btn-danger btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Remover"><i class="far fa-trash-alt"></i></button>

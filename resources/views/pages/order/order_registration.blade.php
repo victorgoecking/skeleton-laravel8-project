@@ -58,8 +58,8 @@
                     </div>
 
                     <div class="col-md-4 mb-3">
-                        <label for="customUser">Vendedor</label>
-                        <select  name="user_id" id="customUser" data-placeholder="Digite para pesquisar..." class="form-control select_selectize w-100" data-allow-clear="1" required>
+                        <label for="salesman">Vendedor</label>
+                        <select  name="salesman" id="salesman" data-placeholder="Digite para pesquisar..." class="form-control select_selectize w-100" data-allow-clear="1" required>
                             <option value="{{auth()->user()->id}}">{{auth()->user()->name}}</option>
                             @foreach($users as $user)
                                 <option value="{{$user->id}}">{{$user->name}}</option>
