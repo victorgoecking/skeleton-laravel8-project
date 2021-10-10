@@ -77,7 +77,7 @@ class OrderController extends Controller
 //            'delivery_forecast' => 'required|date',
 //            'total' => 'required|string|max:255',
             'client_id' => 'required|string|max:1',
-            'user_id' => 'required|string|max:1',
+            'salesman' => 'required|string|max:1',
             'situation_id' => 'required|string|max:1',
             'order_date' => 'required|date',
         ]);
@@ -173,7 +173,11 @@ class OrderController extends Controller
     {
         $order = Order::with('user', 'client', 'products', 'situation')->find($order->id);
 
+        $products = $order->product()->get();
+
         $salesman =  User::where('id', $order->salesman)->first();
+
+//        dd($order->products()->get());
 
         $orders_products =  OrdersProducts::where('order_id', $order->id)->get();
         $orders_services =  OrdersServices::where('order_id', $order->id)->get();
@@ -186,7 +190,9 @@ class OrderController extends Controller
             'order' => $order,
             'salesman' => $salesman,
             'orders_products' => $orders_products,
-            'orders_services' => $orders_services
+            'orders_services' => $orders_services,
+            '$products' => $products,
+
         ]);
     }
 
