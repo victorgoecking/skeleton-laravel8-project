@@ -110,7 +110,7 @@
                                 <tr>
 {{--                                    <td class="border-top-0" >{{ $order_product->product_id }}</td>--}}
 
-                                    <td class="border-top-0" >{{ $order->products() }}</td>
+                                    <td class="border-top-0" >{{ $order_product->product_id }}</td>
                                     <td class="border-top-0" >{{ $order_product->product_description_order }}</td>
                                     <td class="border-top-0" >{{ $order_product->quantity }}</td>
                                     <td class="border-top-0" >{{ $order_product->meter }}</td>

@@ -119,46 +119,50 @@ class OrderController extends Controller
             ]);
         }
 
-        $countProducts = count($request->id_product);
-        if($countProducts >= 1){
+        if($request->id_product){
+            $countProducts = count($request->id_product);
+            if($countProducts >= 1){
 
-            for($iProduct = 0; $iProduct < $countProducts; $iProduct++){
-                if(trim($request->id_product[$iProduct] != '')){
-                    OrdersProducts::create([
-                        'product_description_order' => $request->product_description_order[$iProduct],
-                        'quantity' => $request->quantity_product[$iProduct],
-                        'meter' => $request->meter[$iProduct],
-                        'product_cost_value_when_order_placed' => $request->product_cost_value[$iProduct],
-                        'sales_value_product_used_order' => $request->sales_value_product_used_order[$iProduct],
-                        'discount_product' => $request->discount_product[$iProduct],
-                        'order_product_subtotal' => $request->order_product_subtotal[$iProduct],
-                        'product_id' => $request->id_product[$iProduct],
-                        'order_id' => $order->id,
-                    ]);
+                for($iProduct = 0; $iProduct < $countProducts; $iProduct++){
+                    if(trim($request->id_product[$iProduct] != '')){
+                        OrdersProducts::create([
+                            'product_description_order' => $request->product_description_order[$iProduct],
+                            'quantity' => $request->quantity_product[$iProduct],
+                            'meter' => $request->meter[$iProduct],
+                            'product_cost_value_when_order_placed' => $request->product_cost_value[$iProduct],
+                            'sales_value_product_used_order' => $request->sales_value_product_used_order[$iProduct],
+                            'discount_product' => $request->discount_product[$iProduct],
+                            'order_product_subtotal' => $request->order_product_subtotal[$iProduct],
+                            'product_id' => $request->id_product[$iProduct],
+                            'order_id' => $order->id,
+                        ]);
+                    }
                 }
-            }
 
+            }
         }
 
+        if($request->id_service){
+            $countServices = count($request->id_service);
+            if($countServices >= 1){
 
-        $countServices = count($request->id_service);
-        if($countServices >= 1){
-
-            for($iService = 0; $iService < $countServices; $iService++){
-                if(trim($request->id_service[$iService] != '')){
-                    OrdersServices::create([
-                        'service_description_order' => $request->service_description_order[$iService],
-                        'service_cost_value_when_order_placed' => $request->service_cost_value[$iService],
-                        'sales_value_service_used_order' => $request->sales_value_service_used_order[$iService],
-                        'discount_service' => $request->discount_service[$iService],
-                        'order_service_subtotal' => $request->order_service_subtotal[$iService],
-                        'service_id' => $request->id_service[$iService],
-                        'order_id' => $order->id,
-                    ]);
+                for($iService = 0; $iService < $countServices; $iService++){
+                    if(trim($request->id_service[$iService] != '')){
+                        OrdersServices::create([
+                            'service_description_order' => $request->service_description_order[$iService],
+                            'service_cost_value_when_order_placed' => $request->service_cost_value[$iService],
+                            'sales_value_service_used_order' => $request->sales_value_service_used_order[$iService],
+                            'discount_service' => $request->discount_service[$iService],
+                            'order_service_subtotal' => $request->order_service_subtotal[$iService],
+                            'service_id' => $request->id_service[$iService],
+                            'order_id' => $order->id,
+                        ]);
+                    }
                 }
-            }
 
+            }
         }
+
 
         return redirect()->route('order.index')->with('success','Pedido cadastrado com sucesso!');
     }
@@ -171,27 +175,19 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        $order = Order::with('user', 'client', 'products', 'situation')->find($order->id);
-
-        $products = $order->product()->get();
+        $order = Order::with('user', 'client', 'orders_products', 'orders_services', 'situation')->find($order->id);
 
         $salesman =  User::where('id', $order->salesman)->first();
-
-//        dd($order->products()->get());
 
         $orders_products =  OrdersProducts::where('order_id', $order->id)->get();
         $orders_services =  OrdersServices::where('order_id', $order->id)->get();
 
-//        FAZER RELACIONAMENTO COM USUARIO , PRODUTO E SERVICO
-
-//        dd($orders_products);
 
         return view('pages.order.order_detail', [
             'order' => $order,
             'salesman' => $salesman,
             'orders_products' => $orders_products,
             'orders_services' => $orders_services,
-            '$products' => $products,
 
         ]);
     }
