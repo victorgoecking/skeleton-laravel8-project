@@ -1042,10 +1042,6 @@
         //RETORNA ENDEREÇOS DO CLIENTE SELECIONADO
         function idClientForAddress(value) {
 
-            if (document.getElementsByClassName("existsAddress").length > 0){
-                removeAddress(document.getElementById("remove_address").value);
-            }
-
             $.ajax({
                 url: "{{ route('returnClientAddress') }}",
                 data: {
@@ -1082,7 +1078,11 @@
 
                     });
                 },
-            })
+            });
+
+            if (document.getElementsByClassName("existsAddress").length > 0){
+                removeAddress(document.getElementById("remove_address").value);
+            }
         }
 
 

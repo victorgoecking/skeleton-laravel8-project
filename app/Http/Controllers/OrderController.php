@@ -214,6 +214,9 @@ class OrderController extends Controller
 
         $users = User::all();
         $clients = Client::with('address','contact')->get();
+        $addresses = Client::with('address')->where('id', $order->client_id)->get();
+
+//        dd($address->first()->address);
         $products = Product::all();
         $services = Service::all();
         $situation = Situation::all();
@@ -230,6 +233,7 @@ class OrderController extends Controller
             'orders_address' => $orders_address,
             'users' => $users,
             'clients' => $clients,
+            'addresses' => $addresses,
             'products' => $products,
             'services' => $services,
             'situations' => $situation,

@@ -44,7 +44,7 @@
 
                     <div class="col-md-5 mb-3 ">
                         <label for="validationCustomClient">Cliente *</label>
-                        <select required name="client_id" id="validationCustomClient"  onchange="idClientForAddress(this.value)" data-placeholder="Digite para pesquisar..." class="form-control is-valid select_selectize_client w-100" data-allow-clear="1" >
+                        <select required name="client_id" id="validationCustomClient" onchange="idClientForAddress(this.value)" data-placeholder="Digite para pesquisar..." class="form-control is-valid select_selectize_client w-100" data-allow-clear="1" >
 {{--                            <option  value="">Digite para pesquisar...</option>--}}
                             <option  value="{{$order->client->id}}">{{$order->client->name}} - {{$order->client->person_type === 'PF' ? '(PF)' : '(PJ)'}}</option>
                             @foreach($clients as $client)
@@ -228,6 +228,9 @@
                     <div class="col-md-8" id="tooltipSearchAddress" >
                         <select id="searchAddress" data-placeholder="Digite para pesquisar..." class="form-control select_selectize_address w-100" data-allow-clear="1" >
                             <option></option>
+                            @foreach($addresses->first()->address as $address)
+                                <option value="{{$address->id}}:{{$address->cep}}:{{$address->public_place}}:{{$address->number}}:{{$address->district}}:{{$address->complement}}">CEP: {{$address->cep ?  : '-'}} | {{$address->public_place}} | {{$address->number ? : '-'}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-md-4 col-lg-2 ">
@@ -1198,10 +1201,6 @@
         //RETORNA ENDEREÇOS DO CLIENTE SELECIONADO
         function idClientForAddress(value) {
 
-            if (document.getElementsByClassName("existsAddress").length > 0){
-                removeAddress(document.getElementById("remove_address").value);
-            }
-
             $.ajax({
                 url: "{{ route('returnClientAddress') }}",
                 data: {
@@ -1227,7 +1226,7 @@
 
                     $.each(data, function (key, val) {
 
-                        let count = option.items.length + 1;
+                        let  count = option.items.length + 1;
 
                         if(!val.cep){ val.cep = '-' }
                         if(!val.number){ val.number = '-'}
@@ -1238,7 +1237,12 @@
 
                     });
                 },
-            })
+            });
+
+            //removendo handlesbars de endereco do cliente anterior
+            if (document.getElementsByClassName("existsAddress").length > 0){
+                removeAddress(document.getElementById("remove_address").value);
+            }
         }
 
 
