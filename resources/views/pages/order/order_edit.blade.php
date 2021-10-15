@@ -1065,40 +1065,48 @@
         addService();
         addDeliveryAddress();
 
-        @foreach($orders_products as $order_product)
-            loadProducts(
-                "{{$order_product->product->id}}",
-                "{{$order_product->product->name}}",
-                "{{$order_product->product_description_order}}",
-                "{{$order_product->quantity}}",
-                "{{$order_product->meter}}",
-                "{{$order_product->product_cost_value_when_order_placed}}",
-                "{{$order_product->sales_value_product_used_order}}",
-                "{{$order_product->discount_product}}",
-                "{{$order_product->order_product_subtotal}}"
+        @if($orders_products)
+            @foreach($orders_products as $order_product)
+                loadProducts(
+                    "{{$order_product->product->id}}",
+                    "{{$order_product->product->name}}",
+                    "{{$order_product->product_description_order}}",
+                    "{{$order_product->quantity}}",
+                    "{{$order_product->meter}}",
+                    "{{$order_product->product_cost_value_when_order_placed}}",
+                    "{{$order_product->sales_value_product_used_order}}",
+                    "{{$order_product->discount_product}}",
+                    "{{$order_product->order_product_subtotal}}"
                 );
-        @endforeach
+            @endforeach
+        @endif
 
-        @foreach($orders_services as $order_service)
-        loadServices(
-            "{{$order_service->service->id}}",
-            "{{$order_service->service->name}}",
-            "{{$order_service->service_description_order}}",
-            "{{$order_service->service_cost_value_when_order_placed}}",
-            "{{$order_service->sales_value_service_used_order}}",
-            "{{$order_service->discount_service}}",
-            "{{$order_service->order_service_subtotal}}"
-        );
-        @endforeach
+        @if($orders_services)
+            @foreach($orders_services as $order_service)
+                loadServices(
+                    "{{$order_service->service->id}}",
+                    "{{$order_service->service->name}}",
+                    "{{$order_service->service_description_order}}",
+                    "{{$order_service->service_cost_value_when_order_placed}}",
+                    "{{$order_service->sales_value_service_used_order}}",
+                    "{{$order_service->discount_service}}",
+                    "{{$order_service->order_service_subtotal}}"
+                );
+            @endforeach
+        @endif
 
-        loadAddress(
-            "{{$orders_address->id}}",
-            "{{$orders_address->cep}}",
-            "{{$orders_address->public_place}}",
-            "{{$orders_address->number}}",
-            "{{$orders_address->district}}",
-            "{{$orders_address->complement}}",
-        );
+
+        @if($orders_address)
+            loadAddress(
+                "{{$orders_address->id}}",
+                "{{$orders_address->cep}}",
+                "{{$orders_address->public_place}}",
+                "{{$orders_address->number}}",
+                "{{$orders_address->district}}",
+                "{{$orders_address->complement}}",
+            );
+        @endif
+
 
         // ------------------------------------------------------------------------------------------------------------------------------------------------------
 
