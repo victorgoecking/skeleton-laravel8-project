@@ -210,7 +210,7 @@ class OrderController extends Controller
 
         $orders_products =  OrdersProducts::with('product')->where('order_id', $order->id)->get();
         $orders_services =  OrdersServices::with('service')->where('order_id', $order->id)->get();
-
+        $orders_address = Address::where('id', $order->delivery_address_id)->first();
 
         $users = User::all();
         $clients = Client::with('address','contact')->get();
@@ -227,6 +227,7 @@ class OrderController extends Controller
             'salesman' => $salesman,
             'orders_products' => $orders_products,
             'orders_services' => $orders_services,
+            'orders_address' => $orders_address,
             'users' => $users,
             'clients' => $clients,
             'products' => $products,

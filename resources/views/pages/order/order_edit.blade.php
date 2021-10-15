@@ -569,6 +569,7 @@
 
         <tr id="@{{id_handlebars_address}}" class="existsAddress">
             <td data-name="address">
+                <input type="hidden" id="remove_address" value="@{{id_handlebars_address}}">
                 <input type="hidden" name="delivery_address_id" value="@{{id_address}}">
                 <input type="text" name='cep' value="@{{cep}}" placeholder='' class="form-control" readonly/>
             </td>
@@ -933,6 +934,34 @@
 
         }
 
+        function loadAddress(idAddress, cepAddress, publicPlaceAddress, numberAddress, districtAddress, complementAddress){
+            if(idAddress){
+                if (document.getElementById("noAddressAdded")) {
+                    document.getElementById("noAddressAdded").remove()
+                }else{
+                    document.getElementById("addressHandlebars").remove();
+                }
+
+
+                let templateProduct = document.getElementById('tamplateAddAddress').innerHTML;
+                let compiled = Handlebars.compile(templateProduct);
+
+                let service = document.getElementById('containerAddresses');
+
+                let infoAddress = {
+                    id_handlebars_address: "addressHandlebars",
+                    id_address: idAddress,
+                    cep: cepAddress,
+                    public_place: publicPlaceAddress,
+                    number: numberAddress,
+                    district: districtAddress,
+                    complement: complementAddress,
+                }
+
+                service.innerHTML += compiled(infoAddress);
+
+            }
+        }
 
         function addDeliveryAddress() {
 
@@ -1059,6 +1088,15 @@
         );
         @endforeach
 
+        loadAddress(
+            "{{$orders_address->id}}",
+            "{{$orders_address->cep}}",
+            "{{$orders_address->public_place}}",
+            "{{$orders_address->number}}",
+            "{{$orders_address->district}}",
+            "{{$orders_address->complement}}",
+        );
+
         // ------------------------------------------------------------------------------------------------------------------------------------------------------
 
         function calcSubtotalProduct(id){
@@ -1159,6 +1197,11 @@
 
         //RETORNA ENDEREÇOS DO CLIENTE SELECIONADO
         function idClientForAddress(value) {
+
+            if (document.getElementsByClassName("existsAddress").length > 0){
+                removeAddress(document.getElementById("remove_address").value);
+            }
+
             $.ajax({
                 url: "{{ route('returnClientAddress') }}",
                 data: {

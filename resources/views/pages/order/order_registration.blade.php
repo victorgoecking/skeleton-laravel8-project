@@ -567,6 +567,7 @@
 
         <tr id="@{{id_handlebars_address}}" class="existsAddress">
             <td data-name="address">
+                <input type="hidden" id="remove_address" value="@{{id_handlebars_address}}">
                 <input type="hidden" name="delivery_address_id" value="@{{id_address}}">
                 <input type="text" name='cep' value="@{{cep}}" placeholder='' class="form-control" readonly/>
             </td>
@@ -1040,6 +1041,11 @@
 
         //RETORNA ENDEREÇOS DO CLIENTE SELECIONADO
         function idClientForAddress(value) {
+
+            if (document.getElementsByClassName("existsAddress").length > 0){
+                removeAddress(document.getElementById("remove_address").value);
+            }
+
             $.ajax({
                 url: "{{ route('returnClientAddress') }}",
                 data: {
