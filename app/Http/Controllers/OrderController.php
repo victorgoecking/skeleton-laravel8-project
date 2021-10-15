@@ -252,7 +252,61 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-        //
+        $request->validate([
+            'budget' => 'required|string|max:1',
+//            'delivery_forecast' => 'required|date',
+            'total_products' => 'required|string|max:255',
+            'total_services' => 'required|string|max:255',
+            'total' => 'required|string|max:255',
+            'client_id' => 'required|string|max:1',
+            'salesman' => 'required|string|max:1',
+            'situation_id' => 'required|string|max:1',
+            'order_date' => 'required|date',
+        ]);
+
+        if($request->budget === "1") {
+            $order = update([
+                'budget' => $request->budget,
+                'total_products' => $request->total_products,
+                'total_services' => $request->total_services,
+                'total' => $request->total,
+                'cash_discount' => $request->total_cash_discount,
+                'percentage_discount' => $request->total_percentage_discount,
+                'cost_freight' => $request->cost_freight,
+                'delivery_address_id' => $request->delivery_address_id,
+                'order_date' => $request->order_date,
+                'delivery_forecast' => $request->delivery_forecast,
+                'validity' => $request->validity,
+                'note' => $request->note_order,
+                'internal_note' => $request->internal_note,
+                'client_id' => $request->client_id,
+                'salesman' => $request->salesman,
+                'user_id' => auth()->user()->id,
+                'situation_id' => $request->situation_id,
+            ]);
+        }else{
+            $order = update([
+                'budget' => $request->budget,
+                'total_products' => $request->total_products,
+                'total_services' => $request->total_services,
+                'total' => $request->total,
+                'cash_discount' => $request->total_cash_discount,
+                'percentage_discount' => $request->total_percentage_discount,
+                'cost_freight' => $request->cost_freight,
+                'delivery_address_id' => $request->delivery_address_id,
+                'order_date' => $request->order_date,
+                'delivery_forecast' => $request->delivery_forecast,
+                'note' => $request->note_order,
+                'internal_note' => $request->internal_note,
+                'client_id' => $request->client_id,
+                'salesman' => $request->salesman,
+                'user_id' => auth()->user()->id,
+                'situation_id' => $request->situation_id,
+            ]);
+        }
+
+
+
     }
 
     /**
