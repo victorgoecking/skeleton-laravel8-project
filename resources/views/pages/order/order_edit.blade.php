@@ -1133,7 +1133,12 @@
             let totalCashDiscount = parseFloat($("#total_cash_discount").val());
             let totalPercentageDiscount = parseFloat($("#total_percentage_discount").val());
 
-            let sumSubtotal = totalProducts + totalServices + costFreight
+
+            if(!costFreight){
+                costFreight = 0;
+            }
+
+            let sumSubtotal = totalProducts + totalServices + costFreight;
 
             if(totalCashDiscount && totalPercentageDiscount){
                 let percentageDiscount  = (sumSubtotal-totalCashDiscount) * totalPercentageDiscount
