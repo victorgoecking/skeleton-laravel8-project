@@ -397,15 +397,16 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
 
-        dd($order->has('orders_services'));
+        $orders_products = OrdersProducts::where('order_id', $order->id)->get();
+        $orders_services = OrdersServices::where('order_id', $order->id)->get();
 
-        if($order->has('orders_products')){
-            foreach ($order->orders_products as $order_product) {
+        if($orders_products){
+            foreach ($orders_products as $order_product) {
                 $order_product->delete();
             }
         }
-        if($order->has('orders_services')){
-            foreach ($order->orders_services as $order_service) {
+        if($orders_services){
+            foreach ($orders_services as $order_service) {
                 $order_service->delete();
             }
         }
