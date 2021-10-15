@@ -110,7 +110,7 @@
                                 <tr>
 {{--                                    <td class="border-top-0" >{{ $order_product->product_id }}</td>--}}
 
-                                    <td class="border-top-0" >{{ $order_product->product_id }}</td>
+                                    <td class="border-top-0" >{{ $order_product->product->name }}</td>
                                     <td class="border-top-0" >{{ $order_product->product_description_order }}</td>
                                     <td class="border-top-0" >{{ $order_product->quantity }}</td>
                                     <td class="border-top-0" >{{ $order_product->meter }}</td>
@@ -141,7 +141,7 @@
                             <tbody>
                             @foreach($orders_services as $order_service)
                                 <tr>
-                                    <td class="border-top-0" >{{ $order_service->id }}</td>
+                                    <td class="border-top-0" >{{ $order_service->service->name }}</td>
                                     <td class="border-top-0" >{{ $order_service->service_description_order }}</td>
                                     <td class="border-top-0" >{{ $order_service->sales_value_service_used_order }}</td>
                                     <td class="border-top-0" >{{ $order_service->discount_service }}</td>

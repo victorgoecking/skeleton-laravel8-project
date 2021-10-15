@@ -90,7 +90,7 @@
 
                     <div class="col-md-3 mb-3" id="divValidity">
                         <label for="customValidity">Validade</label>
-                        <input type="date" class="form-control" name="validity" id="customValidity" aria-describedby="validitytHelp" placeholder="">
+                        <input type="date" class="form-control" name="validity" id="customValidity" value="{{ $order->validity ? $order->validity->format('Y-m-d') : ''}}" aria-describedby="validitytHelp" placeholder="">
                     </div>
                 </div>
 
@@ -151,9 +151,91 @@
                             </tr>
                             </thead>
                             <tbody id="containerProducts">
-                            <tr id="noProductAdded">
-                                <td class="text-center" colspan="8">Nenhum produto adicionado</td>
-                            </tr>
+{{--                            <tr id="noProductAdded">--}}
+{{--                                <td class="text-center" colspan="8">Nenhum produto adicionado</td>--}}
+{{--                            </tr>--}}
+                            @foreach($orders_products as $order_product)
+                                <tr id="product_{{$order_product->id}}" class="existsProduct">
+                                    <td data-name="product">
+                                        <input type="hidden" name="id_product[]" value="{{$order_product->product->id}}">
+                                        <input type="hidden" name="product_cost_value[]" value="{{$order_product->product->product_cost_value}}">
+                                        <input type="text" name='name_product[]' placeholder='' value="{{$order_product->product->name}}" class="form-control" readonly/>
+                                    </td>
+                                    <td data-name="product_description_order">
+                                        <input type="text" name='product_description_order[]' value="{{$order_product->product_description_order}}" placeholder='' class="form-control"/>
+                                    </td>
+                                    <td data-name="quantity_product">
+                                        <input
+                                            type="text"
+                                            id="quantityProduct_@{{id_handlebars_product}}"
+                                            name='quantity_product[]'
+                                            value="{{$order_product->quantity}}"
+                                            onblur="updateValueProduct(@{{ @index }}, 'quantity_product', this.value, '@{{id_handlebars_product}}')"
+                                            onkeyup="updateValueProduct(@{{ @index }}, 'quantity_product', this.value, '@{{id_handlebars_product}}')"
+                                            placeholder=''
+                                            class="form-control"
+                                            required
+                                        />
+                                    </td>
+                                    <td data-name="meter" title="Arredondando para o '0,5' acima. Ex.: 1,2 => 1,5">
+                                        <input
+                                            type="text"
+                                            id="meter_@{{id_handlebars_product}}"
+                                            name='meter[]'
+                                            value="{{$order_product->meter}}"
+                                            onblur="updateValueProduct(@{{ @index }}, 'meter', this.value, '@{{id_handlebars_product}}')"
+                                            onkeyup="updateValueProduct(@{{ @index }}, 'meter', this.value, '@{{id_handlebars_product}}')"
+                                            placeholder=''
+                                            class="form-control"
+                                        />
+                                    </td>
+                                    <td data-name="sales_value_product_used_order">
+                                        <input
+                                            type="text"
+                                            id="salesValueProductUsedOrder_@{{id_handlebars_product}}"
+                                            name="sales_value_product_used_order[]"
+                                            value="{{$order_product->sales_value_product_used_order}}"
+                                            onblur="updateValueProduct(@{{ @index }}, 'sales_value_product_used_order', this.value, '@{{id_handlebars_product}}')"
+                                            onkeyup="updateValueProduct(@{{ @index }}, 'sales_value_product_used_order', this.value, '@{{id_handlebars_product}}')"
+                                            placeholder=""
+                                            class="form-control"
+                                        />
+                                    </td>
+                                    <td data-name="discount_product">
+                                        <input
+                                            type="text"
+                                            id="discountProduct_@{{id_handlebars_product}}"
+                                            name='discount_product[]'
+                                            value="{{$order_product->discount_product}}"
+                                            onblur="updateValueProduct(@{{ @index }}, 'discount_product', this.value, '@{{id_handlebars_product}}')"
+                                            onkeyup="updateValueProduct(@{{ @index }}, 'discount_product', this.value, '@{{id_handlebars_product}}')"
+                                            placeholder=''
+                                            class="form-control"
+                                        />
+                                    </td>
+                                    <td data-name="order_product_subtotal">
+                                        <input
+                                            type="text"
+                                            id="orderProductSubtotal_@{{id_handlebars_product}}"
+                                            name='order_product_subtotal[]'
+                                            value="{{$order_product->order_product_subtotal}}"
+                                            onblur="updateValueProduct(@{{ @index }}, 'order_product_subtotal', this.value, '@{{id_handlebars_product}}')"
+                                            onkeyup="updateValueProduct(@{{ @index }}, 'order_product_subtotal', this.value, '@{{id_handlebars_product}}')"
+                                            placeholder='0,00'
+                                            class="form-control order_product_subtotal"
+                                            required
+                                            readonly
+                                        />
+                                    </td>
+                                    <td data-name="del_product">
+                                        <button
+                                            class='btn btn-danger row-remove'
+                                            onclick="removeProduct(@{{ @index }})">
+                                            <i class="fas fa-times-circle"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -411,7 +493,15 @@
                 <input type="text" name='name_product[]' placeholder='' value="@{{name_product}}" class="form-control" readonly/>
             </td>
             <td data-name="product_description_order">
-                <input type="text" name='product_description_order[]' placeholder='' class="form-control"/>
+                <input
+                    type="text"
+                    name='product_description_order[]'
+                    value="@{{product_description_order}}"
+                    onblur="updateValueProduct(@{{ @index }}, 'product_description_order', this.value, '@{{id_handlebars_product}}')"
+                    onkeyup="updateValueProduct(@{{ @index }}, 'product_description_order', this.value, '@{{id_handlebars_product}}')"
+                    placeholder=''
+                    class="form-control"
+                />
             </td>
             <td data-name="quantity_product">
                 <input
@@ -497,7 +587,15 @@
                 <input type="text" name='name_service[]' value="@{{name_service}}" placeholder='' class="form-control" readonly/>
             </td>
             <td data-name="description_service">
-                <input type="text" name='service_description_order[]' placeholder='' class="form-control"/>
+                <input
+                    type="text"
+                    name='service_description_order[]'
+                    value="@{{service_description_order}}"
+                    onblur="updateValueService(@{{ @index }}, 'service_description_order', this.value, '@{{id_handlebars_service}}')"
+                    onkeyup="updateValueService(@{{ @index }}, 'service_description_order', this.value, '@{{id_handlebars_service}}')"
+                    placeholder=''
+                    class="form-control"
+                />
             </td>
             <td data-name="sales_value_service_used_order">
                 <input
@@ -739,6 +837,7 @@
                         id_handlebars_product: randomProduct,
                         id_product: idProduct,
                         name_product: nameProduct,
+                        product_description_order: '',
                         quantity_product: 1,
                         meter: '',
                         product_cost_value: productCostValue,
@@ -808,6 +907,7 @@
                         id_handlebars_service: randomService,
                         id_service: idService,
                         name_service: nameService,
+                        service_description_order: '',
                         service_cost_value: valueService,
                         discount_service: '',
                         order_service_subtotal: valueService,

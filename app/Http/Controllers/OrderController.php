@@ -183,8 +183,8 @@ class OrderController extends Controller
 
         $salesman =  User::where('id', $order->salesman)->first();
 
-        $orders_products =  OrdersProducts::where('order_id', $order->id)->get();
-        $orders_services =  OrdersServices::where('order_id', $order->id)->get();
+        $orders_products =  OrdersProducts::with('product')->where('order_id', $order->id)->get();
+        $orders_services =  OrdersServices::with('service')->where('order_id', $order->id)->get();
 
 
         return view('pages.order.order_detail', [
@@ -208,8 +208,8 @@ class OrderController extends Controller
 
         $salesman =  User::where('id', $order->salesman)->first();
 
-        $orders_products =  OrdersProducts::where('order_id', $order->id)->get();
-        $orders_services =  OrdersServices::where('order_id', $order->id)->get();
+        $orders_products =  OrdersProducts::with('product')->where('order_id', $order->id)->get();
+        $orders_services =  OrdersServices::with('service')->where('order_id', $order->id)->get();
 
 
         $users = User::all();
@@ -220,7 +220,7 @@ class OrderController extends Controller
 
 
 //        dd( $order->order_date->format('d/m/Y'));
-//        dd( $order->situation->id);
+//        dd(  $orders_products->first()->product->name);
 
         return view('pages.order.order_edit', [
             'order' => $order,
