@@ -1178,6 +1178,12 @@
             if(!costFreight){
                 costFreight = 0;
             }
+            if(!totalProducts){
+                totalProducts = 0;
+            }
+            if(!totalServices){
+                totalServices = 0;
+            }
 
             let sumSubtotal = totalProducts + totalServices + costFreight;
 

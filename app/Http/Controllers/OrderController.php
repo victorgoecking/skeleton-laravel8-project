@@ -223,7 +223,7 @@ class OrderController extends Controller
 
 
 //        dd( $order->order_date->format('d/m/Y'));
-//        dd(  $orders_products->first()->product->name);
+//        dd(  $order->total_products);
 
         return view('pages.order.order_edit', [
             'order' => $order,
