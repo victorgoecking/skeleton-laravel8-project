@@ -75,7 +75,9 @@ class OrderController extends Controller
         $request->validate([
             'budget' => 'required|string|max:1',
 //            'delivery_forecast' => 'required|date',
-//            'total' => 'required|string|max:255',
+            'total_products' => 'required|string|max:255',
+            'total_services' => 'required|string|max:255',
+            'total' => 'required|string|max:255',
             'client_id' => 'required|string|max:1',
             'salesman' => 'required|string|max:1',
             'situation_id' => 'required|string|max:1',
