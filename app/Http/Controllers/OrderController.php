@@ -264,8 +264,10 @@ class OrderController extends Controller
             'order_date' => 'required|date',
         ]);
 
+//        dd($request->id_order_product_removed);
+
         if($request->budget === "1") {
-            $order = update([
+            $order->update([
                 'budget' => $request->budget,
                 'total_products' => $request->total_products,
                 'total_services' => $request->total_services,
@@ -285,7 +287,7 @@ class OrderController extends Controller
                 'situation_id' => $request->situation_id,
             ]);
         }else{
-            $order = update([
+            $order->update([
                 'budget' => $request->budget,
                 'total_products' => $request->total_products,
                 'total_services' => $request->total_services,
@@ -305,8 +307,85 @@ class OrderController extends Controller
             ]);
         }
 
+        if($request->id_order_product){
+            $countOrderProduct = count($request->id_order_product);
+            if($countOrderProduct >= 1){
 
+                for($iOrderProduct = 0; $iOrderProduct < $countOrderProduct; $iOrderProduct++){
+                    if(isset($request->id_order_product_removed)){
 
+                        foreach ($request->id_order_product_removed as $removeOrderProduct){
+                            OrdersProducts::where('id', $removeOrderProduct)->where('order_id', $order->id)->delete();
+                        }
+
+                    }else if(isset($request->id_order_product[$iOrderProduct])){
+                        OrdersProducts::where('id', $request->id_order_product[$iOrderProduct])->where('order_id', $order->id)->update([
+                            'product_description_order' => $request->product_description_order[$iOrderProduct],
+                            'quantity' => $request->quantity_product[$iOrderProduct],
+                            'meter' => $request->meter[$iOrderProduct],
+                            'product_cost_value_when_order_placed' => $request->product_cost_value[$iOrderProduct],
+                            'sales_value_product_used_order' => $request->sales_value_product_used_order[$iOrderProduct],
+                            'discount_product' => $request->discount_product[$iOrderProduct],
+                            'order_product_subtotal' => $request->order_product_subtotal[$iOrderProduct],
+                            'product_id' => $request->id_product[$iOrderProduct],
+                            'order_id' => $order->id,
+                        ]);
+                    }else{
+                        OrdersProducts::create([
+                            'product_description_order' => $request->product_description_order[$iOrderProduct],
+                            'quantity' => $request->quantity_product[$iOrderProduct],
+                            'meter' => $request->meter[$iOrderProduct],
+                            'product_cost_value_when_order_placed' => $request->product_cost_value[$iOrderProduct],
+                            'sales_value_product_used_order' => $request->sales_value_product_used_order[$iOrderProduct],
+                            'discount_product' => $request->discount_product[$iOrderProduct],
+                            'order_product_subtotal' => $request->order_product_subtotal[$iOrderProduct],
+                            'product_id' => $request->id_product[$iOrderProduct],
+                            'order_id' => $order->id,
+                        ]);
+                    }
+                }
+
+            }
+        }
+
+        if($request->id_order_service){
+            $countOrderServices = count($request->id_order_service);
+            if($countOrderServices >= 1){
+
+                for($iOrderService = 0; $iOrderService < $countOrderServices; $iOrderService++){
+                    if(isset($request->id_order_service_removed)){
+
+                        foreach ($request->id_order_service_removed as $removeOrderService){
+                            OrdersServices::where('id', $removeOrderService)->where('order_id', $order->id)->delete();
+                        }
+
+                    }elseif(isset($request->id_order_service[$iOrderService])){
+                        OrdersServices::where('id', $request->id_order_service[$iOrderService])->where('order_id', $order->id)->update([
+                            'service_description_order' => $request->service_description_order[$iOrderService],
+                            'service_cost_value_when_order_placed' => $request->service_cost_value[$iOrderService],
+                            'sales_value_service_used_order' => $request->sales_value_service_used_order[$iOrderService],
+                            'discount_service' => $request->discount_service[$iOrderService],
+                            'order_service_subtotal' => $request->order_service_subtotal[$iOrderService],
+                            'service_id' => $request->id_service[$iOrderService],
+                            'order_id' => $order->id,
+                        ]);
+                    }else{
+                        OrdersServices::create([
+                            'service_description_order' => $request->service_description_order[$iOrderService],
+                            'service_cost_value_when_order_placed' => $request->service_cost_value[$iOrderService],
+                            'sales_value_service_used_order' => $request->sales_value_service_used_order[$iOrderService],
+                            'discount_service' => $request->discount_service[$iOrderService],
+                            'order_service_subtotal' => $request->order_service_subtotal[$iOrderService],
+                            'service_id' => $request->id_service[$iOrderService],
+                            'order_id' => $order->id,
+                        ]);
+                    }
+                }
+
+            }
+        }
+
+        return redirect()->route('order.index')->with('success','Pedido atualizado com sucesso!');
     }
 
     /**
@@ -317,6 +396,22 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        //
+
+        dd($order->has('orders_services'));
+
+        if($order->has('orders_products')){
+            foreach ($order->orders_products as $order_product) {
+                $order_product->delete();
+            }
+        }
+        if($order->has('orders_services')){
+            foreach ($order->orders_services as $order_service) {
+                $order_service->delete();
+            }
+        }
+
+        $order->delete();
+
+        return redirect()->route('order.index')->with('success','Pedido removido com sucesso!');
     }
 }

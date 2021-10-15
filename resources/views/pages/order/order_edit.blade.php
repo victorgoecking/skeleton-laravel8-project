@@ -155,6 +155,7 @@
                                     <td class="text-center" colspan="8">Nenhum produto adicionado</td>
                                 </tr>
                             </tbody>
+                            <div id="containerProductsRemoved"></div>
                         </table>
                     </div>
                 </div>
@@ -212,6 +213,7 @@
                                 <td class="text-center" colspan="7">Nenhum serviço adicionado</td>
                             </tr>
                             </tbody>
+                            <div id="containerServicesRemoved"></div>
                         </table>
                     </div>
                 </div>
@@ -372,7 +374,7 @@
                 </div>
 
                 <div class="form-row mt-2">
-                    <button class="btn btn-primary" type="submit" aria-hidden="true"><i class="fas fa-paper-plane"></i> Cadastrar</button>
+                    <button class="btn btn-primary" type="submit" aria-hidden="true"><i class="fas fa-paper-plane"></i> Atualizar</button>
                     <a href="{{ route('order.index') }}"><button class="btn btn-danger ml-2" type="button" aria-hidden="true"><i class="fas fa-times-circle"></i> Cancelar</button></a>
                 </div>
             </div>
@@ -409,6 +411,7 @@
         @{{#each products}}
         <tr id="@{{id_handlebars_product}}" class="existsProduct">
             <td data-name="product">
+                <input type="hidden" name="id_order_product[]" value="@{{id_order_product}}">
                 <input type="hidden" name="id_product[]" value="@{{id_product}}">
                 <input type="hidden" name="product_cost_value[]" value="@{{product_cost_value}}">
                 <input type="text" name='name_product[]' placeholder='' value="@{{name_product}}" class="form-control" readonly/>
@@ -490,7 +493,7 @@
             <td data-name="del_product">
                 <button
                     class='btn btn-danger row-remove'
-                    onclick="removeProduct(@{{ @index }})">
+                    onclick="removeProduct(@{{ @index }}, @{{id_order_product}})">
                     <i class="fas fa-times-circle"></i>
                 </button>
             </td>
@@ -503,6 +506,7 @@
         @{{#each services}}
         <tr id="@{{id_handlebars_service}}" class="existsService">
             <td data-name="service">
+                <input type="hidden" name="id_order_service[]" value="@{{id_order_service}}">
                 <input type="hidden" name="id_service[]" value="@{{id_service}}">
                 <input type="hidden" name="service_cost_value[]" value="@{{service_cost_value}}">
                 <input type="text" name='name_service[]' value="@{{name_service}}" placeholder='' class="form-control" readonly/>
@@ -559,7 +563,7 @@
             <td data-name="del_service">
                 <button
                     class='btn btn-danger row-remove'
-                    onclick="removeService(@{{ @index }})">
+                    onclick="removeService(@{{ @index }}, @{{id_order_service}})">
                     <i class="fas fa-times-circle"></i>
                 </button>
             </td>
@@ -721,10 +725,10 @@
             'products': []
         };
 
-        function loadProducts(idProduct, nameProduct, productDescriptionOrder, quantity, meter, productCostValue, salesValueProductUsedOrder, discountProduct, orderProductSubtotal){
+        function loadProducts(idOrderProduct,idProduct, nameProduct, productDescriptionOrder, quantity, meter, productCostValue, salesValueProductUsedOrder, discountProduct, orderProductSubtotal){
 
             //verificando se um valor foi adicionado para mandar pro handlesbars
-            if(idProduct){
+            if(idOrderProduct){
                 if (document.getElementById("noProductAdded")) {
                     document.getElementById("noProductAdded").remove()
                 }
@@ -739,6 +743,7 @@
 
                 let infoProduct = {
                     id_handlebars_product: randomProduct,
+                    id_order_product: idOrderProduct,
                     id_product: idProduct,
                     name_product: nameProduct,
                     product_description_order: productDescriptionOrder,
@@ -834,7 +839,7 @@
             'services': []
         };
 
-        function loadServices(idService, nameService, serviceDescriptionOrder, serviceCostValue, salesValueServiceUsedOrder, discountService, orderServiceSubtotal){
+        function loadServices(idOrderService, idService, nameService, serviceDescriptionOrder, serviceCostValue, salesValueServiceUsedOrder, discountService, orderServiceSubtotal){
 
             //verificando se um valor foi adicionado para mandar pro handlesbars
             if(idService){
@@ -852,6 +857,7 @@
 
                 let infoService = {
                     id_handlebars_service: randomService,
+                    id_order_service: idOrderService,
                     id_service: idService,
                     name_service: nameService,
                     service_description_order: serviceDescriptionOrder,
@@ -1016,7 +1022,11 @@
 
         }
 
-        function removeProduct(indexToRemove) {
+        function removeProduct(indexToRemove, idOrderProduct) {
+
+            if(idOrderProduct){
+                $('#containerProductsRemoved').append("<input type='hidden' name='id_order_product_removed[]' value='"+idOrderProduct+"'>");
+            }
 
             products.products.splice(indexToRemove, 1);
 
@@ -1034,7 +1044,11 @@
             calcTotalProduct();
         }
 
-        function removeService(indexToRemove) {
+        function removeService(indexToRemove, idOrderService) {
+
+            if(idOrderService){
+                $('#containerServicesRemoved').append("<input type='hidden' name='id_order_service_removed[]' value='"+idOrderService+"'>");
+            }
 
             services.services.splice(indexToRemove, 1);
 
@@ -1068,6 +1082,7 @@
         @if($orders_products)
             @foreach($orders_products as $order_product)
                 loadProducts(
+                    "{{$order_product->id}}",
                     "{{$order_product->product->id}}",
                     "{{$order_product->product->name}}",
                     "{{$order_product->product_description_order}}",
@@ -1084,6 +1099,7 @@
         @if($orders_services)
             @foreach($orders_services as $order_service)
                 loadServices(
+                    "{{$order_service->id}}",
                     "{{$order_service->service->id}}",
                     "{{$order_service->service->name}}",
                     "{{$order_service->service_description_order}}",
