@@ -123,119 +123,37 @@
                     <div class="col-md-12 table-responsive">
                         <table class="table table-sm table-bordered table-hover"  style="width: 100%; min-width: 950px;" id="tab_logic_product">
                             <thead>
-                            <tr >
-                                <th >
-                                    Produto *
-                                </th>
-                                <th >
-                                    Detalhes
-                                </th>
-                                <th style="width: 8%">
-                                    Quant. *
-                                </th>
-                                <th style="width: 8%" data-toggle="tooltip" data-placement="right" title="Arredondando para o '0,5' acima. Ex.: 1,2 => 1,5">
-                                    (m) <i class="fas fa-info-circle text-info float-right"></i>
-                                </th>
-                                <th style="width: 12%" >
-                                    Valor *
-                                </th>
-                                <th style="width: 12%">
-                                    Desconto
-                                </th>
-                                <th style="width: 12%">
-                                    Subtotal
-                                </th>
-                                <th style="width: 5%" class="text-center">
-                                    Del
-                                </th>
-                            </tr>
+                                <tr >
+                                    <th >
+                                        Produto *
+                                    </th>
+                                    <th >
+                                        Detalhes
+                                    </th>
+                                    <th style="width: 8%">
+                                        Quant. *
+                                    </th>
+                                    <th style="width: 8%" data-toggle="tooltip" data-placement="right" title="Arredondando para o '0,5' acima. Ex.: 1,2 => 1,5">
+                                        (m) <i class="fas fa-info-circle text-info float-right"></i>
+                                    </th>
+                                    <th style="width: 12%" >
+                                        Valor *
+                                    </th>
+                                    <th style="width: 12%">
+                                        Desconto
+                                    </th>
+                                    <th style="width: 12%">
+                                        Subtotal
+                                    </th>
+                                    <th style="width: 5%" class="text-center">
+                                        Del
+                                    </th>
+                                </tr>
                             </thead>
                             <tbody id="containerProducts">
-{{--                            <tr id="noProductAdded">--}}
-{{--                                <td class="text-center" colspan="8">Nenhum produto adicionado</td>--}}
-{{--                            </tr>--}}
-                            @foreach($orders_products as $order_product)
-                                <tr id="product_{{$order_product->id}}" class="existsProduct">
-                                    <td data-name="product">
-                                        <input type="hidden" name="id_product[]" value="{{$order_product->product->id}}">
-                                        <input type="hidden" name="product_cost_value[]" value="{{$order_product->product->product_cost_value}}">
-                                        <input type="text" name='name_product[]' placeholder='' value="{{$order_product->product->name}}" class="form-control" readonly/>
-                                    </td>
-                                    <td data-name="product_description_order">
-                                        <input type="text" name='product_description_order[]' value="{{$order_product->product_description_order}}" placeholder='' class="form-control"/>
-                                    </td>
-                                    <td data-name="quantity_product">
-                                        <input
-                                            type="text"
-                                            id="quantityProduct_@{{id_handlebars_product}}"
-                                            name='quantity_product[]'
-                                            value="{{$order_product->quantity}}"
-                                            onblur="updateValueProduct(@{{ @index }}, 'quantity_product', this.value, '@{{id_handlebars_product}}')"
-                                            onkeyup="updateValueProduct(@{{ @index }}, 'quantity_product', this.value, '@{{id_handlebars_product}}')"
-                                            placeholder=''
-                                            class="form-control"
-                                            required
-                                        />
-                                    </td>
-                                    <td data-name="meter" title="Arredondando para o '0,5' acima. Ex.: 1,2 => 1,5">
-                                        <input
-                                            type="text"
-                                            id="meter_@{{id_handlebars_product}}"
-                                            name='meter[]'
-                                            value="{{$order_product->meter}}"
-                                            onblur="updateValueProduct(@{{ @index }}, 'meter', this.value, '@{{id_handlebars_product}}')"
-                                            onkeyup="updateValueProduct(@{{ @index }}, 'meter', this.value, '@{{id_handlebars_product}}')"
-                                            placeholder=''
-                                            class="form-control"
-                                        />
-                                    </td>
-                                    <td data-name="sales_value_product_used_order">
-                                        <input
-                                            type="text"
-                                            id="salesValueProductUsedOrder_@{{id_handlebars_product}}"
-                                            name="sales_value_product_used_order[]"
-                                            value="{{$order_product->sales_value_product_used_order}}"
-                                            onblur="updateValueProduct(@{{ @index }}, 'sales_value_product_used_order', this.value, '@{{id_handlebars_product}}')"
-                                            onkeyup="updateValueProduct(@{{ @index }}, 'sales_value_product_used_order', this.value, '@{{id_handlebars_product}}')"
-                                            placeholder=""
-                                            class="form-control"
-                                        />
-                                    </td>
-                                    <td data-name="discount_product">
-                                        <input
-                                            type="text"
-                                            id="discountProduct_@{{id_handlebars_product}}"
-                                            name='discount_product[]'
-                                            value="{{$order_product->discount_product}}"
-                                            onblur="updateValueProduct(@{{ @index }}, 'discount_product', this.value, '@{{id_handlebars_product}}')"
-                                            onkeyup="updateValueProduct(@{{ @index }}, 'discount_product', this.value, '@{{id_handlebars_product}}')"
-                                            placeholder=''
-                                            class="form-control"
-                                        />
-                                    </td>
-                                    <td data-name="order_product_subtotal">
-                                        <input
-                                            type="text"
-                                            id="orderProductSubtotal_@{{id_handlebars_product}}"
-                                            name='order_product_subtotal[]'
-                                            value="{{$order_product->order_product_subtotal}}"
-                                            onblur="updateValueProduct(@{{ @index }}, 'order_product_subtotal', this.value, '@{{id_handlebars_product}}')"
-                                            onkeyup="updateValueProduct(@{{ @index }}, 'order_product_subtotal', this.value, '@{{id_handlebars_product}}')"
-                                            placeholder='0,00'
-                                            class="form-control order_product_subtotal"
-                                            required
-                                            readonly
-                                        />
-                                    </td>
-                                    <td data-name="del_product">
-                                        <button
-                                            class='btn btn-danger row-remove'
-                                            onclick="removeProduct(@{{ @index }})">
-                                            <i class="fas fa-times-circle"></i>
-                                        </button>
-                                    </td>
+                                <tr id="noProductAdded">
+                                    <td class="text-center" colspan="8">Nenhum produto adicionado</td>
                                 </tr>
-                            @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -602,7 +520,7 @@
                     type="text"
                     id="serviceCostValue_@{{id_handlebars_service}}"
                     name="sales_value_service_used_order[]"
-                    value="@{{service_cost_value}}"
+                    value="@{{sales_value_service_used_order}}"
                     onblur="updateValueService(@{{ @index }}, 'sales_value_service_used_order', this.value, '@{{id_handlebars_service}}')"
                     onkeyup="updateValueService(@{{ @index }}, 'sales_value_service_used_order', this.value, '@{{id_handlebars_service}}')"
                     placeholder=""
@@ -793,9 +711,54 @@
         });
 
 
+        let countProduct = 0;
+
         let products = {
             'products': []
         };
+
+        function loadProducts(idProduct, nameProduct, productDescriptionOrder, quantity, meter, productCostValue, salesValueProductUsedOrder, discountProduct, orderProductSubtotal){
+
+            //verificando se um valor foi adicionado para mandar pro handlesbars
+            if(idProduct){
+                if (document.getElementById("noProductAdded")) {
+                    document.getElementById("noProductAdded").remove()
+                }
+
+                let templateProduct = document.getElementById('tamplateAddProduct').innerHTML;
+                let compiled = Handlebars.compile(templateProduct);
+
+                let product = document.getElementById('containerProducts');
+
+                // let randomProduct = Math.floor((Math.random() * 100000000) + 1);
+                let randomProduct = 'product_'+countProduct;
+
+                let infoProduct = {
+                    id_handlebars_product: randomProduct,
+                    id_product: idProduct,
+                    name_product: nameProduct,
+                    product_description_order: productDescriptionOrder,
+                    quantity_product: quantity,
+                    meter: meter,
+                    product_cost_value: productCostValue,
+                    sales_value_product_used_order: salesValueProductUsedOrder,
+                    discount_product: discountProduct,
+                    order_product_subtotal: orderProductSubtotal,
+                }
+
+                products.products.push(infoProduct);
+                product.innerHTML = compiled(products);
+
+                countProduct+=1;
+
+                // Removendo item selecionado
+                // let removeSelectizeItem = document.getElementById("searchProduct").value;
+                // document.getElementById("searchProduct").selectize.removeItem(removeSelectizeItem);
+
+                // calcTotalProduct();
+            }
+        }
+
         function updateValueProduct(index, property, newValue, idLine){
 
             let subtotalProduct = calcSubtotalProduct(idLine)
@@ -806,8 +769,6 @@
             calcTotalProduct();
         }
         function addProduct() {
-
-            let countProduct = 0;
 
             let botaoAdd = document.getElementById('btnAddProduct');
 
@@ -863,9 +824,52 @@
         }
 
 
+        let countService = 0;
+
         let services = {
             'services': []
         };
+
+        function loadServices(idService, nameService, serviceDescriptionOrder, serviceCostValue, salesValueServiceUsedOrder, discountService, orderServiceSubtotal){
+
+            //verificando se um valor foi adicionado para mandar pro handlesbars
+            if(idService){
+                if (document.getElementById("noServiceAdded")) {
+                    document.getElementById("noServiceAdded").remove()
+                }
+
+                let templateProduct = document.getElementById('tamplateAddService').innerHTML;
+                let compiled = Handlebars.compile(templateProduct);
+
+                let service = document.getElementById('containerServices');
+
+                // let randomService = Math.floor((Math.random() * 100000000) + 1);
+                let randomService = 'product_'+countService;
+
+                let infoService = {
+                    id_handlebars_service: randomService,
+                    id_service: idService,
+                    name_service: nameService,
+                    service_description_order: serviceDescriptionOrder,
+                    service_cost_value: serviceCostValue,
+                    sales_value_service_used_order: salesValueServiceUsedOrder,
+                    discount_service: discountService,
+                    order_service_subtotal: orderServiceSubtotal,
+                }
+
+                services.services.push(infoService);
+                service.innerHTML = compiled(services);
+
+                countService+=1;
+
+                // // Removendo item selecionado
+                // let removeSelectizeItem = document.getElementById("searchService").value;
+                // document.getElementById("searchService").selectize.removeItem(removeSelectizeItem);
+                //
+                // calcTotalService();
+            }
+        }
+
         function updateValueService(index, property, newValue, idLine){
 
             let subtotalService = calcSubtotalService(idLine)
@@ -878,7 +882,6 @@
 
         function addService() {
 
-            let countService = 0;
 
             let botaoAdd = document.getElementById('btnAddService');
 
@@ -909,6 +912,7 @@
                         name_service: nameService,
                         service_description_order: '',
                         service_cost_value: valueService,
+                        sales_value_service_used_order: valueService,
                         discount_service: '',
                         order_service_subtotal: valueService,
                     }
@@ -1028,6 +1032,32 @@
         addProduct();
         addService();
         addDeliveryAddress();
+
+        @foreach($orders_products as $order_product)
+            loadProducts(
+                "{{$order_product->product->id}}",
+                "{{$order_product->product->name}}",
+                "{{$order_product->product_description_order}}",
+                "{{$order_product->quantity}}",
+                "{{$order_product->meter}}",
+                "{{$order_product->product_cost_value_when_order_placed}}",
+                "{{$order_product->sales_value_product_used_order}}",
+                "{{$order_product->discount_product}}",
+                "{{$order_product->order_product_subtotal}}"
+                );
+        @endforeach
+
+        @foreach($orders_services as $order_service)
+        loadServices(
+            "{{$order_service->service->id}}",
+            "{{$order_service->service->name}}",
+            "{{$order_service->service_description_order}}",
+            "{{$order_service->service_cost_value_when_order_placed}}",
+            "{{$order_service->sales_value_service_used_order}}",
+            "{{$order_service->discount_service}}",
+            "{{$order_service->order_service_subtotal}}"
+        );
+        @endforeach
 
         // ------------------------------------------------------------------------------------------------------------------------------------------------------
 
