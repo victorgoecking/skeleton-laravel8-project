@@ -16,6 +16,8 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->tinyInteger('budget')->default(0);
+            $table->decimal('total_products', 9,2);
+            $table->decimal('total_services', 9,2);
             $table->decimal('total', 9,2);
             $table->decimal('cash_discount', 9,2)->nullable();
             $table->decimal('percentage_discount', 9,2)->nullable();

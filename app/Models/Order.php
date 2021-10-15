@@ -19,6 +19,8 @@ class Order extends Model
      */
     protected $fillable = [
         'budget',
+        'total_products',
+        'total_services',
         'total',
         'cash_discount',
         'percentage_discount',

@@ -22,7 +22,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::with('user', 'client', 'products', 'situation')->get();
+        $orders = Order::with('user', 'client', 'orders_products', 'orders_services', 'situation')->get();
 
         return view('pages.order.orders', [
             'orders' => $orders
@@ -85,6 +85,8 @@ class OrderController extends Controller
         if($request->budget === "1") {
             $order = Order::create([
                 'budget' => $request->budget,
+                'total_products' => $request->total_products,
+                'total_services' => $request->total_services,
                 'total' => $request->total,
                 'cash_discount' => $request->total_cash_discount,
                 'percentage_discount' => $request->total_percentage_discount,
@@ -103,6 +105,8 @@ class OrderController extends Controller
         }else{
             $order = Order::create([
                 'budget' => $request->budget,
+                'total_products' => $request->total_products,
+                'total_services' => $request->total_services,
                 'total' => $request->total,
                 'cash_discount' => $request->total_cash_discount,
                 'percentage_discount' => $request->total_percentage_discount,
@@ -200,10 +204,35 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-        $order = Order::with('user', 'client', 'products', 'situation')->find($order->id);
+        $order = Order::with('user', 'client', 'orders_products', 'orders_services', 'situation')->find($order->id);
+
+        $salesman =  User::where('id', $order->salesman)->first();
+
+        $orders_products =  OrdersProducts::where('order_id', $order->id)->get();
+        $orders_services =  OrdersServices::where('order_id', $order->id)->get();
+
+
+        $users = User::all();
+        $clients = Client::with('address','contact')->get();
+        $products = Product::all();
+        $services = Service::all();
+        $situation = Situation::all();
+
+
+//        dd( $order->order_date->format('d/m/Y'));
+//        dd( $order->situation->id);
 
         return view('pages.order.order_edit', [
-            'order' => $order
+            'order' => $order,
+            'salesman' => $salesman,
+            'orders_products' => $orders_products,
+            'orders_services' => $orders_services,
+            'users' => $users,
+            'clients' => $clients,
+            'products' => $products,
+            'services' => $services,
+            'situations' => $situation,
+
         ]);
     }
 
