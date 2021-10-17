@@ -146,12 +146,22 @@ class BillsReceiveController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\CashMovement  $cashMovement
-     * @return \Illuminate\Http\Response
+//     * @param  \App\Models\CashMovement  $cashMovement
+//     * @return \Illuminate\Http\Response
      */
-    public function edit(CashMovement $cashMovement)
+    public function edit($id)
     {
-        //
+        $bills_receive = CashMovement::with('user', 'form_payment_cash_movements')->where('id', '=', $id)->first();
+
+        $form_payment_cash_movements = FormPaymentCashMovements::with('form_payments')->where('cash_movement_id', $bills_receive->id)->get();
+
+        $form_payments = FormPayment::all();
+
+        return view('pages.bills_receive.bills_receive_edit', [
+            'bills_receive' => $bills_receive,
+            'form_payment_cash_movements' => $form_payment_cash_movements,
+            'form_payments' => $form_payments,
+        ]);
     }
 
     /**

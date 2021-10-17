@@ -92,8 +92,7 @@
                         </tr>
                         </tbody>
                     </table>
-                    <a class="btn btn-warning btn-md" href="#" role="button"><i class="fas fa-edit"></i> Editar</a>
-{{--                    <a class="btn btn-warning btn-md" href="{{ route('bills-receive.edit', ['bills_receive' => $bills_receive->id]) }}" role="button"><i class="fas fa-edit"></i> Editar</a>--}}
+                    <a class="btn btn-warning btn-md" href="{{ route('bills-receive.edit', ['bills_receive' => $bills_receive->id]) }}" role="button"><i class="fas fa-edit"></i> Editar</a>
                 </div>
 
                 <div class="tab-pane fade" id="form_payment" role="tabpanel" aria-labelledby="form_payment-tab">
@@ -126,8 +125,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <a class="btn btn-warning btn-md" href="#" role="button"><i class="fas fa-edit"></i> Editar</a>
-{{--                    <a class="btn btn-warning btn-md" href="{{ route('bills-receive.edit', ['bills-receive' => $bills->receive->id]) }}" role="button"><i class="fas fa-edit"></i> Editar</a>--}}
+                    <a class="btn btn-warning btn-md" href="{{ route('bills-receive.edit', ['bills_receive' => $bills_receive->id]) }}" role="button"><i class="fas fa-edit"></i> Editar</a>
                 </div>
 
 

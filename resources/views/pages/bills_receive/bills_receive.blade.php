@@ -76,7 +76,7 @@
 
                             <td class="pt-2">
                                 <a href="{{ route('bills-receive.show', ['bills_receive' => $bills_receive->id]) }}"><button class="btn btn-info btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Detalhes"><i class="far fa-eye"></i></button></a>
-                                <a href="#"><button class="btn btn-warning btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Editar"><i class="far fa-edit"></i></button></a>
+                                <a href="{{ route('bills-receive.edit', ['bills_receive' => $bills_receive->id]) }}"><button class="btn btn-warning btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Editar"><i class="far fa-edit"></i></button></a>
                                 <form class="d-inline" action="#" method="POST">
                                     @csrf
                                     @method('delete')
