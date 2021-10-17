@@ -102,7 +102,7 @@
                 <label class="mb-3">Quantas formas de pagamento deseja informar?</label>
                 <div class="form-row mb-3">
                     <div class="col-md-3 mb-1">
-                        <input type="text" id="quantity_form_payment" name='quantity_form_payment' placeholder='' class="form-control" required />
+                        <input type="text" id="quantity_form_payment" name='quantity_form_payment' placeholder='' class="form-control" />
                     </div>
                     <div class="col-md-1 mb-1" style="min-width: 100px">
                         <button class="btn btn-info form-control" type="button" id="btnGenerateFormPayment" aria-hidden="true"><i class="fas fa-sync-alt"></i> Gerar</button>

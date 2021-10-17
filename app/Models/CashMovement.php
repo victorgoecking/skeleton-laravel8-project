@@ -19,6 +19,7 @@ class CashMovement extends Model
         'settled',
         'due_date',
         'clearing_date',
+        'situation',
         'note',
         'order_id',
         'cashier_id',
@@ -32,5 +33,9 @@ class CashMovement extends Model
 
     public function user(){
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function form_payment_cash_movements(){
+        return $this->belongsToMany(FormPayment::class, 'form_payment_cash_movements','cash_movement_id', 'form_payment_id');
     }
 }

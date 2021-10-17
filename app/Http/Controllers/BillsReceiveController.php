@@ -16,7 +16,11 @@ class BillsReceiveController extends Controller
      */
     public function index()
     {
-        //
+        $cash_movements = CashMovement::with('user', 'form_payment_cash_movements')->get();
+
+        return view('pages.bills_receive.bills_receive', [
+            'cash_movements' => $cash_movements,
+        ]);
     }
 
     /**
@@ -54,6 +58,24 @@ class BillsReceiveController extends Controller
 
 
 
+
+        if($request->clearing_date){
+            if($request->settled == '1'){
+                $situation = 'Confirmado';
+            }else if($request->due_date < $request->clearing_date && $request->settled == '0'){
+                $situation = 'Atrasado';
+
+            }else if($request->due_date >= $request->clearing_date && $request->settled == '0'){
+                $situation = 'Em aberto';
+            }
+
+        }else if($request->due_date < date('Y-m-d', time()) ){
+            $situation = 'Atrasado';
+        }else{
+            $situation = 'Em aberto';
+        }
+
+
         if($request->type_movement){
            $cash_moviment = CashMovement::create([
                 'type_movement' => $request->type_movement,
@@ -62,6 +84,7 @@ class BillsReceiveController extends Controller
                 'settled' => $request->settled,
                 'due_date' => $request->due_date,
                 'clearing_date' => $request->clearing_date,
+                'situation' => $situation,
                 'note' => $request->note,
                 'user_id' => auth()->user()->id,
                 'cashier_id' => 1,

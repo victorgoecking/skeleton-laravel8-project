@@ -21,6 +21,7 @@ class CreateCashMovementsTable extends Migration
             $table->tinyInteger('settled');
             $table->date('due_date');
             $table->date('clearing_date')->nullable();
+            $table->string('situation');
             $table->text('note')->nullable();
             $table->timestamps();
             $table->softDeletes();

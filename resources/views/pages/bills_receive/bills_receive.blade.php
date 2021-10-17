@@ -5,7 +5,7 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">
             <i class="fa fa-users"></i> Contas a receber&nbsp;
-            <a href="{{ route('order.create') }}">
+            <a href="{{ route('bills-receive.create') }}">
                 <button type="button" class="btn btn-primary">
                     <i class="fas fa-plus-circle"></i> Novo
                 </button>
@@ -15,7 +15,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb m-0 p-2 bg-transparent">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="fas fa-fw fa-tachometer-alt"></i> Início</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Pedidos</li>
+                <li class="breadcrumb-item active" aria-current="page">Contas a receber&nbsp;</li>
             </ol>
         </nav>
     </div>
@@ -28,9 +28,9 @@
                     <thead>
                         <tr>
                             <th>Código</th>
-                            <th>Cliente</th>
+                            <th>Descrição</th>
+                            <th>Pagamento</th>
                             <th>Data</th>
-                            <th>Tipo</th>
                             <th>Valor</th>
                             <th>Situação</th>
 {{--                            <th>Cadastrado em</th>--}}
@@ -41,9 +41,9 @@
                     <tfoot>
                         <tr>
                             <th>Código</th>
-                            <th>Cliente</th>
+                            <th>Descrição</th>
+                            <th>Pagamento</th>
                             <th>Data</th>
-                            <th>Tipo</th>
                             <th>Valor</th>
                             <th>Situação</th>
 {{--                            <th>Cadastrado em</th>--}}
@@ -52,29 +52,43 @@
                     </tfoot>
 
                     <tbody>
-                        @foreach($orders as $order)
+                        @foreach($cash_movements as $cash_movement)
                         <tr>
-                            <td>{{ $order->id }}</td>
-                            <td>{{ $order->client->name }}</td>
-                            <td>{{ $order->order_date->format('d/m/Y') }}</td>
-                            @if( $order->budget === 1)
-                                <td><span class="badge badge-info">Orçamento</span></td>
-                            @else
-                                <td><span class="badge badge-primary">Venda</span></td>
-                            @endif
-                            <td>{{ $order->total }}</td>
-                            <td><span class="badge badge-dark">{{ $order->situation->description }}</span></td>
+                            <td>{{ $cash_movement->id }}</td>
+                            <td>{{ $cash_movement->description }}</td>
+                            <td>
+                                @foreach($cash_movement->form_payment_cash_movements as $form_payment)
+                                   {{ $form_payment->description }} /
+                                @endforeach
+                            </td>
+                            <td>{{ $cash_movement->clearing_date ? $cash_movement->clearing_date->format('d/m/Y') : $cash_movement->due_date->format('d/m/Y') }} </td>
+                            <td>{{ $cash_movement->gross_value }}</td>
 
-{{--                            <td>{{ $order->created_at->format('d/m/Y - H:i:s') }}</td>--}}
+                            @if( $cash_movement->situation === "Atrasado")
+                                <td><span class="badge badge-danger">{{$cash_movement->situation}}</span></td>
+                            @else
+                                @if($cash_movement->situation === "Em aberto")
+                                    <td><span class="badge badge-info">{{$cash_movement->situation}}</span></td>
+                                @else
+                                    <td><span class="badge badge-primary">{{$cash_movement->situation}}</span></td>
+                                @endif
+                            @endif
 
                             <td class="pt-2">
-                                <a href="{{ route('order.show', ['order' => $order->id]) }}"><button class="btn btn-info btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Detalhes"><i class="far fa-eye"></i></button></a>
-                                <a href="{{ route('order.edit', ['order' => $order->id]) }}"><button class="btn btn-warning btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Editar"><i class="far fa-edit"></i></button></a>
-                                <form class="d-inline" action="{{ route('order.destroy', ['order' => $order->id]) }}" method="POST">
+                                <a href="#"><button class="btn btn-info btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Detalhes"><i class="far fa-eye"></i></button></a>
+                                <a href="#"><button class="btn btn-warning btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Editar"><i class="far fa-edit"></i></button></a>
+                                <form class="d-inline" action="#" method="POST">
                                     @csrf
                                     @method('delete')
-                                    <button type="submit" onclick='return confirm(`Deseja realmente excluir o pedido de numero" {{ $order->id }} "?`)' class="btn btn-danger btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Remover"><i class="far fa-trash-alt"></i></button>
+                                    <button type="submit" onclick='return confirm(`Deseja realmente excluir o pedido de numero" {{ $cash_movement->id }} "?`)' class="btn btn-danger btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Remover"><i class="far fa-trash-alt"></i></button>
                                 </form>
+{{--                                <a href="{{ route('bills-receive.show', ['cash_movement' => $cash_movement->id]) }}"><button class="btn btn-info btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Detalhes"><i class="far fa-eye"></i></button></a>--}}
+{{--                                <a href="{{ route('bills-receive.edit', ['cash_movement' => $cash_movement->id]) }}"><button class="btn btn-warning btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Editar"><i class="far fa-edit"></i></button></a>--}}
+{{--                                <form class="d-inline" action="{{ route('bills-receive.destroy', ['cash_movement' => $cash_movement->id]) }}" method="POST">--}}
+{{--                                    @csrf--}}
+{{--                                    @method('delete')--}}
+{{--                                    <button type="submit" onclick='return confirm(`Deseja realmente excluir o pedido de numero" {{ $cash_movement->id }} "?`)' class="btn btn-danger btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Remover"><i class="far fa-trash-alt"></i></button>--}}
+{{--                                </form>--}}
                             </td>
                         </tr>
                         @endforeach
