@@ -137,8 +137,9 @@
                             <tbody id="containerFormPayment">
 
                             @foreach($form_payment_cash_movements as $form_payment_cash_movement)
-                                <tr id="id_handlebars_form_payment_{{$form_payment_cash_movement->id}}" class="existsFormPayment">
+                                <tr id="id_{{$form_payment_cash_movement->id}}" class="existsFormPayment">
                                     <td data-name="form_payment">
+
                                         <select class="form-control" name="form_payment[]" required>
                                             <option></option>
                                             @foreach($form_payments as $form_payment)
@@ -194,7 +195,8 @@
                                     <td data-name="del_form_payment">
                                         <button
                                             class='btn btn-danger row-remove'
-                                            onclick="removeFormPayment('id_handlebars_form_payment_{{$form_payment_cash_movement->id}}')">
+                                            type="button"
+                                            onclick="removeFormPayment('id_{{$form_payment_cash_movement->id}}')">
                                             <i class="fas fa-times-circle"></i>
                                         </button>
                                     </td>
@@ -202,6 +204,7 @@
                             @endforeach
 
                             </tbody>
+                            <div id="containerFormPaymentRemoved"></div>
                         </table>
                     </div>
                 </div>
@@ -395,6 +398,13 @@
         function removeFormPayment(id) {
 
             if(document.getElementsByClassName("existsFormPayment").length > 1){
+
+                if(id){
+                    let str = id.split("_");
+                    let id_form_payment = str[1];
+                    $("#containerFormPaymentRemoved").append("<input type='hidden' name='id_form_payment_removed[]' value='"+id_form_payment+"'>");
+                }
+
                 document.getElementById(id).remove();
                 calcTotalValue();
             }
@@ -419,6 +429,8 @@
 
            $("#totalValue").html('Valor total: R$ ' + sum);
         }
+
+        calcTotalValue();
 
 
 

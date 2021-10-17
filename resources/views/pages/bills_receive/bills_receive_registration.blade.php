@@ -189,6 +189,7 @@
                                 <td data-name="del_form_payment">
                                     <button
                                         class='btn btn-danger row-remove'
+                                        type="button"
                                         onclick="removeFormPayment('id_handlebars_form_payment_1')">
                                         <i class="fas fa-times-circle"></i>
                                     </button>

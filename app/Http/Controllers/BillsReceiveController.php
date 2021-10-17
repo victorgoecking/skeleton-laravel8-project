@@ -10,13 +10,6 @@ use Illuminate\Http\Request;
 class BillsReceiveController extends Controller
 {
 
-    protected $cashMovement;
-
-    public function __construct(CashMovement $cash_movements)
-    {
-        $this->cashMovement = $cash_movements;
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -65,8 +58,6 @@ class BillsReceiveController extends Controller
         ]);
 
 
-
-
         if($request->clearing_date){
             if($request->settled == '1'){
                 $situation = 'Confirmado';
@@ -85,7 +76,7 @@ class BillsReceiveController extends Controller
 
 
         if($request->type_movement){
-           $cash_moviment = CashMovement::create([
+           $bills_receive = CashMovement::create([
                 'type_movement' => $request->type_movement,
                 'description' => $request->description,
                 'gross_value' => $request->gross_value,
@@ -107,12 +98,12 @@ class BillsReceiveController extends Controller
                 for($i_form_payment = 0; $i_form_payment < $count_form_payment; $i_form_payment++){
 
                     if(trim($request->form_payment != '')){
-                        $formPAY = FormPaymentCashMovements::create([
+                       FormPaymentCashMovements::create([
                             'value' => $request->value_form_payment[$i_form_payment],
                             'paid' => $request->settled_form_payment[$i_form_payment],
                             'note' => $request->note_form_payment[$i_form_payment],
                             'form_payment_id' => $request->form_payment[$i_form_payment],
-                            'cash_movement_id' => $cash_moviment->id,
+                            'cash_movement_id' => $bills_receive->id,
                         ]);
                     }
                 }
@@ -168,22 +159,111 @@ class BillsReceiveController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\CashMovement  $cashMovement
-     * @return \Illuminate\Http\Response
+//     * @param  \App\Models\CashMovement  $cashMovement
+//     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CashMovement $cashMovement)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'type_movement' => 'required|string|max:100',
+            'description' => 'required|string|max:255',
+            'gross_value' => 'required|string|max:255',
+            'settled' => 'required',
+            'due_date' => 'required|date',
+            'form_payment' => 'required',
+            'value_form_payment' => 'required|max:255',
+            'settled_form_payment' => 'required',
+        ]);
+
+        if($request->clearing_date){
+            if($request->settled == '1'){
+                $situation = 'Confirmado';
+            }else if($request->due_date < $request->clearing_date && $request->settled == '0'){
+                $situation = 'Atrasado';
+
+            }else if($request->due_date >= $request->clearing_date && $request->settled == '0'){
+                $situation = 'Em aberto';
+            }
+
+        }else if($request->due_date < date('Y-m-d', time()) ){
+            $situation = 'Atrasado';
+        }else{
+            $situation = 'Em aberto';
+        }
+
+
+        if($request->type_movement){
+            $bills_receive = CashMovement::where('id', '=', $id)->first();
+
+            $bills_receive->update([
+                'type_movement' => $request->type_movement,
+                'description' => $request->description,
+                'gross_value' => $request->gross_value,
+                'settled' => $request->settled,
+                'due_date' => $request->due_date,
+                'clearing_date' => $request->clearing_date,
+                'situation' => $situation,
+                'note' => $request->note,
+                'user_id' => auth()->user()->id,
+                'cashier_id' => 1,
+            ]);
+        }
+
+        if($request->form_payment){
+            $count_form_payment = count($request->form_payment);
+
+            if($count_form_payment >= 1){
+                for($i_form_payment = 0; $i_form_payment < $count_form_payment; $i_form_payment++){
+
+                    if(isset($request->id_form_payment_removed)){
+                        foreach ($request->id_form_payment_removed as $remove_payment_movement){
+                            FormPaymentCashMovements::where('id', $remove_payment_movement)->where('cash_movement_id', $bills_receive->id)->delete();
+                        }
+                    }else if(isset($request->form_payment[$i_form_payment])){
+                        FormPaymentCashMovements::where('id', $request->form_payment[$i_form_payment])->where('cash_movement_id', $bills_receive->id)->update([
+                            'value' => $request->value_form_payment[$i_form_payment],
+                            'paid' => $request->settled_form_payment[$i_form_payment],
+                            'note' => $request->note_form_payment[$i_form_payment],
+//                            'form_payment_id' => $request->form_payment[$i_form_payment],
+//                            'cash_movement_id' => $bills_receive->id,
+                        ]);
+                    }else{
+                        FormPaymentCashMovements::create([
+                            'value' => $request->value_form_payment[$i_form_payment],
+                            'paid' => $request->settled_form_payment[$i_form_payment],
+                            'note' => $request->note_form_payment[$i_form_payment],
+                            'form_payment_id' => $request->form_payment[$i_form_payment],
+                            'cash_movement_id' => $bills_receive->id,
+                        ]);
+                    }
+                }
+
+            }
+        }
+
+        return redirect()->route('bills-receive.index')->with('success','Conta a receber atualizada com sucesso!');
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\CashMovement  $cashMovement
-     * @return \Illuminate\Http\Response
+//     * @param  \App\Models\CashMovement  $cashMovement
+//     * @return \Illuminate\Http\Response
      */
-    public function destroy(CashMovement $cashMovement)
+    public function destroy($id)
     {
-        //
+        $bills_receive = CashMovement::with('user', 'form_payment_cash_movements')->where('id', '=', $id)->first();
+
+        $form_payment_cash_movements = FormPaymentCashMovements::with('form_payments')->where('cash_movement_id', $bills_receive->id)->get();
+        if($form_payment_cash_movements){
+            foreach ($form_payment_cash_movements as $form_payment_cash_movement){
+                $form_payment_cash_movement->delete();
+            }
+        }
+
+        $bills_receive->delete();
+
+        return redirect()->route('bills-receive.index')->with('success','Conta a receber removida com sucesso!');
     }
 }
