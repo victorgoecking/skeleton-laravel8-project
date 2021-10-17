@@ -362,14 +362,6 @@
             });
         });
 
-        function generate(){
-            let quantity = document.getElementById("quantity_form_payment").value;
-
-            for (let i = 0; i < quantity; i++){
-                add
-            }
-        }
-
 
         function addFormPayment() {
 
@@ -386,9 +378,8 @@
                     let templateCompiled = '';
                     for (let i = 0; i < quantity; i++){
 
-                        let random_form_payment = Math.floor((Math.random() * 100000000) + 1);
                         let info_form_payment = {
-                            id_handlebars_form_payment: random_form_payment,
+                            id_handlebars_form_payment: Math.floor((Math.random() * 100000000) + 1),
                         }
                         templateCompiled += compiled(info_form_payment);
                     }
