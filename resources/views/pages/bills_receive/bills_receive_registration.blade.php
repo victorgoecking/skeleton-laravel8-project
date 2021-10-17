@@ -136,7 +136,7 @@
                             <tbody id="containerFormPayment">
                             <tr id="id_handlebars_form_payment_1" class="existsFormPayment">
                                 <td data-name="form_payment">
-                                    <select class="form-control" name="form_payment[]" id="selectFormPayment" required>
+                                    <select class="form-control" name="form_payment[]" required>
                                         <option></option>
                                         <option value="1">Dinheiro a vista</option>
                                         <option value="0">Cartão</option>
@@ -153,7 +153,9 @@
                                         type="text"
                                         name='value_form_payment[]'
                                         placeholder=''
-                                        class="form-control"
+                                        class="form-control valueFormPayment"
+                                        onkeyup="calcTotalValue()"
+                                        onblur="calcTotalValue()"
                                         required
                                     />
                                     <div class="valid-feedback">
@@ -164,7 +166,7 @@
                                     </div>
                                 </td>
                                 <td data-name="settled_form_payment">
-                                    <select class="form-control" name="settled_form_payment[]" id="selectFormPayment" required>
+                                    <select class="form-control" name="settled_form_payment[]" required>
                                         <option value="1">Sim</option>
                                         <option value="0" selected>Não</option>
                                     </select>
@@ -193,6 +195,11 @@
                             </tr>
                             </tbody>
                         </table>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-lg-12">
+                    <h3 id="totalValue" class="text-right"></h3>
                     </div>
                 </div>
             </div>
@@ -229,7 +236,7 @@
 
             <tr id="@{{id_handlebars_form_payment}}" class="existsFormPayment">
                 <td data-name="form_payment">
-                    <select class="form-control" name="form_payment[]" id="selectFormPayment" required>
+                    <select class="form-control" name="form_payment[]" required>
                         <option></option>
                         <option value="1">Dinheiro a vista</option>
                         <option value="0">Cartão</option>
@@ -246,7 +253,9 @@
                         type="text"
                         name='value_form_payment[]'
                         placeholder=''
-                        class="form-control"
+                        class="form-control valueFormPayment"
+                        onkeyup="calcTotalValue()"
+                        onblur="calcTotalValue()"
                         required
                     />
                     <div class="valid-feedback">
@@ -257,7 +266,7 @@
                     </div>
                 </td>
                 <td data-name="settled_form_payment">
-                    <select class="form-control" name="settled_form_payment[]" id="selectFormPayment" required>
+                    <select class="form-control" name="settled_form_payment[]" required>
                         <option value="1">Sim</option>
                         <option value="0" selected>Não</option>
                     </select>
@@ -374,6 +383,7 @@
                         templateCompiled += compiled(info_form_payment);
                     }
                     form_payment.innerHTML = templateCompiled;
+                    calcTotalValue();
                 }
 
             })
@@ -385,11 +395,29 @@
 
             if(document.getElementsByClassName("existsFormPayment").length > 1){
                 document.getElementById(id).remove();
+                calcTotalValue();
             }
 
         }
 
         addFormPayment();
+
+       function calcTotalValue(){
+
+          let sum = 0;
+
+           $(".valueFormPayment").each(function () {
+               let val = $.trim( $(this).val() );
+
+               if(val) {
+                   val = parseFloat(val);
+
+                   sum += !isNaN(val) ? val : 0
+               }
+           });
+
+           $("#totalValue").html('Valor total: R$ ' + sum);
+        }
 
 
 
