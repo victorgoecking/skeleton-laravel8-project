@@ -15,8 +15,10 @@ class CreateCashMovementsTable extends Migration
     {
         Schema::create('cash_movements', function (Blueprint $table) {
             $table->id();
-            $table->string('description', 100);
-            $table->decimal('movement_value', 9,2);
+            $table->string('description');
+            $table->decimal('value', 9,2);
+            $table->date('due_date');
+            $table->date('clearing_date');
             $table->timestamps();
             $table->softDeletes();
         });
