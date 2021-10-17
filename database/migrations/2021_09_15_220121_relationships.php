@@ -33,7 +33,8 @@ class Relationships extends Migration
 
         Schema::table('cash_movements', function (Blueprint $table) {
             $table->foreignId('cashier_id')->constrained();
-            $table->foreignId('sale_id')->nullable()->constrained();
+            $table->foreignId('order_id')->nullable()->constrained();
+            $table->foreignId('user_id')->constrained();
         });
 
         Schema::table('products', function (Blueprint $table) {
@@ -56,6 +57,10 @@ class Relationships extends Migration
 
         Schema::table('form_payment_orders', function (Blueprint $table) {
             $table->foreignId('order_id')->constrained();
+            $table->foreignId('form_payment_id')->constrained();
+        });
+        Schema::table('form_payment_bills_receive', function (Blueprint $table) {
+            $table->foreignId('cash_movement_id')->constrained();
             $table->foreignId('form_payment_id')->constrained();
         });
 
@@ -88,7 +93,8 @@ class Relationships extends Migration
 
         Schema::table('cash_movements', function (Blueprint $table) {
             $table->dropForeign(['cashier_id']);
-            $table->dropForeign(['sale_id']);
+            $table->dropForeign(['order_id']);
+            $table->dropForeign(['user_id']);
         });
 
         Schema::table('products', function (Blueprint $table) {
@@ -111,6 +117,10 @@ class Relationships extends Migration
 
         Schema::table('form_payment_orders', function (Blueprint $table) {
             $table->dropForeign(['order_id']);
+            $table->dropForeign(['form_payment_id']);
+        });
+        Schema::table('form_payment_bills_receive', function (Blueprint $table) {
+            $table->dropForeign(['cash_movement_id']);
             $table->dropForeign(['form_payment_id']);
         });
     }

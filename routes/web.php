@@ -8,6 +8,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\BillsReceiveController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +54,9 @@ Route::resource('pedidos', OrderController::class)->middleware(['auth'])->names(
 Route::get('/returnClientAddress', [OrderController::class, 'returnClientAddress'])
     ->middleware('auth')
     ->name('returnClientAddress');
+
+Route::resource('contas-receber', BillsReceiveController::class)->middleware(['auth'])->names('bills-receive')->parameters(['contas-receber' => 'bills-receive']);
+
 
 //Route::get('/usuarios', [UserController::class, 'index'])
 //    ->name('user.index');

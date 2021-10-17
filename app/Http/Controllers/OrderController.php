@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Address;
 use App\Models\Client;
 use App\Models\Order;
-use App\Models\OrdersProducts;
-use App\Models\OrdersServices;
+use App\Models\OrderProduct;
+use App\Models\OrderService;
 use App\Models\Product;
 use App\Models\Service;
 use App\Models\Situation;
@@ -131,7 +131,7 @@ class OrderController extends Controller
 
                 for($iProduct = 0; $iProduct < $countProducts; $iProduct++){
                     if(trim($request->id_product[$iProduct] != '')){
-                        OrdersProducts::create([
+                        OrderProduct::create([
                             'product_description_order' => $request->product_description_order[$iProduct],
                             'quantity' => $request->quantity_product[$iProduct],
                             'meter' => $request->meter[$iProduct],
@@ -154,7 +154,7 @@ class OrderController extends Controller
 
                 for($iService = 0; $iService < $countServices; $iService++){
                     if(trim($request->id_service[$iService] != '')){
-                        OrdersServices::create([
+                        OrderService::create([
                             'service_description_order' => $request->service_description_order[$iService],
                             'service_cost_value_when_order_placed' => $request->service_cost_value[$iService],
                             'sales_value_service_used_order' => $request->sales_value_service_used_order[$iService],
@@ -185,8 +185,8 @@ class OrderController extends Controller
 
         $salesman =  User::where('id', $order->salesman)->first();
 
-        $orders_products =  OrdersProducts::with('product')->where('order_id', $order->id)->get();
-        $orders_services =  OrdersServices::with('service')->where('order_id', $order->id)->get();
+        $orders_products =  OrderProduct::with('product')->where('order_id', $order->id)->get();
+        $orders_services =  OrderService::with('service')->where('order_id', $order->id)->get();
 
 
         return view('pages.order.order_detail', [
@@ -210,8 +210,8 @@ class OrderController extends Controller
 
         $salesman =  User::where('id', $order->salesman)->first();
 
-        $orders_products =  OrdersProducts::with('product')->where('order_id', $order->id)->get();
-        $orders_services =  OrdersServices::with('service')->where('order_id', $order->id)->get();
+        $orders_products =  OrderProduct::with('product')->where('order_id', $order->id)->get();
+        $orders_services =  OrderService::with('service')->where('order_id', $order->id)->get();
         $orders_address = Address::where('id', $order->delivery_address_id)->first();
 
         $users = User::all();
@@ -315,11 +315,11 @@ class OrderController extends Controller
                     if(isset($request->id_order_product_removed)){
 
                         foreach ($request->id_order_product_removed as $removeOrderProduct){
-                            OrdersProducts::where('id', $removeOrderProduct)->where('order_id', $order->id)->delete();
+                            OrderProduct::where('id', $removeOrderProduct)->where('order_id', $order->id)->delete();
                         }
 
                     }else if(isset($request->id_order_product[$iOrderProduct])){
-                        OrdersProducts::where('id', $request->id_order_product[$iOrderProduct])->where('order_id', $order->id)->update([
+                        OrderProduct::where('id', $request->id_order_product[$iOrderProduct])->where('order_id', $order->id)->update([
                             'product_description_order' => $request->product_description_order[$iOrderProduct],
                             'quantity' => $request->quantity_product[$iOrderProduct],
                             'meter' => $request->meter[$iOrderProduct],
@@ -331,7 +331,7 @@ class OrderController extends Controller
                             'order_id' => $order->id,
                         ]);
                     }else{
-                        OrdersProducts::create([
+                        OrderProduct::create([
                             'product_description_order' => $request->product_description_order[$iOrderProduct],
                             'quantity' => $request->quantity_product[$iOrderProduct],
                             'meter' => $request->meter[$iOrderProduct],
@@ -356,11 +356,11 @@ class OrderController extends Controller
                     if(isset($request->id_order_service_removed)){
 
                         foreach ($request->id_order_service_removed as $removeOrderService){
-                            OrdersServices::where('id', $removeOrderService)->where('order_id', $order->id)->delete();
+                            OrderService::where('id', $removeOrderService)->where('order_id', $order->id)->delete();
                         }
 
                     }elseif(isset($request->id_order_service[$iOrderService])){
-                        OrdersServices::where('id', $request->id_order_service[$iOrderService])->where('order_id', $order->id)->update([
+                        OrderService::where('id', $request->id_order_service[$iOrderService])->where('order_id', $order->id)->update([
                             'service_description_order' => $request->service_description_order[$iOrderService],
                             'service_cost_value_when_order_placed' => $request->service_cost_value[$iOrderService],
                             'sales_value_service_used_order' => $request->sales_value_service_used_order[$iOrderService],
@@ -370,7 +370,7 @@ class OrderController extends Controller
                             'order_id' => $order->id,
                         ]);
                     }else{
-                        OrdersServices::create([
+                        OrderService::create([
                             'service_description_order' => $request->service_description_order[$iOrderService],
                             'service_cost_value_when_order_placed' => $request->service_cost_value[$iOrderService],
                             'sales_value_service_used_order' => $request->sales_value_service_used_order[$iOrderService],
@@ -397,8 +397,8 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
 
-        $orders_products = OrdersProducts::where('order_id', $order->id)->get();
-        $orders_services = OrdersServices::where('order_id', $order->id)->get();
+        $orders_products = OrderProduct::where('order_id', $order->id)->get();
+        $orders_services = OrderService::where('order_id', $order->id)->get();
 
         if($orders_products){
             foreach ($orders_products as $order_product) {
