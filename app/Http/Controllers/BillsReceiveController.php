@@ -9,6 +9,14 @@ use Illuminate\Http\Request;
 
 class BillsReceiveController extends Controller
 {
+
+    protected $cashMovement;
+
+    public function __construct(CashMovement $cash_movements)
+    {
+        $this->cashMovement = $cash_movements;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,10 +24,10 @@ class BillsReceiveController extends Controller
      */
     public function index()
     {
-        $cash_movements = CashMovement::with('user', 'form_payment_cash_movements')->get();
+        $bills_receives = CashMovement::with('user', 'form_payment_cash_movements')->get();
 
         return view('pages.bills_receive.bills_receive', [
-            'cash_movements' => $cash_movements,
+            'bills_receives' => $bills_receives,
         ]);
     }
 
@@ -119,12 +127,20 @@ class BillsReceiveController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\CashMovement  $cashMovement
-     * @return \Illuminate\Http\Response
+//     * @param  \App\Models\CashMovement  $cashMovement
+//     * @return \Illuminate\Http\Response
      */
-    public function show(CashMovement $cashMovement)
+    public function show($id)
     {
-        //
+        $bills_receive = CashMovement::with('user', 'form_payment_cash_movements')->where('id', '=', $id)->first();
+
+
+        $form_payment_cash_movements = FormPaymentCashMovements::with('form_payments')->where('cash_movement_id', $bills_receive->id)->get();
+
+        return view('pages.bills_receive.bills_receive_detail', [
+            'bills_receive' => $bills_receive,
+            'form_payment_cash_movements' => $form_payment_cash_movements,
+        ]);
     }
 
     /**
