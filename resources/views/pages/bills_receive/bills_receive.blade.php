@@ -77,18 +77,11 @@
                             <td class="pt-2">
                                 <a href="{{ route('bills-receive.show', ['bills_receive' => $bills_receive->id]) }}"><button class="btn btn-info btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Detalhes"><i class="far fa-eye"></i></button></a>
                                 <a href="{{ route('bills-receive.edit', ['bills_receive' => $bills_receive->id]) }}"><button class="btn btn-warning btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Editar"><i class="far fa-edit"></i></button></a>
-                                <form class="d-inline" action="#" method="POST">
+                                <form class="d-inline" action="{{ route('bills-receive.destroy', ['bills_receive' => $bills_receive->id]) }}" method="POST">
                                     @csrf
                                     @method('delete')
                                     <button type="submit" onclick='return confirm(`Deseja realmente excluir o pedido de numero" {{ $bills_receive->id }} "?`)' class="btn btn-danger btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Remover"><i class="far fa-trash-alt"></i></button>
                                 </form>
-{{--                                <a href="{{ route('bills-receive.show', ['$bills_receive' => $bills_receive->id]) }}"><button class="btn btn-info btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Detalhes"><i class="far fa-eye"></i></button></a>--}}
-{{--                                <a href="{{ route('bills-receive.edit', ['$bills_receive' => $bills_receive->id]) }}"><button class="btn btn-warning btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Editar"><i class="far fa-edit"></i></button></a>--}}
-{{--                                <form class="d-inline" action="{{ route('bills-receive.destroy', ['cash_movement' => $cash_movement->id]) }}" method="POST">--}}
-{{--                                    @csrf--}}
-{{--                                    @method('delete')--}}
-{{--                                    <button type="submit" onclick='return confirm(`Deseja realmente excluir o pedido de numero" {{ $cash_movement->id }} "?`)' class="btn btn-danger btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Remover"><i class="far fa-trash-alt"></i></button>--}}
-{{--                                </form>--}}
                             </td>
                         </tr>
                         @endforeach
