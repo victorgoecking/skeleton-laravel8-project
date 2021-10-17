@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class CreateCashiersTable extends Migration
 {
@@ -19,6 +21,11 @@ class CreateCashiersTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+        DB::table('cashiers')->insert(
+            [
+                ['balance' => '0.00', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ]
+        );
     }
 
     /**

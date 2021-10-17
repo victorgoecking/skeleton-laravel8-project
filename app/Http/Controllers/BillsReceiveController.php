@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\CashMovement;
+use App\Models\FormPayment;
+use App\Models\FormPaymentCashMovements;
 use Illuminate\Http\Request;
 
 class BillsReceiveController extends Controller
@@ -24,7 +26,11 @@ class BillsReceiveController extends Controller
      */
     public function create()
     {
-        return view('pages.bills_receive.bills_receive_registration');
+        $form_payments = FormPayment::all();
+
+        return view('pages.bills_receive.bills_receive_registration', [
+            'form_payments' => $form_payments,
+        ]);
     }
 
     /**
@@ -35,7 +41,56 @@ class BillsReceiveController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'type_movement' => 'required|string|max:100',
+            'description' => 'required|string|max:255',
+            'gross_value' => 'required|string|max:255',
+            'settled' => 'required',
+            'due_date' => 'required|date',
+            'form_payment' => 'required',
+            'value_form_payment' => 'required|max:255',
+            'settled_form_payment' => 'required',
+        ]);
+
+
+
+        if($request->type_movement){
+           $cash_moviment = CashMovement::create([
+                'type_movement' => $request->type_movement,
+                'description' => $request->description,
+                'gross_value' => $request->gross_value,
+                'settled' => $request->settled,
+                'due_date' => $request->due_date,
+                'clearing_date' => $request->clearing_date,
+                'note' => $request->note,
+                'user_id' => auth()->user()->id,
+                'cashier_id' => 1,
+            ]);
+        }
+
+
+        if($request->form_payment){
+            $count_form_payment = count($request->form_payment);
+
+            if($count_form_payment >= 1){
+                for($i_form_payment = 0; $i_form_payment < $count_form_payment; $i_form_payment++){
+
+                    if(trim($request->form_payment != '')){
+                        $formPAY = FormPaymentCashMovements::create([
+                            'value' => $request->value_form_payment[$i_form_payment],
+                            'paid' => $request->settled_form_payment[$i_form_payment],
+                            'note' => $request->note_form_payment[$i_form_payment],
+                            'form_payment_id' => $request->form_payment[$i_form_payment],
+                            'cash_movement_id' => $cash_moviment->id,
+                        ]);
+                    }
+                }
+
+            }
+        }
+
+        return redirect()->route('bills-receive.index')->with('success','Conta a receber cadastrada com sucesso!');
+
     }
 
     /**

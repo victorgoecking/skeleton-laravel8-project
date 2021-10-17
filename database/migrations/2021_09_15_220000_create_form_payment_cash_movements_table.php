@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFormPaymentBillsReceiveTable extends Migration
+class CreateFormPaymentCashMovementsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateFormPaymentBillsReceiveTable extends Migration
      */
     public function up()
     {
-        Schema::create('form_payment_bills_receive', function (Blueprint $table) {
+        Schema::create('form_payment_cash_movements', function (Blueprint $table) {
             $table->id();
             $table->decimal('value', 9,2);
             $table->tinyInteger('paid');
@@ -30,6 +30,6 @@ class CreateFormPaymentBillsReceiveTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('form_payment_bills_receive');
+        Schema::dropIfExists('form_payment_cash_movements');
     }
 }

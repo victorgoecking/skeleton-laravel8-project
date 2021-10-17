@@ -138,8 +138,9 @@
                                 <td data-name="form_payment">
                                     <select class="form-control" name="form_payment[]" required>
                                         <option></option>
-                                        <option value="1">Dinheiro a vista</option>
-                                        <option value="0">Cartão</option>
+                                        @foreach($form_payments as $form_payment)
+                                            <option value="{{$form_payment->id}}">{{$form_payment->description}}</option>
+                                        @endforeach
                                     </select>
                                     <div class="valid-feedback">
                                         Parece bom!
@@ -238,8 +239,9 @@
                 <td data-name="form_payment">
                     <select class="form-control" name="form_payment[]" required>
                         <option></option>
-                        <option value="1">Dinheiro a vista</option>
-                        <option value="0">Cartão</option>
+                        @foreach($form_payments as $form_payment)
+                            <option value="{{$form_payment->id}}">{{$form_payment->description}}</option>
+                        @endforeach
                     </select>
                     <div class="valid-feedback">
                         Parece bom!
