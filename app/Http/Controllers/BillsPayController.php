@@ -150,7 +150,7 @@ class BillsPayController extends Controller
 
         $form_payments = FormPayment::all();
 
-        return view('pages.bill_pay.bill_pay_edit', [
+        return view('pages.bills_pay.bills_pay_edit', [
             'bill_pay' => $bill_pay,
             'form_payment_cash_movements' => $form_payment_cash_movements,
             'form_payments' => $form_payments,
@@ -271,6 +271,6 @@ class BillsPayController extends Controller
 
         $bill_pay->delete();
 
-        return redirect()->route('bills-receive.index')->with('success','Conta a pagar removida com sucesso!');
+        return redirect()->route('bills-pay.index')->with('success','Conta a pagar removida com sucesso!');
     }
 }
