@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CashMovement;
 use App\Models\FormPayment;
+use App\Models\FormPaymentCashMovements;
 use Illuminate\Http\Request;
 
 class BillsPayController extends Controller
@@ -15,7 +16,7 @@ class BillsPayController extends Controller
      */
     public function index()
     {
-        $bills_pay = CashMovement::with('user', 'form_payment_cash_movements')->get();
+        $bills_pay = CashMovement::with('user', 'form_payment_cash_movements')->where('type_movement', 'pagar')->get();
 
         return view('pages.bills_pay.bills_pay', [
             'bills_pay' => $bills_pay,
@@ -124,7 +125,7 @@ class BillsPayController extends Controller
      */
     public function show($id)
     {
-        $bill_pay = CashMovement::with('user', 'form_payment_cash_movements')->where('id', '=', $id)->first();
+        $bill_pay = CashMovement::with('user', 'form_payment_cash_movements')->where('type_movement', 'pagar')->where('id', '=', $id)->first();
 
 
         $form_payment_cash_movements = FormPaymentCashMovements::with('form_payments')->where('cash_movement_id', $bill_pay->id)->get();
@@ -143,7 +144,7 @@ class BillsPayController extends Controller
      */
     public function edit($id)
     {
-        $bill_pay = CashMovement::with('user', 'form_payment_cash_movements')->where('id', '=', $id)->first();
+        $bill_pay = CashMovement::with('user', 'form_payment_cash_movements')->where('type_movement', 'pagar')->where('id', '=', $id)->first();
 
         $form_payment_cash_movements = FormPaymentCashMovements::with('form_payments')->where('cash_movement_id', $bill_pay->id)->get();
 
@@ -198,7 +199,7 @@ class BillsPayController extends Controller
 
 
         if($request->type_movement){
-            $bill_pay = CashMovement::where('id', '=', $id)->first();
+            $bill_pay = CashMovement::where('type_movement', 'pagar')->where('id', '=', $id)->first();
 
             $bill_pay->update([
                 'type_movement' => $request->type_movement,
@@ -259,7 +260,7 @@ class BillsPayController extends Controller
      */
     public function destroy($id)
     {
-        $bill_pay = CashMovement::with('user', 'form_payment_cash_movements')->where('id', '=', $id)->first();
+        $bill_pay = CashMovement::with('user', 'form_payment_cash_movements')->where('type_movement', 'pagar')->where('id', '=', $id)->first();
 
         $form_payment_cash_movements = FormPaymentCashMovements::with('form_payments')->where('cash_movement_id', $bill_pay->id)->get();
         if($form_payment_cash_movements){

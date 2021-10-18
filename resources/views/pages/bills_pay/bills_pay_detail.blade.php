@@ -4,14 +4,14 @@
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">
-            <i class="fas fa-user"></i> Detalhes recebimento
+            <i class="fas fa-fw fa-sort-amount-down-alt"></i> Detalhes pagamento
         </h1>
 
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb m-0 p-2 bg-transparent">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="fas fa-fw fa-tachometer-alt"></i> Início</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('bills-pay.index') }}"> Contas a receber</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Detalhes recebimento</li>
+                <li class="breadcrumb-item"><a href="{{ route('bills-pay.index') }}"> Contas a pagar</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Detalhes pagamento</li>
             </ol>
         </nav>
     </div>
@@ -37,7 +37,7 @@
                             <td class="border-top-0" colspan="1">{{ $bill_pay->id }}</td>
                         </tr>
                         <tr>
-                            <th class="border-top-0" scope="row" >Descrição do recebimento</th>
+                            <th class="border-top-0" scope="row" >Descrição do pagamento</th>
                             <td class="border-top-0" colspan="1">{{ $bill_pay->description}}</td>
                         </tr>
                         <tr>
@@ -92,7 +92,7 @@
                         </tr>
                         </tbody>
                     </table>
-                    <a class="btn btn-warning btn-md" href="{{ route('bills-pay.edit', ['bill_pay' => $bill_pay->id]) }}" role="button"><i class="fas fa-edit"></i> Editar</a>
+                    <a class="btn btn-warning btn-md" href="{{ route('bills-pay.edit', ['bills_pay' => $bill_pay->id]) }}" role="button"><i class="fas fa-edit"></i> Editar</a>
                 </div>
 
                 <div class="tab-pane fade" id="form_payment" role="tabpanel" aria-labelledby="form_payment-tab">
@@ -125,7 +125,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <a class="btn btn-warning btn-md" href="{{ route('bills-pay.edit', ['bill_pay' => $bill_pay->id]) }}" role="button"><i class="fas fa-edit"></i> Editar</a>
+                    <a class="btn btn-warning btn-md" href="{{ route('bills-pay.edit', ['bills_pay' => $bill_pay->id]) }}" role="button"><i class="fas fa-edit"></i> Editar</a>
                 </div>
 
 

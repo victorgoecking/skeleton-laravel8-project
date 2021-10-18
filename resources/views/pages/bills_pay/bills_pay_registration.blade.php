@@ -4,19 +4,19 @@
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">
-            <i class="fas fa-fw fa-sort-amount-up"></i> Adicionar recebimento
+            <i class="fas fa-fw fa-sort-amount-down-alt"></i> Adicionar pagamento
         </h1>
 
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb m-0 p-2 bg-transparent">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="fas fa-fw fa-tachometer-alt"></i> Início</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('bills-receive.index') }}"> Contas a receber</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Adicionar recebimento</li>
+                <li class="breadcrumb-item"><a href="{{ route('bills-pay.index') }}"> Contas a pagar</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Adicionar pagamento</li>
             </ol>
         </nav>
     </div>
 
-    <form id="formOrder" class="needs-validation" method="POST" action="{{ route('bills-receive.store') }}" novalidate>
+    <form id="formOrder" class="needs-validation" method="POST" action="{{ route('bills-pay.store') }}" novalidate>
         @csrf
 
         <div class="card shadow mb-4">
@@ -26,7 +26,7 @@
             <div class="card-body">
                 <div class="form-row">
 
-                    <input type="hidden" name="type_movement" value="receber">
+                    <input type="hidden" name="type_movement" value="pagar">
 
                     <div class="col-md-6 mb-3">
                         <label for="customDescription">Descrição *</label>
@@ -46,12 +46,12 @@
                             Parece bom!
                         </div>
                         <div class="invalid-feedback">
-                            Por favor, informe o valor bruto do recebimento.
+                            Por favor, informe o valor bruto do pagamento.
                         </div>
                     </div>
 
                     <div class="col-md-3 mb-3">
-                        <label for="selectSettled">Recebimento quitado *</label>
+                        <label for="selectSettled">Pagamento quitado *</label>
                         <select class="form-control" name="settled" id="selectSettled" required>
                             <option></option>
                             <option value="1">Sim</option>
@@ -156,13 +156,13 @@
             <div class="card-body">
                 <div class="form-row">
                     <div class="col-lg-12 col-md-12 mb-3">
-                        <textarea class="form-control" name="note" id="exampleFormControlNoteBillsReceive" rows="5"></textarea>
+                        <textarea class="form-control" name="note" id="exampleFormControlNoteBillsPay" rows="5"></textarea>
                     </div>
                 </div>
 
                 <div class="form-row mt-2">
                     <button class="btn btn-primary" type="submit" aria-hidden="true"><i class="fas fa-paper-plane"></i> Cadastrar</button>
-                    <a href="{{ route('bills-receive.index') }}"><button class="btn btn-danger ml-2" type="button" aria-hidden="true"><i class="fas fa-times-circle"></i> Cancelar</button></a>
+                    <a href="{{ route('bills-pay.index') }}"><button class="btn btn-danger ml-2" type="button" aria-hidden="true"><i class="fas fa-times-circle"></i> Cancelar</button></a>
                 </div>
             </div>
         </div>

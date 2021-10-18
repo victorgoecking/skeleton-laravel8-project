@@ -17,7 +17,7 @@ class BillsReceiveController extends Controller
      */
     public function index()
     {
-        $bills_receive = CashMovement::with('user', 'form_payment_cash_movements')->get();
+        $bills_receive = CashMovement::with('user', 'form_payment_cash_movements')->where('type_movement', 'receber')->get();
 
         return view('pages.bills_receive.bills_receive', [
             'bills_receive' => $bills_receive,
@@ -128,7 +128,7 @@ class BillsReceiveController extends Controller
      */
     public function show($id)
     {
-        $bill_receive = CashMovement::with('user', 'form_payment_cash_movements')->where('id', '=', $id)->first();
+        $bill_receive = CashMovement::with('user', 'form_payment_cash_movements')->where('type_movement', 'receber')->where('id', '=', $id)->first();
 
 
         $form_payment_cash_movements = FormPaymentCashMovements::with('form_payments')->where('cash_movement_id', $bill_receive->id)->get();
@@ -147,7 +147,7 @@ class BillsReceiveController extends Controller
      */
     public function edit($id)
     {
-        $bill_receive = CashMovement::with('user', 'form_payment_cash_movements')->where('id', '=', $id)->first();
+        $bill_receive = CashMovement::with('user', 'form_payment_cash_movements')->where('type_movement', 'receber')->where('id', '=', $id)->first();
 
         $form_payment_cash_movements = FormPaymentCashMovements::with('form_payments')->where('cash_movement_id', $bill_receive->id)->get();
 
@@ -202,7 +202,7 @@ class BillsReceiveController extends Controller
 
 
         if($request->type_movement){
-            $bill_receive = CashMovement::where('id', '=', $id)->first();
+            $bill_receive = CashMovement::where('type_movement', 'receber')->where('id', '=', $id)->first();
 
             $bill_receive->update([
                 'type_movement' => $request->type_movement,
@@ -263,7 +263,7 @@ class BillsReceiveController extends Controller
      */
     public function destroy($id)
     {
-        $bill_receive = CashMovement::with('user', 'form_payment_cash_movements')->where('id', '=', $id)->first();
+        $bill_receive = CashMovement::with('user', 'form_payment_cash_movements')->where('type_movement', 'receber')->where('id', '=', $id)->first();
 
         $form_payment_cash_movements = FormPaymentCashMovements::with('form_payments')->where('cash_movement_id', $bill_receive->id)->get();
         if($form_payment_cash_movements){

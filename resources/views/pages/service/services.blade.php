@@ -4,7 +4,7 @@
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">
-            <i class="fa fa-users"></i> Serviços&nbsp;
+            <i class="fas fa-fw fa-tools"></i> Serviços&nbsp;
             <a href="{{ route('service.create') }}">
                 <button type="button" class="btn btn-primary">
                     <i class="fas fa-plus-circle"></i> Novo

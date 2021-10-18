@@ -4,7 +4,7 @@
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">
-            <i class="fa fa-user"></i> Cadastro de produto
+            <i class="fas fa-fw fa-cubes"></i> Cadastro de produto
         </h1>
 
         <nav aria-label="breadcrumb">

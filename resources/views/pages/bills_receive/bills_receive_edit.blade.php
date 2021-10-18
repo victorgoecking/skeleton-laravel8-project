@@ -16,7 +16,7 @@
         </nav>
     </div>
 
-    <form id="formOrder" class="needs-validation" method="POST" action="{{ route('bills-receive.update', ['bill_receive' => $bill_receive->id]) }}" novalidate>
+    <form id="formOrder" class="needs-validation" method="POST" action="{{ route('bills-receive.update', ['bills_receive' => $bill_receive->id]) }}" novalidate>
         @csrf
         @method('put')
 

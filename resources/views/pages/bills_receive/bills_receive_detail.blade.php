@@ -4,7 +4,7 @@
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">
-            <i class="fas fa-user"></i> Detalhes recebimento
+            <i class="fas fa-fw fa-sort-amount-up"></i> Detalhes recebimento
         </h1>
 
         <nav aria-label="breadcrumb">
@@ -92,7 +92,7 @@
                         </tr>
                         </tbody>
                     </table>
-                    <a class="btn btn-warning btn-md" href="{{ route('bills-receive.edit', ['bill_receive' => $bill_receive->id]) }}" role="button"><i class="fas fa-edit"></i> Editar</a>
+                    <a class="btn btn-warning btn-md" href="{{ route('bills-receive.edit', ['bills_receive' => $bill_receive->id]) }}" role="button"><i class="fas fa-edit"></i> Editar</a>
                 </div>
 
                 <div class="tab-pane fade" id="form_payment" role="tabpanel" aria-labelledby="form_payment-tab">
@@ -125,7 +125,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <a class="btn btn-warning btn-md" href="{{ route('bills-receive.edit', ['bill_receive' => $bill_receive->id]) }}" role="button"><i class="fas fa-edit"></i> Editar</a>
+                    <a class="btn btn-warning btn-md" href="{{ route('bills-receive.edit', ['bills_receive' => $bill_receive->id]) }}" role="button"><i class="fas fa-edit"></i> Editar</a>
                 </div>
 
 

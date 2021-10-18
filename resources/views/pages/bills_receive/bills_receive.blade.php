@@ -4,7 +4,7 @@
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">
-            <i class="fa fa-users"></i> Contas a receber
+            <i class="fas fa-fw fa-sort-amount-up"></i> Contas a receber
             <a href="{{ route('bills-receive.create') }}">
                 <button type="button" class="btn btn-primary">
                     <i class="fas fa-plus-circle"></i> Novo
@@ -81,7 +81,7 @@
                                 <form class="d-inline" action="{{ route('bills-receive.destroy', ['bills_receive' => $bill_receive->id]) }}" method="POST">
                                     @csrf
                                     @method('delete')
-                                    <button type="submit" onclick='return confirm(`Deseja realmente excluir o pedido de numero" {{ $bill_receive->id }} "?`)' class="btn btn-danger btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Remover"><i class="far fa-trash-alt"></i></button>
+                                    <button type="submit" onclick='return confirm(`Deseja realmente excluir a conta" {{ $bill_receive->id }} "?`)' class="btn btn-danger btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Remover"><i class="far fa-trash-alt"></i></button>
                                 </form>
                             </td>
                         </tr>

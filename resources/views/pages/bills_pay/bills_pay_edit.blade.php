@@ -4,19 +4,19 @@
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">
-            <i class="fas fa-fw fa-sort-amount-up"></i> Edição do recebimento
+            <i class="fas fa-fw fa-sort-amount-down-alt"></i> Edição do pagamento
         </h1>
 
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb m-0 p-2 bg-transparent">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="fas fa-fw fa-tachometer-alt"></i> Início</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('bills-pay.index') }}"> Contas a receber</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Edição do recebimento</li>
+                <li class="breadcrumb-item"><a href="{{ route('bills-pay.index') }}"> Contas a pagar</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Edição do pagamento</li>
             </ol>
         </nav>
     </div>
 
-    <form id="formOrder" class="needs-validation" method="POST" action="{{ route('bills-pay.update', ['bill_pay' => $bill_pay->id]) }}" novalidate>
+    <form id="formOrder" class="needs-validation" method="POST" action="{{ route('bills-pay.update', ['bills_pay' => $bill_pay->id]) }}" novalidate>
         @csrf
         @method('put')
 
@@ -27,7 +27,7 @@
             <div class="card-body">
                 <div class="form-row">
 
-                    <input type="hidden" name="type_movement" value="receber">
+                    <input type="hidden" name="type_movement" value="pagar">
 
                     <div class="col-md-6 mb-3">
                         <label for="customDescription">Descrição *</label>
@@ -47,12 +47,12 @@
                             Parece bom!
                         </div>
                         <div class="invalid-feedback">
-                            Por favor, informe o valor bruto do recebimento.
+                            Por favor, informe o valor bruto do pagamento.
                         </div>
                     </div>
 
                     <div class="col-md-3 mb-3">
-                        <label for="selectSettled">Recebimento quitado *</label>
+                        <label for="selectSettled">Pagamento quitado *</label>
                         <select class="form-control" name="settled" id="selectSettled" required>
                             <option></option>
                             <option value="1" {{$bill_pay->settled == '1' ? 'selected' : ''}}>Sim</option>
@@ -157,7 +157,7 @@
             <div class="card-body">
                 <div class="form-row">
                     <div class="col-lg-12 col-md-12 mb-3">
-                        <textarea class="form-control" name="note" id="exampleFormControlNoteBillsReceive" rows="5">{{$bill_pay->note}}</textarea>
+                        <textarea class="form-control" name="note" id="exampleFormControlNoteBillsPay" rows="5">{{$bill_pay->note}}</textarea>
                     </div>
                 </div>
 

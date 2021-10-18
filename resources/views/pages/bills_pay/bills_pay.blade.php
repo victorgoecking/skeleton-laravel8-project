@@ -4,7 +4,7 @@
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">
-            <i class="fa fa-users"></i> Contas a pagar
+            <i class="fas fa-fw fa-sort-amount-down-alt"></i> Contas a pagar
             <a href="{{ route('bills-pay.create') }}">
                 <button type="button" class="btn btn-primary">
                     <i class="fas fa-plus-circle"></i> Novo
@@ -81,7 +81,7 @@
                                 <form class="d-inline" action="{{ route('bills-pay.destroy', ['bills_pay' => $bill_pay->id]) }}" method="POST">
                                     @csrf
                                     @method('delete')
-                                    <button type="submit" onclick='return confirm(`Deseja realmente excluir o pedido de numero" {{ $bill_pay->id }} "?`)' class="btn btn-danger btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Remover"><i class="far fa-trash-alt"></i></button>
+                                    <button type="submit" onclick='return confirm(`Deseja realmente excluir a conta" {{ $bill_pay->id }} "?`)' class="btn btn-danger btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Remover"><i class="far fa-trash-alt"></i></button>
                                 </form>
                             </td>
                         </tr>

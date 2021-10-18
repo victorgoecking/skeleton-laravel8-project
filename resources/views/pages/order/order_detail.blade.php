@@ -4,7 +4,7 @@
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">
-            <i class="fas fa-user"></i> Detalhes do pedido
+            <i class="fas fa-fw fa-paste"></i> Detalhes do pedido
         </h1>
 
         <nav aria-label="breadcrumb">
