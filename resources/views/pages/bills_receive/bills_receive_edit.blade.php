@@ -240,7 +240,7 @@
                 <button
                     class='btn btn-danger row-remove'
                     type="button"
-                    onclick="removeFormPayment(@{{  @index }})">
+                    onclick="removeFormPayment(@{{  @index }}, @{{id_payment_movement}})">
                     <i class="fas fa-times-circle"></i>
                 </button>
             </td>

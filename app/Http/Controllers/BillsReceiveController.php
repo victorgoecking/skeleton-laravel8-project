@@ -169,7 +169,7 @@ class BillsReceiveController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if(!$request->form_payment){
+        if(!$request->id_payment_movement){
             return back()->with('error','Forma de pagamento obrigatória!');
         }
 
@@ -218,8 +218,8 @@ class BillsReceiveController extends Controller
             ]);
         }
 
-        if($request->form_payment){
-            $count_form_payment = count($request->form_payment);
+        if($request->id_payment_movement){
+            $count_form_payment = count($request->id_payment_movement);
 
             if($count_form_payment >= 1){
                 for($i_form_payment = 0; $i_form_payment < $count_form_payment; $i_form_payment++){
@@ -228,8 +228,9 @@ class BillsReceiveController extends Controller
                         foreach ($request->id_payment_movement_removed as $remove_payment_movement){
                             FormPaymentCashMovements::where('id', $remove_payment_movement)->where('cash_movement_id', $bills_receive->id)->delete();
                         }
-                    }else if(isset($request->form_payment[$i_form_payment])){
-                        FormPaymentCashMovements::where('id', $request->form_payment[$i_form_payment])->where('cash_movement_id', $bills_receive->id)->update([
+                    }
+                    if(isset($request->id_payment_movement[$i_form_payment])){
+                        FormPaymentCashMovements::where('id', $request->id_payment_movement[$i_form_payment])->where('cash_movement_id', $bills_receive->id)->update([
                             'value' => $request->value_form_payment[$i_form_payment],
                             'paid' => $request->settled_form_payment[$i_form_payment],
                             'note' => $request->note_form_payment[$i_form_payment],

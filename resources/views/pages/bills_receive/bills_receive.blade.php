@@ -56,6 +56,7 @@
                         <tr>
                             <td>{{ $bills_receive->id }}</td>
                             <td>{{ $bills_receive->description }}</td>
+{{--                            <td>{{ $bills_receive->form_payment_cash_movements->first()->description }} [...]</td>--}}
                             <td>
                                 @foreach($bills_receive->form_payment_cash_movements as $form_payment)
                                    {{ $form_payment->description }} /

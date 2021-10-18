@@ -359,15 +359,16 @@ class OrderController extends Controller
                             OrderService::where('id', $removeOrderService)->where('order_id', $order->id)->delete();
                         }
 
-                    }elseif(isset($request->id_order_service[$iOrderService])){
+                    }
+                    if(isset($request->id_order_service[$iOrderService])){
                         OrderService::where('id', $request->id_order_service[$iOrderService])->where('order_id', $order->id)->update([
                             'service_description_order' => $request->service_description_order[$iOrderService],
                             'service_cost_value_when_order_placed' => $request->service_cost_value[$iOrderService],
                             'sales_value_service_used_order' => $request->sales_value_service_used_order[$iOrderService],
                             'discount_service' => $request->discount_service[$iOrderService],
                             'order_service_subtotal' => $request->order_service_subtotal[$iOrderService],
-                            'service_id' => $request->id_service[$iOrderService],
-                            'order_id' => $order->id,
+//                            'service_id' => $request->id_service[$iOrderService],
+//                            'order_id' => $order->id,
                         ]);
                     }else{
                         OrderService::create([
