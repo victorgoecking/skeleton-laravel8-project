@@ -46,6 +46,11 @@ class BillsReceiveController extends Controller
      */
     public function store(Request $request)
     {
+
+        if(!$request->form_payment){
+            return back()->with('error','Forma de pagamento obrigatória!');
+        }
+
         $request->validate([
             'type_movement' => 'required|string|max:100',
             'description' => 'required|string|max:255',
@@ -164,6 +169,10 @@ class BillsReceiveController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(!$request->form_payment){
+            return back()->with('error','Forma de pagamento obrigatória!');
+        }
+
         $request->validate([
             'type_movement' => 'required|string|max:100',
             'description' => 'required|string|max:255',
@@ -215,8 +224,8 @@ class BillsReceiveController extends Controller
             if($count_form_payment >= 1){
                 for($i_form_payment = 0; $i_form_payment < $count_form_payment; $i_form_payment++){
 
-                    if(isset($request->id_form_payment_removed)){
-                        foreach ($request->id_form_payment_removed as $remove_payment_movement){
+                    if(isset($request->id_payment_movement_removed)){
+                        foreach ($request->id_payment_movement_removed as $remove_payment_movement){
                             FormPaymentCashMovements::where('id', $remove_payment_movement)->where('cash_movement_id', $bills_receive->id)->delete();
                         }
                     }else if(isset($request->form_payment[$i_form_payment])){

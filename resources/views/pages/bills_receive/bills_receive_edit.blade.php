@@ -88,29 +88,30 @@
                         </div>
                     </div>
 
-
-
                 </div>
             </div>
         </div>
 
 
-        <div id="cardOccurrence" class="card shadow mb-4">
+        <div class="card shadow mb-4">
             <div class="card-header">
                 <i class="fas fa-file-invoice-dollar"></i> Formas de pagamento
             </div>
             <div class="card-body">
-                <label class="mb-3">Quantas formas de pagamento deseja informar?</label>
+                <label class="mb-3">Adicionar forma de pagamento</label>
                 <div class="form-row mb-3">
-                    <div class="col-md-3 mb-1">
-                        <input type="text" id="quantity_form_payment" name='quantity_form_payment' placeholder='' class="form-control" />
+                    <div class="col-md-6 col-lg-6">
+                        <select id="searchFormPayment" data-placeholder="Digite para pesquisar..." class="form-control select_selectize_form_payment w-100" data-allow-clear="1">
+                            <option></option>
+                            @foreach($form_payments as $form_payment)
+                                <option value="{{$form_payment->id}}:{{$form_payment->description}}">{{$form_payment->description}}</option>
+                            @endforeach
+                        </select>
                     </div>
-                    <div class="col-md-1 mb-1" style="min-width: 100px">
-                        <button class="btn btn-info form-control" type="button" id="btnGenerateFormPayment" aria-hidden="true"><i class="fas fa-sync-alt"></i> Gerar</button>
+                    <div class="col-md-4 col-lg-3 ">
+                        <button id="btnAddFormPayment" class="form-control btn btn-primary" type="button"><i class="fas fa-plus-circle"></i> Adicionar</button>
                     </div>
                 </div>
-
-
 
                 <div class="form-row">
                     <div class="col-md-12 table-responsive">
@@ -135,82 +136,14 @@
                             </tr>
                             </thead>
                             <tbody id="containerFormPayment">
-
-                            @foreach($form_payment_cash_movements as $form_payment_cash_movement)
-                                <tr id="id_{{$form_payment_cash_movement->id}}" class="existsFormPayment">
-                                    <td data-name="form_payment">
-
-                                        <select class="form-control" name="form_payment[]" required>
-                                            <option></option>
-                                            @foreach($form_payments as $form_payment)
-                                                <option value="{{$form_payment->id}}" {{ $form_payment_cash_movement->form_payments->id == $form_payment->id ? 'selected' : '' }}>{{$form_payment->description}}</option>
-                                            @endforeach
-                                        </select>
-                                        <div class="valid-feedback">
-                                            Parece bom!
-                                        </div>
-                                        <div class="invalid-feedback">
-                                            Por favor, selecione a forma de pagamento.
-                                        </div>
-                                    </td>
-                                    <td data-name="value_form_payment">
-                                        <input
-                                            type="text"
-                                            name='value_form_payment[]'
-                                            value="{{$form_payment_cash_movement->value}}"
-                                            placeholder=''
-                                            class="form-control valueFormPayment"
-                                            onkeyup="calcTotalValue()"
-                                            onblur="calcTotalValue()"
-                                            required
-                                        />
-                                        <div class="valid-feedback">
-                                            Parece bom!
-                                        </div>
-                                        <div class="invalid-feedback">
-                                            Por favor, informe o valor do pagamento.
-                                        </div>
-                                    </td>
-                                    <td data-name="settled_form_payment">
-                                        <select class="form-control" name="settled_form_payment[]" required>
-                                            <option value="1" {{ $form_payment_cash_movement->paid == '1' ? 'selected' : '' }}>Sim</option>
-                                            <option value="0" {{ $form_payment_cash_movement->paid == '0' ? 'selected' : '' }}>Não</option>
-                                        </select>
-                                        <div class="valid-feedback">
-                                            Parece bom!
-                                        </div>
-                                        <div class="invalid-feedback">
-                                            Por favor, selecione se quitado.
-                                        </div>
-                                    </td>
-                                    <td data-name="note_form_payment">
-                                        <input
-                                            type="text"
-                                            name='note_form_payment[]'
-                                            value="{{$form_payment_cash_movement->note}}"
-                                            placeholder=''
-                                            class="form-control"
-                                        />
-                                    </td>
-                                    <td data-name="del_form_payment">
-                                        <button
-                                            class='btn btn-danger row-remove'
-                                            type="button"
-                                            onclick="removeFormPayment('id_{{$form_payment_cash_movement->id}}')">
-                                            <i class="fas fa-times-circle"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            @endforeach
-
                             </tbody>
-                            <div id="containerFormPaymentRemoved"></div>
+                            <div id="containerPaymentMovementRemoved"></div>
                         </table>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="col-lg-12">
-                    <h3 id="totalValue" class="text-right"></h3>
+                        <h3 id="totalValue" class="text-right"></h3>
                     </div>
                 </div>
             </div>
@@ -243,71 +176,79 @@
 
 @section('scriptPages')
 
-    <script type="x-handlebars-template" id="tamplateAddFormPayment">
 
-            <tr id="@{{id_handlebars_form_payment}}" class="existsFormPayment">
-                <td data-name="form_payment">
-                    <select class="form-control" name="form_payment[]" required>
-                        <option></option>
-                        @foreach($form_payments as $form_payment)
-                            <option value="{{$form_payment->id}}">{{$form_payment->description}}</option>
-                        @endforeach
-                    </select>
-                    <div class="valid-feedback">
-                        Parece bom!
-                    </div>
-                    <div class="invalid-feedback">
-                        Por favor, selecione a forma de pagamento.
-                    </div>
-                </td>
-                <td data-name="value_form_payment">
-                    <input
-                        type="text"
-                        name='value_form_payment[]'
-                        placeholder=''
-                        class="form-control valueFormPayment"
-                        onkeyup="calcTotalValue()"
-                        onblur="calcTotalValue()"
-                        required
-                    />
-                    <div class="valid-feedback">
-                        Parece bom!
-                    </div>
-                    <div class="invalid-feedback">
-                        Por favor, informe o valor do pagamento.
-                    </div>
-                </td>
-                <td data-name="settled_form_payment">
-                    <select class="form-control" name="settled_form_payment[]" required>
-                        <option value="1">Sim</option>
-                        <option value="0" selected>Não</option>
-                    </select>
-                    <div class="valid-feedback">
-                        Parece bom!
-                    </div>
-                    <div class="invalid-feedback">
-                        Por favor, selecione se quitado.
-                    </div>
-                </td>
-                <td data-name="note_form_payment">
-                    <input
-                        type="text"
-                        name='note_form_payment[]'
-                        placeholder=''
-                        class="form-control"
-                    />
-                </td>
-                <td data-name="del_form_payment">
-                    <button
-                        class='btn btn-danger row-remove'
-                        onclick="removeFormPayment(@{{id_handlebars_form_payment}})">
-                        <i class="fas fa-times-circle"></i>
-                    </button>
-                </td>
-            </tr>
+    <script type="x-handlebars-template" id="tamplateAddFormPayment">
+        @{{#each array_form_payments}}
+        <tr id="@{{id_handlebars_form_payment}}" class="existsFormPayment">
+            <td data-name="form_payment">
+                <input type="hidden" name="form_payment[]" value="@{{id_form_payment}}">
+                <input type="hidden" name="id_payment_movement[]" value="@{{id_payment_movement}}">
+                <input type="text" name='description_form_payment[]' value="@{{description_form_payment}}" placeholder='' class="form-control" readonly/>
+            </td>
+            <td data-name="value_form_payment">
+                <input
+                    type="text"
+                    name='value_form_payment[]'
+                    value="@{{value_form_payment}}"
+                    placeholder=''
+                    class="form-control valueFormPayment"
+                    onblur="updateValueFormPayment(@{{ @index }}, 'value_form_payment', this.value, '@{{id_handlebars_form_payment}}')"
+                    onkeyup="updateValueFormPayment(@{{ @index }}, 'value_form_payment', this.value, '@{{id_handlebars_form_payment}}')"
+                    required
+                />
+                <div class="valid-feedback">
+                    Parece bom!
+                </div>
+                <div class="invalid-feedback">
+                    Por favor, informe o valor do pagamento.
+                </div>
+            </td>
+            <td data-name="settled_form_payment">
+                <select
+                    class="form-control"
+                    name="settled_form_payment[]"
+                    onblur="updateValueFormPayment(@{{ @index }}, 'settled_form_payment', this.value, '@{{id_handlebars_form_payment}}')"
+                    onkeyup="updateValueFormPayment(@{{ @index }}, 'settled_form_payment', this.value, '@{{id_handlebars_form_payment}}')"
+                    required
+                >
+                    <option></option>
+                    <option value='1' {!! `@{{settled_form_payment}}` == '1' ? 'selected' : '' !!}>Sim</option>--}}
+                    <option value='0' {!! `@{{settled_form_payment}}` == '0' ? 'selected' : '' !!}>Não</option>
+                    {{--                        <option value='1' {!! `@{{settled_form_payment}}` == '1' ? 'selected' : '' !!}>Sim</option>--}}
+                    {{--                        <option value='0' {!! `@{{settled_form_payment}}` == '0' ? 'selected' : '' !!}>Não</option>--}}
+
+                </select>
+                <div class="valid-feedback">
+                    Parece bom!
+                </div>
+                <div class="invalid-feedback">
+                    Por favor, selecione se quitado.
+                </div>
+            </td>
+            <td data-name="note_form_payment">
+                <input
+                    type="text"
+                    name='note_form_payment[]'
+                    value="@{{note_form_payment}}"
+                    onblur="updateValueFormPayment(@{{ @index }}, 'note_form_payment', this.value, '@{{id_handlebars_form_payment}}')"
+                    onkeyup="updateValueFormPayment(@{{ @index }}, 'note_form_payment', this.value, '@{{id_handlebars_form_payment}}')"
+                    placeholder=''
+                    class="form-control"
+                />
+            </td>
+            <td data-name="del_form_payment">
+                <button
+                    class='btn btn-danger row-remove'
+                    type="button"
+                    onclick="removeFormPayment(@{{  @index }})">
+                    <i class="fas fa-times-circle"></i>
+                </button>
+            </td>
+        </tr>
+        @{{/each}}
     </script>
 
-{{--<script src="{{ asset('admin/js/order.js')}}"></script>--}}
+    {{--<script src="{{ asset('admin/js/order.js')}}"></script>--}}
     <script type="text/javascript">
 
         // ------------------------------------    FORM FORMA PAGAMENTO HIDE CAMPOS
@@ -341,8 +282,7 @@
                 case "1":
                     $('#customClearingDate').prop('disabled', false);
                     $('#customClearingDate').prop('required', true);
-                    {{--$('#customClearingDate').val('{{date('Y-m-d', time()) }}');--}}
-                    $('#customClearingDate').val('{{$bills_receive->clearing_date ? $bills_receive->clearing_date->format('Y-m-d') : date('Y-m-d', time()) }}');
+                    $('#customClearingDate').val('{{date('Y-m-d', time()) }}');
 
                     break;
                 default:
@@ -364,30 +304,98 @@
                 }
             });
         });
+        $(document).ready(function() {
+            $(".select_selectize_form_payment").selectize({
+                // create:true, //DAR A OPCAO DE ADICIOANR CASO NAO TIVER
+                sortField: {
+                    field: 'text',
+                    direction: 'asc'
+                },
+                placeholder: $(this).data('placeholder'),
+                // width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+                allowClear: Boolean($(this).data('allow-clear')),
 
+            });
+        });
+
+
+
+        let countFormPayment = 0;
+
+        let array_form_payments = {
+            'array_form_payments': []
+        };
+
+        function loadFormPayments(idPaymentMovement, idFormPayment, descriptionFormPayment, value, paid, note){
+            let templateFormPayment = document.getElementById('tamplateAddFormPayment').innerHTML;
+            let compiled = Handlebars.compile(templateFormPayment);
+            let form_payment = document.getElementById('containerFormPayment');
+
+            let randomFormPayment = 'formPayment_'+countFormPayment;
+
+            let info_form_payment = {
+                id_handlebars_form_payment: randomFormPayment,
+                id_payment_movement: idPaymentMovement,
+                id_form_payment: idFormPayment,
+                description_form_payment: descriptionFormPayment,
+                value_form_payment: value,
+                settled_form_payment: paid,
+                note_form_payment: note,
+            }
+
+            array_form_payments.array_form_payments.push(info_form_payment);
+            form_payment.innerHTML = compiled(array_form_payments);
+
+            countFormPayment += 1;
+
+            calcTotalValue();
+        }
+
+        function updateValueFormPayment(index, property, newValue, idLine){
+
+            array_form_payments.array_form_payments[index][property] = newValue;
+
+
+            calcTotalValue();
+        }
 
         function addFormPayment() {
 
-            let botaoAdd = document.getElementById('btnGenerateFormPayment');
+            let botaoAdd = document.getElementById('btnAddFormPayment');
 
             botaoAdd.addEventListener('click', () => {
 
-                let quantity = document.getElementById("quantity_form_payment").value;
+                let myStr = (document.getElementById("searchFormPayment").value).split(":");
+                let idFormPayment = myStr[0];
+                let descriptionFormPayment = myStr[1];
 
-                if(quantity >= 1){
+                if(document.getElementById("searchFormPayment").value){
                     let templateFormPayment = document.getElementById('tamplateAddFormPayment').innerHTML;
                     let compiled = Handlebars.compile(templateFormPayment);
                     let form_payment = document.getElementById('containerFormPayment');
-                    let templateCompiled = '';
-                    for (let i = 0; i < quantity; i++){
 
-                        let info_form_payment = {
-                            id_handlebars_form_payment: Math.floor((Math.random() * 100000000) + 1),
-                        }
-                        templateCompiled += compiled(info_form_payment);
+                    let randomFormPayment = 'formPayment_'+countFormPayment;
+
+                    let info_form_payment = {
+                        id_handlebars_form_payment: randomFormPayment,
+                        id_form_payment: idFormPayment,
+                        description_form_payment: descriptionFormPayment,
+                        value_form_payment: '',
+                        settled_form_payment: '',
+                        note_form_payment: '',
                     }
-                    form_payment.innerHTML = templateCompiled;
-                    calcTotalValue();
+
+
+                    array_form_payments.array_form_payments.push(info_form_payment);
+                    form_payment.innerHTML = compiled(array_form_payments);
+
+                    countFormPayment += 1;
+
+                    // Removendo item selecionado
+                    let removeSelectizeItem = document.getElementById("searchFormPayment").value;
+                    document.getElementById("searchFormPayment").selectize.removeItem(removeSelectizeItem);
+
+                    // calcTotalValue();
                 }
 
             })
@@ -395,39 +403,55 @@
         }
 
 
-        function removeFormPayment(id) {
+        function removeFormPayment(indexToRemove, idPaymentMovement) {
 
-            if(document.getElementsByClassName("existsFormPayment").length > 1){
-
-                if(id){
-                    let str = id.split("_");
-                    let id_form_payment = str[1];
-                    $("#containerFormPaymentRemoved").append("<input type='hidden' name='id_form_payment_removed[]' value='"+id_form_payment+"'>");
-                }
-
-                document.getElementById(id).remove();
-                calcTotalValue();
+            if(idPaymentMovement){
+                $('#containerPaymentMovementRemoved').append("<input type='hidden' name='id_payment_movement_removed[]' value='"+idPaymentMovement+"'>")
             }
+
+            // if(document.getElementsByClassName("existsFormPayment").length > 1){
+            array_form_payments.array_form_payments.splice(indexToRemove, 1);
+
+            let templateFormPayment = document.getElementById('tamplateAddFormPayment').innerHTML;
+            let compiled = Handlebars.compile(templateFormPayment);
+            let form_payment = document.getElementById('containerFormPayment');
+            form_payment.innerHTML = compiled(array_form_payments);
+
+            calcTotalValue();
+            // }
 
         }
 
         addFormPayment();
 
-       function calcTotalValue(){
+        @if($form_payment_cash_movements)
+            @foreach($form_payment_cash_movements as $form_payment_cash_movement)
+                loadFormPayments(
+                    "{{$form_payment_cash_movement->id}}",
+                    "{{$form_payment_cash_movement->form_payments->id}}",
+                    "{{$form_payment_cash_movement->form_payments->description}}",
+                    "{{$form_payment_cash_movement->value}}",
+                    "{{$form_payment_cash_movement->paid}}",
+                    "{{$form_payment_cash_movement->note}}",
+                );
+            @endforeach
+        @endif
 
-          let sum = 0;
+        function calcTotalValue(){
 
-           $(".valueFormPayment").each(function () {
-               let val = $.trim( $(this).val() );
+            let sum = 0;
 
-               if(val) {
-                   val = parseFloat(val);
+            $(".valueFormPayment").each(function () {
+                let val = $.trim( $(this).val() );
 
-                   sum += !isNaN(val) ? val : 0
-               }
-           });
+                if(val) {
+                    val = parseFloat(val);
 
-           $("#totalValue").html('Valor total: R$ ' + sum);
+                    sum += !isNaN(val) ? val : 0
+                }
+            });
+
+            $("#totalValue").html('Valor total: R$ ' + sum);
         }
 
         calcTotalValue();

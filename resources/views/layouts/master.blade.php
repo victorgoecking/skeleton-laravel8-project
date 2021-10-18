@@ -152,6 +152,8 @@
         }
         @if ($message = Session::get('success'))
             toastr["success"]("{{ $message }}","Sucesso!");
+        @elseif($message = Session::get('error'))
+            toastr["error"]("{{$message}}","Falhou!");
         @elseif(($errors->any()))
             @foreach($errors->all() as $error)
                 toastr["error"]("{{$error}}","Falhou!");
