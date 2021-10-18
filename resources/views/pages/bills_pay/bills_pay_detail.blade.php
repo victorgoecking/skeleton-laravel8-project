@@ -10,7 +10,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb m-0 p-2 bg-transparent">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="fas fa-fw fa-tachometer-alt"></i> Início</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('bills-receive.index') }}"> Contas a receber</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('bills-pay.index') }}"> Contas a receber</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Detalhes recebimento</li>
             </ol>
         </nav>
@@ -34,65 +34,65 @@
                         <tbody>
                         <tr>
                             <th class="border-top-0" scope="row" >Nº do pedido</th>
-                            <td class="border-top-0" colspan="1">{{ $bill_receive->id }}</td>
+                            <td class="border-top-0" colspan="1">{{ $bill_pay->id }}</td>
                         </tr>
                         <tr>
                             <th class="border-top-0" scope="row" >Descrição do recebimento</th>
-                            <td class="border-top-0" colspan="1">{{ $bill_receive->description}}</td>
+                            <td class="border-top-0" colspan="1">{{ $bill_pay->description}}</td>
                         </tr>
                         <tr>
                             <th class="border-top-0" scope="row" >Situação</th>
-                            @if( $bill_receive->situation === "Atrasado")
-                                <td class="border-top-0" colspan="1"><span class="badge badge-danger">{{$bill_receive->situation}}</span></td>
+                            @if( $bill_pay->situation === "Atrasado")
+                                <td class="border-top-0" colspan="1"><span class="badge badge-danger">{{$bill_pay->situation}}</span></td>
                             @else
-                                @if($bill_receive->situation === "Em aberto")
-                                    <td class="border-top-0" colspan="1"><span class="badge badge-info">{{$bill_receive->situation}}</span></td>
+                                @if($bill_pay->situation === "Em aberto")
+                                    <td class="border-top-0" colspan="1"><span class="badge badge-info">{{$bill_pay->situation}}</span></td>
                                 @else
-                                    <td class="border-top-0" colspan="1"><span class="badge badge-primary">{{$bill_receive->situation}}</span></td>
+                                    <td class="border-top-0" colspan="1"><span class="badge badge-primary">{{$bill_pay->situation}}</span></td>
                                 @endif
                             @endif
                         </tr>
                         <tr>
                             <th class="border-top-0" scope="row" >Valor</th>
-                            <td class="border-top-0" colspan="1">{{ $bill_receive->gross_value }}</td>
+                            <td class="border-top-0" colspan="1">{{ $bill_pay->gross_value }}</td>
                         </tr>
                         <tr>
                             <th class="border-top-0" scope="row" >Data do vencimento</th>
-                            <td class="border-top-0" colspan="1">{{ $bill_receive->due_date->format('d/m/Y') }}</td>
+                            <td class="border-top-0" colspan="1">{{ $bill_pay->due_date->format('d/m/Y') }}</td>
                         </tr>
-                        @if($bill_receive->clearing_date)
+                        @if($bill_pay->clearing_date)
                             <tr>
                                 <th class="border-top-0" scope="row" >Data da compensação</th>
-                                <td class="border-top-0" colspan="1">{{ $bill_receive->clearing_date->format('d/m/Y') }}</td>
+                                <td class="border-top-0" colspan="1">{{ $bill_pay->clearing_date->format('d/m/Y') }}</td>
                             </tr>
                         @endif
                         <tr>
                             <th class="border-top-0" scope="row" >Formas de pagamento</th>
                             <td class="border-top-0" colspan="1">
-                                @foreach($bill_receive->form_payment_cash_movements as $form_payment)
+                                @foreach($bill_pay->form_payment_cash_movements as $form_payment)
                                     {{ $form_payment->description }} /
                                 @endforeach
                             </td>
                         </tr>
                         <tr>
                             <th class="border-top-0" scope="row" >Observações</th>
-                            <td class="border-top-0" colspan="1">{{ $bill_receive->note }}</td>
+                            <td class="border-top-0" colspan="1">{{ $bill_pay->note }}</td>
                         </tr>
                         <tr>
                             <th class="border-top-0" scope="row" >Cadastrado por</th>
-                            <td class="border-top-0" colspan="1">{{ $bill_receive->user->name }}</td>
+                            <td class="border-top-0" colspan="1">{{ $bill_pay->user->name }}</td>
                         </tr>
                         <tr>
                             <th scope="row">Criado em</th>
-                            <td colspan="1">{{ $bill_receive->created_at->format('d/m/Y - H:i:s') }}</td>
+                            <td colspan="1">{{ $bill_pay->created_at->format('d/m/Y - H:i:s') }}</td>
                         </tr>
                         <tr>
                             <th scope="row">Modificado em</th>
-                            <td colspan="1">{{ $bill_receive->updated_at->format('d/m/Y - H:i:s') }}</td>
+                            <td colspan="1">{{ $bill_pay->updated_at->format('d/m/Y - H:i:s') }}</td>
                         </tr>
                         </tbody>
                     </table>
-                    <a class="btn btn-warning btn-md" href="{{ route('bills-receive.edit', ['bill_receive' => $bill_receive->id]) }}" role="button"><i class="fas fa-edit"></i> Editar</a>
+                    <a class="btn btn-warning btn-md" href="{{ route('bills-pay.edit', ['bill_pay' => $bill_pay->id]) }}" role="button"><i class="fas fa-edit"></i> Editar</a>
                 </div>
 
                 <div class="tab-pane fade" id="form_payment" role="tabpanel" aria-labelledby="form_payment-tab">
@@ -125,7 +125,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <a class="btn btn-warning btn-md" href="{{ route('bills-receive.edit', ['bill_receive' => $bill_receive->id]) }}" role="button"><i class="fas fa-edit"></i> Editar</a>
+                    <a class="btn btn-warning btn-md" href="{{ route('bills-pay.edit', ['bill_pay' => $bill_pay->id]) }}" role="button"><i class="fas fa-edit"></i> Editar</a>
                 </div>
 
 

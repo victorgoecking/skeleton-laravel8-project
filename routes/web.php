@@ -9,6 +9,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\BillsReceiveController;
+use App\Http\Controllers\BillsPayController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +57,8 @@ Route::get('/returnClientAddress', [OrderController::class, 'returnClientAddress
     ->name('returnClientAddress');
 
 Route::resource('contas-receber', BillsReceiveController::class)->middleware(['auth'])->names('bills-receive')->parameters(['contas-receber' => 'bills-receive']);
+
+Route::resource('contas-pagar', BillsPayController::class)->middleware(['auth'])->names('bills-pay')->parameters(['contas-pagar' => 'bills-pay']);
 
 
 //Route::get('/usuarios', [UserController::class, 'index'])

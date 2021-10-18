@@ -118,7 +118,7 @@
         <div id="collapseUtilities4" class="collapse" aria-labelledby="headingUtilities"
              data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="utilities-color.html"><i class="fas fa-fw fa-sort-amount-down-alt"></i>&nbsp;&nbsp;&nbsp;Contas a pagar</a>
+                <a class="collapse-item" href="{{ route('bills-pay.index') }}"><i class="fas fa-fw fa-sort-amount-down-alt"></i>&nbsp;&nbsp;&nbsp;Contas a pagar</a>
                 <a class="collapse-item" href="{{ route('bills-receive.index') }}"><i class="fas fa-fw fa-sort-amount-up"></i>&nbsp;&nbsp;&nbsp;Contas a receber</a>
                 <a class="collapse-item" href="utilities-color.html"><i class="fas fa-fw fa-chart-bar"></i>&nbsp;&nbsp;&nbsp;Fluxo de caixa</a>
                 <h6 class="collapse-header">Opções auxiliares:</h6>

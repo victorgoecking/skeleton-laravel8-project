@@ -4,8 +4,8 @@
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">
-            <i class="fa fa-users"></i> Contas a receber
-            <a href="{{ route('bills-receive.create') }}">
+            <i class="fa fa-users"></i> Contas a pagar
+            <a href="{{ route('bills-pay.create') }}">
                 <button type="button" class="btn btn-primary">
                     <i class="fas fa-plus-circle"></i> Novo
                 </button>
@@ -15,7 +15,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb m-0 p-2 bg-transparent">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="fas fa-fw fa-tachometer-alt"></i> Início</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Contas a receber&nbsp;</li>
+                <li class="breadcrumb-item active" aria-current="page">Contas a pagar&nbsp;</li>
             </ol>
         </nav>
     </div>
@@ -52,36 +52,36 @@
                     </tfoot>
 
                     <tbody>
-                        @foreach($bills_receive as $bill_receive)
+                        @foreach($bills_pay as $bill_pay)
                         <tr>
-                            <td>{{ $bill_receive->id }}</td>
-                            <td>{{ $bill_receive->description }}</td>
-{{--                            <td>{{ $bill_receive->form_payment_cash_movements->first()->description }} [...]</td>--}}
+                            <td>{{ $bill_pay->id }}</td>
+                            <td>{{ $bill_pay->description }}</td>
+{{--                            <td>{{ $bill_pay->form_payment_cash_movements->first()->description }} [...]</td>--}}
                             <td>
-                                @foreach($bill_receive->form_payment_cash_movements as $form_payment)
+                                @foreach($bill_pay->form_payment_cash_movements as $form_payment)
                                    {{ $form_payment->description }} /
                                 @endforeach
                             </td>
-                            <td>{{ $bill_receive->clearing_date ? $bill_receive->clearing_date->format('d/m/Y') : $bill_receive->due_date->format('d/m/Y') }} </td>
-                            <td>{{ $bill_receive->gross_value }}</td>
+                            <td>{{ $bill_pay->clearing_date ? $bill_pay->clearing_date->format('d/m/Y') : $bill_pay->due_date->format('d/m/Y') }} </td>
+                            <td>{{ $bill_pay->gross_value }}</td>
 
-                            @if( $bill_receive->situation === "Atrasado")
-                                <td><span class="badge badge-danger">{{$bill_receive->situation}}</span></td>
+                            @if( $bill_pay->situation === "Atrasado")
+                                <td><span class="badge badge-danger">{{$bill_pay->situation}}</span></td>
                             @else
-                                @if($bill_receive->situation === "Em aberto")
-                                    <td><span class="badge badge-info">{{$bill_receive->situation}}</span></td>
+                                @if($bill_pay->situation === "Em aberto")
+                                    <td><span class="badge badge-info">{{$bill_pay->situation}}</span></td>
                                 @else
-                                    <td><span class="badge badge-primary">{{$bill_receive->situation}}</span></td>
+                                    <td><span class="badge badge-primary">{{$bill_pay->situation}}</span></td>
                                 @endif
                             @endif
 
                             <td class="pt-2">
-                                <a href="{{ route('bills-receive.show', ['bills_receive' => $bill_receive->id]) }}"><button class="btn btn-info btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Detalhes"><i class="far fa-eye"></i></button></a>
-                                <a href="{{ route('bills-receive.edit', ['bills_receive' => $bill_receive->id]) }}"><button class="btn btn-warning btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Editar"><i class="far fa-edit"></i></button></a>
-                                <form class="d-inline" action="{{ route('bills-receive.destroy', ['bills_receive' => $bill_receive->id]) }}" method="POST">
+                                <a href="{{ route('bills-pay.show', ['bills_pay' => $bill_pay->id]) }}"><button class="btn btn-info btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Detalhes"><i class="far fa-eye"></i></button></a>
+                                <a href="{{ route('bills-pay.edit', ['bills_pay' => $bill_pay->id]) }}"><button class="btn btn-warning btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Editar"><i class="far fa-edit"></i></button></a>
+                                <form class="d-inline" action="{{ route('bills-pay.destroy', ['bills_pay' => $bill_pay->id]) }}" method="POST">
                                     @csrf
                                     @method('delete')
-                                    <button type="submit" onclick='return confirm(`Deseja realmente excluir o pedido de numero" {{ $bill_receive->id }} "?`)' class="btn btn-danger btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Remover"><i class="far fa-trash-alt"></i></button>
+                                    <button type="submit" onclick='return confirm(`Deseja realmente excluir o pedido de numero" {{ $bill_pay->id }} "?`)' class="btn btn-danger btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Remover"><i class="far fa-trash-alt"></i></button>
                                 </form>
                             </td>
                         </tr>

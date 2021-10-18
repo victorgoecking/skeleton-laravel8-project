@@ -4,12 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\CashMovement;
 use App\Models\FormPayment;
-use App\Models\FormPaymentCashMovements;
 use Illuminate\Http\Request;
 
-class BillsReceiveController extends Controller
+class BillsPayController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -17,10 +15,10 @@ class BillsReceiveController extends Controller
      */
     public function index()
     {
-        $bills_receive = CashMovement::with('user', 'form_payment_cash_movements')->get();
+        $bills_pay = CashMovement::with('user', 'form_payment_cash_movements')->get();
 
-        return view('pages.bills_receive.bills_receive', [
-            'bills_receive' => $bills_receive,
+        return view('pages.bills_pay.bills_pay', [
+            'bills_pay' => $bills_pay,
         ]);
     }
 
@@ -33,7 +31,7 @@ class BillsReceiveController extends Controller
     {
         $form_payments = FormPayment::all();
 
-        return view('pages.bills_receive.bills_receive_registration', [
+        return view('pages.bills_pay.bills_pay_registration', [
             'form_payments' => $form_payments,
         ]);
     }
@@ -46,7 +44,6 @@ class BillsReceiveController extends Controller
      */
     public function store(Request $request)
     {
-
         if(!$request->form_payment){
             return back()->with('error','Forma de pagamento obrigatória!');
         }
@@ -81,7 +78,7 @@ class BillsReceiveController extends Controller
 
 
         if($request->type_movement){
-           $bill_receive = CashMovement::create([
+           $bill_pay = CashMovement::create([
                 'type_movement' => $request->type_movement,
                 'description' => $request->description,
                 'gross_value' => $request->gross_value,
@@ -108,7 +105,7 @@ class BillsReceiveController extends Controller
                             'paid' => $request->settled_form_payment[$i_form_payment],
                             'note' => $request->note_form_payment[$i_form_payment],
                             'form_payment_id' => $request->form_payment[$i_form_payment],
-                            'cash_movement_id' => $bill_receive->id,
+                            'cash_movement_id' => $bill_pay->id,
                         ]);
                     }
                 }
@@ -116,8 +113,7 @@ class BillsReceiveController extends Controller
             }
         }
 
-        return redirect()->route('bills-receive.index')->with('success','Conta a receber cadastrada com sucesso!');
-
+        return redirect()->route('bills-pay.index')->with('success','Conta a pagar cadastrada com sucesso!');
     }
 
     /**
@@ -128,13 +124,13 @@ class BillsReceiveController extends Controller
      */
     public function show($id)
     {
-        $bill_receive = CashMovement::with('user', 'form_payment_cash_movements')->where('id', '=', $id)->first();
+        $bill_pay = CashMovement::with('user', 'form_payment_cash_movements')->where('id', '=', $id)->first();
 
 
-        $form_payment_cash_movements = FormPaymentCashMovements::with('form_payments')->where('cash_movement_id', $bill_receive->id)->get();
+        $form_payment_cash_movements = FormPaymentCashMovements::with('form_payments')->where('cash_movement_id', $bill_pay->id)->get();
 
-        return view('pages.bills_receive.bills_receive_detail', [
-            'bill_receive' => $bill_receive,
+        return view('pages.bills_pay.bills_pay_detail', [
+            'bill_pay' => $bill_pay,
             'form_payment_cash_movements' => $form_payment_cash_movements,
         ]);
     }
@@ -147,14 +143,14 @@ class BillsReceiveController extends Controller
      */
     public function edit($id)
     {
-        $bill_receive = CashMovement::with('user', 'form_payment_cash_movements')->where('id', '=', $id)->first();
+        $bill_pay = CashMovement::with('user', 'form_payment_cash_movements')->where('id', '=', $id)->first();
 
-        $form_payment_cash_movements = FormPaymentCashMovements::with('form_payments')->where('cash_movement_id', $bill_receive->id)->get();
+        $form_payment_cash_movements = FormPaymentCashMovements::with('form_payments')->where('cash_movement_id', $bill_pay->id)->get();
 
         $form_payments = FormPayment::all();
 
-        return view('pages.bills_receive.bills_receive_edit', [
-            'bill_receive' => $bill_receive,
+        return view('pages.bill_pay.bill_pay_edit', [
+            'bill_pay' => $bill_pay,
             'form_payment_cash_movements' => $form_payment_cash_movements,
             'form_payments' => $form_payments,
         ]);
@@ -202,9 +198,9 @@ class BillsReceiveController extends Controller
 
 
         if($request->type_movement){
-            $bill_receive = CashMovement::where('id', '=', $id)->first();
+            $bill_pay = CashMovement::where('id', '=', $id)->first();
 
-            $bill_receive->update([
+            $bill_pay->update([
                 'type_movement' => $request->type_movement,
                 'description' => $request->description,
                 'gross_value' => $request->gross_value,
@@ -226,16 +222,16 @@ class BillsReceiveController extends Controller
 
                     if(isset($request->id_payment_movement_removed)){
                         foreach ($request->id_payment_movement_removed as $remove_payment_movement){
-                            FormPaymentCashMovements::where('id', $remove_payment_movement)->where('cash_movement_id', $bill_receive->id)->delete();
+                            FormPaymentCashMovements::where('id', $remove_payment_movement)->where('cash_movement_id', $bill_pay->id)->delete();
                         }
                     }
                     if(isset($request->id_payment_movement[$i_form_payment])){
-                        FormPaymentCashMovements::where('id', $request->id_payment_movement[$i_form_payment])->where('cash_movement_id', $bill_receive->id)->update([
+                        FormPaymentCashMovements::where('id', $request->id_payment_movement[$i_form_payment])->where('cash_movement_id', $bill_pay->id)->update([
                             'value' => $request->value_form_payment[$i_form_payment],
                             'paid' => $request->settled_form_payment[$i_form_payment],
                             'note' => $request->note_form_payment[$i_form_payment],
 //                            'form_payment_id' => $request->form_payment[$i_form_payment],
-//                            'cash_movement_id' => $bill_receive->id,
+//                            'cash_movement_id' => $bill_pay->id,
                         ]);
                     }else{
                         FormPaymentCashMovements::create([
@@ -243,7 +239,7 @@ class BillsReceiveController extends Controller
                             'paid' => $request->settled_form_payment[$i_form_payment],
                             'note' => $request->note_form_payment[$i_form_payment],
                             'form_payment_id' => $request->form_payment[$i_form_payment],
-                            'cash_movement_id' => $bill_receive->id,
+                            'cash_movement_id' => $bill_pay->id,
                         ]);
                     }
                 }
@@ -251,7 +247,7 @@ class BillsReceiveController extends Controller
             }
         }
 
-        return redirect()->route('bills-receive.index')->with('success','Conta a receber atualizada com sucesso!');
+        return redirect()->route('bills-pay.index')->with('success','Conta a pagar atualizada com sucesso!');
 
     }
 
@@ -263,17 +259,17 @@ class BillsReceiveController extends Controller
      */
     public function destroy($id)
     {
-        $bill_receive = CashMovement::with('user', 'form_payment_cash_movements')->where('id', '=', $id)->first();
+        $bill_pay = CashMovement::with('user', 'form_payment_cash_movements')->where('id', '=', $id)->first();
 
-        $form_payment_cash_movements = FormPaymentCashMovements::with('form_payments')->where('cash_movement_id', $bill_receive->id)->get();
+        $form_payment_cash_movements = FormPaymentCashMovements::with('form_payments')->where('cash_movement_id', $bill_pay->id)->get();
         if($form_payment_cash_movements){
             foreach ($form_payment_cash_movements as $form_payment_cash_movement){
                 $form_payment_cash_movement->delete();
             }
         }
 
-        $bill_receive->delete();
+        $bill_pay->delete();
 
-        return redirect()->route('bills-receive.index')->with('success','Conta a receber removida com sucesso!');
+        return redirect()->route('bills-receive.index')->with('success','Conta a pagar removida com sucesso!');
     }
 }

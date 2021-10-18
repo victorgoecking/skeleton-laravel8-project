@@ -10,13 +10,13 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb m-0 p-2 bg-transparent">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="fas fa-fw fa-tachometer-alt"></i> Início</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('bills-receive.index') }}"> Contas a receber</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('bills-pay.index') }}"> Contas a receber</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Edição do recebimento</li>
             </ol>
         </nav>
     </div>
 
-    <form id="formOrder" class="needs-validation" method="POST" action="{{ route('bills-receive.update', ['bill_receive' => $bill_receive->id]) }}" novalidate>
+    <form id="formOrder" class="needs-validation" method="POST" action="{{ route('bills-pay.update', ['bill_pay' => $bill_pay->id]) }}" novalidate>
         @csrf
         @method('put')
 
@@ -31,7 +31,7 @@
 
                     <div class="col-md-6 mb-3">
                         <label for="customDescription">Descrição *</label>
-                        <input type="text" class="form-control" value="{{$bill_receive->description}}" name="description" id="customDescription" placeholder="" required>
+                        <input type="text" class="form-control" value="{{$bill_pay->description}}" name="description" id="customDescription" placeholder="" required>
                         <div class="valid-feedback">
                             Parece bom!
                         </div>
@@ -42,7 +42,7 @@
 
                     <div class="col-md-3 mb-3">
                         <label for="customGrossValue">Valor Bruto *</label>
-                        <input type="text" class="form-control" name="gross_value" value="{{$bill_receive->gross_value}}" id="customGrossValue" placeholder="" required>
+                        <input type="text" class="form-control" name="gross_value" value="{{$bill_pay->gross_value}}" id="customGrossValue" placeholder="" required>
                         <div class="valid-feedback">
                             Parece bom!
                         </div>
@@ -55,8 +55,8 @@
                         <label for="selectSettled">Recebimento quitado *</label>
                         <select class="form-control" name="settled" id="selectSettled" required>
                             <option></option>
-                            <option value="1" {{$bill_receive->settled == '1' ? 'selected' : ''}}>Sim</option>
-                            <option value="0" {{$bill_receive->settled == '0' ? 'selected' : ''}}>Não</option>
+                            <option value="1" {{$bill_pay->settled == '1' ? 'selected' : ''}}>Sim</option>
+                            <option value="0" {{$bill_pay->settled == '0' ? 'selected' : ''}}>Não</option>
                         </select>
                         <div class="valid-feedback">
                             Parece bom!
@@ -68,7 +68,7 @@
 
                     <div class="col-md-3 mb-3">
                         <label for="customDueDate">Data do vencimento *</label>
-                        <input type="date" class="form-control" name="due_date" id="customDueDate" value="{{ $bill_receive->due_date->format('Y-m-d') }}" aria-describedby="customDueDateHelp" placeholder="" required>
+                        <input type="date" class="form-control" name="due_date" id="customDueDate" value="{{ $bill_pay->due_date->format('Y-m-d') }}" aria-describedby="customDueDateHelp" placeholder="" required>
                         <div class="valid-feedback">
                             Parece bom!
                         </div>
@@ -157,13 +157,13 @@
             <div class="card-body">
                 <div class="form-row">
                     <div class="col-lg-12 col-md-12 mb-3">
-                        <textarea class="form-control" name="note" id="exampleFormControlNoteBillsReceive" rows="5">{{$bill_receive->note}}</textarea>
+                        <textarea class="form-control" name="note" id="exampleFormControlNoteBillsReceive" rows="5">{{$bill_pay->note}}</textarea>
                     </div>
                 </div>
 
                 <div class="form-row mt-2">
                     <button class="btn btn-primary" type="submit" aria-hidden="true"><i class="fas fa-paper-plane"></i> Atualizar</button>
-                    <a href="{{ route('bills-receive.index') }}"><button class="btn btn-danger ml-2" type="button" aria-hidden="true"><i class="fas fa-times-circle"></i> Cancelar</button></a>
+                    <a href="{{ route('bills-pay.index') }}"><button class="btn btn-danger ml-2" type="button" aria-hidden="true"><i class="fas fa-times-circle"></i> Cancelar</button></a>
                 </div>
             </div>
         </div>
