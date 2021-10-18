@@ -37,10 +37,10 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{ route('order.index') }}"><i class="fas fa-fw fa-cube"></i>&nbsp;&nbsp;&nbsp;Gerenciar</a>
-                <a class="collapse-item" href="buttons.html"><i class="fas fa-fw fa-cube"></i>&nbsp;&nbsp;&nbsp;Produtos</a>
-                <a class="collapse-item" href="cards.html"><i class="fas fa-fw fa-tools"></i>&nbsp;&nbsp;&nbsp;Serviços</a>
-                <h6 class="collapse-header">Opções auxiliares:</h6>
-                <a class="collapse-item" href="utilities-color.html"><i class="fas fa-fw fa-list-ol"></i>&nbsp;&nbsp;&nbsp;Situações(status pedido)</a>
+{{--                <a class="collapse-item" href="buttons.html"><i class="fas fa-fw fa-cube"></i>&nbsp;&nbsp;&nbsp;Produtos</a>--}}
+{{--                <a class="collapse-item" href="cards.html"><i class="fas fa-fw fa-tools"></i>&nbsp;&nbsp;&nbsp;Serviços</a>--}}
+{{--                <h6 class="collapse-header">Opções auxiliares:</h6>--}}
+{{--                <a class="collapse-item" href="utilities-color.html"><i class="fas fa-fw fa-list-ol"></i>&nbsp;&nbsp;&nbsp;Situações(status pedido)</a>--}}
             </div>
         </div>
     </li>
@@ -56,27 +56,27 @@
              data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{ route('client.index') }}"><i class="fas fa-fw fa-user-friends"></i>&nbsp;&nbsp;&nbsp;Clientes</a>
-                <a class="collapse-item" href="utilities-animation.html"><i class="fas fa-fw fa-truck-loading"></i>&nbsp;&nbsp;&nbsp;Fornecedores</a>
+{{--                <a class="collapse-item" href="utilities-animation.html"><i class="fas fa-fw fa-truck-loading"></i>&nbsp;&nbsp;&nbsp;Fornecedores</a>--}}
             </div>
         </div>
     </li>
 
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities1"
-           aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-shopping-basket"></i>
-            <span><b>Vendas</b></span>
-        </a>
-        <div id="collapseUtilities1" class="collapse" aria-labelledby="headingUtilities"
-             data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="utilities-color.html"><i class="fas fa-fw fa-cube"></i>&nbsp;&nbsp;&nbsp;Produtos</a>
-                <a class="collapse-item" href="utilities-animation.html"><i class="fas fa-fw fa-tools"></i>&nbsp;&nbsp;&nbsp;Serviços</a>
-                <h6 class="collapse-header">Opções auxiliares:</h6>
-                <a class="collapse-item" href="utilities-color.html"><i class="fas fa-fw fa-reply-all"></i>&nbsp;&nbsp;&nbsp;Trocas e devoluções</a>
-            </div>
-        </div>
-    </li>
+{{--    <li class="nav-item">--}}
+{{--        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities1"--}}
+{{--           aria-expanded="true" aria-controls="collapseUtilities">--}}
+{{--            <i class="fas fa-fw fa-shopping-basket"></i>--}}
+{{--            <span><b>Vendas</b></span>--}}
+{{--        </a>--}}
+{{--        <div id="collapseUtilities1" class="collapse" aria-labelledby="headingUtilities"--}}
+{{--             data-parent="#accordionSidebar">--}}
+{{--            <div class="bg-white py-2 collapse-inner rounded">--}}
+{{--                <a class="collapse-item" href="utilities-color.html"><i class="fas fa-fw fa-cube"></i>&nbsp;&nbsp;&nbsp;Produtos</a>--}}
+{{--                <a class="collapse-item" href="utilities-animation.html"><i class="fas fa-fw fa-tools"></i>&nbsp;&nbsp;&nbsp;Serviços</a>--}}
+{{--                <h6 class="collapse-header">Opções auxiliares:</h6>--}}
+{{--                <a class="collapse-item" href="utilities-color.html"><i class="fas fa-fw fa-reply-all"></i>&nbsp;&nbsp;&nbsp;Trocas e devoluções</a>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </li>--}}
 
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities2"
