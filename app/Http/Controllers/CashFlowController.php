@@ -10,8 +10,8 @@ class CashFlowController extends Controller
 
     public function __construct()
     {
-        $this->bills_receive = CashMovement::with('form_payment_cash_movements')->where('type_movement', 'receber')->get();
-        $this->bills_pay = CashMovement::with('form_payment_cash_movements')->where('type_movement', 'pagar')->get();
+        $this->bills_receive = CashMovement::with('formPaymentCashMovements')->where('type_movement', 'receber')->get();
+        $this->bills_pay = CashMovement::with('formPaymentCashMovements')->where('type_movement', 'pagar')->get();
 
         $this->total_receive = 0.00;
         $this->total_receive_current = 0.00;
@@ -38,30 +38,6 @@ class CashFlowController extends Controller
         $this->total_pay_x_receive_foreseen = $this->total_receive - $this->total_pay;
 
     }
-
-//    private function total_receive(){
-//        $bills_receive = CashMovement::with('form_payment_cash_movements')->where('type_movement', 'receber')->get();
-//
-//        $total_receive = 0.00;
-//        $total_receive_current = 0.00;
-//
-//        foreach ($bills_receive as $bill_receive){
-//            $total_receive += $bill_receive->gross_value;
-//
-//            if($bill_receive->settled == 1){
-//                $total_receive_current += $bill_receive->gross_value;
-//            }
-//        }
-//        $total = [
-//            'total_receive' => $total_receive,
-//            '$total_receive_current' => $total_receive_current,
-//
-//        ];
-//
-//        return $total;
-//
-//    }
-
 
     public function balance()
     {

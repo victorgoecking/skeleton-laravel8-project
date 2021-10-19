@@ -69,7 +69,7 @@
                         <tr>
                             <th class="border-top-0" scope="row" >Formas de pagamento</th>
                             <td class="border-top-0" colspan="1">
-                                @foreach($bill_receive->form_payment_cash_movements as $form_payment)
+                                @foreach($bill_receive->formPaymentCashMovements as $form_payment)
                                     {{ $form_payment->description }} /
                                 @endforeach
                             </td>
@@ -110,7 +110,7 @@
                             <tbody>
                             @foreach($form_payment_cash_movements as $form_payment_cash_movement)
                                 <tr>
-                                    <td class="border-top-0" >{{ $form_payment_cash_movement->form_payments->description }}</td>
+                                    <td class="border-top-0" >{{ $form_payment_cash_movement->formPayments->description }}</td>
                                     <td class="border-top-0" >{{ $form_payment_cash_movement->value }}</td>
                                     <td class="border-top-0" >
                                         @if($form_payment_cash_movement->paid == '1')

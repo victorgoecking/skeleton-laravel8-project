@@ -428,8 +428,8 @@
             @foreach($form_payment_cash_movements as $form_payment_cash_movement)
                 loadFormPayments(
                     "{{$form_payment_cash_movement->id}}",
-                    "{{$form_payment_cash_movement->form_payments->id}}",
-                    "{{$form_payment_cash_movement->form_payments->description}}",
+                    "{{$form_payment_cash_movement->formPayments->id}}",
+                    "{{$form_payment_cash_movement->formPayments->description}}",
                     "{{$form_payment_cash_movement->value}}",
                     "{{$form_payment_cash_movement->paid}}",
                     "{{$form_payment_cash_movement->note}}",

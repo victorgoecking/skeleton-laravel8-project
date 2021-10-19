@@ -25,7 +25,7 @@ class FormPaymentCashMovements extends Model
         'form_payment_id'
     ];
 
-    public function form_payments(){
+    public function formPayments(){
         return $this->belongsTo(FormPayment::class, 'form_payment_id', 'id');
     }
 }
