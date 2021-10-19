@@ -10,7 +10,7 @@ class ChartAccount extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'charts_accounts';
+    protected $table = 'chart_accounts';
 
     /**
      * The attributes that are mass assignable.

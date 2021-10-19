@@ -23,7 +23,7 @@
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-striped " id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-striped dataTableCartAccounts"  id="dataTable" width="100%" cellspacing="0">
 {{--                    <thead class="thead-light">--}}
                     <thead>
                         <tr>
@@ -48,7 +48,7 @@
                         <tr>
                             <td>{{$chart_account->description}}</td>
                             <td>{{$chart_account->type}}</td>
-                            <td>{{$chart_account->created_at->format('d/m/Y - H:i:s') }}}}</td>
+                            <td>{{$chart_account->created_at->format('d/m/Y - H:i:s') }}</td>
                             <td class="pt-2">
 {{--                                <a href="{{ route('user.show', ['user' => $user->id]) }}"><button class="btn btn-info btn-sm py-0 px-1 mt-1" data-toggle="modal" data-placement="top" title="Detalhes" data-target="#modalUserDetail"><i class="far fa-eye"></i></button></a>--}}
                                 <a href="{{ route('chart-account.show', ['chart_account' => $chart_account->id]) }}"><button class="btn btn-info btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Detalhes"><i class="far fa-eye"></i></button></a>
@@ -123,4 +123,20 @@
 {{--            </div>--}}
 {{--        </div>--}}
 {{--    @endif--}}
+@endsection
+
+@section('scriptPages')
+
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            $('.dataTableCartAccounts').DataTable( {
+                // "language": {
+                //     "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Portuguese-Brasil.json"
+                // },
+                "order": [[ 0, 'asc' ], [ 1, 'asc' ]]
+            });
+        });
+
+    </script>
 @endsection

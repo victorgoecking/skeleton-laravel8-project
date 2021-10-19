@@ -14,7 +14,7 @@ class ChartAccountController extends Controller
      */
     public function index()
     {
-        $chart_accounts = ChartAccount::all();
+        $chart_accounts = ChartAccount::orderBy('description')->get();
 
         return view('pages.chart_accounts.chart_accounts', [
             'chart_accounts' => $chart_accounts
