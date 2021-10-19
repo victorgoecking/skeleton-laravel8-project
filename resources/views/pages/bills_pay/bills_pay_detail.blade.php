@@ -43,12 +43,12 @@
                         <tr>
                             <th class="border-top-0" scope="row" >Situação</th>
                             @if( $bill_pay->situation === "Atrasado")
-                                <td class="border-top-0" colspan="1"><span class="badge badge-danger">{{$bill_pay->situation}}</span></td>
+                                <td class="border-top-0" colspan="1"><span class="badge badge-custom-price-danger">{{$bill_pay->situation}}</span></td>
                             @else
                                 @if($bill_pay->situation === "Em aberto")
-                                    <td class="border-top-0" colspan="1"><span class="badge badge-info">{{$bill_pay->situation}}</span></td>
+                                    <td class="border-top-0" colspan="1"><span class="badge badge-custom-price-info">{{$bill_pay->situation}}</span></td>
                                 @else
-                                    <td class="border-top-0" colspan="1"><span class="badge badge-primary">{{$bill_pay->situation}}</span></td>
+                                    <td class="border-top-0" colspan="1"><span class="badge badge-custom-price-success">{{$bill_pay->situation}}</span></td>
                                 @endif
                             @endif
                         </tr>

@@ -2,36 +2,32 @@
 
 @section('content-cash-flow')
 
-    <div>
-
-        <table class="  mt-0 table table-bordered">
-
-            <tbody>
-            <tr>
-                <th class="" scope="row" >Nº do pedido</th>
-                <td class="" colspan="1"></td>
-            </tr>
-            <tr>
-                <th class="" scope="row" >RESUMO</th>
-                <td class="" colspan="1"></td>
-            </tr>
-            <tr>
-                <th class="" scope="row" >Situação</th>
-
-                <td class="" colspan="1"><span class="badge badge-danger"></span></td>
-
-            </tr>
-            <tr>
-                <th class="" scope="row" >Valor</th>
-                <td class="" colspan="1"></td>
-            </tr>
-            <tr>
-                <th class="" scope="row" >Data do vencimento</th>
-                <td class="" colspan="1"></td>
-            </tr>
-
-            </tbody>
-        </table>
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <h2 class="h3 mb-3 text-gray-800"> Pagamentos X Recebimentos</h2>
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th class="" scope="row" >Total atual:</th>
+                        @if($total_pay_x_receive_current > 0)
+                            <td class="text-custom-price-success">{{ $total_pay_x_receive_current }}</td>
+                        @else
+                            <td class="text-custom-price-danger">{{ $total_pay_x_receive_current }}</td>
+                        @endif
+                    </tr>
+                    <tr>
+                        <th class="" scope="row" >Total final previsto:</th>
+                        @if($total_pay_x_receive_foreseen > 0)
+                            <td class="text-custom-price-success">{{ $total_pay_x_receive_foreseen }}</td>
+                        @else
+                            <td class="text-custom-price-danger">{{ $total_pay_x_receive_foreseen }}</td>
+                        @endif
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
 @endsection

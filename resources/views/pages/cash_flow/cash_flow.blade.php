@@ -16,24 +16,20 @@
         </nav>
     </div>
 
-    <div class="card shadow mb-4">
-        <div class="card-body">
+
 {{--            <ul class="nav nav-tabs" id="myTab" role="tablist">--}}
-            <ul class="nav nav-pills mb-3" id="myTab" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link activeTabs" id="balance-tab" href="{{ route('balance') }}" ><i class="fas fa-balance-scale-right"></i> Saldo</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link activeTabs" id="abstract-tab" href="{{ route('abstract') }}"><i class="fas fa-poll-h"></i> Resumo</a>
-                </li>
-            </ul>
+    <ul class="nav nav-pills mb-3" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link activeTabs" id="balance-tab" href="{{ route('balance') }}" ><i class="fas fa-balance-scale-right"></i> Saldo</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link activeTabs" id="abstract-tab" href="{{ route('abstract') }}"><i class="fas fa-poll-h"></i> Resumo</a>
+        </li>
+    </ul>
 
-            <div class="tab-content" id="myTabContent">
-                @yield('content-cash-flow')
-            </div>
-
-
-        </div>
+    <div class="tab-content" id="myTabContent">
+        @yield('content-cash-flow')
     </div>
+
 
 @endsection

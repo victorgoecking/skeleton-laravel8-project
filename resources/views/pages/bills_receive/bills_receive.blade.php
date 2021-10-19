@@ -66,13 +66,11 @@
                             <td>{{ $bill_receive->gross_value }}</td>
 
                             @if( $bill_receive->situation === "Atrasado")
-                                <td><span class="badge badge-danger">{{$bill_receive->situation}}</span></td>
+                                <td><span class="badge badge-custom-price-danger">{{$bill_receive->situation}}</span></td>
+                            @elseif($bill_receive->situation === "Em aberto")
+                                <td><span class="badge badge-custom-price-info">{{$bill_receive->situation}}</span></td>
                             @else
-                                @if($bill_receive->situation === "Em aberto")
-                                    <td><span class="badge badge-info">{{$bill_receive->situation}}</span></td>
-                                @else
-                                    <td><span class="badge badge-primary">{{$bill_receive->situation}}</span></td>
-                                @endif
+                                <td><span class="badge badge-custom-price-success">{{$bill_receive->situation}}</span></td>
                             @endif
 
                             <td class="pt-2">

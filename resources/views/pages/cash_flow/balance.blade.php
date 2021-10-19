@@ -2,35 +2,130 @@
 
 @section('content-cash-flow')
 
-    <div>
-        <table class=" table table-bordered">
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <h2 class="h3 mb-3 text-gray-800"> Pagamentos X Recebimentos</h2>
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th class="" scope="row" >Total atual:</th>
+                            @if($total_pay_x_receive_current > 0)
+                                <td class="text-custom-price-success">{{ $total_pay_x_receive_current }}</td>
+                            @else
+                                <td class="text-custom-price-danger">{{ $total_pay_x_receive_current }}</td>
+                            @endif
+                        </tr>
+                        <tr>
+                            <th class="" scope="row" >Total final previsto:</th>
+                            @if($total_pay_x_receive_foreseen > 0)
+                                <td class="text-custom-price-success">{{ $total_pay_x_receive_foreseen }}</td>
+                            @else
+                                <td class="text-custom-price-danger">{{ $total_pay_x_receive_foreseen }}</td>
+                            @endif
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
-            <tbody>
-            <tr>
-                <th class="" scope="row" >Nº do pedido</th>
-                <td class="" colspan="1"></td>
-            </tr>
-            <tr>
-                <th class="" scope="row" >SALDO</th>
-                <td class="" colspan="1"></td>
-            </tr>
-            <tr>
-                <th class="" scope="row" >Situação</th>
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <h2 class="h3 mb-3 text-gray-800"> Recebimentos</h2>
+            <div class="table-responsive">
+                <table class=" table table-sm table-bordered">
+                    <thead>
+                    <tr >
+                        <th style="width: 15%">
+                            Data
+                        </th>
+                        <th>
+                            Descrição do recebimento
+                        </th>
+                        <th style="width: 15%" class="text-center">
+                            Situação
+                        </th>
+                        <th class="text-right" style="width: 20%">
+                            Valor
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($bills_receive as $bill_receive)
+                            <tr class="table-success">
+                                <td>{{ $bill_receive->clearing_date ? $bill_receive->clearing_date->format('d/m/Y') : $bill_receive->due_date->format('d/m/Y') }}</td>
+                                <td>{{ $bill_receive->description }}</td>
 
-                <td class="" colspan="1"><span class="badge badge-danger"></span></td>
+                                @if( $bill_receive->situation === "Atrasado")
+                                    <td class="text-center"><span class="badge badge-custom-price-danger">{{$bill_receive->situation}}</span></td>
+                                    <td class="text-right text-custom-price-danger">{{ $bill_receive->gross_value }}</td>
+                                @elseif($bill_receive->situation === "Em aberto")
+                                    <td class="text-center"><span class="badge badge-custom-price-info">{{$bill_receive->situation}}</span></td>
+                                    <td class="text-right text-custom-price-info">{{ $bill_receive->gross_value }}</td>
+                                @else
+                                    <td class="text-center"><span class="badge badge-custom-price-success">{{$bill_receive->situation}}</span></td>
+                                    <td class="text-right text-custom-price-success">{{ $bill_receive->gross_value }}</td>
+                                @endif
 
-            </tr>
-            <tr>
-                <th class="" scope="row" >Valor</th>
-                <td class="" colspan="1"></td>
-            </tr>
-            <tr>
-                <th class="" scope="row" >Data do vencimento</th>
-                <td class="" colspan="1"></td>
-            </tr>
+                            </tr>
+                        @endforeach
+                        <tr>
+                            <td colspan="4" class="text-right font-weight-bold">Valor Total: {{ $total_receive }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
-            </tbody>
-        </table>
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <h2 class="h3 mb-3 text-gray-800"> Pagamentos</h2>
+            <div class="table-responsive">
+                <table class=" table table-sm table-bordered">
+                    <thead>
+                    <tr >
+                        <th style="width: 15%">
+                            Data
+                        </th>
+                        <th>
+                            Descrição do pagamento
+                        </th>
+                        <th style="width: 15%" class="text-center">
+                            Situação
+                        </th>
+                        <th class="text-right" style="width: 20%">
+                            Valor
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($bills_pay as $bill_pay)
+                        <tr class="table-danger">
+                            <td>{{ $bill_pay->clearing_date ? $bill_pay->clearing_date->format('d/m/Y') : $bill_pay->due_date->format('d/m/Y') }}</td>
+                            <td>{{ $bill_pay->description }}</td>
+
+                            @if( $bill_pay->situation === "Atrasado")
+                                <td class="text-center"><span class="badge badge-custom-price-danger">{{$bill_pay->situation}}</span></td>
+                                <td class="text-right text-custom-price-danger">{{ $bill_pay->gross_value }}</td>
+                            @elseif($bill_pay->situation === "Em aberto")
+                                <td class="text-center"><span class="badge badge-custom-price-info">{{$bill_pay->situation}}</span></td>
+                                <td class="text-right text-custom-price-info">{{ $bill_pay->gross_value }}</td>
+                            @else
+                                <td class="text-center"><span class="badge badge-custom-price-success">{{$bill_pay->situation}}</span></td>
+                                <td class="text-right text-custom-price-success">-{{ $bill_pay->gross_value }}</td>
+                            @endif
+
+                        </tr>
+                    @endforeach
+                    <tr>
+                        <td colspan="4" class="text-right font-weight-bold">Valor Total: -{{ $total_pay }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
 @endsection
