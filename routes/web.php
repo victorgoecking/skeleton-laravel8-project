@@ -10,6 +10,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\BillsReceiveController;
 use App\Http\Controllers\BillsPayController;
+use App\Http\Controllers\CashFlowController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,14 +53,21 @@ Route::resource('servicos', ServiceController::class)->middleware(['auth'])->nam
 
 Route::resource('pedidos', OrderController::class)->middleware(['auth'])->names('order')->parameters(['pedidos' => 'order']);
 
-Route::get('/returnClientAddress', [OrderController::class, 'returnClientAddress'])
+Route::get('/return-client-address', [OrderController::class, 'returnClientAddress'])
     ->middleware('auth')
-    ->name('returnClientAddress');
+    ->name('return-client-address');
 
 Route::resource('contas-receber', BillsReceiveController::class)->middleware(['auth'])->names('bills-receive')->parameters(['contas-receber' => 'bills-receive']);
 
 Route::resource('contas-pagar', BillsPayController::class)->middleware(['auth'])->names('bills-pay')->parameters(['contas-pagar' => 'bills-pay']);
 
+Route::get('/fluxo-caixa/saldo', [CashFlowController::class, 'balance'])
+    ->middleware('auth')
+    ->name('balance');
+
+Route::get('/fluxo-caixa/resumo', [CashFlowController::class, 'abstract'])
+    ->middleware('auth')
+    ->name('abstract');
 
 //Route::get('/usuarios', [UserController::class, 'index'])
 //    ->name('user.index');

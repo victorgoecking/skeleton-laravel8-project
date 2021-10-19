@@ -1053,7 +1053,7 @@
         function idClientForAddress(value) {
 
             $.ajax({
-                url: "{{ route('returnClientAddress') }}",
+                url: "{{ route('return-client-address') }}",
                 data: {
                     "_token": "{{ csrf_token() }}",
                     "id": value
