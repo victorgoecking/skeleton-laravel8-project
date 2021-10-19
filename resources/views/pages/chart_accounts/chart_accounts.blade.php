@@ -23,7 +23,7 @@
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-striped dataTableCartAccounts"  id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-striped"  id="dataTable" width="100%" cellspacing="0">
 {{--                    <thead class="thead-light">--}}
                     <thead>
                         <tr>
@@ -130,11 +130,11 @@
     <script type="text/javascript">
 
         $(document).ready(function() {
-            $('.dataTableCartAccounts').DataTable( {
-                // "language": {
-                //     "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Portuguese-Brasil.json"
-                // },
-                "order": [[ 0, 'asc' ], [ 1, 'asc' ]]
+            $('#dataTable').DataTable( {
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Portuguese-Brasil.json"
+                },
+                "order": [[ 1, 'asc' ], [ 0, 'asc' ]]
             });
         });
 

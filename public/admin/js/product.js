@@ -12,6 +12,13 @@ var __webpack_exports__ = {};
 // $("#profitPercentage").keyup(function(){
 //     calculatePersentagem();
 // });
+$(document).ready(function () {
+  $('#dataTable').DataTable({
+    "language": {
+      "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Portuguese-Brasil.json"
+    }
+  });
+});
 $("#validationCustomProductCostValue").change(function () {
   calculatePersentagem();
 });

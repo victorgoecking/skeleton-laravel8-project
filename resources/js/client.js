@@ -1,5 +1,4 @@
 
-
 // ------------------------------------    FORM CLIENTE HIDE CAMPOS
 $(document).ready(function(){
     //executar quando a página é carregada
