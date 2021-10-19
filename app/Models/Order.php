@@ -55,10 +55,10 @@ class Order extends Model
         return $this->belongsTo(Situation::class, 'situation_id', 'id');
     }
 
-    public function orders_products(){
+    public function ordersProducts(){
         return $this->belongsToMany(Product::class, 'orders_products','order_id', 'product_id');
     }
-    public function orders_services(){
+    public function ordersServices(){
         return $this->belongsToMany(Service::class, 'orders_services','order_id', 'service_id');
     }
 }

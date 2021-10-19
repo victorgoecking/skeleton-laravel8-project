@@ -22,7 +22,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::with('user', 'client', 'orders_products', 'orders_services', 'situation')->get();
+        $orders = Order::with('user', 'client', 'ordersProducts', 'ordersServices', 'situation')->get();
 
         return view('pages.order.orders', [
             'orders' => $orders
@@ -181,7 +181,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        $order = Order::with('user', 'client', 'orders_products', 'orders_services', 'situation')->find($order->id);
+        $order = Order::with('user', 'client', 'ordersProducts', 'ordersServices', 'situation')->find($order->id);
 
         $salesman =  User::where('id', $order->salesman)->first();
 
@@ -206,7 +206,7 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-        $order = Order::with('user', 'client', 'orders_products', 'orders_services', 'situation')->find($order->id);
+        $order = Order::with('user', 'client', 'ordersProducts', 'ordersServices', 'situation')->find($order->id);
 
         $salesman =  User::where('id', $order->salesman)->first();
 
