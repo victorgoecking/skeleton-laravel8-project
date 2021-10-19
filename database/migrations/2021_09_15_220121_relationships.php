@@ -35,7 +35,7 @@ class Relationships extends Migration
             $table->foreignId('cashier_id')->constrained();
             $table->foreignId('order_id')->nullable()->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('chart_account_id')->constrained();
+            $table->foreignId('chart_accounts_id')->constrained();
         });
 
         Schema::table('products', function (Blueprint $table) {
@@ -96,7 +96,7 @@ class Relationships extends Migration
             $table->dropForeign(['cashier_id']);
             $table->dropForeign(['order_id']);
             $table->dropForeign(['user_id']);
-            $table->dropForeign(['chart_account_id']);
+            $table->dropForeign(['chart_accounts_id']);
         });
 
         Schema::table('products', function (Blueprint $table) {
@@ -125,5 +125,6 @@ class Relationships extends Migration
             $table->dropForeign(['cash_movement_id']);
             $table->dropForeign(['form_payment_id']);
         });
+
     }
 }

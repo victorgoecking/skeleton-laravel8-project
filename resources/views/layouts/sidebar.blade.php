@@ -123,6 +123,7 @@
                 <a class="collapse-item" href="{{ route('balance') }}"><i class="fas fa-fw fa-chart-bar"></i>&nbsp;&nbsp;&nbsp;Fluxo de caixa</a>
                 <h6 class="collapse-header">Opções auxiliares:</h6>
                 <a class="collapse-item" href="utilities-color.html"><i class="fas fa-fw fa-money-bill-alt"></i>&nbsp;&nbsp;&nbsp;Forma de pagamento</a>
+                <a class="collapse-item" href="{{ route('chart-account.index') }}"><i class="fas fa-sitemap"></i>&nbsp;&nbsp;&nbsp;Plano de contas</a>
             </div>
         </div>
     </li>

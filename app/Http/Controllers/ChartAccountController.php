@@ -14,7 +14,11 @@ class ChartAccountController extends Controller
      */
     public function index()
     {
-        //
+        $chart_accounts = ChartAccount::all();
+
+        return view('pages.chart_accounts.chart_accounts', [
+            'chart_accounts' => $chart_accounts
+        ]);
     }
 
     /**
@@ -24,7 +28,7 @@ class ChartAccountController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.chart_accounts.chart_account_registration');
     }
 
     /**
@@ -35,7 +39,19 @@ class ChartAccountController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'type' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+        ]);
+
+        ChartAccount::create([
+            'type' => $request->type,
+            'description' => $request->description,
+            'user_id' => auth()->user()->id,
+        ]);
+
+//        return redirect('/cadastro-usuario')->with('message', 'Profile updated!');
+        return redirect()->route('chart-account.index')->with('success','Plano de conta cadastrada com sucesso!');
     }
 
     /**
@@ -46,7 +62,9 @@ class ChartAccountController extends Controller
      */
     public function show(ChartAccount $chartAccount)
     {
-        //
+        return view('pages.chart_accounts.chart_account_detail', [
+            'chart_account' => $chartAccount
+        ]);
     }
 
     /**
@@ -57,7 +75,9 @@ class ChartAccountController extends Controller
      */
     public function edit(ChartAccount $chartAccount)
     {
-        //
+        return view('pages.chart_accounts.chart_account_edit', [
+            'chart_account' => $chartAccount
+        ]);
     }
 
     /**
@@ -69,7 +89,21 @@ class ChartAccountController extends Controller
      */
     public function update(Request $request, ChartAccount $chartAccount)
     {
-        //
+        $request->validate([
+            'type' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+        ]);
+
+        if(!empty($request->description)){
+            $chartAccount->update([
+                'type' => $request->type,
+                'description' => $request->description,
+                'user_id' => auth()->user()->id,
+            ]);
+        }
+
+//        return redirect('/cadastro-usuario')->with('message', 'Profile updated!');
+        return redirect()->route('chart-account.index')->with('success','Plano de conta atualizado com sucesso!');
     }
 
     /**
@@ -80,6 +114,8 @@ class ChartAccountController extends Controller
      */
     public function destroy(ChartAccount $chartAccount)
     {
-        //
+        $chartAccount->delete();
+
+        return redirect()->route('chart-account')->with('success','Plano de conta removido com sucesso!');
     }
 }

@@ -10,7 +10,7 @@ class ChartAccount extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'chart_accounts';
+    protected $table = 'charts_accounts';
 
     /**
      * The attributes that are mass assignable.
@@ -20,9 +20,14 @@ class ChartAccount extends Model
     protected $fillable = [
         'type',
         'description',
+        'user_id',
     ];
 
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
     public function cashMovements(){
-        return $this->hasMany(CashMovement::class, 'chart_account_id', 'id');
+        return $this->hasMany(CashMovement::class, 'chart_accounts_id', 'id');
     }
 }

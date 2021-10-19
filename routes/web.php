@@ -11,6 +11,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\BillsReceiveController;
 use App\Http\Controllers\BillsPayController;
 use App\Http\Controllers\CashFlowController;
+use App\Http\Controllers\ChartAccountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,6 +61,8 @@ Route::get('/return-client-address', [OrderController::class, 'returnClientAddre
 Route::resource('contas-receber', BillsReceiveController::class)->middleware(['auth'])->names('bills-receive')->parameters(['contas-receber' => 'bills-receive']);
 
 Route::resource('contas-pagar', BillsPayController::class)->middleware(['auth'])->names('bills-pay')->parameters(['contas-pagar' => 'bills-pay']);
+
+Route::resource('plano-contas', ChartAccountController::class)->middleware(['auth'])->names('chart-account')->parameters(['plano-contas' => 'chart-account']);
 
 Route::get('/fluxo-caixa/saldo', [CashFlowController::class, 'balance'])
     ->middleware('auth')

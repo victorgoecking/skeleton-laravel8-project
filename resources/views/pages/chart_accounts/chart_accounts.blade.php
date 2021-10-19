@@ -4,7 +4,7 @@
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">
-            <i class="fa fa-users"></i> Usuários&nbsp;
+            <i class="fas fa-sitemap"></i> Plano de contas
             <a href="{{ route('user.create') }}">
                 <button type="button" class="btn btn-primary">
                     <i class="fas fa-plus-circle"></i> Novo
@@ -15,7 +15,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb m-0 p-2 bg-transparent">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="fas fa-fw fa-tachometer-alt"></i> Início</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Usuários</li>
+                <li class="breadcrumb-item active" aria-current="page">Plano de contas</li>
             </ol>
         </nav>
     </div>
@@ -27,46 +27,37 @@
 {{--                    <thead class="thead-light">--}}
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Nome</th>
-                            <th>Nome de Usuário</th>
-                            <th>E-mail</th>
-                            <th>Observação</th>
-                            <th>Nível</th>
+                            <th>Descrição</th>
+                            <th>Movimentação</th>
+                            <th>Cadastrado em</th>
                             <th>Opções</th>
                         </tr>
                     </thead>
 
                     <tfoot>
                         <tr>
-                            <th>ID</th>
-                            <th>Nome</th>
-                            <th>Nome de Usuário</th>
-                            <th>E-mail</th>
-                            <th>Observação</th>
-                            <th>Nível</th>
+                            <th>Descrição</th>
+                            <th>Movimentação</th>
+                            <th>Cadastrado em</th>
                             <th>Opções</th>
                         </tr>
                     </tfoot>
 
                     <tbody>
-                        @foreach($users as $user)
+                        @foreach($chart_accounts as $chart_account)
                         <tr>
-                            <td>{{$user->id}}</td>
-                            <td>{{$user->name}}</td>
-                            <td>{{$user->username}}</td>
-                            <td>{{$user->email}}</td>
-                            <td>{{$user->note}}</td>
-                            <td>{{$user->level}}</td>
+                            <td>{{$chart_account->description}}</td>
+                            <td>{{$chart_account->type}}</td>
+                            <td>{{$chart_account->created_at->format('d/m/Y - H:i:s') }}}}</td>
                             <td class="pt-2">
 {{--                                <a href="{{ route('user.show', ['user' => $user->id]) }}"><button class="btn btn-info btn-sm py-0 px-1 mt-1" data-toggle="modal" data-placement="top" title="Detalhes" data-target="#modalUserDetail"><i class="far fa-eye"></i></button></a>--}}
-                                <a href="{{ route('user.show', ['user' => $user->id]) }}"><button class="btn btn-info btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Detalhes"><i class="far fa-eye"></i></button></a>
-                                <a href="{{ route('user.edit', ['user' => $user->id]) }}"><button class="btn btn-warning btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Editar"><i class="far fa-edit"></i></button></a>
+                                <a href="{{ route('chart-account.show', ['chart_account' => $chart_account->id]) }}"><button class="btn btn-info btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Detalhes"><i class="far fa-eye"></i></button></a>
+                                <a href="{{ route('chart-account.edit', ['chart_account' => $chart_account->id]) }}"><button class="btn btn-warning btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Editar"><i class="far fa-edit"></i></button></a>
 {{--                                <a href="{{ route('user.show', ['user' => $user->id]) }}"><button class="btn btn-secondary btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Desabilitar"><i class="fas fa-user-slash"></i></button></a>--}}
-                                <form class="d-inline" action="{{ route('user.destroy', ['user' => $user->id]) }}" method="POST">
+                                <form class="d-inline" action="{{ route('chart-account.destroy', ['chart_account' => $chart_account->id]) }}" method="POST">
                                     @csrf
                                     @method('delete')
-                                    <button type="submit" onclick="return confirm('Deseja realmente remover o usuário {{ $user->name }} ?')" class="btn btn-danger btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Remover"><i class="far fa-trash-alt"></i></button>
+                                    <button type="submit" onclick="return confirm('Deseja realmente remover o plano de conta {{ $chart_account->description }} ?')" class="btn btn-danger btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Remover"><i class="far fa-trash-alt"></i></button>
                                 </form>
                             </td>
                         </tr>
