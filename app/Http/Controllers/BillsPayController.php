@@ -148,7 +148,7 @@ class BillsPayController extends Controller
      */
     public function edit($id)
     {
-        $bill_pay = CashMovement::with('user', 'formPaymentCashMovements')->where('type_movement', 'pagar')->where('id', '=', $id)->first();
+        $bill_pay = CashMovement::with('user', 'formPaymentCashMovements', 'chartAccount')->where('type_movement', 'pagar')->where('id', '=', $id)->first();
 
         $form_payment_cash_movements = FormPaymentCashMovements::with('formPayments')->where('cash_movement_id', $bill_pay->id)->get();
 

@@ -151,7 +151,7 @@ class BillsReceiveController extends Controller
      */
     public function edit($id)
     {
-        $bill_receive = CashMovement::with('user', 'formPaymentCashMovements')->where('type_movement', 'receber')->where('id', '=', $id)->first();
+        $bill_receive = CashMovement::with('user', 'formPaymentCashMovements', 'chartAccount')->where('type_movement', 'receber')->where('id', '=', $id)->first();
 
         $form_payment_cash_movements = FormPaymentCashMovements::with('formPayments')->where('cash_movement_id', $bill_receive->id)->get();
 
