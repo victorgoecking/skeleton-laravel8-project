@@ -20,10 +20,13 @@
 {{--            <ul class="nav nav-tabs" id="myTab" role="tablist">--}}
     <ul class="nav nav-pills mb-3" id="myTab" role="tablist">
         <li class="nav-item">
-            <a class="nav-link activeTabs" id="balance-tab" href="{{ route('balance') }}" ><i class="fas fa-balance-scale-right"></i> Saldo</a>
+            <a class="nav-link activeTabs" id="balance-tab" href="{{ route('balance') }}" ><i class="fas fa-balance-scale-right"></i> Saldos</a>
         </li>
         <li class="nav-item">
             <a class="nav-link activeTabs" id="abstract-tab" href="{{ route('abstract') }}"><i class="fas fa-poll-h"></i> Resumo</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link activeTabs" id="cashier-tab" href="{{ route('cashier') }}"><i class="fas fa-cash-register"></i> Caixa</a>
         </li>
     </ul>
 

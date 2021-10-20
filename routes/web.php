@@ -72,6 +72,10 @@ Route::get('/fluxo-caixa/resumo', [CashFlowController::class, 'abstract'])
     ->middleware('auth')
     ->name('abstract');
 
+Route::get('/fluxo-caixa/caixa', [CashFlowController::class, 'cashier'])
+    ->middleware('auth')
+    ->name('cashier');
+
 //Route::get('/usuarios', [UserController::class, 'index'])
 //    ->name('user.index');
 //

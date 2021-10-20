@@ -16,7 +16,7 @@ class ChartAccountController extends Controller
     {
         $chart_accounts = ChartAccount::orderBy('name')->get();
 
-        return view('pages.chart_accounts.chart_accounts', [
+        return view('pages.financial.chart_accounts.chart_accounts', [
             'chart_accounts' => $chart_accounts
         ]);
     }
@@ -28,7 +28,7 @@ class ChartAccountController extends Controller
      */
     public function create()
     {
-        return view('pages.chart_accounts.chart_account_registration');
+        return view('pages.financial.chart_accounts.chart_account_registration');
     }
 
     /**
@@ -63,7 +63,7 @@ class ChartAccountController extends Controller
      */
     public function show(ChartAccount $chartAccount)
     {
-        return view('pages.chart_accounts.chart_account_detail', [
+        return view('pages.financial.chart_accounts.chart_account_detail', [
             'chart_account' => $chartAccount
         ]);
     }
@@ -76,7 +76,7 @@ class ChartAccountController extends Controller
      */
     public function edit(ChartAccount $chartAccount)
     {
-        return view('pages.chart_accounts.chart_account_edit', [
+        return view('pages.financial.chart_accounts.chart_account_edit', [
             'chart_account' => $chartAccount
         ]);
     }

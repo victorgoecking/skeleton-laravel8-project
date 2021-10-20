@@ -19,7 +19,7 @@ class BillsPayController extends Controller
     {
         $bills_pay = CashMovement::with('user', 'formPaymentCashMovements')->where('type_movement', 'pagar')->get();
 
-        return view('pages.bills_pay.bills_pay', [
+        return view('pages.financial.bills_pay.bills_pay', [
             'bills_pay' => $bills_pay,
         ]);
     }
@@ -34,7 +34,7 @@ class BillsPayController extends Controller
         $form_payments = FormPayment::all();
         $chart_accounts = ChartAccount::orderBy('name')->get();
 
-        return view('pages.bills_pay.bills_pay_registration', [
+        return view('pages.financial.bills_pay.bills_pay_registration', [
             'form_payments' => $form_payments,
             'chart_accounts' => $chart_accounts
         ]);
@@ -134,7 +134,7 @@ class BillsPayController extends Controller
 
         $form_payment_cash_movements = FormPaymentCashMovements::with('formPayments')->where('cash_movement_id', $bill_pay->id)->get();
 
-        return view('pages.bills_pay.bills_pay_detail', [
+        return view('pages.financial.bills_pay.bills_pay_detail', [
             'bill_pay' => $bill_pay,
             'form_payment_cash_movements' => $form_payment_cash_movements,
         ]);
@@ -156,7 +156,7 @@ class BillsPayController extends Controller
 
         $chart_accounts = ChartAccount::orderBy('name')->get();
 
-        return view('pages.bills_pay.bills_pay_edit', [
+        return view('pages.financial.bills_pay.bills_pay_edit', [
             'bill_pay' => $bill_pay,
             'form_payment_cash_movements' => $form_payment_cash_movements,
             'form_payments' => $form_payments,

@@ -20,7 +20,7 @@ class BillsReceiveController extends Controller
     {
         $bills_receive = CashMovement::with('user', 'formPaymentCashMovements')->where('type_movement', 'receber')->get();
 
-        return view('pages.bills_receive.bills_receive', [
+        return view('pages.financial.bills_receive.bills_receive', [
             'bills_receive' => $bills_receive,
         ]);
     }
@@ -35,7 +35,7 @@ class BillsReceiveController extends Controller
         $form_payments = FormPayment::all();
         $chart_accounts = ChartAccount::orderBy('name')->get();
 
-        return view('pages.bills_receive.bills_receive_registration', [
+        return view('pages.financial.bills_receive.bills_receive_registration', [
             'form_payments' => $form_payments,
             'chart_accounts' => $chart_accounts
         ]);
@@ -137,7 +137,7 @@ class BillsReceiveController extends Controller
 
         $form_payment_cash_movements = FormPaymentCashMovements::with('formPayments')->where('cash_movement_id', $bill_receive->id)->get();
 
-        return view('pages.bills_receive.bills_receive_detail', [
+        return view('pages.financial.bills_receive.bills_receive_detail', [
             'bill_receive' => $bill_receive,
             'form_payment_cash_movements' => $form_payment_cash_movements,
         ]);
@@ -159,7 +159,7 @@ class BillsReceiveController extends Controller
 
         $chart_accounts = ChartAccount::orderBy('name')->get();
 
-        return view('pages.bills_receive.bills_receive_edit', [
+        return view('pages.financial.bills_receive.bills_receive_edit', [
             'bill_receive' => $bill_receive,
             'form_payment_cash_movements' => $form_payment_cash_movements,
             'form_payments' => $form_payments,

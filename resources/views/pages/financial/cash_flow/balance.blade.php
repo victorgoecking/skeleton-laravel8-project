@@ -1,4 +1,4 @@
-@extends('pages.cash_flow.cash_flow')
+@extends('pages.financial.cash_flow.cash_flow')
 
 @section('content-cash-flow')
 
@@ -11,17 +11,17 @@
                         <tr>
                             <th class="" scope="row" >Total atual:</th>
                             @if($total_pay_x_receive_current > 0)
-                                <td class="text-custom-price-success">{{ $total_pay_x_receive_current }}</td>
+                                <td class="text-custom-price-success font-weight-bold">{{ $total_pay_x_receive_current }}</td>
                             @else
-                                <td class="text-custom-price-danger">{{ $total_pay_x_receive_current }}</td>
+                                <td class="text-custom-price-danger font-weight-bold">{{ $total_pay_x_receive_current }}</td>
                             @endif
                         </tr>
                         <tr>
                             <th class="" scope="row" >Total final previsto:</th>
                             @if($total_pay_x_receive_foreseen > 0)
-                                <td class="text-custom-price-success">{{ $total_pay_x_receive_foreseen }}</td>
+                                <td class="text-custom-price-success font-weight-bold">{{ $total_pay_x_receive_foreseen }}</td>
                             @else
-                                <td class="text-custom-price-danger">{{ $total_pay_x_receive_foreseen }}</td>
+                                <td class="text-custom-price-danger font-weight-bold">{{ $total_pay_x_receive_foreseen }}</td>
                             @endif
                         </tr>
                     </tbody>
@@ -43,6 +43,9 @@
                         <th>
                             Descrição do recebimento
                         </th>
+                        <th>
+                            Plano de contas
+                        </th>
                         <th style="width: 15%" class="text-center">
                             Situação
                         </th>
@@ -56,6 +59,7 @@
                             <tr class="table-success">
                                 <td>{{ $bill_receive->clearing_date ? $bill_receive->clearing_date->format('d/m/Y') : $bill_receive->due_date->format('d/m/Y') }}</td>
                                 <td>{{ $bill_receive->description }}</td>
+                                <td>{{ $bill_receive->chartAccount->name }}</td>
 
                                 @if( $bill_receive->situation === "Atrasado")
                                     <td class="text-center"><span class="badge badge-custom-price-danger">{{$bill_receive->situation}}</span></td>
@@ -71,7 +75,7 @@
                             </tr>
                         @endforeach
                         <tr>
-                            <td colspan="4" class="text-right font-weight-bold">Valor Total: {{ $total_receive }}</td>
+                            <td colspan="5" class="text-right font-weight-bold">Valor Total: {{ $total_receive }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -92,6 +96,9 @@
                         <th>
                             Descrição do pagamento
                         </th>
+                        <th>
+                            Plano de contas
+                        </th>
                         <th style="width: 15%" class="text-center">
                             Situação
                         </th>
@@ -105,6 +112,7 @@
                         <tr class="table-danger">
                             <td>{{ $bill_pay->clearing_date ? $bill_pay->clearing_date->format('d/m/Y') : $bill_pay->due_date->format('d/m/Y') }}</td>
                             <td>{{ $bill_pay->description }}</td>
+                            <td>{{ $bill_pay->chartAccount->name }}</td>
 
                             @if( $bill_pay->situation === "Atrasado")
                                 <td class="text-center"><span class="badge badge-custom-price-danger">{{$bill_pay->situation}}</span></td>
@@ -120,7 +128,7 @@
                         </tr>
                     @endforeach
                     <tr>
-                        <td colspan="4" class="text-right font-weight-bold">Valor Total: -{{ $total_pay }}</td>
+                        <td colspan="5" class="text-right font-weight-bold">Valor Total: -{{ $total_pay }}</td>
                     </tr>
                     </tbody>
                 </table>

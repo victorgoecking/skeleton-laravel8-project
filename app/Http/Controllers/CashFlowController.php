@@ -10,8 +10,8 @@ class CashFlowController extends Controller
 
     public function __construct()
     {
-        $this->bills_receive = CashMovement::with('formPaymentCashMovements')->where('type_movement', 'receber')->get();
-        $this->bills_pay = CashMovement::with('formPaymentCashMovements')->where('type_movement', 'pagar')->get();
+        $this->bills_receive = CashMovement::with('formPaymentCashMovements', 'chartAccount')->where('type_movement', 'receber')->get();
+        $this->bills_pay = CashMovement::with('formPaymentCashMovements', 'chartAccount')->where('type_movement', 'pagar')->get();
 
         $this->total_receive = 0.00;
         $this->total_receive_current = 0.00;
@@ -41,7 +41,7 @@ class CashFlowController extends Controller
 
     public function balance()
     {
-        return view('pages.cash_flow.balance', [
+        return view('pages.financial.cash_flow.balance', [
             'total_pay_x_receive_current' => $this->total_pay_x_receive_current,
             'total_pay_x_receive_foreseen' => $this->total_pay_x_receive_foreseen,
             'bills_receive' =>  $this->bills_receive,
@@ -53,7 +53,15 @@ class CashFlowController extends Controller
 
     public function abstract()
     {
-        return view('pages.cash_flow.abstract', [
+        return view('pages.financial.cash_flow.abstract', [
+            'total_pay_x_receive_current' => $this->total_pay_x_receive_current,
+            'total_pay_x_receive_foreseen' => $this->total_pay_x_receive_foreseen,
+        ]);
+    }
+
+    public function cashier()
+    {
+        return view('pages.financial.cash_flow.cashier', [
             'total_pay_x_receive_current' => $this->total_pay_x_receive_current,
             'total_pay_x_receive_foreseen' => $this->total_pay_x_receive_foreseen,
         ]);

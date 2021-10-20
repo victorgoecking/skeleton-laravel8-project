@@ -1,4 +1,4 @@
-@extends('pages.cash_flow.cash_flow')
+@extends('pages.financial.cash_flow.cash_flow')
 
 @section('content-cash-flow')
 
@@ -11,17 +11,17 @@
                     <tr>
                         <th class="" scope="row" >Total atual:</th>
                         @if($total_pay_x_receive_current > 0)
-                            <td class="text-custom-price-success">{{ $total_pay_x_receive_current }}</td>
+                            <td class="text-custom-price-success font-weight-bold">{{ $total_pay_x_receive_current }}</td>
                         @else
-                            <td class="text-custom-price-danger">{{ $total_pay_x_receive_current }}</td>
+                            <td class="text-custom-price-danger font-weight-bold">{{ $total_pay_x_receive_current }}</td>
                         @endif
                     </tr>
                     <tr>
                         <th class="" scope="row" >Total final previsto:</th>
                         @if($total_pay_x_receive_foreseen > 0)
-                            <td class="text-custom-price-success">{{ $total_pay_x_receive_foreseen }}</td>
+                            <td class="text-custom-price-success font-weight-bold">{{ $total_pay_x_receive_foreseen }}</td>
                         @else
-                            <td class="text-custom-price-danger">{{ $total_pay_x_receive_foreseen }}</td>
+                            <td class="text-custom-price-danger font-weight-bold">{{ $total_pay_x_receive_foreseen }}</td>
                         @endif
                     </tr>
                     </tbody>
