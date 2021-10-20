@@ -56,7 +56,7 @@
                                 <td colspan="2">{{ $user->level ==  2 ?  'Administrador' : 'Atendente' }}</td>
                             </tr>
                             <tr>
-                                <th scope="row">Criado em</th>
+                                <th scope="row">Cadastrado em</th>
                                 <td colspan="2">{{ $user->created_at->format('d/m/Y - H:i:s') }}</td>
                             </tr>
                             <tr>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CashMovement;
 use App\Models\FormPayment;
 use App\Models\FormPaymentCashMovements;
+use App\Models\ChartAccount;
 use Illuminate\Http\Request;
 
 class BillsReceiveController extends Controller
@@ -32,9 +33,11 @@ class BillsReceiveController extends Controller
     public function create()
     {
         $form_payments = FormPayment::all();
+        $chart_accounts = ChartAccount::orderBy('name')->get();
 
         return view('pages.bills_receive.bills_receive_registration', [
             'form_payments' => $form_payments,
+            'chart_accounts' => $chart_accounts
         ]);
     }
 
@@ -92,6 +95,7 @@ class BillsReceiveController extends Controller
                 'note' => $request->note,
                 'user_id' => auth()->user()->id,
                 'cashier_id' => 1,
+                'chart_accounts_id' => $request->chart_accounts_id
             ]);
         }
 
@@ -153,10 +157,13 @@ class BillsReceiveController extends Controller
 
         $form_payments = FormPayment::all();
 
+        $chart_accounts = ChartAccount::orderBy('name')->get();
+
         return view('pages.bills_receive.bills_receive_edit', [
             'bill_receive' => $bill_receive,
             'form_payment_cash_movements' => $form_payment_cash_movements,
             'form_payments' => $form_payments,
+            'chart_accounts' => $chart_accounts,
         ]);
     }
 
@@ -215,6 +222,7 @@ class BillsReceiveController extends Controller
                 'note' => $request->note,
                 'user_id' => auth()->user()->id,
                 'cashier_id' => 1,
+                'chart_accounts_id' => $request->chart_accounts_id
             ]);
         }
 

@@ -15,7 +15,7 @@
         </nav>
     </div>
 
-    <form id="formOrder" class="needs-validation" method="POST" action="{{ route('order.update', ['order' => $order->id]) }}" novalidate>
+    <form id="formOrder" class="needs-validation" method="POST" action="{{ route('order.update', ['order' => $order->id]) }}" onsubmit="checkClient()" novalidate>
 
         @csrf
         @method('put')
@@ -44,16 +44,16 @@
 
                     <div class="col-md-5 mb-3 ">
                         <label for="validationCustomClient">Cliente *</label>
-                        <select required name="client_id" id="validationCustomClient" onchange="idClientForAddress(this.value)" data-placeholder="Digite para pesquisar..." class="form-control is-valid select_selectize_client w-100" data-allow-clear="1" >
+                        <select required name="client_id" id="validationCustomClient" onchange="idClientForAddress(this.value)" data-placeholder="Digite para pesquisar..." class="form-control select_selectize_client w-100" data-allow-clear="1" required>
 {{--                            <option  value="">Digite para pesquisar...</option>--}}
                             <option  value="{{$order->client->id}}">{{$order->client->name}} - {{$order->client->person_type === 'PF' ? '(PF)' : '(PJ)'}}</option>
                             @foreach($clients as $client)
                                 <option value="{{$client->id}}">{{$client->name}} - {{$client->person_type === 'PF' ? '(PF)' : '(PJ)'}}</option>
                             @endforeach
                         </select>
-                        {{--                        <div class="valid-feedback">--}}
-                        {{--                            Parece bom!--}}
-                        {{--                        </div>--}}
+                        <div id="validatyClient" class="valid-feedback">
+                            Parece bom!
+                        </div>
                         <div class="invalid-feedback">
                             Por favor, selecione um cliente.
                         </div>
@@ -681,9 +681,11 @@
                 allowClear: Boolean($(this).data('allow-clear')),
 
                 onChange:function (value){
-                    if(value !== ''){
+                    if(value){
+                        document.getElementById('validatyClient').style.display= 'block'
                         $(".select_selectize_client").removeClass("is-invalid").addClass("is-valid")
                     }else{
+                        document.getElementById('validatyClient').style.display= 'none'
                         $(".select_selectize_client").removeClass("is-valid").addClass("is-invalid")
                     }
                 },
@@ -717,6 +719,18 @@
 
             });
         });
+
+        function checkClient(){
+            document.getElementById('validatyClient').style.display= 'none';
+
+            let removeSelectizeItem = document.getElementById("validationCustomClient").value;
+
+            if (removeSelectizeItem){
+                $(".select_selectize_client").removeClass("is-invalid").addClass("is-valid")
+            }else{
+                $(".select_selectize_client").removeClass("is-valid").addClass("is-invalid")
+            }
+        }
 
 
         let countProduct = 0;

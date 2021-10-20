@@ -16,7 +16,7 @@
         </nav>
     </div>
 
-    <form id="formOrder" class="needs-validation" method="POST" action="{{ route('bills-pay.store') }}" novalidate>
+    <form id="formOrder" class="needs-validation" method="POST" action="{{ route('bills-pay.store') }}" onsubmit="checkChartAccounts()" novalidate>
         @csrf
 
         <div class="card shadow mb-4">
@@ -28,7 +28,7 @@
 
                     <input type="hidden" name="type_movement" value="pagar">
 
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-5 mb-3">
                         <label for="customDescription">Descrição *</label>
                         <input type="text" class="form-control" name="description" id="customDescription" placeholder="" required>
                         <div class="valid-feedback">
@@ -39,7 +39,23 @@
                         </div>
                     </div>
 
-                    <div class="col-md-3 mb-3">
+                    <div class="col-md-5 mb-3">
+                        <label for="searchChartAccounts">Plano de contas</label>
+                        <select id="searchChartAccounts" name="chart_accounts_id" data-placeholder="Digite para pesquisar..." class="form-control select_selectize_chart_account w-100" data-allow-clear="1" required>
+                            <option></option>
+                            @foreach($chart_accounts as $chart_account)
+                                <option value="{{$chart_account->id}}">{{$chart_account->type}} - {{$chart_account->name}}</option>
+                            @endforeach
+                        </select>
+                        <div id="validatyChartAccounts" class="valid-feedback">
+                            Parece bom!
+                        </div>
+                        <div class="invalid-feedback">
+                            Por favor, selecione o tipo de movimentação.
+                        </div>
+                    </div>
+
+                    <div class="col-md-2 mb-3">
                         <label for="customGrossValue">Valor Bruto *</label>
                         <input type="text" class="form-control" name="gross_value" id="customGrossValue" placeholder="" required>
                         <div class="valid-feedback">
@@ -311,9 +327,43 @@
                 placeholder: $(this).data('placeholder'),
                 // width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
                 allowClear: Boolean($(this).data('allow-clear')),
+            });
+
+            $(".select_selectize_chart_account").selectize({
+                // create:true, //DAR A OPCAO DE ADICIOANR CASO NAO TIVER
+                sortField: {
+                    field: 'text',
+                    direction: 'asc'
+                },
+                placeholder: $(this).data('placeholder'),
+                // width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+                allowClear: Boolean($(this).data('allow-clear')),
+
+                onChange:function (value){
+                    if(value){
+                        document.getElementById('validatyChartAccounts').style.display= 'block'
+                        $(".select_selectize_chart_account").removeClass("is-invalid").addClass("is-valid")
+                    }else{
+                        document.getElementById('validatyChartAccounts').style.display= 'none'
+                        $(".select_selectize_chart_account").removeClass("is-valid").addClass("is-invalid")
+                    }
+                },
 
             });
         });
+
+        function checkChartAccounts(){
+
+            document.getElementById('validatyChartAccounts').style.display= 'none'
+
+            let removeSelectizeItem = document.getElementById("searchChartAccounts").value;
+
+            if (removeSelectizeItem){
+                $(".select_selectize_chart_account").removeClass("is-invalid").addClass("is-valid")
+            }else{
+                $(".select_selectize_chart_account").removeClass("is-valid").addClass("is-invalid")
+            }
+        }
 
 
         let array_form_payments = {

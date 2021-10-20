@@ -83,7 +83,7 @@
                             <td class="border-top-0" colspan="1">{{ $bill_receive->user->name }}</td>
                         </tr>
                         <tr>
-                            <th scope="row">Criado em</th>
+                            <th scope="row">Cadastrado em</th>
                             <td colspan="1">{{ $bill_receive->created_at->format('d/m/Y - H:i:s') }}</td>
                         </tr>
                         <tr>

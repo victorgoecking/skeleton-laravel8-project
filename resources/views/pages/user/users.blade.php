@@ -118,7 +118,7 @@
 {{--                            <p class="lead"><b>Observação:</b> {{ $user->note }}</p>--}}
 {{--                            <p class="lead"><b>Nivel:</b> {{ $user->level }}</p>--}}
 {{--                            <hr class="my-4">--}}
-{{--                            <p><b>Criado em:</b> {{ $user->created_at }}</p>--}}
+{{--                            <p><b>Cadastrado em:</b> {{ $user->created_at }}</p>--}}
 {{--                            <p class="lead">--}}
 {{--                                <a class="btn btn-warning btn-lg" href="{{ route('user.edit', ['user' => $user->id]) }}" role="button"><i class="fas fa-edit"></i> Editar</a>--}}
 {{--                            </p>--}}

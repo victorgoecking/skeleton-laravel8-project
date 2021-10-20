@@ -24,7 +24,7 @@ class CashMovement extends Model
         'order_id',
         'cashier_id',
         'user_id',
-        'chart_account_id',
+        'chart_accounts_id',
     ];
 
     protected $casts = [
@@ -41,6 +41,6 @@ class CashMovement extends Model
     }
 
     public function chartAccount(){
-        return $this->belongsTo(ChartAccount::class, 'chart_account_id', 'id');
+        return $this->belongsTo(ChartAccount::class, 'chart_accounts_id', 'id');
     }
 }

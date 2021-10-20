@@ -10,8 +10,8 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb m-0 p-2 bg-transparent">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="fas fa-fw fa-tachometer-alt"></i> Início</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('user.index') }}"> Usuários</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Detalhes do usuário</li>
+                <li class="breadcrumb-item"><a href="{{ route('chart-account.index') }}"> Plano de Contas</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Detalhes do plano de contas</li>
             </ol>
         </nav>
     </div>
@@ -37,35 +37,27 @@
                         <tbody>
                             <tr>
                                 <th class="border-top-0" scope="row" >Nome</th>
-                                <td class="border-top-0" colspan="2">{{ $user->name }}</td>
+                                <td class="border-top-0" colspan="2">{{ $chart_account->name }}</td>
                             </tr>
                             <tr>
-                                <th class="col-4" scope="row">Nome de Usuário</th>
-                                <td colspan="2">{{ $user->username }}</td>
+                                <th class="col-4" scope="row">Movimentação</th>
+                                <td colspan="2">{{ $chart_account->type }}</td>
                             </tr>
                             <tr>
-                                <th scope="row">E-mail</th>
-                                <td colspan="2">{{ $user->email }}</td>
+                                <th scope="row">Cadastrado por</th>
+                                <td colspan="2">{{ $chart_account->user->name }}</td>
                             </tr>
                             <tr>
-                                <th scope="row">Observação</th>
-                                <td colspan="2">{{ $user->note }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Nivel</th>
-                                <td colspan="2">{{ $user->level ==  2 ?  'Administrador' : 'Atendente' }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Criado em</th>
-                                <td colspan="2">{{ $user->created_at->format('d/m/Y - H:i:s') }}</td>
+                                <th scope="row">Cadastrado em</th>
+                                <td colspan="2">{{ $chart_account->created_at->format('d/m/Y - H:i:s') }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Modificado em</th>
-                                <td colspan="2">{{ $user->updated_at->format('d/m/Y - H:i:s') }}</td>
+                                <td colspan="2">{{ $chart_account->updated_at->format('d/m/Y - H:i:s') }}</td>
                             </tr>
                         </tbody>
                     </table>
-                    <a class="btn btn-warning btn-md" href="{{ route('user.edit', ['user' => $user->id]) }}" role="button"><i class="fas fa-edit"></i> Editar</a>
+                    <a class="btn btn-warning btn-md" href="{{ route('chart-account.edit', ['chart_account' => $chart_account->id]) }}" role="button"><i class="fas fa-edit"></i> Editar</a>
                 </div>
 {{--                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>--}}
 {{--                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>--}}

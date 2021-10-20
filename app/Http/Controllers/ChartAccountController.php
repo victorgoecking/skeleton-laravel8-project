@@ -28,11 +28,7 @@ class ChartAccountController extends Controller
      */
     public function create()
     {
-        $chart_accounts = ChartAccount::orderBy('name')->get();
-
-        return view('pages.chart_accounts.chart_account_registration', [
-            'chart_accounts' => $chart_accounts
-            ]);
+        return view('pages.chart_accounts.chart_account_registration');
     }
 
     /**
@@ -43,14 +39,15 @@ class ChartAccountController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'type' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
         ]);
 
         ChartAccount::create([
             'type' => $request->type,
-            'description' => $request->description,
+            'name' => $request->name,
             'user_id' => auth()->user()->id,
         ]);
 
@@ -95,13 +92,13 @@ class ChartAccountController extends Controller
     {
         $request->validate([
             'type' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
         ]);
 
-        if(!empty($request->description)){
+        if(!empty($request->name)){
             $chartAccount->update([
                 'type' => $request->type,
-                'description' => $request->description,
+                'name' => $request->name,
                 'user_id' => auth()->user()->id,
             ]);
         }
@@ -120,6 +117,6 @@ class ChartAccountController extends Controller
     {
         $chartAccount->delete();
 
-        return redirect()->route('chart-account')->with('success','Plano de conta removido com sucesso!');
+        return redirect()->route('chart-account.index')->with('success','Plano de conta removido com sucesso!');
     }
 }

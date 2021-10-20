@@ -22,14 +22,13 @@
 
                 @csrf
 
-                <div class="form-row">
+                <div class="form-row mb-3">
                     <div class="col-md-6 mb-3">
-                        <label for="searchTypeMovement">Movimentações</label>
-                        <select id="searchTypeMovement" data-placeholder="Digite para pesquisar..." class="form-control is-invalid select_selectize_type_movement w-100" data-allow-clear="1">
+                        <label for="exampleTypeMovement">Movimentação</label>
+                        <select class="form-control" name="type" id="exampleTypeMovement" required>
                             <option></option>
-                            @foreach($chart_accounts as $chart_account)
-                                <option value="{{$chart_account->id}}">{{$chart_account->type}} - {{$chart_account->name}}</option>
-                            @endforeach
+                            <option value="Pagamentos">Pagamentos</option>
+                            <option value="Recebimentos">Recebimentos</option>
                         </select>
                         <div class="valid-feedback">
                             Parece bom!
@@ -59,32 +58,4 @@
             </form>
         </div>
     </div>
-@endsection
-
-@section('scriptPages')
-
-    <script type="text/javascript">
-
-        $(document).ready(function() {
-            $(".select_selectize_type_movement").selectize({
-                // create:true, //DAR A OPCAO DE ADICIOANR CASO NAO TIVER
-                sortField: {
-                    field: 'text',
-                    direction: 'asc'
-                },
-                placeholder: $(this).data('placeholder'),
-                // width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
-                allowClear: Boolean($(this).data('allow-clear')),
-
-                onChange:function (value){
-                    if(value !== ''){
-                        $(".select_selectize_type_movement").removeClass("is-invalid").addClass("is-valid")
-                    }else{
-                        $(".select_selectize_type_movement").removeClass("is-valid").addClass("is-invalid")
-                    }
-                },
-            });
-        });
-
-    </script>
 @endsection
