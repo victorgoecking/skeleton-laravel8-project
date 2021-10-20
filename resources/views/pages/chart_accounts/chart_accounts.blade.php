@@ -5,7 +5,7 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">
             <i class="fas fa-sitemap"></i> Plano de contas
-            <a href="{{ route('user.create') }}">
+            <a href="{{ route('chart-account.create') }}">
                 <button type="button" class="btn btn-primary">
                     <i class="fas fa-plus-circle"></i> Novo
                 </button>
@@ -27,7 +27,7 @@
 {{--                    <thead class="thead-light">--}}
                     <thead>
                         <tr>
-                            <th>Descrição</th>
+                            <th>Nome</th>
                             <th>Movimentação</th>
                             <th>Cadastrado em</th>
                             <th>Opções</th>
@@ -36,7 +36,7 @@
 
                     <tfoot>
                         <tr>
-                            <th>Descrição</th>
+                            <th>Nome</th>
                             <th>Movimentação</th>
                             <th>Cadastrado em</th>
                             <th>Opções</th>
@@ -46,7 +46,7 @@
                     <tbody>
                         @foreach($chart_accounts as $chart_account)
                         <tr>
-                            <td>{{$chart_account->description}}</td>
+                            <td>{{$chart_account->name}}</td>
                             <td>{{$chart_account->type}}</td>
                             <td>{{$chart_account->created_at->format('d/m/Y - H:i:s') }}</td>
                             <td class="pt-2">
@@ -57,7 +57,7 @@
                                 <form class="d-inline" action="{{ route('chart-account.destroy', ['chart_account' => $chart_account->id]) }}" method="POST">
                                     @csrf
                                     @method('delete')
-                                    <button type="submit" onclick="return confirm('Deseja realmente remover o plano de conta {{ $chart_account->description }} ?')" class="btn btn-danger btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Remover"><i class="far fa-trash-alt"></i></button>
+                                    <button type="submit" onclick="return confirm('Deseja realmente remover o plano de conta {{ $chart_account->name }} ?')" class="btn btn-danger btn-sm py-0 px-1 mt-1" data-toggle="tooltip" data-placement="top" title="Remover"><i class="far fa-trash-alt"></i></button>
                                 </form>
                             </td>
                         </tr>

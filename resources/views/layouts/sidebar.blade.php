@@ -27,39 +27,76 @@
         Menu
     </div>
 
-    <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-           aria-expanded="true" aria-controls="collapseTwo">
+    <!-- Nav Item - Pages Menu No Collapse-->
+    <li class="nav-item active">
+        <a class="nav-link" href="{{ route('order.index') }}">
             <i class="fas fa-fw fa-paste"></i>
-            <span><b>Orçamentos / Pedidos</b></span>
+            <span>Orçamentos / Pedidos</span>
         </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('order.index') }}"><i class="fas fa-fw fa-cube"></i>&nbsp;&nbsp;&nbsp;Gerenciar</a>
+    </li>
+
+    <li class="nav-item active">
+        <a class="nav-link" href="{{ route('client.index') }}">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Clientes</span>
+        </a>
+    </li>
+
+    <li class="nav-item active">
+        <a class="nav-link" href="{{ route('product.index') }}">
+            <i class="fas fa-fw fa-cubes"></i>
+            <span>Produtos</span>
+        </a>
+    </li>
+
+    <li class="nav-item active">
+        <a class="nav-link" href="{{ route('service.index') }}">
+            <i class="fas fa-fw fa-tools"></i>
+            <span>Serviços</span>
+        </a>
+    </li>
+
+
+
+
+
+    <!-- Nav Item - Pages Collapse Menu -->
+{{--    <li class="nav-item">--}}
+{{--        --}}
+{{--        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"--}}
+{{--           aria-expanded="true" aria-controls="collapseTwo">--}}
+{{--            <i class="fas fa-fw fa-paste"></i>--}}
+{{--            <span><b>Orçamentos / Pedidos</b></span>--}}
+{{--        </a>--}}
+{{--        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">--}}
+{{--            <div class="bg-white py-2 collapse-inner rounded">--}}
+{{--                <a class="collapse-item" href="{{ route('order.index') }}"><i class="fas fa-fw fa-clipboard-list"></i>&nbsp;&nbsp;&nbsp;Gerenciar Orç./Ped.</a>--}}
 {{--                <a class="collapse-item" href="buttons.html"><i class="fas fa-fw fa-cube"></i>&nbsp;&nbsp;&nbsp;Produtos</a>--}}
 {{--                <a class="collapse-item" href="cards.html"><i class="fas fa-fw fa-tools"></i>&nbsp;&nbsp;&nbsp;Serviços</a>--}}
 {{--                <h6 class="collapse-header">Opções auxiliares:</h6>--}}
 {{--                <a class="collapse-item" href="utilities-color.html"><i class="fas fa-fw fa-list-ol"></i>&nbsp;&nbsp;&nbsp;Situações(status pedido)</a>--}}
-            </div>
-        </div>
-    </li>
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </li>--}}
 
-    <!-- Nav Item - Utilities Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-           aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-list-alt"></i>
-            <span><b>Cadastros</b></span>
-        </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-             data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('client.index') }}"><i class="fas fa-fw fa-user-friends"></i>&nbsp;&nbsp;&nbsp;Clientes</a>
+{{--    <!-- Nav Item - Utilities Collapse Menu -->--}}
+{{--    <li class="nav-item">--}}
+{{--        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"--}}
+{{--           aria-expanded="true" aria-controls="collapseUtilities">--}}
+{{--            <i class="fas fa-fw fa-list-alt"></i>--}}
+{{--            <span><b>Cadastros</b></span>--}}
+{{--            <i class="fas fa-fw fa-users"></i>--}}
+{{--            <span><b>Clientes</b></span>--}}
+{{--        </a>--}}
+{{--        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"--}}
+{{--             data-parent="#accordionSidebar">--}}
+{{--            <div class="bg-white py-2 collapse-inner rounded">--}}
+{{--                <a class="collapse-item" href="{{ route('client.index') }}"><i class="fas fa-fw fa-user-friends"></i>&nbsp;&nbsp;&nbsp;Gerenciar clientes</a>--}}
+{{--                <a class="collapse-item" href="{{ route('client.index') }}"><i class="fas fa-fw fa-user-friends"></i>&nbsp;&nbsp;&nbsp;Clientes</a>--}}
 {{--                <a class="collapse-item" href="utilities-animation.html"><i class="fas fa-fw fa-truck-loading"></i>&nbsp;&nbsp;&nbsp;Fornecedores</a>--}}
-            </div>
-        </div>
-    </li>
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </li>--}}
 
 {{--    <li class="nav-item">--}}
 {{--        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities1"--}}
@@ -78,42 +115,43 @@
 {{--        </div>--}}
 {{--    </li>--}}
 
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities2"
-           aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-cubes"></i>
-            <span><b>Produtos</b></span>
-        </a>
-        <div id="collapseUtilities2" class="collapse" aria-labelledby="headingUtilities"
-             data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('product.index') }}"><i class="fas fa-fw fa-cube"></i>&nbsp;&nbsp;&nbsp;Gerenciar produtos</a>
+{{--    <li class="nav-item">--}}
+{{--        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities2"--}}
+{{--           aria-expanded="true" aria-controls="collapseUtilities">--}}
+{{--            <i class="fas fa-fw fa-cubes"></i>--}}
+{{--            <i class="fas fa-barcode"></i>--}}
+{{--            <span><b>Produtos</b></span>--}}
+{{--        </a>--}}
+{{--        <div id="collapseUtilities2" class="collapse" aria-labelledby="headingUtilities"--}}
+{{--             data-parent="#accordionSidebar">--}}
+{{--            <div class="bg-white py-2 collapse-inner rounded">--}}
+{{--                <a class="collapse-item" href="{{ route('product.index') }}"><i class="fas fa-fw fa-cubes"></i>&nbsp;&nbsp;&nbsp;Gerenciar produtos</a>--}}
 {{--                <a class="collapse-item" href="utilities-animation.html"><i class="fas fa-fw fa-file-invoice-dollar"></i>&nbsp;&nbsp;&nbsp;Valores de venda</a>--}}
-            </div>
-        </div>
-    </li>
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </li>--}}
 
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities3"
-           aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-tools"></i>
-            <span><b>Serviços</b></span>
-        </a>
-        <div id="collapseUtilities3" class="collapse" aria-labelledby="headingUtilities"
-             data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('service.index') }}"><i class="fas fa-fw fa-screwdriver"></i>&nbsp;&nbsp;&nbsp;Gerenciar serviços</a>
-            </div>
-        </div>
-    </li>
+{{--    <li class="nav-item">--}}
+{{--        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities3"--}}
+{{--           aria-expanded="true" aria-controls="collapseUtilities">--}}
+{{--            <i class="fas fa-fw fa-tools"></i>--}}
+{{--            <span><b>Serviços</b></span>--}}
+{{--        </a>--}}
+{{--        <div id="collapseUtilities3" class="collapse" aria-labelledby="headingUtilities"--}}
+{{--             data-parent="#accordionSidebar">--}}
+{{--            <div class="bg-white py-2 collapse-inner rounded">--}}
+{{--                <a class="collapse-item" href="{{ route('service.index') }}"><i class="fas fa-fw fa-screwdriver"></i>&nbsp;&nbsp;&nbsp;Gerenciar serviços</a>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </li>--}}
 
     <hr class="sidebar-divider">
 
-    <li class="nav-item">
+    <li class="nav-item active">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities4"
            aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fas fa-fw fa-dollar-sign"></i>
-            <span><b>Financeiro</b></span>
+            <span>Financeiro</span>
         </a>
         <div id="collapseUtilities4" class="collapse" aria-labelledby="headingUtilities"
              data-parent="#accordionSidebar">
@@ -128,12 +166,12 @@
         </div>
     </li>
 
-    <li class="nav-item">
+    <li class="nav-item active">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities5"
            aria-expanded="true" aria-controls="collapseUtilities">
 {{--            <i class="fas fa-fw fa-clipboard-list"></i>--}}
             <i class="fas fa-fw fa-table"></i>
-            <span><b>Relatórios</b></span>
+            <span>Relatórios</span>
         </a>
         <div id="collapseUtilities5" class="collapse" aria-labelledby="headingUtilities"
              data-parent="#accordionSidebar">
@@ -156,11 +194,11 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
 
-    <li class="nav-item">
+    <li class="nav-item active">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities6"
            aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fas fa-fw fa-wrench"></i>
-            <span><b>Configurações</b></span>
+            <span>Configurações</span>
         </a>
         <div id="collapseUtilities6" class="collapse" aria-labelledby="headingUtilities"
              data-parent="#accordionSidebar">

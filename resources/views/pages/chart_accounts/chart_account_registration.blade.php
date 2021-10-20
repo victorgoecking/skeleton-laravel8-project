@@ -18,67 +18,73 @@
 
     <div class="card shadow mb-4">
         <div class="card-body">
-            <form class="needs-validation" method="POST" action="{{ route('user.store') }}" novalidate>
+            <form class="needs-validation" method="POST" action="{{ route('chart-account.store') }}" novalidate>
 
                 @csrf
 
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
-                        <label for="validationCustomName">Nome</label>
-                        <input type="text" class="form-control" name="name" id="validationCustomName" placeholder="Nome Completo" required>
+                        <label for="searchTypeMovement">Movimentações</label>
+                        <select id="searchTypeMovement" data-placeholder="Digite para pesquisar..." class="form-control is-invalid select_selectize_type_movement w-100" data-allow-clear="1">
+                            <option></option>
+                            @foreach($chart_accounts as $chart_account)
+                                <option value="{{$chart_account->id}}">{{$chart_account->type}} - {{$chart_account->name}}</option>
+                            @endforeach
+                        </select>
                         <div class="valid-feedback">
                             Parece bom!
                         </div>
                         <div class="invalid-feedback">
-                            Por favor, digite seu nome.
+                            Por favor, selecione o tipo de movimentação.
                         </div>
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="validationCustomEmail">E-mail</label>
-                        <input type="email" class="form-control" name="email" id="validationCustomEmail" aria-describedby="emailHelp" placeholder="Ex.: email@email.com" required>
-                        <div class="invalid-feedback">
-                            Por favor, providencie um e-mail valido.
-                        </div>
-                    </div>
-                </div>
-                <div class="form-row">
 
                     <div class="col-md-6 mb-3">
-                        <label for="validationCustomUsername">Nome de usuário</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroupPrepend">@</span>
-                            </div>
-                            <input type="text" class="form-control" name="username" id="validationCustomUsername" placeholder="Que será usado para entrar no sistema" aria-describedby="inputGroupPrepend" required><div class="invalid-feedback">Por favor, escolha um nome de usuário.</div>
+                        <label for="validationCustomName">Nome</label>
+                        <input type="text" class="form-control" name="name" id="validationCustomName" placeholder="Nome da movimentação" required>
+                        <div class="valid-feedback">
+                            Parece bom!
                         </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="validationCustomPassword">Senha</label>
-                        <input type="password" class="form-control" name="password" id="validationCustomPassword" placeholder="Mínimo de 8 caracteres" required>
                         <div class="invalid-feedback">
-                            Por favor, providencie um senha valida.
+                            Por favor, digite a descrição.
                         </div>
                     </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-md-6 mb-3">
-                        <label for="exampleFormControlSelect1">Nível de acesso</label>
-                        <select class="form-control" name="level" id="exampleFormControlSelect1">
-                            <option value="1" selected>Atendente</option>
-                            <option value="2">Administrador</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="exampleFormControlTextarea1">Observações</label>
-                        <textarea class="form-control" name="note" id="exampleFormControlTextarea1" placeholder="Observações" rows="3"></textarea>
-                    </div>
+
                 </div>
 
                 <div class="form-row">
                     <button class="btn btn-primary" type="submit"><i class="fas fa-paper-plane"></i> Cadastrar</button>
-                    <a href="{{ route('user.index') }}"><button class="btn btn-danger ml-2" type="button"><i class="fas fa-times-circle"></i> Cancelar</button></a>
+                    <a href="{{ route('chart-account.index') }}"><button class="btn btn-danger ml-2" type="button"><i class="fas fa-times-circle"></i> Cancelar</button></a>
                 </div>
             </form>
         </div>
     </div>
+@endsection
+
+@section('scriptPages')
+
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            $(".select_selectize_type_movement").selectize({
+                // create:true, //DAR A OPCAO DE ADICIOANR CASO NAO TIVER
+                sortField: {
+                    field: 'text',
+                    direction: 'asc'
+                },
+                placeholder: $(this).data('placeholder'),
+                // width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+                allowClear: Boolean($(this).data('allow-clear')),
+
+                onChange:function (value){
+                    if(value !== ''){
+                        $(".select_selectize_type_movement").removeClass("is-invalid").addClass("is-valid")
+                    }else{
+                        $(".select_selectize_type_movement").removeClass("is-valid").addClass("is-invalid")
+                    }
+                },
+            });
+        });
+
+    </script>
 @endsection

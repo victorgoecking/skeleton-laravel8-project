@@ -14,7 +14,7 @@ class ChartAccountController extends Controller
      */
     public function index()
     {
-        $chart_accounts = ChartAccount::orderBy('description')->get();
+        $chart_accounts = ChartAccount::orderBy('name')->get();
 
         return view('pages.chart_accounts.chart_accounts', [
             'chart_accounts' => $chart_accounts
@@ -28,7 +28,11 @@ class ChartAccountController extends Controller
      */
     public function create()
     {
-        return view('pages.chart_accounts.chart_account_registration');
+        $chart_accounts = ChartAccount::orderBy('name')->get();
+
+        return view('pages.chart_accounts.chart_account_registration', [
+            'chart_accounts' => $chart_accounts
+            ]);
     }
 
     /**

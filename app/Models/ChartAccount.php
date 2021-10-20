@@ -19,7 +19,7 @@ class ChartAccount extends Model
      */
     protected $fillable = [
         'type',
-        'description',
+        'name',
         'user_id',
     ];
 
