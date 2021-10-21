@@ -242,7 +242,7 @@ class BillsReceiveController extends Controller
 
                     if(isset($request->id_payment_movement_removed)){
                         foreach ($request->id_payment_movement_removed as $remove_payment_movement){
-                            $form_payment_cash_movement = FormPaymentCashMovements::where('id', $remove_payment_movement)->where('cash_movement_id', $bill_receive->id);
+                            $form_payment_cash_movement = FormPaymentCashMovements::where('id', $remove_payment_movement)->where('cash_movement_id', $bill_receive->id)->get();
 
 //                          Realizando update no caixa
                             if($form_payment_cash_movement->form_payment_id == '6' && $form_payment_cash_movement->paid == '1'){
@@ -254,7 +254,7 @@ class BillsReceiveController extends Controller
                         }
                     }
                     if(isset($request->id_payment_movement[$i_form_payment])){
-                        $form_payment_cash_movement = FormPaymentCashMovements::where('id', $request->id_payment_movement[$i_form_payment])->where('cash_movement_id', $bill_receive->id);
+                        $form_payment_cash_movement = FormPaymentCashMovements::where('id', $request->id_payment_movement[$i_form_payment])->where('cash_movement_id', $bill_receive->id)->get();
 
 //                      Realizando update no caixa
                         $value_atual = $form_payment_cash_movement->value;

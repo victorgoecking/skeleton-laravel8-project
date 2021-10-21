@@ -10,11 +10,12 @@ class CashierBalance{
     public function updateBalance($type_movement, $form_payment_cash_movement){
 
         $cashier = Cashier::where('id', 1)->first();
-
         if(!empty($form_payment_cash_movement->value) &&
             $form_payment_cash_movement->paid == '1' &&
             $form_payment_cash_movement->form_payment_id == '6'
         ){
+
+//dd($form_payment_cash_movement);
 
             $total = 0.00;
 
