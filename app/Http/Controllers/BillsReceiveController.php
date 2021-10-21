@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\classes\CashierBalance;
 use App\Models\CashMovement;
 use App\Models\FormPayment;
 use App\Models\FormPaymentCashMovements;
@@ -53,6 +54,8 @@ class BillsReceiveController extends Controller
         if(!$request->form_payment){
             return back()->with('error','Forma de pagamento obrigatória!');
         }
+
+//        dd($request);
 
         $request->validate([
             'type_movement' => 'required|string|max:100',
@@ -107,13 +110,18 @@ class BillsReceiveController extends Controller
                 for($i_form_payment = 0; $i_form_payment < $count_form_payment; $i_form_payment++){
 
                     if(trim($request->form_payment != '')){
-                       FormPaymentCashMovements::create([
+                       $form_payment_cash_movement = FormPaymentCashMovements::create([
                             'value' => $request->value_form_payment[$i_form_payment],
                             'paid' => $request->settled_form_payment[$i_form_payment],
                             'note' => $request->note_form_payment[$i_form_payment],
                             'form_payment_id' => $request->form_payment[$i_form_payment],
                             'cash_movement_id' => $bill_receive->id,
                         ]);
+
+//                       Realizando update no caixa
+                       $cashier_update = new CashierBalance();
+                       $cashier_update->updateBalance($request->type_movement, $form_payment_cash_movement);
+
                     }
                 }
 
@@ -234,11 +242,47 @@ class BillsReceiveController extends Controller
 
                     if(isset($request->id_payment_movement_removed)){
                         foreach ($request->id_payment_movement_removed as $remove_payment_movement){
-                            FormPaymentCashMovements::where('id', $remove_payment_movement)->where('cash_movement_id', $bill_receive->id)->delete();
+                            $form_payment_cash_movement = FormPaymentCashMovements::where('id', $remove_payment_movement)->where('cash_movement_id', $bill_receive->id);
+
+//                          Realizando update no caixa
+                            if($form_payment_cash_movement->form_payment_id == '6' && $form_payment_cash_movement->paid == '1'){
+                                $cashier_update = new CashierBalance();
+                                $cashier_update->updateBalance('pagar', $form_payment_cash_movement);
+                            }
+
+                            $form_payment_cash_movement->delete();
                         }
                     }
                     if(isset($request->id_payment_movement[$i_form_payment])){
-                        FormPaymentCashMovements::where('id', $request->id_payment_movement[$i_form_payment])->where('cash_movement_id', $bill_receive->id)->update([
+                        $form_payment_cash_movement = FormPaymentCashMovements::where('id', $request->id_payment_movement[$i_form_payment])->where('cash_movement_id', $bill_receive->id);
+
+//                      Realizando update no caixa
+                        $value_atual = $form_payment_cash_movement->value;
+                        $value_current = $request->value_form_payment[$i_form_payment];
+                        $paid = $form_payment_cash_movement->paid;
+
+                        if($value_atual != $value_current && $paid == '1'){
+                            $new_value = 0.00;
+                            $type = 'receber';
+
+                            if($value_atual > $value_current){
+                                $new_value = $value_atual - $value_current;
+                                $type = 'pagar';
+
+                            }else if($value_atual < $value_current){
+                                $new_value = $value_current - $value_atual;
+                            }
+                            $data = [
+                                'value' => $new_value,
+                                'paid' => $paid,
+                            ];
+
+                            $cashier_update = new CashierBalance();
+                            $cashier_update->updateBalance($type, $data);
+
+                        }
+
+                        $form_payment_cash_movement->update([
                             'value' => $request->value_form_payment[$i_form_payment],
                             'paid' => $request->settled_form_payment[$i_form_payment],
                             'note' => $request->note_form_payment[$i_form_payment],
@@ -246,13 +290,17 @@ class BillsReceiveController extends Controller
 //                            'cash_movement_id' => $bill_receive->id,
                         ]);
                     }else{
-                        FormPaymentCashMovements::create([
+                        $form_payment_cash_movement = FormPaymentCashMovements::create([
                             'value' => $request->value_form_payment[$i_form_payment],
                             'paid' => $request->settled_form_payment[$i_form_payment],
                             'note' => $request->note_form_payment[$i_form_payment],
                             'form_payment_id' => $request->form_payment[$i_form_payment],
                             'cash_movement_id' => $bill_receive->id,
                         ]);
+
+//                      Realizando update no caixa
+                        $cashier_update = new CashierBalance();
+                        $cashier_update->updateBalance($request->type_movement, $form_payment_cash_movement);
                     }
                 }
 

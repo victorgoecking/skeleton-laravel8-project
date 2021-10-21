@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class CashierController extends Controller
 {
+
+//    public function updateCashier(){
+//
+//    }
+
     /**
      * Display a listing of the resource.
      *
@@ -64,12 +69,17 @@ class CashierController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Cashier  $cashier
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Cashier $cashier)
     {
-        //
+        $request->validate([
+            'balance' => 'required|string|max:100',
+        ]);
+
+        $cashier->update([
+            'balance' => $request->value,
+        ]);
     }
 
     /**
