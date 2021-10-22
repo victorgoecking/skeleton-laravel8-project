@@ -228,7 +228,7 @@
                     required
                 >
                     <option></option>
-                    <option value='1' {!! `@{{settled_form_payment}}` == '1' ? 'selected' : '' !!}>Sim</option>--}}
+                    <option value='1' {!! `@{{settled_form_payment}}` == '1' ? 'selected' : '' !!}>Sim</option>
                     <option value='0' {!! `@{{settled_form_payment}}` == '0' ? 'selected' : '' !!}>Não</option>
                     {{--                        <option value='1' {!! `@{{settled_form_payment}}` == '1' ? 'selected' : '' !!}>Sim</option>--}}
                     {{--                        <option value='0' {!! `@{{settled_form_payment}}` == '0' ? 'selected' : '' !!}>Não</option>--}}
