@@ -242,43 +242,60 @@ class BillsReceiveController extends Controller
 
                     if(isset($request->id_payment_movement_removed)){
                         foreach ($request->id_payment_movement_removed as $remove_payment_movement){
-                            $form_payment_cash_movement = FormPaymentCashMovements::where('id', $remove_payment_movement)->where('cash_movement_id', $bill_receive->id)->get();
+                            $form_payment_cash_movement = FormPaymentCashMovements::where('id', $remove_payment_movement)->where('cash_movement_id', $bill_receive->id)->first();
 
 //                          Realizando update no caixa
-                            if($form_payment_cash_movement->form_payment_id == '6' && $form_payment_cash_movement->paid == '1'){
-                                $cashier_update = new CashierBalance();
-                                $cashier_update->updateBalance('pagar', $form_payment_cash_movement);
-                            }
+                            if($form_payment_cash_movement){
+                                if($form_payment_cash_movement->form_payment_id == '6' && $form_payment_cash_movement->paid == '1'){
+                                    $cashier_update = new CashierBalance();
+                                    $cashier_update->updateBalance('pagar', $form_payment_cash_movement);
+                                }
 
-                            $form_payment_cash_movement->delete();
+                                $form_payment_cash_movement->delete();
+                            }
                         }
                     }
                     if(isset($request->id_payment_movement[$i_form_payment])){
-                        $form_payment_cash_movement = FormPaymentCashMovements::where('id', $request->id_payment_movement[$i_form_payment])->where('cash_movement_id', $bill_receive->id)->get();
+                        $form_payment_cash_movement = FormPaymentCashMovements::where('id', $request->id_payment_movement[$i_form_payment])->where('cash_movement_id', $bill_receive->id)->first();
 
 //                      Realizando update no caixa
-                        $value_atual = $form_payment_cash_movement->value;
+                        $value_previous = $form_payment_cash_movement->value;
                         $value_current = $request->value_form_payment[$i_form_payment];
-                        $paid = $form_payment_cash_movement->paid;
+                        $paid_previous = $form_payment_cash_movement->paid;
+                        $paid_current = $request->settled_form_payment[$i_form_payment];
 
-                        if($value_atual != $value_current && $paid == '1'){
-                            $new_value = 0.00;
-                            $type = 'receber';
+                        $new_value = 0.00;
+                        $type = 'receber';
 
-                            if($value_atual > $value_current){
-                                $new_value = $value_atual - $value_current;
+                        if($form_payment_cash_movement->form_payment_id === 6){
+
+                            if($value_previous > $value_current){
+                                $new_value = $value_previous - $value_current;
                                 $type = 'pagar';
 
-                            }else if($value_atual < $value_current){
-                                $new_value = $value_current - $value_atual;
+                            }else if($value_previous < $value_current){
+                                $new_value = $value_current - $value_previous;
+
+                            }else if($paid_previous > $paid_current){
+                                $new_value = $value_current;
+                                $type = 'pagar';
+                                $paid_current = '1';
+
+                            }else if($paid_previous < $paid_current){
+                                $new_value = $value_current;
+                                $paid_current = '1';
                             }
-                            $data = [
+
+                            $data = (object) [
                                 'value' => $new_value,
-                                'paid' => $paid,
+                                'paid' => $paid_current,
+                                'form_payment_id' => $form_payment_cash_movement->form_payment_id
                             ];
+
 
                             $cashier_update = new CashierBalance();
                             $cashier_update->updateBalance($type, $data);
+
 
                         }
 

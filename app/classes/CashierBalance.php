@@ -15,8 +15,6 @@ class CashierBalance{
             $form_payment_cash_movement->form_payment_id == '6'
         ){
 
-//dd($form_payment_cash_movement);
-
             $total = 0.00;
 
             if($type_movement === "receber"){
