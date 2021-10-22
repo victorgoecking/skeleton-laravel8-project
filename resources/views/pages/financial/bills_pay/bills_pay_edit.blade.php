@@ -227,11 +227,9 @@
                     onkeyup="updateValueFormPayment(@{{ @index }}, 'settled_form_payment', this.value, '@{{id_handlebars_form_payment}}')"
                     required
                 >
-                    <option></option>
-                    <option value='1' {!! `@{{settled_form_payment}}` == '1' ? 'selected' : '' !!}>Sim</option>
-                    <option value='0' {!! `@{{settled_form_payment}}` == '0' ? 'selected' : '' !!}>Não</option>
-                    {{--                        <option value='1' {!! `@{{settled_form_payment}}` == '1' ? 'selected' : '' !!}>Sim</option>--}}
-                    {{--                        <option value='0' {!! `@{{settled_form_payment}}` == '0' ? 'selected' : '' !!}>Não</option>--}}
+                    <option @{{checkIfIsPaid settled_form_payment 2}}></option>
+                    <option value='1' @{{checkIfIsPaid settled_form_payment 1}} >Sim</option>
+                    <option value='0'  @{{checkIfIsPaid settled_form_payment 0}} >Não</option>
 
                 </select>
                 <div class="valid-feedback">
@@ -379,6 +377,29 @@
         function loadFormPayments(idPaymentMovement, idFormPayment, descriptionFormPayment, value, paid, note){
             let templateFormPayment = document.getElementById('tamplateAddFormPayment').innerHTML;
             let compiled = Handlebars.compile(templateFormPayment);
+
+            Handlebars.registerHelper("checkIfIsPaid", function(paid, option) {
+
+                paid = Number(paid);
+                option = Number(option);
+
+                if(paid === 0 && option === 0)
+                    return 'selected';
+
+                if(paid === 0 && option === 1)
+                    return '';
+
+                if(paid === 1 && option === 0)
+                    return '';
+
+                if(paid === 1 && option === 1)
+                    return 'selected';
+
+                if(paid === 2 && option === 2)
+                    return 'selected';
+
+            });
+
             let form_payment = document.getElementById('containerFormPayment');
 
             let randomFormPayment = 'formPayment_'+countFormPayment;
@@ -431,7 +452,7 @@
                         id_form_payment: idFormPayment,
                         description_form_payment: descriptionFormPayment,
                         value_form_payment: '',
-                        settled_form_payment: '',
+                        settled_form_payment: 2,
                         note_form_payment: '',
                     }
 
