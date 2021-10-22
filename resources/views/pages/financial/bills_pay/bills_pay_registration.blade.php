@@ -476,10 +476,7 @@
 
            $("#totalValue").html('Valor total: R$ ' + sum);
         }
-
         calcTotalValue();
-
-
 
     </script>
 @endsection

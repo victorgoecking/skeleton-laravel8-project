@@ -12,6 +12,31 @@ use Illuminate\Http\Request;
 class BillsReceiveController extends Controller
 {
 
+    private function checkSettled($settled, $settled_form_payment){
+
+        $msg = null;
+
+        if($settled == '1'){
+            foreach ($settled_form_payment as $settled_payment){
+                if($settled_payment == '0'){
+                    $msg = 'Conta não pode ser quitada com forma de pagamento não paga !';
+                }
+            }
+        }else{
+            $is_paid = 1;
+            foreach ($settled_form_payment as $settled_payment){
+                if($settled_payment == '0'){
+                    $is_paid = 0;
+                }
+            }
+            if($is_paid === 1){
+                $msg = 'Todos os pagamentos estão pagos, favor marcar conta como quitada !';
+            }
+        }
+
+        return $msg;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -50,6 +75,11 @@ class BillsReceiveController extends Controller
      */
     public function store(Request $request)
     {
+
+        $check_settled = $this->checkSettled($request->settled, $request->settled_form_payment);
+        if($check_settled){
+            return back()->with('error',$check_settled);
+        }
 
         if(!$request->form_payment){
             return back()->with('error','Forma de pagamento obrigatória!');
@@ -184,6 +214,11 @@ class BillsReceiveController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $check_settled = $this->checkSettled($request->settled, $request->settled_form_payment);
+        if($check_settled){
+            return back()->with('error',$check_settled);
+        }
+
         if(!$request->id_payment_movement){
             return back()->with('error','Forma de pagamento obrigatória!');
         }
