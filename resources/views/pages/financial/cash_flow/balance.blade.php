@@ -68,7 +68,8 @@
                                     <td class="text-center"><span class="badge badge-custom-price-info">{{$bill_receive->situation}}</span></td>
                                     <td class="text-right text-custom-price-info">{{ $bill_receive->gross_value }}</td>
                                 @else
-                                    <td class="text-center"><span class="badge badge-custom-price-success">{{$bill_receive->situation}}</span></td>
+                                    <td class="text-center"><span class="badge badge-custom-price-success">Recebido</span></td>
+{{--                                    <td class="text-center"><span class="badge badge-custom-price-success">{{$bill_receive->situation}}</span></td>--}}
                                     <td class="text-right text-custom-price-success">{{ $bill_receive->gross_value }}</td>
                                 @endif
 
@@ -121,7 +122,8 @@
                                 <td class="text-center"><span class="badge badge-custom-price-info">{{$bill_pay->situation}}</span></td>
                                 <td class="text-right text-custom-price-info">{{ $bill_pay->gross_value }}</td>
                             @else
-                                <td class="text-center"><span class="badge badge-custom-price-success">{{$bill_pay->situation}}</span></td>
+                                <td class="text-center"><span class="badge badge-custom-price-success">Pago</span></td>
+{{--                                <td class="text-center"><span class="badge badge-custom-price-success">{{$bill_pay->situation}}</span></td>--}}
                                 <td class="text-right text-custom-price-success">-{{ $bill_pay->gross_value }}</td>
                             @endif
 
