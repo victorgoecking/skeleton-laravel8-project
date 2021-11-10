@@ -44,7 +44,16 @@ class BillsPayController extends Controller
      */
     public function index()
     {
-        $bills_pay = CashMovement::with('user', 'formPaymentCashMovements')->where('type_movement', 'pagar')->get();
+//        $bills_pay = CashMovement::with('user', 'formPaymentCashMovements', function($query){
+////                $query->withTrashed();
+//                $query->where('deleted_at', '=', null);
+//            })
+//            ->where('type_movement', 'pagar')
+//            ->get();
+
+        $bills_pay = CashMovement::with('user', 'formPaymentCashMovements')
+            ->where('type_movement', 'pagar')
+            ->get();
 
         return view('pages.financial.bills_pay.bills_pay', [
             'bills_pay' => $bills_pay,

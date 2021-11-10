@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cashier;
 use App\Models\CashMovement;
+use App\Models\FormPaymentCashMovements;
 use Illuminate\Http\Request;
 
 class CashFlowController extends Controller
@@ -61,7 +63,21 @@ class CashFlowController extends Controller
 
     public function cashier()
     {
+        $actual_cash_balance = Cashier::all()->first();
+
+        $cash_movements = CashMovement::with(['formPaymentCashMovements' => function($query){
+                $query->where('form_payment_id', '=', 6);
+            }], 'chartAccount')
+            ->where('clearing_date', '=', date('Y-m-d'))
+            ->get();
+
+//        dd($cash_movements);
+
+
+
         return view('pages.financial.cash_flow.cashier', [
+            'cash_movements' => $cash_movements,
+            'actual_cash_balance' => $actual_cash_balance,
             'total_pay_x_receive_current' => $this->total_pay_x_receive_current,
             'total_pay_x_receive_foreseen' => $this->total_pay_x_receive_foreseen,
         ]);

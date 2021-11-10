@@ -2,65 +2,66 @@
 
 @section('content-cash-flow')
 
-    <div class="card shadow mb-4">
-        <div class="card-body">
-            <h2 class="h3 mb-3 text-gray-800"> Saldo real no caixa:</h2>
-            <div class="table-responsive">
-                <table class="table">
-                    <tbody>
-                    <tr>
-                        <th class="" scope="row" >Total atual:</th>
-                        @if($total_pay_x_receive_current > 0)
-                            <td class="text-custom-price-success font-weight-bold">{{ $total_pay_x_receive_current }}</td>
-                        @else
-                            <td class="text-custom-price-danger font-weight-bold">{{ $total_pay_x_receive_current }}</td>
-                        @endif
-                    </tr>
-                    <tr>
-                        <th class="" scope="row" >Total final previsto:</th>
-                        @if($total_pay_x_receive_foreseen > 0)
-                            <td class="text-custom-price-success font-weight-bold">{{ $total_pay_x_receive_foreseen }}</td>
-                        @else
-                            <td class="text-custom-price-danger font-weight-bold">{{ $total_pay_x_receive_foreseen }}</td>
-                        @endif
-                    </tr>
-                    </tbody>
-                </table>
+
+    <div class="container mb-4 p-0">
+        <div class="row justify-content-end">
+            <div class="col-12 d-flex justify-content-end">
+                <h2 class="h3 mb-0 shadow rounded p-4 bg-gray-300 text-gray-800"> Saldo real no caixa:
+                    @if($actual_cash_balance->balance <= 0)
+{{--                                <span class="badge badge-custom-price-success p-3">R$ {{$actual_cash_balance->balance}}</span>--}}
+                        <span class="text-custom-price-success">R$ {{$actual_cash_balance->balance}}</span>
+                    @else
+{{--                                <span class="badge badge-custom-price-danger p-3">R$ -{{$actual_cash_balance->balance}}</span>--}}
+                        <span class="text-custom-price-danger">R$ -{{$actual_cash_balance->balance}}</span>
+                    @endif
+                </h2>
             </div>
         </div>
     </div>
 
-    <h3 class="h4 mb-0 text-gray-800 mb-2">
-        <i class="fas fa-cash-register"></i>&ensp;Movimentações diária do caixa
+    <h3 class="h4 mb-0 text-gray-800 mb-4">
+        <i class="fas fa-cash-register"></i>&ensp;Movimentações do caixa no dia {{today()->format('d/m/Y')}}
     </h3>
 
-    <div class="card shadow mb-4">
-        <div class="card-body">
-            <h5 class="h5 mb-3 text-gray-800"> Movimentações do caixa</h5>
-            <div class="table-responsive">
-                <table class="table table-sm">
-                    <tbody>
-                    <tr>
-                        <th class="" scope="row" >Total atual:</th>
-                        @if($total_pay_x_receive_current > 0)
-                            <td class="text-custom-price-success font-weight-bold">{{ $total_pay_x_receive_current }}</td>
-                        @else
-                            <td class="text-custom-price-danger font-weight-bold">{{ $total_pay_x_receive_current }}</td>
-                        @endif
-                    </tr>
-                    <tr>
-                        <th class="" scope="row" >Total final previsto:</th>
-                        @if($total_pay_x_receive_foreseen > 0)
-                            <td class="text-custom-price-success font-weight-bold">{{ $total_pay_x_receive_foreseen }}</td>
-                        @else
-                            <td class="text-custom-price-danger font-weight-bold">{{ $total_pay_x_receive_foreseen }}</td>
-                        @endif
-                    </tr>
-                    </tbody>
-                </table>
+    @foreach($cash_movements as $cash_movement)
+
+        <h5 class="h5 text-gray-800"> {{$cash_movement->chartAccount->name}}</h5>
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                        <tr >
+{{--                            <th style="width: 15%">--}}
+                            <th>
+                                Forma de pagamento
+                            </th>
+                            <th>
+                                {{$cash_movement->situation}}
+                            </th>
+                            <th>
+                                Total
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+    {{--                                <td class="text-custom-price-success font-weight-bold">{{ $total_pay_x_receive_current }}</td>--}}
+    {{--                                    <td class="text-custom-price-success font-weight-bold">{{ $cash_movement->form_payments }}</td>--}}
+                                @foreach($cash_movement->formPaymentCashMovements as $formPaymentCashMovements)
+                                    @if($formPaymentCashMovements->form_payment_id == 6)
+                                        <td class="text-custom-price-success font-weight-bold">{{ $formPaymentCashMovements->form_payment_id }}</td>
+                                        <td class="text-custom-price-success font-weight-bold">{{ $cash_movement->description }}</td>
+                                        <td class="text-custom-price-success font-weight-bold">{{ $formPaymentCashMovements->value }}</td>
+                                    @endif
+                                @endforeach
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
+    @endforeach
 
 @endsection
 
