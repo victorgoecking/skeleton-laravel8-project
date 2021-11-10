@@ -25,7 +25,7 @@
             <div class="table-responsive">
                 <table class="table table-striped " id="dataTable" width="100%" cellspacing="0">
 {{--                    <thead class="thead-light">--}}
-                    <thead>
+                    <thead class="bg-custom-thead-price-success ">
                         <tr>
                             <th>Código</th>
                             <th>Descrição</th>

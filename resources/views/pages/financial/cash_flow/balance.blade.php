@@ -56,7 +56,7 @@
                     </thead>
                     <tbody>
                         @foreach($bills_receive as $bill_receive)
-                            <tr class="table-success">
+                            <tr class="table-custom-tr-price-success">
                                 <td>{{ $bill_receive->clearing_date ? $bill_receive->clearing_date->format('d/m/Y') : $bill_receive->due_date->format('d/m/Y') }}</td>
                                 <td>{{ $bill_receive->description }}</td>
                                 <td>{{ $bill_receive->chartAccount->name }}</td>
@@ -68,8 +68,7 @@
                                     <td class="text-center"><span class="badge badge-custom-price-info">{{$bill_receive->situation}}</span></td>
                                     <td class="text-right text-custom-price-info">{{ $bill_receive->gross_value }}</td>
                                 @else
-                                    <td class="text-center"><span class="badge badge-custom-price-success">Recebido</span></td>
-{{--                                    <td class="text-center"><span class="badge badge-custom-price-success">{{$bill_receive->situation}}</span></td>--}}
+                                    <td class="text-center"><span class="badge badge-custom-price-success">{{$bill_receive->situation}}</span></td>
                                     <td class="text-right text-custom-price-success">{{ $bill_receive->gross_value }}</td>
                                 @endif
 
@@ -110,7 +109,7 @@
                     </thead>
                     <tbody>
                     @foreach($bills_pay as $bill_pay)
-                        <tr class="table-danger">
+                        <tr class="table-custom-tr-price-danger">
                             <td>{{ $bill_pay->clearing_date ? $bill_pay->clearing_date->format('d/m/Y') : $bill_pay->due_date->format('d/m/Y') }}</td>
                             <td>{{ $bill_pay->description }}</td>
                             <td>{{ $bill_pay->chartAccount->name }}</td>
@@ -122,8 +121,7 @@
                                 <td class="text-center"><span class="badge badge-custom-price-info">{{$bill_pay->situation}}</span></td>
                                 <td class="text-right text-custom-price-info">{{ $bill_pay->gross_value }}</td>
                             @else
-                                <td class="text-center"><span class="badge badge-custom-price-success">Pago</span></td>
-{{--                                <td class="text-center"><span class="badge badge-custom-price-success">{{$bill_pay->situation}}</span></td>--}}
+                                <td class="text-center"><span class="badge badge-custom-price-success">{{$bill_pay->situation}}</span></td>
                                 <td class="text-right text-custom-price-success">-{{ $bill_pay->gross_value }}</td>
                             @endif
 

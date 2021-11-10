@@ -3,14 +3,7 @@ var __webpack_exports__ = {};
 /*!********************************!*\
   !*** ./resources/js/client.js ***!
   \********************************/
-$(document).ready(function () {
-  $('#dataTable').DataTable({
-    "language": {
-      "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Portuguese-Brasil.json"
-    }
-  });
-}); // ------------------------------------    FORM CLIENTE HIDE CAMPOS
-
+// ------------------------------------    FORM CLIENTE HIDE CAMPOS
 $(document).ready(function () {
   //executar quando a página é carregada
   esconde(); //executar todas as vezes que houver alterações do select;

@@ -4,7 +4,7 @@
 
     <div class="card shadow mb-4">
         <div class="card-body">
-            <h2 class="h3 mb-3 text-gray-800"> Caixa</h2>
+            <h2 class="h3 mb-3 text-gray-800"> Saldo real no caixa:</h2>
             <div class="table-responsive">
                 <table class="table">
                     <tbody>
@@ -30,15 +30,15 @@
         </div>
     </div>
 
-    <h1 class="h3 mb-0 text-gray-800">
-        <i class="fas fa-fw fa-chart-bar"></i> Movimentações do caixa
-    </h1>
+    <h3 class="h4 mb-0 text-gray-800 mb-2">
+        <i class="fas fa-cash-register"></i>&ensp;Movimentações diária do caixa
+    </h3>
 
     <div class="card shadow mb-4">
         <div class="card-body">
-            <h2 class="h3 mb-3 text-gray-800"> Movimentações do caixa</h2>
+            <h5 class="h5 mb-3 text-gray-800"> Movimentações do caixa</h5>
             <div class="table-responsive">
-                <table class="table">
+                <table class="table table-sm">
                     <tbody>
                     <tr>
                         <th class="" scope="row" >Total atual:</th>

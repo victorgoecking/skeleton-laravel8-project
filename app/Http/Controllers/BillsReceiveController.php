@@ -101,7 +101,7 @@ class BillsReceiveController extends Controller
 
         if($request->clearing_date){
             if($request->settled == '1'){
-                $situation = 'Confirmado';
+                $situation = 'Recebido';
             }else if($request->due_date < $request->clearing_date && $request->settled == '0'){
                 $situation = 'Atrasado';
 
@@ -236,7 +236,7 @@ class BillsReceiveController extends Controller
 
         if($request->clearing_date){
             if($request->settled == '1'){
-                $situation = 'Confirmado';
+                $situation = 'Recebido';
             }else if($request->due_date < $request->clearing_date && $request->settled == '0'){
                 $situation = 'Atrasado';
 
