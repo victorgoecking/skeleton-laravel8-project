@@ -57,13 +57,25 @@
                             <td>{{ $order->id }}</td>
                             <td>{{ $order->client->name }}</td>
                             <td>{{ $order->order_date->format('d/m/Y') }}</td>
-                            @if( $order->budget === 1)
-                                <td><span class="badge badge-info">Orçamento</span></td>
-                            @else
-                                <td><span class="badge badge-primary">Venda</span></td>
-                            @endif
+                            <td>
+                                @if( $order->budget === 1)
+                                    <span class="badge badge-info">Orçamento</span>
+                                @else
+                                    <span class="badge badge-primary">Venda</span>
+                                @endif
+                            </td>
                             <td>{{ $order->total }}</td>
-                            <td><span class="badge badge-dark">{{ $order->situation->description }}</span></td>
+                            <td>
+                                @if( $order->situation->description === "Em aberto")
+                                    <span class="badge badge-warning">{{ $order->situation->description }}</span>
+                                @elseif( $order->situation->description === "Finalizado")
+                                    <span class="badge badge-success">{{ $order->situation->description }}</span>
+                                @else
+                                    <span class="badge badge-dark">{{ $order->situation->description }}</span>
+                                @endif
+                            </td>
+
+{{--                            <td><span class="badge badge-dark">{{ $order->situation->description }}</span></td>--}}
 
 {{--                            <td>{{ $order->created_at->format('d/m/Y - H:i:s') }}</td>--}}
 

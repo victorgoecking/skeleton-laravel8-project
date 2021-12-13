@@ -12,6 +12,7 @@ use App\Http\Controllers\BillsReceiveController;
 use App\Http\Controllers\BillsPayController;
 use App\Http\Controllers\CashFlowController;
 use App\Http\Controllers\ChartAccountController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,9 +30,13 @@ use App\Http\Controllers\ChartAccountController;
 //});
 
 
-Route::get('/', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+//Route::get('/', function () {
+//    return view('dashboard');
+//})->middleware(['auth'])->name('dashboard');
+
+Route::get('/', [DashboardController::class, 'dashboard'])
+    ->middleware(['auth'])
+    ->name('dashboard');
 
 require __DIR__.'/auth.php';
 

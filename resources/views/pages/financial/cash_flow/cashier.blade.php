@@ -7,7 +7,7 @@
         <div class="row justify-content-end">
             <div class="col-12 d-flex justify-content-end">
                 <h2 class="h3 mb-0 shadow rounded p-4 bg-gray-300 text-gray-800"> Saldo real no caixa:
-                    @if($actual_cash_balance->balance <= 0)
+                    @if($actual_cash_balance->balance > 0)
 {{--                                <span class="badge badge-custom-price-success p-3">R$ {{$actual_cash_balance->balance}}</span>--}}
                         <span class="text-custom-price-success">R$ {{$actual_cash_balance->balance}}</span>
                     @else

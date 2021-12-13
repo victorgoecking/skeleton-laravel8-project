@@ -24,9 +24,8 @@ class CreateSituationsTable extends Migration
         DB::table('situations')->insert(
             [
                 ['description' => 'Em aberto', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-                ['description' => 'Em andamento', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-                ['description' => 'Concretizada', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-                ['description' => 'Cancelada', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+                ['description' => 'Finalizado', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+                ['description' => 'Cancelado', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
             ]
         );
     }
