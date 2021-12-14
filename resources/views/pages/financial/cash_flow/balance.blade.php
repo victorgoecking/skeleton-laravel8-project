@@ -32,7 +32,7 @@
 
     <div class="card shadow mb-4">
         <div class="card-body">
-            <h2 class="h3 mb-3 text-gray-800"> Recebimentos</h2>
+            <h2 class="h3 mb-3 text-gray-800"> Recebimentos </h2>
             <div class="table-responsive">
                 <table class=" table table-sm table-bordered">
                     <thead>

@@ -65,18 +65,26 @@ class CashFlowController extends Controller
     {
         $actual_cash_balance = Cashier::all()->first();
 
-        $cash_movements = CashMovement::with(['formPaymentCashMovements' => function($query){
-                $query->where('form_payment_id', '=', 6);
-            }], 'chartAccount')
-            ->where('clearing_date', '=', date('Y-m-d'))
+        $form_payment_cash_movements_date = FormPaymentCashMovements::with('formPayments', 'cashMovement')
+            ->where('paid', '=', '1')
+            ->where('form_payment_id', '=', '6')
+            ->whereDate('created_at', '=', date('Y-m-d'))
             ->get();
 
-//        dd($cash_movements);
+//        $form_payment_cash_movements_date = FormPaymentCashMovements::with('formPayments', 'cashMovement')
+//            ->whereHas('cashMovement', function ($query){
+//                return $query->where('clearing_date', '=', date('Y-m-d'))->orWhere('clearing_date', '=', null);
+//            })
+//            ->where('paid', '=', '1')
+//            ->where('form_payment_id', '=', '6')
+//            ->whereDate('created_at', '=', date('Y-m-d'))
+//            ->get();
 
+//        dd($form_payment_cash_movements_date);
 
 
         return view('pages.financial.cash_flow.cashier', [
-            'cash_movements' => $cash_movements,
+            'form_payment_cash_movements_date' => $form_payment_cash_movements_date,
             'actual_cash_balance' => $actual_cash_balance,
             'total_pay_x_receive_current' => $this->total_pay_x_receive_current,
             'total_pay_x_receive_foreseen' => $this->total_pay_x_receive_foreseen,

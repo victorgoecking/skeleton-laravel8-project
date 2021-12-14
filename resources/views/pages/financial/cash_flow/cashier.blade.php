@@ -23,38 +23,38 @@
         <i class="fas fa-cash-register"></i>&ensp;Movimentações do caixa no dia {{today()->format('d/m/Y')}}
     </h3>
 
-    @foreach($cash_movements as $cash_movement)
+    @foreach($form_payment_cash_movements_date as $fp_cash_movements_date)
 
-        <h5 class="h5 text-gray-800"> {{$cash_movement->chartAccount->name}}</h5>
-        <div class="card shadow mb-4">
-            <div class="card-body">
+        <h5 class="h5 text-gray-800"> {{$fp_cash_movements_date->cashMovement->chartAccount->name}}</h5>
+        <div class="card shadow mb-4 {{$fp_cash_movements_date->cashMovement->situation == "Pago" ? "bg-custom-thead-price-danger" : "bg-custom-thead-price-success"}}">
+            <div class="card-body pb-0">
                 <div class="table-responsive">
                     <table class="table table-sm">
                         <thead>
                         <tr >
 {{--                            <th style="width: 15%">--}}
-                            <th>
+                            <th style="width: 50%">
                                 Forma de pagamento
                             </th>
-                            <th>
-                                {{$cash_movement->situation}}
+                            <th style="width: 40%">
+                                {{$fp_cash_movements_date->cashMovement->situation}}
                             </th>
-                            <th>
+                            <th class="text-right" style="width: 10%">
                                 Total
                             </th>
                         </tr>
                         </thead>
                         <tbody>
                             <tr>
-    {{--                                <td class="text-custom-price-success font-weight-bold">{{ $total_pay_x_receive_current }}</td>--}}
-    {{--                                    <td class="text-custom-price-success font-weight-bold">{{ $cash_movement->form_payments }}</td>--}}
-                                @foreach($cash_movement->formPaymentCashMovements as $formPaymentCashMovements)
-                                    @if($formPaymentCashMovements->form_payment_id == 6)
-                                        <td class="text-custom-price-success font-weight-bold">{{ $formPaymentCashMovements->form_payment_id }}</td>
-                                        <td class="text-custom-price-success font-weight-bold">{{ $cash_movement->description }}</td>
-                                        <td class="text-custom-price-success font-weight-bold">{{ $formPaymentCashMovements->value }}</td>
-                                    @endif
-                                @endforeach
+                                @if($fp_cash_movements_date->cashMovement->situation == "Pago")
+                                    <td class="text-custom-price-danger font-weight-bold">{{ $fp_cash_movements_date->formPayments->description }}</td>
+                                    <td class="text-custom-price-danger font-weight-bold">{{ $fp_cash_movements_date->paid == 1 ? "Sim" : "Não"}}</td>
+                                    <td class="text-custom-price-danger font-weight-bold text-right">{{ $fp_cash_movements_date->value }}</td>
+                                @else
+                                    <td class="text-custom-price-success font-weight-bold">{{ $fp_cash_movements_date->formPayments->description }}</td>
+                                    <td class="text-custom-price-success font-weight-bold">{{ $fp_cash_movements_date->paid == 1 ? "Sim" : "Não"}}</td>
+                                    <td class="text-custom-price-success font-weight-bold text-right">{{ $fp_cash_movements_date->value }}</td>
+                                @endif
                             </tr>
                         </tbody>
                     </table>
