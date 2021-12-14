@@ -23,7 +23,7 @@
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">R$ {{ $monthly_receipt }}</div>
                                 </div>
                                 <div class="col-auto">
-                                    http://localhost:8000/fluxo-caixa/saldo#                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
                                 </div>
                             </div>
                         </div>
@@ -144,7 +144,7 @@
                     <!-- Card Header - Dropdown -->
                     <div
                         class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Fontes de receita</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Formas de pagamento de receita</h6>
                         <div class="dropdown no-arrow">
                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -166,15 +166,42 @@
                             <canvas id="myPieChart"></canvas>
                         </div>
                         <div class="mt-4 text-center small">
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Direta
-                                        </span>
-                            <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Social
-                                        </span>
-                            <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Referência
-                                        </span>
+                            @for($i = 0; $i < count($form_payment_receipt_description); $i++)
+                                <span class="mr-2">
+                                    <i class="fas fa-circle text-{{$form_payment_receipt_color_name[$i]}}"></i> {{$form_payment_receipt_description[$i]}}
+                                </span>
+                            @endfor
+
+{{--                            <span class="mr-2">--}}
+{{--                                <i class="fas fa-circle text-custom-graphic-SlateBlue"></i> A Combinar--}}
+{{--                            </span>--}}
+{{--                            <span class="mr-2">--}}
+{{--                                <i class="fas fa-circle text-custom-graphic-MediumTurquoise"></i> Boleto--}}
+{{--                            </span>--}}
+{{--                            <span class="mr-2">--}}
+{{--                                <i class="fas fa-circle text-custom-graphic-Chocolate"></i> Cartão de Crédito--}}
+{{--                            </span>--}}
+{{--                            <span class="mr-2">--}}
+{{--                                <i class="fas fa-circle text-custom-graphic-MediumOrchid"></i> Cartão de Débito--}}
+{{--                            </span>--}}
+{{--                            <span class="mr-2">--}}
+{{--                                <i class="fas fa-circle text-custom-graphic-Crimson"></i> Cheque--}}
+{{--                            </span>--}}
+{{--                            <span class="mr-2">--}}
+{{--                                <i class="fas fa-circle text-custom-graphic-Gold"></i> Dinheiro à Vista--}}
+{{--                            </span>--}}
+{{--                            <span class="mr-2">--}}
+{{--                                <i class="fas fa-circle text-custom-graphic-MidnightBlue"></i> Dinheiro Parcelado--}}
+{{--                            </span>--}}
+{{--                            <span class="mr-2">--}}
+{{--                                <i class="fas fa-circle text-custom-graphic-MediumSpringGreen"></i> PIX--}}
+{{--                            </span>--}}
+{{--                            <span class="mr-2">--}}
+{{--                                <i class="fas fa-circle text-custom-graphic-MediumVioletRed"></i> Transferência--}}
+{{--                            </span>--}}
+{{--                            <span class="mr-2">--}}
+{{--                                <i class="fas fa-circle text-custom-graphic-DarkOrange"></i> Nota--}}
+{{--                            </span>--}}
                         </div>
                     </div>
                 </div>
@@ -191,106 +218,116 @@
                         <h6 class="m-0 font-weight-bold text-primary">Mais vendidos</h6>
                     </div>
                     <div class="card-body">
-                        <h4 class="small font-weight-bold">Tabua de pinus <span
-                                class="float-right">20%</span></h4>
+                        <h4 class="small font-weight-bold">Tabua de pinus
+                            <span class="float-right">20%</span>
+                        </h4>
                         <div class="progress mb-4">
                             <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"
-                                 aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                 aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                            </div>
                         </div>
-                        <h4 class="small font-weight-bold">Portal <span
-                                class="float-right">40%</span></h4>
-                        <div class="progress mb-4">
-                            <div class="progress-bar bg-warning" role="progressbar" style="width: 40%"
-                                 aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <h4 class="small font-weight-bold">Ripa <span
-                                class="float-right">60%</span></h4>
-                        <div class="progress mb-4">
-                            <div class="progress-bar" role="progressbar" style="width: 60%"
-                                 aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <h4 class="small font-weight-bold">Alisar <span
-                                class="float-right">80%</span></h4>
+                        <h4 class="small font-weight-bold">Alisar
+                            <span class="float-right">80%</span>
+                        </h4>
                         <div class="progress mb-4">
                             <div class="progress-bar bg-info" role="progressbar" style="width: 80%"
-                                 aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                 aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                            </div>
                         </div>
-                        <h4 class="small font-weight-bold">Configuração da conta <span
-                                class="float-right">Completa!</span></h4>
+                        <h4 class="small font-weight-bold">Portal
+                            <span class="float-right">40%</span>
+                        </h4>
+                        <div class="progress mb-4">
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: 40%"
+                                 aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
+                            </div>
+                        </div>
+                        <h4 class="small font-weight-bold">Ripa
+                            <span class="float-right">60%</span>
+                        </h4>
+                        <div class="progress mb-4">
+                            <div class="progress-bar" role="progressbar" style="width: 60%"
+                                 aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+                            </div>
+                        </div>
+                        <h4 class="small font-weight-bold">Configuração da conta
+                            <span class="float-right">100%</span>
+                        </h4>
                         <div class="progress">
                             <div class="progress-bar bg-success" role="progressbar" style="width: 100%"
-                                 aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                 aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Color System -->
-                <div class="row">
-                    <div class="col-lg-6 mb-4">
-                        <div class="card bg-primary text-white shadow">
-                            <div class="card-body">
-                                Primary
-                                <div class="text-white-50 small">#4e73df</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 mb-4">
-                        <div class="card bg-success text-white shadow">
-                            <div class="card-body">
-                                Success
-                                <div class="text-white-50 small">#1cc88a</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 mb-4">
-                        <div class="card bg-info text-white shadow">
-                            <div class="card-body">
-                                Info
-                                <div class="text-white-50 small">#36b9cc</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 mb-4">
-                        <div class="card bg-warning text-white shadow">
-                            <div class="card-body">
-                                Warning
-                                <div class="text-white-50 small">#f6c23e</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 mb-4">
-                        <div class="card bg-danger text-white shadow">
-                            <div class="card-body">
-                                Danger
-                                <div class="text-white-50 small">#e74a3b</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 mb-4">
-                        <div class="card bg-secondary text-white shadow">
-                            <div class="card-body">
-                                Secondary
-                                <div class="text-white-50 small">#858796</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 mb-4">
-                        <div class="card bg-light text-black shadow">
-                            <div class="card-body">
-                                Light
-                                <div class="text-black-50 small">#f8f9fc</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 mb-4">
-                        <div class="card bg-dark text-white shadow">
-                            <div class="card-body">
-                                Dark
-                                <div class="text-white-50 small">#5a5c69</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+{{--                <div class="row">--}}
+{{--                    <div class="col-lg-6 mb-4">--}}
+{{--                        <div class="card bg-primary text-white shadow">--}}
+{{--                            <div class="card-body">--}}
+{{--                                Primary--}}
+{{--                                <div class="text-white-50 small">#4e73df</div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="col-lg-6 mb-4">--}}
+{{--                        <div class="card bg-success text-white shadow">--}}
+{{--                            <div class="card-body">--}}
+{{--                                Success--}}
+{{--                                <div class="text-white-50 small">#1cc88a</div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="col-lg-6 mb-4">--}}
+{{--                        <div class="card bg-info text-white shadow">--}}
+{{--                            <div class="card-body">--}}
+{{--                                Info--}}
+{{--                                <div class="text-white-50 small">#36b9cc</div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="col-lg-6 mb-4">--}}
+{{--                        <div class="card bg-warning text-white shadow">--}}
+{{--                            <div class="card-body">--}}
+{{--                                Warning--}}
+{{--                                <div class="text-white-50 small">#f6c23e</div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="col-lg-6 mb-4">--}}
+{{--                        <div class="card bg-danger text-white shadow">--}}
+{{--                            <div class="card-body">--}}
+{{--                                Danger--}}
+{{--                                <div class="text-white-50 small">#e74a3b</div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="col-lg-6 mb-4">--}}
+{{--                        <div class="card bg-secondary text-white shadow">--}}
+{{--                            <div class="card-body">--}}
+{{--                                Secondary--}}
+{{--                                <div class="text-white-50 small">#858796</div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="col-lg-6 mb-4">--}}
+{{--                        <div class="card bg-light text-black shadow">--}}
+{{--                            <div class="card-body">--}}
+{{--                                Light--}}
+{{--                                <div class="text-black-50 small">#f8f9fc</div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="col-lg-6 mb-4">--}}
+{{--                        <div class="card bg-dark text-white shadow">--}}
+{{--                            <div class="card-body">--}}
+{{--                                Dark--}}
+{{--                                <div class="text-white-50 small">#5a5c69</div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 
 
             </div>
@@ -343,6 +380,58 @@
 
     <!-- Page level custom scripts -->
     <script src="{{ asset('admin/js/demo/chart-area-demo.js')}}"></script>
-    <script src="{{ asset('admin/js/demo/chart-pie-demo.js')}}"></script>
+{{--    <script src="{{ asset('admin/js/demo/chart-pie-demo.js')}}"></script>--}}
+
+    <script>
+
+
+        var ctx = document.getElementById("myPieChart");
+        var myPieChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                // labels: ["teste","teste","teste","teste"],
+                {{--labels: [{{ implode(',', $form_payment_receipt) }}],--}}
+                labels: [@foreach( $form_payment_receipt_description as $label )"{{ $label }}", @endforeach],
+                datasets: [{
+                    data: [@foreach( $form_payment_receipt_count as $count ){{ $count }},@endforeach],
+                    backgroundColor: [@foreach( $form_payment_receipt_color as $color )"{{ $color }}",@endforeach],
+                    hoverBackgroundColor: [@foreach( $form_payment_receipt_color as $color )"{{ $color }}",@endforeach],
+                    hoverBorderColor: "rgba(234, 236, 244, 1)",
+                }],
+            },
+            options: {
+                maintainAspectRatio: false,
+                tooltips: {
+                    backgroundColor: "rgb(255,255,255)",
+                    bodyFontColor: "#858796",
+                    borderColor: '#dddfeb',
+                    borderWidth: 1,
+                    xPadding: 15,
+                    yPadding: 15,
+                    displayColors: false,
+                    caretPadding: 10,
+                },
+                legend: {
+                    display: false
+                },
+                cutoutPercentage: 80,
+                plugins: {
+                    legend: {
+                        labels: {
+                            // This more specific font property overrides the global property
+                            font: {
+                                size: 14
+                            }
+                        }
+                    },
+                    tooltip:{
+                        titleFont:{
+                            style: 'bold'
+                        }
+                    }
+                }
+            },
+        });
+    </script>
 
 @endsection

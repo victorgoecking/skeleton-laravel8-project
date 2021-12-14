@@ -24,14 +24,15 @@ class CreateFormPaymentsTable extends Migration
         DB::table('form_payments')->insert(
             [
                 ['description' => 'A Combinar', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-                ['description' => 'Boleto Bancário', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+                ['description' => 'Boleto', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
                 ['description' => 'Cartão de Crédito', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
                 ['description' => 'Cartão de Débito', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
                 ['description' => 'Cheque', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
                 ['description' => 'Dinheiro à Vista', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
                 ['description' => 'Dinheiro Parcelado', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
                 ['description' => 'PIX', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-                ['description' => 'Transferência Bancária', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+                ['description' => 'Transferência', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+                ['description' => 'Nota', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
             ]
         );
     }

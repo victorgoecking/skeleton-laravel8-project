@@ -2,14 +2,20 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
-        <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
+{{--        <div class="sidebar-brand-icon rotate-n-15">--}}
+{{--            <i class="fas fa-laugh-wink"></i>--}}
+{{--            <i class="fas fa-campground"></i>--}}
+{{--        </div>--}}
+        <div class="col-lg-12 mt-5 d-none d-lg-block">
+{{--            <img src="{{url('admin/img/G-E-V.png')}}" class="img-fluid" alt="GestãoEV">--}}
+{{--            <img src="{{url('admin/img/G-E-V-block.png')}}" class="img-fluid" alt="GestãoEV">--}}
+            <img src="{{url('admin/img/G-E-V-Inline.png')}}" class="img-fluid" alt="GestãoEV">
         </div>
-        <div class="sidebar-brand-text mx-3">Gestão <sup>1.0</sup></div>
+{{--        <div class="sidebar-brand-text mx-3">Gestão E.V.<sup>1.0</sup></div>--}}
     </a>
 
     <!-- Divider -->
-    <hr class="sidebar-divider my-0">
+    <hr class="sidebar-divider mt-5 my-0">
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">

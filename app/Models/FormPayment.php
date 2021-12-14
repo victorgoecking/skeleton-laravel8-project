@@ -20,4 +20,5 @@ class FormPayment extends Model
     protected $fillable = [
         'description',
     ];
+
 }
