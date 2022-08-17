@@ -44,18 +44,23 @@
 
                     <div class="col-md-5 mb-3 ">
                         <label for="validationCustomClient">Cliente *</label>
-                        <select required name="client_id" id="validationCustomClient" onchange="idClientForAddress(this.value)" data-placeholder="Digite para pesquisar..." class="form-control select_selectize_client w-100" data-allow-clear="1" required>
-{{--                            <option  value="">Digite para pesquisar...</option>--}}
-                            <option  value="{{$order->client->id}}">{{$order->client->name}} - {{$order->client->person_type === 'PF' ? '(PF)' : '(PJ)'}}</option>
-                            @foreach($clients as $client)
-                                <option value="{{$client->id}}">{{$client->name}} - {{$client->person_type === 'PF' ? '(PF)' : '(PJ)'}}</option>
-                            @endforeach
-                        </select>
-                        <div id="validatyClient" class="valid-feedback">
-                            Parece bom!
-                        </div>
-                        <div class="invalid-feedback">
-                            Por favor, selecione um cliente.
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <button id="btnAddClient" class="btn btn-primary input-group-sm" type="button"><i class="fas fa-plus-circle"></i></button>
+                            </div>
+                            <select required name="client_id" id="validationCustomClient" onchange="idClientForAddress(this.value)" data-placeholder="Digite para pesquisar..." class="form-control select_selectize_client" data-allow-clear="1" required>
+        {{--                            <option  value="">Digite para pesquisar...</option>--}}
+                                <option  value="{{$order->client->id}}">{{$order->client->name}} - {{$order->client->person_type === 'PF' ? '(PF)' : '(PJ)'}}</option>
+                                @foreach($clients as $client)
+                                    <option value="{{$client->id}}">{{$client->name}} - {{$client->person_type === 'PF' ? '(PF)' : '(PJ)'}}</option>
+                                @endforeach
+                            </select>
+                            <div id="validatyClient" class="valid-feedback">
+                                Parece bom!
+                            </div>
+                            <div class="invalid-feedback">
+                                Por favor, selecione um cliente.
+                            </div>
                         </div>
                     </div>
 
