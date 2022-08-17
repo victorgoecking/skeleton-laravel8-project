@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CashMovement;
+use App\Models\Client;
 use App\Models\FormPaymentCashMovements;
 use App\Models\Order;
 use App\Models\Product;
@@ -14,6 +15,7 @@ class DashboardController extends Controller
     public function __construct()
     {
         $this->count_products = count(Product::all());
+        $this->count_clients = count(Client::all());
         $this->count_sales = count(Order::where('budget', '=', '0')->get());
         $this->annual_receipt = CashMovement::where('type_movement', 'receber')->where('settled', '1')->whereYear('clearing_date', '=', date('Y'))->sum('gross_value');
         $this->monthly_receipt = CashMovement::where('type_movement', 'receber')->where('settled', '1')->whereYear('clearing_date', '=', date('Y'))->whereMonth('clearing_date', '=', date('m'))->sum('gross_value');
@@ -99,6 +101,7 @@ class DashboardController extends Controller
     {
         return view('dashboard', [
             'count_products' => $this->count_products,
+            'count_clients' => $this->count_clients,
             'count_sales' => $this->count_sales,
             'annual_receipt' => $this->annual_receipt,
             'monthly_receipt' => $this->monthly_receipt,

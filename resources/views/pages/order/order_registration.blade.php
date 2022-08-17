@@ -105,15 +105,15 @@
                 <label class="mb-0">Buscar produto</label>
                 <div class="form-row mb-3">
                     <div class="col-md-8">
-                        <select id="searchProduct" data-placeholder="Digite para pesquisar..." class="form-control select_selectize w-100" data-allow-clear="1">
+                        <select id="searchProduct" data-placeholder="Digite para pesquisar..." class="form-control select_selectize w-100 classSearchProduct" data-allow-clear="1">
                             <option></option>
                             @foreach($products as $product)
                                 <option value="{{$product->id}}:{{$product->name}}:{{$product->product_cost_value}}:{{$product->sales_value_product_used}}">{{$product->name}}</option>
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-4 col-lg-2 ">
-                        <button id="btnAddProduct" class="form-control btn btn-primary" type="button"><i class="fas fa-plus-circle"></i> Produto</button>
+                    <div class="col-md-4 col-lg-4 ">
+                        <button id="btnAddProduct" class="form-control btn btn-primary" type="button"><i class="fas fa-plus-circle"></i> Novo produto</button>
                     </div>
                 </div>
 
@@ -175,8 +175,8 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-4 col-lg-2 ">
-                        <button id="btnAddService" class="form-control btn btn-primary" type="button"><i class="fas fa-plus-circle"></i> Serviço</button>
+                    <div class="col-md-4 col-lg-4 ">
+                        <button id="btnAddService" class="form-control btn btn-primary" type="button"><i class="fas fa-plus-circle"></i> Novo serviço</button>
                     </div>
                 </div>
 
@@ -228,8 +228,8 @@
                             <option></option>
                         </select>
                     </div>
-                    <div class="col-md-4 col-lg-2 ">
-                        <button id="btnAddAddress" class="form-control btn btn-primary" type="button"><i class="fas fa-plus-circle"></i> Endereço</button>
+                    <div class="col-md-4 col-lg-4 ">
+                        <button id="btnAddAddress" class="form-control btn btn-primary" type="button"><i class="fas fa-plus-circle"></i> Novo endereço</button>
                     </div>
                 </div>
 
@@ -337,8 +337,8 @@
                                     <td data-name="total_percentage_discount">
                                         <input type="text" id="total_percentage_discount" name="total_percentage_discount" value="0.00" onblur="calcTotal()" onkeyup="calcTotal()" placeholder="" class="form-control" />
                                     </td>
-                                    <td class="bg-warning " data-name="total">
-                                        <input type="text" id="total" name='total' placeholder='0.00' class="form-control font-weight-bold " readonly required/>
+                                    <td class="" data-name="total">
+                                        <input type="text" id="total" name='total' placeholder='0.00' class="form-control font-weight-bold text-white bg-primary" readonly required/>
                                     </td>
                                 </tr>
                             </tbody>
@@ -737,60 +737,54 @@
 
             calcTotalProduct();
         }
-        function addProduct() {
+        function addProduct(value) {
 
             let countProduct = 0;
 
-            let botaoAdd = document.getElementById('btnAddProduct');
+            let myStr = value.split(":");
+            let idProduct = myStr[0];
+            let nameProduct = myStr[1];
+            let productCostValue = myStr[2];
+            let salesValueProductUsedOrder = myStr[3];
 
-            botaoAdd.addEventListener('click', () => {
-
-                let myStr = (document.getElementById("searchProduct").value).split(":");
-                let idProduct = myStr[0];
-                let nameProduct = myStr[1];
-                let productCostValue = myStr[2];
-                let salesValueProductUsedOrder = myStr[3];
-
-                //verificando se um valor foi adicionado para mandar pro handlesbars
-                if(document.getElementById("searchProduct").value){
-                    if (document.getElementById("noProductAdded")) {
-                        document.getElementById("noProductAdded").remove()
-                    }
-
-                    let templateProduct = document.getElementById('tamplateAddProduct').innerHTML;
-                    let compiled = Handlebars.compile(templateProduct);
-
-                    let product = document.getElementById('containerProducts');
-
-                    // let randomProduct = Math.floor((Math.random() * 100000000) + 1);
-                    let randomProduct = 'product_'+countProduct;
-
-                    let infoProduct = {
-                        id_handlebars_product: randomProduct,
-                        id_product: idProduct,
-                        name_product: nameProduct,
-                        product_description_order: '',
-                        quantity_product: 1,
-                        meter: '',
-                        product_cost_value: productCostValue,
-                        sales_value_product_used_order: salesValueProductUsedOrder,
-                        discount_product: '',
-                        order_product_subtotal: salesValueProductUsedOrder,
-                    }
-
-                    products.products.push(infoProduct);
-                    product.innerHTML = compiled(products);
-
-                    countProduct+=1;
-
-                    // Removendo item selecionado
-                    let removeSelectizeItem = document.getElementById("searchProduct").value;
-                    document.getElementById("searchProduct").selectize.removeItem(removeSelectizeItem);
-
-                    calcTotalProduct();
+            //verificando se um valor foi adicionado para mandar pro handlesbars
+            if(value){
+                if (document.getElementById("noProductAdded")) {
+                    document.getElementById("noProductAdded").remove()
                 }
 
-            })
+                let templateProduct = document.getElementById('tamplateAddProduct').innerHTML;
+                let compiled = Handlebars.compile(templateProduct);
+
+                let product = document.getElementById('containerProducts');
+
+                // let randomProduct = Math.floor((Math.random() * 100000000) + 1);
+                let randomProduct = 'product_'+countProduct;
+
+                let infoProduct = {
+                    id_handlebars_product: randomProduct,
+                    id_product: idProduct,
+                    name_product: nameProduct,
+                    product_description_order: '',
+                    quantity_product: 1,
+                    meter: '',
+                    product_cost_value: productCostValue,
+                    sales_value_product_used_order: salesValueProductUsedOrder,
+                    discount_product: '',
+                    order_product_subtotal: salesValueProductUsedOrder,
+                }
+
+                products.products.push(infoProduct);
+                product.innerHTML = compiled(products);
+
+                countProduct+=1;
+
+                // Removendo item selecionado
+                let removeSelectizeItem = value;
+                document.getElementById("searchProduct").selectize.removeItem(removeSelectizeItem);
+
+                calcTotalProduct();
+            }
 
         }
 
@@ -808,108 +802,94 @@
             calcTotalService();
         }
 
-        function addService() {
+        function addService(value) {
 
             let countService = 0;
 
-            let botaoAdd = document.getElementById('btnAddService');
+            let myStr = value.split(":");
+            let idService = myStr[0];
+            let nameService = myStr[1];
+            let valueService = myStr[2];
 
-            botaoAdd.addEventListener('click', () => {
-
-                let myStr = (document.getElementById("searchService").value).split(":");
-                let idService = myStr[0];
-                let nameService = myStr[1];
-                let valueService = myStr[2];
-
-                //verificando se um valor foi adicionado para mandar pro handlesbars
-                if(document.getElementById("searchService").value){
-                    if (document.getElementById("noServiceAdded")) {
-                        document.getElementById("noServiceAdded").remove()
-                    }
-
-                    let templateProduct = document.getElementById('tamplateAddService').innerHTML;
-                    let compiled = Handlebars.compile(templateProduct);
-
-                    let service = document.getElementById('containerServices');
-
-                    // let randomService = Math.floor((Math.random() * 100000000) + 1);
-                    let randomService = 'product_'+countService;
-
-                    let infoService = {
-                        id_handlebars_service: randomService,
-                        id_service: idService,
-                        name_service: nameService,
-                        service_description_order: '',
-                        service_cost_value: valueService,
-                        discount_service: '',
-                        order_service_subtotal: valueService,
-                    }
-
-                    services.services.push(infoService);
-                    service.innerHTML = compiled(services);
-
-                    countService+=1;
-
-                    // Removendo item selecionado
-                    let removeSelectizeItem = document.getElementById("searchService").value;
-                    document.getElementById("searchService").selectize.removeItem(removeSelectizeItem);
-
-                    calcTotalService();
+            //verificando se um valor foi adicionado para mandar pro handlesbars
+            if(value){
+                if (document.getElementById("noServiceAdded")) {
+                    document.getElementById("noServiceAdded").remove()
                 }
 
-            })
+                let templateProduct = document.getElementById('tamplateAddService').innerHTML;
+                let compiled = Handlebars.compile(templateProduct);
 
+                let service = document.getElementById('containerServices');
+
+                // let randomService = Math.floor((Math.random() * 100000000) + 1);
+                let randomService = 'product_'+countService;
+
+                let infoService = {
+                    id_handlebars_service: randomService,
+                    id_service: idService,
+                    name_service: nameService,
+                    service_description_order: '',
+                    service_cost_value: valueService,
+                    discount_service: '',
+                    order_service_subtotal: valueService,
+                }
+
+                services.services.push(infoService);
+                service.innerHTML = compiled(services);
+
+                countService+=1;
+
+                // Removendo item selecionado
+                let removeSelectizeItem = value;
+                document.getElementById("searchService").selectize.removeItem(removeSelectizeItem);
+
+                calcTotalService();
+            }
         }
 
 
-        function addDeliveryAddress() {
+        function addDeliveryAddress(value) {
 
-            let botaoAdd = document.getElementById('btnAddAddress');
+            let myStr = value.split(":");
+            let idAddress = myStr[0];
+            let cepAddress = myStr[1];
+            let publicPlaceAddress = myStr[2];
+            let numberAddress = myStr[3];
+            let districtAddress = myStr[4];
+            let complementAddress = myStr[5];
 
-            botaoAdd.addEventListener('click', () => {
-
-                let myStr = (document.getElementById("searchAddress").value).split(":");
-                let idAddress = myStr[0];
-                let cepAddress = myStr[1];
-                let publicPlaceAddress = myStr[2];
-                let numberAddress = myStr[3];
-                let districtAddress = myStr[4];
-                let complementAddress = myStr[5];
-
-                //verificando se um valor foi adicionado para mandar pro handlesbars
-                if(document.getElementById("searchAddress").value){
-                    if (document.getElementById("noAddressAdded")) {
-                        document.getElementById("noAddressAdded").remove()
-                    }else{
-                        document.getElementById("addressHandlebars").remove();
-                    }
-
-
-                    let templateProduct = document.getElementById('tamplateAddAddress').innerHTML;
-                    let compiled = Handlebars.compile(templateProduct);
-
-                    let service = document.getElementById('containerAddresses');
-
-                    let infoAddress = {
-                        id_handlebars_address: "addressHandlebars",
-                        id_address: idAddress,
-                        cep: cepAddress,
-                        public_place: publicPlaceAddress,
-                        number: numberAddress,
-                        district: districtAddress,
-                        complement: complementAddress,
-                    }
-
-                    service.innerHTML += compiled(infoAddress);
-
-                    // Removendo item selecionado
-                    let removeSelectizeItem = document.getElementById("searchAddress").value;
-                    document.getElementById("searchAddress").selectize.removeItem(removeSelectizeItem);
-
+            //verificando se um valor foi adicionado para mandar pro handlesbars
+            if(value){
+                if (document.getElementById("noAddressAdded")) {
+                    document.getElementById("noAddressAdded").remove()
+                }else{
+                    document.getElementById("addressHandlebars").remove();
                 }
 
-            })
 
+                let templateProduct = document.getElementById('tamplateAddAddress').innerHTML;
+                let compiled = Handlebars.compile(templateProduct);
+
+                let service = document.getElementById('containerAddresses');
+
+                let infoAddress = {
+                    id_handlebars_address: "addressHandlebars",
+                    id_address: idAddress,
+                    cep: cepAddress,
+                    public_place: publicPlaceAddress,
+                    number: numberAddress,
+                    district: districtAddress,
+                    complement: complementAddress,
+                }
+
+                service.innerHTML += compiled(infoAddress);
+
+                // Removendo item selecionado
+                let removeSelectizeItem = value;
+                document.getElementById("searchAddress").selectize.removeItem(removeSelectizeItem);
+
+            }
         }
 
         function removeProduct(indexToRemove) {
@@ -957,9 +937,21 @@
             }
         }
 
-        addProduct();
-        addService();
-        addDeliveryAddress();
+        $(document).ready(function() {
+
+            $("#searchProduct").change((event)=> {
+                addProduct(event.target.value);
+            });
+
+            $("#searchService").change((event)=> {
+                addService(event.target.value);
+            });
+
+            $("#searchAddress").change((event)=> {
+                addDeliveryAddress(event.target.value);
+            });
+
+        });
 
         // ------------------------------------------------------------------------------------------------------------------------------------------------------
 

@@ -95,7 +95,7 @@
                             <th scope="row">50%</th>
                             <td><input type="text" class="form-control text-dark" name="profit_percentage" id="profitPercentage" placeholder="0,00"></td>
                             <td id="suggestedSalesValue">0,00</td>
-                            <td class="bg-warning"><input type="text" class="form-control  font-weight-bold" name="sales_value_product_used" id="salesValueProductUsed" placeholder="0,00"></td>
+                            <td class=""><input type="text" class="form-control bg-primary font-weight-bold text-white" name="sales_value_product_used" id="salesValueProductUsed" placeholder="0,00"></td>
                         </tr>
                         </tbody>
                     </table>
