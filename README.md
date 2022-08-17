@@ -65,7 +65,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 ## Installation
 
  1. Run `composer install `
- 
+ 1. Run `composer install `
  2. Check if the `.env.example` file exists in the root
  2. Rename `.env.example` to `.env` and enter your MySQL connection credentials
  3. Run command in project root: `php artisan key:generate`
@@ -75,6 +75,8 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 $ php artisan cache:clear
 $ php artisan serve
 ```
+ 6. Run `npm install laravel-mix --save-dev` (OPTIONAL)
+ 7. Run `npm run watch` or `npm run dev` or `npm run production` (OPTIONAL)
    
 
 ## System access
