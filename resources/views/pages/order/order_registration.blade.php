@@ -392,7 +392,6 @@
     <script src="{{ asset('admin/js/order.js')}}"></script>
 
     <script type="text/javascript">
-
         {{-- PRODUCTS --}}
         let products = {
             'products': []
@@ -515,6 +514,37 @@
             calcTotalService();
         }
 
+        $(document).ready(function() {
+            function cleanCep() {
+                // Limpa valores do formulário de cep.
+                $("#publicPlace").val("");
+                $("#disctrict").val("");
+            }
+
+            $("#cep").blur(function() {
+                let cep = $(this).val().replace(/\D/g, '');
+                if(cep != ""){
+                    let validateCep = /^[0-9]{8}$/;
+                    if(validateCep.test(cep)) {
+                        $.getJSON("//viacep.com.br/ws/"+ cep +"/json/?callback=?", function(data) {
+                            if (!("erro" in data)) {
+
+                                console.log(data)
+                                $("#publicPlace").val(data.logradouro);
+                                $("#disctrict").val(data.bairro);
+
+                            }else{
+                                cleanCep();
+                            }
+                        });
+                    } else {
+                        cleanCep();
+                    }
+                }else{
+                    cleanCep();
+                }
+            });
+        });
 
     </script>
 @endsection

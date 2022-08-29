@@ -60,6 +60,7 @@ class Relationships extends Migration
             $table->foreignId('order_id')->constrained();
             $table->foreignId('form_payment_id')->constrained();
         });
+
         Schema::table('form_payment_cash_movements', function (Blueprint $table) {
             $table->foreignId('cash_movement_id')->constrained();
             $table->foreignId('form_payment_id')->constrained();
