@@ -19,6 +19,7 @@ class Relationships extends Migration
 
         Schema::table('addresses', function (Blueprint $table) {
             $table->foreignId('client_id')->constrained();
+            $table->foreignId('city_id')->constrained();
         });
 
         Schema::table('contacts', function (Blueprint $table) {
@@ -81,6 +82,7 @@ class Relationships extends Migration
 
         Schema::table('addresses', function (Blueprint $table) {
             $table->dropForeign(['client_id']);
+            $table->dropForeign(['city_id']);
         });
 
         Schema::table('contacts', function (Blueprint $table) {

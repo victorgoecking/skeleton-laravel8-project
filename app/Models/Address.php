@@ -21,9 +21,7 @@ class Address extends Model
         'public_place',
         'number',
         'district',
-        'state',
-        'city',
-        'uf',
+        'city_id',
         'complement',
         'note',
         'client_id'

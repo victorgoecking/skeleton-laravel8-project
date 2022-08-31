@@ -121,23 +121,15 @@
                         <label for="selectCity1">Cidade</label>
                         <select class="form-control" name="city[]" id="selectCity1">
                             <option value="-" >-</option>
-                            <option value="MG">Teofilo Otoni</option>
+                            <option value="2367">Teofilo Otoni</option>
                         </select>
                     </div>
 
-                    <div class="col-md-4 mb-3">
+                    <div class="col-md-6 mb-3">
                         <label for="selectState1">Estado</label>
                         <select class="form-control" name="state[]" id="selectState1">
                             <option value="-" >-</option>
                             <option value="Minas Gerais">Minas Gerais</option>
-                        </select>
-                    </div>
-
-                    <div class="col-md-2 mb-3">
-                        <label for="selectUF1">UF</label>
-                        <select class="form-control" name="uf[]" id="selectUF1">
-                            <option value="-" >-</option>
-                            <option value="MG">MG</option>
                         </select>
                     </div>
 

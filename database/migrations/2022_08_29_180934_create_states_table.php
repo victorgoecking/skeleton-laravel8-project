@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-class CreateStateTable extends Migration
+class CreateStatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,7 +15,7 @@ class CreateStateTable extends Migration
      */
     public function up()
     {
-        Schema::create('state', function (Blueprint $table) {
+        Schema::create('states', function (Blueprint $table) {
             $table->id();
             $table->string('name', 75);
             $table->string('uf', 2);
@@ -24,9 +24,9 @@ class CreateStateTable extends Migration
             $table->string('ddd', 50)->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('country_id')->references('id')->on('country');
+            $table->foreign('country_id')->references('id')->on('countries');
         });
-        DB::table('state')->insert(
+        DB::table('states')->insert(
             [
                 ['name' => 'Acre', 'uf' => 'AC', 'ibge' => 12, 'country_id' => 1, 'ddd' => '68', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
                 ['name' => 'Alagoas', 'uf' => 'AL', 'ibge' => 27, 'country_id' => 1, 'ddd' => '82', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
@@ -66,6 +66,6 @@ class CreateStateTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('state');
+        Schema::dropIfExists('states');
     }
 }

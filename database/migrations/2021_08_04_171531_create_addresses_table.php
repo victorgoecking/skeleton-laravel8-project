@@ -19,9 +19,6 @@ class CreateAddressesTable extends Migration
             $table->string('public_place',100);
             $table->string('number', 20)->nullable();
             $table->string('district',100)->nullable();
-            $table->string('state',100)->nullable();
-            $table->string('city',100)->nullable();
-            $table->string('uf',2)->nullable();
             $table->string('complement',100)->nullable();
             $table->text('note')->nullable();
             $table->timestamps();

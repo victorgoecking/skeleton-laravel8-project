@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-class CreateCountryTable extends Migration
+class CreateCountriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,7 +15,7 @@ class CreateCountryTable extends Migration
      */
     public function up()
     {
-        Schema::create('country', function (Blueprint $table) {
+        Schema::create('countries', function (Blueprint $table) {
             $table->id();
             $table->string('name', 60);
             $table->string('name_pt', 60);
@@ -24,7 +24,7 @@ class CreateCountryTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
-        DB::table('country')->insert(
+        DB::table('countries')->insert(
             [
                 ['name' => 'Brazil',
                     'name_pt' => 'Brasil',
@@ -44,6 +44,6 @@ class CreateCountryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('country');
+        Schema::dropIfExists('countries');
     }
 }

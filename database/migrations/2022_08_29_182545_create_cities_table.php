@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-class CreateCityTable extends Migration
+class CreateCitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,16 +15,16 @@ class CreateCityTable extends Migration
      */
     public function up()
     {
-        Schema::create('city', function (Blueprint $table) {
+        Schema::create('cities', function (Blueprint $table) {
             $table->id();
             $table->string('name', 75);
             $table->unsignedBigInteger('state_id');
             $table->integer('ibge')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('state_id')->references('id')->on('state');
+            $table->foreign('state_id')->references('id')->on('states');
         });
-        DB::table('city')->insert(
+        DB::table('cities')->insert(
             [
                 ['name' => 'Afonso Cláudio', 'state_id' => 8, 'ibge' => 3200102, 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
                 ['name' => 'Água Doce do Norte', 'state_id' => 8, 'ibge' => 3200169, 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
@@ -1546,7 +1546,7 @@ class CreateCityTable extends Migration
             ]
         );
 
-        DB::table('city')->insert(
+        DB::table('cities')->insert(
             [
                 ['name' => 'Fátima do Sul', 'state_id' => 12, 'ibge' => 5003801, 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
                 ['name' => 'Figueirão', 'state_id' => 12, 'ibge' => 5003900, 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
@@ -2992,7 +2992,7 @@ class CreateCityTable extends Migration
             ]
         );
 
-        DB::table('city')->insert(
+        DB::table('cities')->insert(
             [
                 ['name' => 'Jesuítas', 'state_id' => 18, 'ibge' => 4112751, 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
                 ['name' => 'Joaquim Távora', 'state_id' => 18, 'ibge' => 4112801, 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
@@ -4417,7 +4417,7 @@ class CreateCityTable extends Migration
             ]
         );
 
-        DB::table('city')->insert(
+        DB::table('cities')->insert(
             [
                 ['name' => 'Pimenteiras do Oeste', 'state_id' => 21, 'ibge' => 1101468, 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
                 ['name' => 'Porto Velho', 'state_id' => 21, 'ibge' => 1100205, 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
@@ -5648,6 +5648,6 @@ class CreateCityTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('city');
+        Schema::dropIfExists('cities');
     }
 }

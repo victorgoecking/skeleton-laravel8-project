@@ -6,6 +6,7 @@ use App\Models\Address;
 use App\Models\Client;
 use App\Models\Contact;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ClientController extends Controller
 {
@@ -43,11 +44,19 @@ class ClientController extends Controller
     public function store(Request $request)
     {
 
+        if($request->cpf){
+            $request->validate([
+                'cpf' => 'max:14|unique:clients'
+            ]);
+        }else if($request->cnpj){
+            $request->validate([
+                'cnpj' => 'max:18|unique:clients'
+            ]);
+        }
+
         $request->validate([
             'name' => 'required|string|max:255',
-            'person_type' => 'required|string|max:2',
-            'cpf' => 'max:14',
-            'cnpj' => 'max:18',
+            'person_type' => 'required|string|max:2'
         ]);
 
         if($request->person_type === 'PF') {
@@ -82,9 +91,7 @@ class ClientController extends Controller
                         'public_place' => $request->public_place[$iAddress],
                         'number' => $request->number[$iAddress],
                         'district' => $request->district[$iAddress],
-                        'state' => $request->state[$iAddress],
-                        'city' => $request->city[$iAddress],
-                        'uf' => $request->uf[$iAddress],
+                        'city_id' => $request->city[$iAddress],
                         'complement' => $request->complement[$iAddress],
                         'note' => $request->note_address[$iAddress],
                         'client_id' => $client->id,
@@ -153,12 +160,19 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
+        if($request->cpf){
+            $request->validate([
+                'cpf' => 'max:14|unique:clients,cpf,'.$request->id
+            ]);
+        }else if($request->cnpj){
+            $request->validate([
+                'cnpj' => 'max:18|unique:clients,cnpj,'.$request->id
+            ]);
+        }
 
         $request->validate([
             'name' => 'required|string|max:255',
             'person_type' => 'required|string|max:2',
-            'cpf' => 'max:14',
-            'cnpj' => 'max:18',
         ]);
 
         if($request->person_type === 'PF') {
@@ -190,9 +204,7 @@ class ClientController extends Controller
                         !isset($request->public_place[$iAddress]) &&
                         !isset($request->number[$iAddress]) &&
                         !isset($request->district[$iAddress]) &&
-                        !isset($request->state[$iAddress]) &&
                         !isset($request->city[$iAddress]) &&
-                        !isset($request->uf[$iAddress]) &&
                         !isset($request->complement[$iAddress]) &&
                         !isset($request->note_address[$iAddress]))
                 ){
@@ -206,9 +218,7 @@ class ClientController extends Controller
                         'public_place' => $request->public_place[$iAddress],
                         'number' => $request->number[$iAddress],
                         'district' => $request->district[$iAddress],
-                        'state' => $request->state[$iAddress],
-                        'city' => $request->city[$iAddress],
-                        'uf' => $request->uf[$iAddress],
+                        'city_id' => $request->city[$iAddress],
                         'complement' => $request->complement[$iAddress],
                         'note' => $request->note_address[$iAddress],
                     ]);
@@ -218,9 +228,7 @@ class ClientController extends Controller
                         isset($request->public_place[$iAddress]) ||
                         isset($request->number[$iAddress]) ||
                         isset($request->district[$iAddress]) ||
-                        isset($request->state[$iAddress]) ||
                         isset($request->city[$iAddress]) ||
-                        isset($request->uf[$iAddress]) ||
                         isset($request->complement[$iAddress]) ||
                         isset($request->note_address[$iAddress])
                     ){
@@ -229,9 +237,7 @@ class ClientController extends Controller
                             'public_place' => $request->public_place[$iAddress],
                             'number' => $request->number[$iAddress],
                             'district' => $request->district[$iAddress],
-                            'state' => $request->state[$iAddress],
-                            'city' => $request->city[$iAddress],
-                            'uf' => $request->uf[$iAddress],
+                            'city_id' => $request->city[$iAddress],
                             'complement' => $request->complement[$iAddress],
                             'note' => $request->note_address[$iAddress],
                             'client_id' => $client->id,
@@ -242,7 +248,7 @@ class ClientController extends Controller
             }
         }
 
-//        UPDATE CLIENTE
+//        UPDATE CONTATO
         $countContact =  isset($request->countContactForDelete) ? count($request->countContactForDelete) : 0;
         if($countContact >= 1){
             for($iContact = 0; $iContact < $countContact; $iContact++){

@@ -26,6 +26,7 @@
             </div>
             <div class="card-body">
                 <div class="form-row">
+                    <input type="hidden" class="form-control" name="id" value="{{ $client->id }}">
 
                     <div class="col-md-2 mb-3">
                         <label for="selectPersonType">Tipo Pessoa</label>
@@ -139,23 +140,15 @@
                                 <label for="selectCity{{ $address->id }}">Cidade</label>
                                 <select class="form-control" name="city[]" id="selectCity{{ $address->id }}">
                                     <option value="-" >-</option>
-                                    <option value="Teofilo Otoni" {{ $address->city == 'Teofilo Otoni' ? 'selected' : ''}}>Teofilo Otoni</option>
+                                    <option value="2367" {{ $address->city == 'Teofilo Otoni' ? 'selected' : ''}}>Teofilo Otoni</option>
                                 </select>
                             </div>
 
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-6 mb-3">
                                 <label for="selectState{{ $address->id }}">Estado</label>
                                 <select class="form-control" name="state[]" id="selectState{{ $address->id }}">
                                     <option value="-" >-</option>
                                     <option value="Minas Gerais" {{ $address->state == 'Minas Gerais' ? 'selected' : ''}}>Minas Gerais</option>
-                                </select>
-                            </div>
-
-                            <div class="col-md-2 mb-3">
-                                <label for="selectUF{{ $address->id }}">UF</label>
-                                <select class="form-control" name="uf[]" id="selectUF{{ $address->id }}">
-                                    <option value="-" >-</option>
-                                    <option value="MG" {{ $address->uf == 'MG' ? 'selected' : ''}}>MG</option>
                                 </select>
                             </div>
 
