@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Address;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class AddressController extends Controller
 {
@@ -42,7 +43,30 @@ class AddressController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+            'public_place' => 'required|string|max:255',
+            'city' => 'required',
+        ]);
+
+        $address = '';
+        if(trim($request->public_place != '')){
+            $address = Address::create([
+                'cep' => $request->cep,
+                'public_place' => $request->public_place,
+                'number' => $request->number,
+                'district' => $request->district,
+                'city_id' => $request->city,
+                'complement' => $request->complement,
+                'note' => $request->note_address,
+                'client_id' => $request->id_client,
+            ]);
+        }
+
+        session(['success' => 'Endereço cadastrado com sucesso!']);
+//        return redirect()->route('order.create')->with('success','Endereço cadastrado com sucesso!');
+        return $address;
+
     }
 
     /**

@@ -42,7 +42,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-5 mb-3 ">
+                    <div class="col-md-6 mb-3 ">
                         <label for="validationCustomClient">Cliente *</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -64,7 +64,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4 mb-3">
+                    <div class="col-md-3 mb-3">
                         <label for="salesman">Vendedor</label>
                         <select  name="salesman" id="salesman" data-placeholder="Digite para pesquisar..." class="form-control select_selectize w-100" data-allow-clear="1" required>
                             <option value="{{$order->user->id}}">{{$order->user->name}}</option>

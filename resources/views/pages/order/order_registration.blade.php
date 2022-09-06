@@ -41,7 +41,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-5 mb-3 ">
+                    <div class="col-md-6 mb-3 ">
                         <label for="validationCustomClient">Cliente *</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -62,7 +62,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4 mb-3">
+                    <div class="col-md-3 mb-3">
                         <label for="salesman">Vendedor</label>
                         <select  name="salesman" id="salesman" data-placeholder="Digite para pesquisar..." class="form-control select_selectize w-100" data-allow-clear="1" required>
                             <option value="{{auth()->user()->id}}">{{auth()->user()->name}}</option>
@@ -234,7 +234,7 @@
                         </select>
                     </div>
                     <div class="col-md-4 col-lg-4 ">
-                        <button id="btnAddAddress" class="form-control btn btn-primary" type="button" data-toggle="modal" data-target="#addressModal" data-whatever="@fat"><i class="fas fa-plus-circle"></i> Novo endereço</button>
+                        <button id="btnAddAddress" class="form-control btn btn-primary" type="button"><i class="fas fa-plus-circle"></i> Novo endereço</button>
                     </div>
                 </div>
 
@@ -515,6 +515,24 @@
         }
 
         $(document).ready(function() {
+            $('#btnAddAddress').click(()=>{
+                let selectClient = $(document.getElementById('validationCustomClient').value);
+                if(selectClient.prevObject === undefined){
+                    $('#btnAddAddress').tooltip({
+                        'trigger': 'manual',
+                        'title': 'Selecione um cliente para cadastrar um novo endereço.',
+                        'placement': 'top'
+                    }).tooltip('show');
+                }else{
+                    $('#addressModal').modal('show');
+                    let id_client = $('#validationCustomClient').val();
+                    $('#id_client').val(id_client);
+                }
+            })
+            $('#btnAddAddress').blur(()=>{
+                $('#btnAddAddress').tooltip().tooltip('dispose');
+            })
+
             function cleanCep() {
                 // Limpa valores do formulário de cep.
                 $("#publicPlace").val("");
@@ -529,9 +547,19 @@
                         $.getJSON("//viacep.com.br/ws/"+ cep +"/json/?callback=?", function(data) {
                             if (!("erro" in data)) {
 
-                                console.log(data)
                                 $("#publicPlace").val(data.logradouro);
                                 $("#disctrict").val(data.bairro);
+
+                                $("select#state").one("updated", function(){
+                                    let state_uf = data.uf;
+                                    $("select#state option").each(function() {
+                                        let text = this.text.split(' - ')
+                                        this.selected = (text[0] === state_uf);
+                                    });
+                                });
+                                $("select#state").trigger("updated");
+
+                                getCitiesList(data);
 
                             }else{
                                 cleanCep();
@@ -544,6 +572,93 @@
                     cleanCep();
                 }
             });
+
+            $("#state").change(function() {
+                getCitiesList();
+
+            });
+
+            function getCitiesList(dataCep = ''){
+
+                stateId = $("#state").val();
+
+                $.get( "{{ route('consult-cities') }}", {
+                    state_id: stateId
+                }).done(function( data ) {
+                    $('#city').children().remove();
+
+                    $.each(JSON.parse(data), function(i, city) {
+                        $('#city').append($("<option></option>").attr("value", city.id).text(city.name + " (" + city.state.uf+")"));
+                    });
+
+                    if(dataCep != ''){
+                        $("select#city").one("updated", function(){
+                            var city = dataCep.localidade;
+
+                            $("select#city option").each(function() {
+                                this.selected = (this.text === city + ' ('+dataCep.uf+')');
+                            });
+                        });
+                        $("select#city").trigger("updated");
+                    }
+                });
+            }
+
+
+
+            $('#formModalNewAddress').submit((e)=>{
+                e.preventDefault();
+
+                let array = $('#formModalNewAddress').serializeArray();
+                let values = {}; // array para guardar os valores
+                for(let val of array){
+                    values[val.name] = val.value;
+                }
+
+                $.ajax({
+                    method: "POST",
+                    url: "{{ route('address.store') }}",
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        // "_token": values['_token'],
+                        "cep": values['cep'],
+                        "public_place": values['public_place'],
+                        "number": values['number'],
+                        "complement": values['complement'],
+                        "district": values['district'],
+                        "city": values['city'],
+                        "state": values['state'],
+                        "note_address": values['note_address'],
+                        "id_client": values['id_client']
+                    },
+                    success: function (data){
+                        if(data) {
+                            $("#id_client").val("");
+                            $("#cep").val("");
+                            $("#publicPlace").val("");
+                            $("#number").val("");
+                            $("#district").val("");
+                            $("#city").val("");
+                            $("#state").val("");
+                            $("#complement").val("");
+                            $("#note_address").val("");
+
+                            $('#addressModal').modal('hide');
+
+                            location.reload();
+
+                        {{--$.get( "{{ route('order.create') }}", {--}}
+                            {{--    "success": "Endereço cadastrado com sucesso!"--}}
+                            {{--})--}}
+                        }
+                    },
+                });
+
+
+
+
+            })
+
         });
 
     </script>

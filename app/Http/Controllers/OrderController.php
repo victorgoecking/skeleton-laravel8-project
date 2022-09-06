@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Address;
+use App\Models\City;
 use App\Models\Client;
 use App\Models\Order;
 use App\Models\OrderProduct;
@@ -10,6 +11,7 @@ use App\Models\OrderService;
 use App\Models\Product;
 use App\Models\Service;
 use App\Models\Situation;
+use App\Models\State;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -43,6 +45,7 @@ class OrderController extends Controller
         $products = Product::all();
         $services = Service::all();
         $situation = Situation::all();
+        $states = State::all();
 
 //        dd($clients);
 
@@ -52,13 +55,8 @@ class OrderController extends Controller
             'products' => $products,
             'services' => $services,
             'situations' => $situation,
-
+            'states' => $states,
         ]);
-    }
-
-    public function returnClientAddress(Request $request)
-    {
-        return Address::where('client_id', '=', $request->id)->get();
     }
 
     /**
@@ -415,5 +413,20 @@ class OrderController extends Controller
         $order->delete();
 
         return redirect()->route('order.index')->with('success','Pedido removido com sucesso!');
+    }
+
+    public function returnClientAddress(Request $request)
+    {
+        return Address::where('client_id', '=', $request->id)->get();
+    }
+
+    public function consultCities(Request $request)
+    {
+        $citys = City::with('state')
+            ->where('state_id', $request->state_id)
+            ->orderBy('name', 'ASC')
+            ->get();
+
+        return json_encode($citys);
     }
 }

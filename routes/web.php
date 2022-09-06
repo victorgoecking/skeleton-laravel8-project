@@ -63,6 +63,10 @@ Route::get('/return-client-address', [OrderController::class, 'returnClientAddre
     ->middleware('auth')
     ->name('return-client-address');
 
+Route::get('/consult-cities', [OrderController::class, 'consultCities'])
+    ->middleware('auth')
+    ->name('consult-cities');
+
 Route::resource('contas-receber', BillsReceiveController::class)->middleware(['auth'])->names('bills-receive')->parameters(['contas-receber' => 'bills-receive']);
 
 Route::resource('contas-pagar', BillsPayController::class)->middleware(['auth'])->names('bills-pay')->parameters(['contas-pagar' => 'bills-pay']);

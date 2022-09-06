@@ -7,28 +7,30 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <form>
+            <form id="formModalNewAddress" class="needs-validation" method="POST" action="{{ route('address.store') }}" novalidate>
+                @csrf
 
+                <div class="modal-body">
+                    <input type="hidden" id="id_client" name="id_client">
                     <div class="form-row">
-                        <div class="col-md-2 mb-3">
+                        <div class="col-md-4 mb-3">
                             <label for="cep">CEP</label>
                             <input type="text" class="form-control" name="cep" id="cep" MAXLENGTH="9" placeholder="Ex.: 00000-000">
                         </div>
 
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-8 mb-3">
                             <label for="publicPlace">Logradouro</label>
-                            <input type="text" class="form-control" name="public_place" id="publicPlace" data-toggle="tooltip" data-placement="top" title="Logradouro obrigatório para cadastro de endereço. Caso vazio, o endereço será desconsiderado." placeholder="Ex.: Rua ...">
+                            <input type="text" class="form-control" name="public_place" id="publicPlace" placeholder="Ex.: Rua ..." required>
                         </div>
 
-                        <div class="col-md-2 mb-3">
+                        <div class="col-md-4 mb-3">
                             <label for="number">Número</label>
                             <input type="text" class="form-control" name="number" id="number" placeholder="">
                         </div>
 
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-8 mb-3">
                             <label for="disctrict">Bairro</label>
-                            <input type="text" class="form-control" name="district" id="disctrict" placeholder="Ex.: Bairro ...">
+                            <input type="text" class="form-control" name="district" id="district" placeholder="Ex.: Bairro ...">
                         </div>
 
                         <div class="col-md-6 mb-3">
@@ -38,25 +40,16 @@
 
                         <div class="col-md-6 mb-3">
                             <label for="city">Cidade</label>
-                            <select class="form-control" name="city" id="city">
-                                <option value="-" >-</option>
-                                <option value="MG">Teofilo Otoni</option>
+                            <select class="form-control" name="city" id="city" required>
                             </select>
                         </div>
 
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-6 mb-3">
                             <label for="state">Estado</label>
                             <select class="form-control" name="state" id="state">
-                                <option value="-" >-</option>
-                                <option value="Minas Gerais">Minas Gerais</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-2 mb-3">
-                            <label for="uf">UF</label>
-                            <select class="form-control" name="uf" id="uf">
-                                <option value="-" >-</option>
-                                <option value="MG">MG</option>
+                                @foreach($states as $state)
+                                    <option value="{{$state->id}}" {{$state->uf === "MG" ? 'selected' : ''}}>{{$state->uf}} - {{$state->name}}</option>
+                                @endforeach
                             </select>
                         </div>
 
@@ -65,12 +58,12 @@
                             <input type="text" class="form-control" name="note_address" id="noteAddress" placeholder="Ex.: Endereço de entrega">
                         </div>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Send message</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" id="registerAddress" class="btn btn-primary">Cadastrar endereço</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
